@@ -1,9 +1,11 @@
 import { LoadingSpinner, Rating } from '@/components';
+import { ThemeContext } from '@/context';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
-import { ApiError } from '@/models';
-import { getError } from '@/utilities';
+import { ApiError, CartItem } from '@/models';
+import { convertProductToCartItem, getError } from '@/utilities';
+import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface ProductPageInterface {}
 
@@ -12,6 +14,21 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   const { slug } = params;
 
   const { data: product, refetch, isLoading, error } = useGetProductDetailsBySlugQuery(slug!);
+  const { cart, addItemToCart } = useContext(ThemeContext);
+  const navigate = useNavigate();
+
+  const addToCartHandler = () => {
+    const existItem = cart.cartItems.find((x)=> x._id === product!._id)
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    if(product!.countInStock < quantity) {
+      alert('Sorry. Product is out off stock');
+      return;
+    }
+    addItemToCart({ ...convertProductToCartItem(product!), quantity });
+    console.log('Product added to the cart');
+    navigate('/cart');
+  }
+
   return isLoading ? (
       <LoadingSpinner />
     ) : error ? (
@@ -61,7 +78,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
           </div>
           <div>
               {
-                product.countInStock > 0 && <button>Add to Cart</button>
+                product.countInStock > 0 && <button onClick={() => addToCartHandler()}>Add to Cart</button>
               }
           </div>
         </div>

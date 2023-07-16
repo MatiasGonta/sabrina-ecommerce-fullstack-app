@@ -9,6 +9,7 @@ import { ApiError } from "@/models";
 import { getError } from "@/utilities";
 import { useContext } from "react";
 import { Helmet } from 'react-helmet-async';
+import { Link } from "react-router-dom";
 
 
 interface HomeInterface {}
@@ -48,7 +49,7 @@ interface HomeInterface {}
 // }
 
 const Home: React.FC<HomeInterface> = () => {
-  const { mode, updateMode } = useContext(ThemeContext);
+  const { mode, updateMode, cart } = useContext(ThemeContext);
   const handleOnClick = () => {
     updateMode(mode === 'dark' ? 'light' : 'dark');
   }
@@ -79,7 +80,18 @@ const Home: React.FC<HomeInterface> = () => {
             </div>
             <div>
               <button onClick={handleOnClick}>Switch Mode</button>
-              <a href="/cart">Cart</a>
+              <Link to="/cart">
+                Cart
+                {
+                  cart.cartItems.length > 0 && (
+                    <span>
+                      {
+                        cart.cartItems.reduce((a,c) => a + c.quantity, 0)
+                      }
+                    </span>
+                  )
+                }
+              </Link>
               <a href="/signin">Sing In</a>
             </div>
           </nav>
