@@ -26,6 +26,15 @@ nav {
   background-color: #5a5a5a;
 }
 
+nav.dark {
+  background-color: #5a5a5a;
+}
+
+nav.light {
+  color: #3a3a3a;
+  background-color: #ececec;
+}
+
 nav h1 {
   display: inline;
 }
@@ -59,4 +68,117 @@ footer {
 
 h6 {
   font-size: 20px;
+}
+
+/*Loading Spinner*/
+
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.loading-box img {
+  width: 60px;
+  height: 60px;
+  animation: rotate 3s linear infinite;
+}
+
+.loading-box .spinner {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-box .spinner div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-box .spinner div:nth-child(1) {
+  left: 8px;
+  animation: loading-icon1 0.6s infinite;
+}
+.loading-box .spinner div:nth-child(2) {
+  left: 8px;
+  animation: loading-icon2 0.6s infinite;
+}
+.loading-box .spinner div:nth-child(3) {
+  left: 32px;
+  animation: loading-icon2 0.6s infinite;
+}
+.loading-box .spinner div:nth-child(4) {
+  left: 56px;
+  animation: loading-icon3 0.6s infinite;
+}
+
+@keyframes rotate {
+  0% {
+      transform: rotate(60deg);
+  }
+  20% {
+      transform: rotate(120deg);
+  }
+  40% {
+      transform: rotate(180deg);
+  }
+  60% {
+      transform: rotate(240deg);
+  }
+  80% {
+      transform: rotate(300deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-icon1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loading-icon2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+@keyframes loading-icon3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+/*Rating*/
+
+.rating span {
+  color: #ffc000;
+}
+
+/*Product Page*/
+
+img.large {
+  max-width: 100%;
 }
