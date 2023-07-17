@@ -1,4 +1,4 @@
-import { Home, Error, ProductPage, CartPage } from "./pages";
+import { Home, Error, ProductPage, CartPage, LoginPage, RegisterPage, ShippingAddressPage } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -24,8 +24,16 @@ const router = createBrowserRouter([
     element: <CartPage />
   },
   {
-    path: '/Hard',
-    element: <img />
+    path: '/signin',
+    element: <LoginPage />
+  },
+  {
+    path: '/signup',
+    element: <RegisterPage />
+  },
+  {
+    path: '/shipping',
+    element: <ShippingAddressPage />
   }
 ]);
 

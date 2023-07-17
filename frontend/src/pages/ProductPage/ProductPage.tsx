@@ -1,7 +1,7 @@
 import { LoadingSpinner, Rating } from '@/components';
 import { ThemeContext } from '@/context';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
-import { ApiError, CartItem } from '@/models';
+import { ApiError } from '@/models';
 import { convertProductToCartItem, getError } from '@/utilities';
 import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';

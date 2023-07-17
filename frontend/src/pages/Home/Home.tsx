@@ -7,6 +7,7 @@ import { ThemeContext } from "@/context";
 import { useGetProductsQuery } from "@/hooks";
 import { ApiError } from "@/models";
 import { getError } from "@/utilities";
+import { userInfo } from "os";
 import { useContext } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link } from "react-router-dom";
@@ -49,12 +50,21 @@ interface HomeInterface {}
 // }
 
 const Home: React.FC<HomeInterface> = () => {
-  const { mode, updateMode, cart } = useContext(ThemeContext);
+  const { userInfo, userSignout, mode, updateMode, cart } = useContext(ThemeContext);
   const handleOnClick = () => {
     updateMode(mode === 'dark' ? 'light' : 'dark');
   }
     // const [{ loading, error, products }, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, initialState);
   const { data: products, isLoading, error } = useGetProductsQuery();
+
+  const signoutHandler = () => {
+    userSignout();
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
+    window.location.href = '/signin';
+  }
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -92,7 +102,20 @@ const Home: React.FC<HomeInterface> = () => {
                   )
                 }
               </Link>
-              <a href="/signin">Sing In</a>
+              {
+                userInfo ? (
+                  <div>
+                    <span>{userInfo.name}</span>
+                    <Link
+                      className="dropdown-item"
+                      to="#signout"
+                      onClick={signoutHandler}
+                    >
+                      Sign Out
+                    </Link>
+                  </div>
+                ) : <Link className="nav-link" to="/signin">Sign Out</Link>
+              }
             </div>
           </nav>
         </header>
