@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { orderRouter, productRouter, seedRouter, userRouter } from './routes';
+import { keyRouter, orderRouter, productRouter, seedRouter, userRouter } from './routes';
 
 dotenv.config();
 
@@ -36,6 +36,7 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/seed', seedRouter);
+app.use('/api/keys', keyRouter);
 
 const PORT = 4000;
 

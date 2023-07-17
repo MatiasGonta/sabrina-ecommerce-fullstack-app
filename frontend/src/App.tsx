@@ -1,6 +1,7 @@
 import { Home, Error, ProductPage, CartPage, LoginPage, RegisterPage, ShippingAddressPage, PaymentMethodPage, PlaceOrderPage, OrderPage } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
+import { PayPalScriptProvider, ReactPayPalScriptOptions } from '@paypal/react-paypal-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from "./context";
@@ -56,17 +57,23 @@ const router = createBrowserRouter([
   }
 ]);
 
+const paypalOptions: ReactPayPalScriptOptions = {
+  'clientId': 'sb',
+}
+
 const App: React.FC<AppInterface> = () => {
   const queryClient = new QueryClient();
 
   return (
     <ThemeProvider>
-      <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </HelmetProvider>
+      <PayPalScriptProvider options={paypalOptions} deferLoading={true}>
+        <HelmetProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </HelmetProvider>
+      </PayPalScriptProvider>
     </ThemeProvider>
   )
 }
