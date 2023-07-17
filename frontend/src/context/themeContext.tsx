@@ -11,7 +11,8 @@ interface ThemeContextInterface {
   addItemToCart: (item: CartItem) => void;
   removeItemToCart: (item: CartItem) => void;
   updateMode: (newMode: string) => void;
-  saveShippingAddress: (address: ShippingAddress) => void
+  saveShippingAddress: (address: ShippingAddress) => void;
+  savePaymentMethod: (payment: string) => void;
 }
 
 interface ThemeProviderInterface {
@@ -51,7 +52,8 @@ export const ThemeContext = createContext<ThemeContextInterface>({
   addItemToCart: () => {},
   removeItemToCart: () => {},
   updateMode: () => {},
-  saveShippingAddress: () => {}
+  saveShippingAddress: () => {},
+  savePaymentMethod: () => {}
 });
 
 export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) => {
@@ -113,6 +115,12 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     newCart.shippingAddress = address;
     setCart(newCart);
   }
+
+  const savePaymentMethod = (payment: string) => {
+    const newCart = { ...cart };
+    newCart.paymentMethod = payment;
+    setCart(newCart);
+  }
   
   const themeContextValue: ThemeContextInterface = {
     mode,
@@ -123,7 +131,8 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     addItemToCart,
     removeItemToCart,
     updateMode,
-    saveShippingAddress
+    saveShippingAddress,
+    savePaymentMethod
   };
 
   return (

@@ -1,4 +1,4 @@
-import { Home, Error, ProductPage, CartPage, LoginPage, RegisterPage, ShippingAddressPage } from "./pages";
+import { Home, Error, ProductPage, CartPage, LoginPage, RegisterPage, ShippingAddressPage, PaymentMethodPage } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/shipping',
     element: <ShippingAddressPage />
+  },
+  {
+    path: '/payment',
+    element: <PaymentMethodPage />
   }
 ]);
 
