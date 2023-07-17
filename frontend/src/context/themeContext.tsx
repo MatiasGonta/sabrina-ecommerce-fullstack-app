@@ -10,6 +10,7 @@ interface ThemeContextInterface {
   userSignout: () => void;
   addItemToCart: (item: CartItem) => void;
   removeItemToCart: (item: CartItem) => void;
+  cartClear: () => void;
   updateMode: (newMode: string) => void;
   saveShippingAddress: (address: ShippingAddress) => void;
   savePaymentMethod: (payment: string) => void;
@@ -51,6 +52,7 @@ export const ThemeContext = createContext<ThemeContextInterface>({
   userSignout: () => {},
   addItemToCart: () => {},
   removeItemToCart: () => {},
+  cartClear: () => {},
   updateMode: () => {},
   saveShippingAddress: () => {},
   savePaymentMethod: () => {}
@@ -60,7 +62,6 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
   const [mode, setMode] = useState<string>(initialState.mode);
   const [cart, setCart] = useState<Cart>(initialState.cart);
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
-  const [shippingAddress, setShippingAddress] = useState<ShippingAddress>();
 
   const updateMode = (newMode: string) => {
     localStorage.setItem('mode', newMode);
@@ -84,6 +85,12 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     );
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     setCart({ ...cart, cartItems });
+  }
+
+  const cartClear = () => {
+    const newCart = { ...cart };
+    newCart.cartItems = [];
+    setCart(newCart);
   }
 
   const userSignin = (data: UserInfo) => setUserInfo({ ...data });
@@ -130,6 +137,7 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     userSignout,
     addItemToCart,
     removeItemToCart,
+    cartClear,
     updateMode,
     saveShippingAddress,
     savePaymentMethod
