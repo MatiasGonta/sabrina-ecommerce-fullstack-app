@@ -10,7 +10,7 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
     const navigate = useNavigate();
     const { cart: {shippingAddress, paymentMethod}, savePaymentMethod } = useContext(ThemeContext);
     
-    const [paymentMethodName, setPaymentMethodName] = useState(paymentMethod || 'PayPal');
+    const [paymentMethodName, setPaymentMethodName] = useState<string>(paymentMethod || 'PayPal');
 
     useEffect(() => {
       if (!shippingAddress.address) {
@@ -21,8 +21,8 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
     const submitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
         savePaymentMethod(paymentMethodName);
-        localStorage.setItem('paymentMethod', paymentMethodName);
-        navigate('/placeholder');
+        localStorage.setItem('paymentMethod', JSON.stringify(paymentMethodName));
+        navigate('/placeorder');
     }
 
     return (
