@@ -2,12 +2,14 @@ import { ThemeContext } from "@/context";
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
-import { CheckoutSteps } from "@/components";
+import { CheckoutSteps, Footer, Navbar } from "@/components";
+import { setLocalStorage } from "@/utilities";
+import '../../styles/ShippingAddressPage.scss';
 
 interface ShippingAddressPageInterface {}
 
 const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
-     const navigate = useNavigate();
+    const navigate = useNavigate();
     const { userInfo, cart: {shippingAddress}, saveShippingAddress } = useContext(ThemeContext);
 
     useEffect(() => {
@@ -19,7 +21,6 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
     const [fullName, setFullName] = useState(shippingAddress.fullName || '');
     const [address, setAddress] = useState(shippingAddress.address || '');
     const [city, setCity] = useState(shippingAddress.city || '');
-    const [country, setCountry] = useState(shippingAddress.country || '');
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
     
     const submitHandler = (e: React.SyntheticEvent) => {
@@ -28,82 +29,91 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
             fullName,
             address,
             city,
-            postalCode,
-            country,
+            postalCode
         });
 
-        localStorage.setItem('shippingAddress', JSON.stringify({
+        setLocalStorage('shippingAddress', {
             fullName,
             address,
             city,
-            postalCode,
-            country
-        }));
+            postalCode
+        });
 
         navigate('/payment');
     }
 
     return (
-    <div>
-        <Helmet>
-            <title>Shipping Address</title>
-        </Helmet>
-        <CheckoutSteps step1 step2 />
-        <div className="container small-container">
-            <h1>Shipping Address</h1>
-            <form onSubmit={submitHandler}>
-                <div>
-                    <label htmlFor="full-name">Full Name :</label>
-                    <input
-                        name="full-name"
-                        value={fullName}
-                        required
-                        onChange={(e)=> setFullName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="address">Address :</label>
-                    <input
-                        name="address"
-                        value={address}
-                        required
-                        onChange={(e)=> setAddress(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="city">City :</label>
-                    <input
-                        name="city"
-                        value={city}
-                        required
-                        onChange={(e)=> setCity(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="postal-code">PostalCode :</label>
-                    <input
-                        name="postal-code"
-                        value={postalCode}
-                        required
-                        onChange={(e)=> setPostalCode(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="country">Country :</label>
-                    <input
-                        name="country"
-                        value={country}
-                        required
-                        onChange={(e)=> setCountry(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <button type="submit">Continue</button>
-                </div>
-            </form>
-        </div>
-    </div>
-  )
+        <>
+        <Navbar />
+        <main className="shipping-main">
+            <Helmet>
+                <title>Dirección de envío</title>
+            </Helmet>
+            <article>
+                <CheckoutSteps step1 step2 />
+            </article>
+            <article>
+                <section>
+                    <h1>Dirección de envío</h1>
+                    <form onSubmit={submitHandler}>
+                        <div className="group">      
+                            <input
+                                type="text"
+                                name="full-name"
+                                value={fullName}
+                                required
+                                onChange={(e)=> setFullName(e.target.value)}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="full-name">Full Name</label>
+                        </div>
+                        <div className="group">      
+                            <input
+                                type="text"
+                                name="address"
+                                value={address}
+                                required
+                                onChange={(e)=> setAddress(e.target.value)}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="full-name">Dirección</label>
+                        </div>
+                        <div className="group">      
+                            <input
+                                type="text"
+                                name="city"
+                                value={city}
+                                required
+                                onChange={(e)=> setCity(e.target.value)}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="city">Ciudad</label>
+                        </div>
+                        <div className="group">      
+                            <input
+                                type="number"
+                                name="postal-code"
+                                value={postalCode}
+                                required
+                                onChange={(e)=> setPostalCode(e.target.value)}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="postal-code">Código Postal</label>
+                        </div>
+                        <div>
+                            <button type="submit">Continuar</button>
+                        </div>
+                    </form>
+                </section>
+            </article>
+        </main>
+        <Footer />
+        </>
+    )
 }
 
 export default ShippingAddressPage

@@ -11,7 +11,7 @@ export class ProductItem {
     public slug!: string
 
     @prop({ required: true })
-    public image!: string
+    public images!: string[]
 
     @prop({ required: true })
     public brand!: string
@@ -28,11 +28,11 @@ export class ProductItem {
     @prop({ required: true, default: 0 })
     public countInStock!: number
 
-    @prop({ required: true, default: 0 })
-    public rating!: number
+    @prop({ required: false, default: 0 })
+    public colors!: string[]
 
-    @prop({ required: true, default: 0 })
-    public numReviews!: number
+    @prop({ required: false, default: 0 })
+    public sizes!: string[]
 }
 
 export const ProductModel = getModelForClass(ProductItem);

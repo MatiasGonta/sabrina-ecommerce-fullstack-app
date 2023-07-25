@@ -8,12 +8,20 @@ interface CheckoutStepsInterface {
 
 const CheckoutSteps: React.FC<CheckoutStepsInterface> = (props) => {
     return (
-    <div className="checkout-steps">
-        <div className={props.step1 ? 'active' : ''}>Sign-In</div>
-        <div className={props.step2 ? 'active' : ''}>Shipping</div>
-        <div className={props.step3 ? 'active' : ''}>Payment</div>
-        <div className={props.step4 ? 'active' : ''}>Place Order</div>
-    </div>
+    <section className="checkout-steps">
+        <div className={props.step1 ? 'active' : ''}>
+            <span>Sign-In</span>
+        </div>
+        <div className={props.step2 ? 'active' : ''}>
+            <span>Envío</span>
+        </div>
+        <div className={props.step3 ? 'active' : ''}>
+            <span>Pago</span>
+        </div>
+        <div className={props.step4 ? 'active' : ''}>
+            <span>Realizar pedido</span>
+        </div>
+    </section>
   )
 }
 

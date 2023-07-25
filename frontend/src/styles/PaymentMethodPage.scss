@@ -1,0 +1,86 @@
+//Navbar
+@use './components/Navbar.scss';
+
+//Footer
+@use './components/Footer.scss';
+
+@use './components/CheckoutSteps.scss';
+
+.payment-main {
+  width: 100%;
+  max-width: 1300px;
+  min-height: 650px;
+
+    article:nth-child(2) {
+        section {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+
+            h1 {
+              font-size: 35px;
+              margin: 30px 0;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 150px;
+
+                .payment-option {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100px;
+
+                    input[type="radio"] {
+                        appearance: none; /* Deshabilita el estilo por defecto del input radio */
+                        width: 20px;
+                        height: 20px;
+                        border: 2px solid rgb(142, 112, 84);
+                        border-radius: 50%;
+                        outline: none;
+                        cursor: pointer;
+                        transition: border-color 0.3s ease; /* Transición para el cambio de color */
+
+                        &:checked {
+                            border-color: rgb(142, 112, 84);
+                        }
+
+                        &::before {
+                            content: ".";
+                            display: block;
+                            padding: 0.5px;
+                            width: 12px;
+                            height: 12px;
+                            background-color: rgb(142, 112, 84);
+                            border-radius: 50%;
+                            margin: 2px; /* Margen para crear un espacio entre el borde y el círculo interior */
+                        }
+
+                        &:not(:checked)::before {
+                            content: none;
+                        }
+                    }
+                }
+
+                button {
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: #26b16d;
+                    width: 200px;
+                    height: 40px;
+                    margin: 0 auto;
+                    transition: background-color 0.3s;
+                    cursor: pointer;
+                
+                    &:hover {
+                      background-color: #23c476;
+                    }
+                }
+            }
+        }
+    }
+}

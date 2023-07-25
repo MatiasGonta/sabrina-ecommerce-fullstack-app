@@ -1,44 +1,55 @@
 import { CartItem, Product } from "@/models"
 import { Link } from "react-router-dom";
-import { Rating } from "../Rating";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from "react";
 import { ThemeContext } from "@/context";
 import { convertProductToCartItem } from "@/utilities";
+import { toast } from 'react-toastify';
 
 interface ProductItemInterface {
-    product: Product;
+  product: Product;
 }
 
 const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
-  const { cart, addItemToCart } = useContext(ThemeContext);
+  const { cart, addItemToCart, favorites, addProductToFavorites, removeProductToFavorites } = useContext(ThemeContext);
   const addToCartHandler = (item: CartItem) => {
     const existItem = cart.cartItems.find((x)=> x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1;
     if(product.countInStock < quantity) {
-      alert('Sorry. Product is out off stock');
-      return;
+      toast.warn('Lo siento. Producto sin stock');
+      return
     }
     addItemToCart({ ...item, quantity });
-    console.log('Product added to the cart');
+    toast.success('Producto añadido al carrito');
   }
+
+  const existFavorite = favorites.find((x) => x._id === product._id);
 
   return (
     <>
+      {
+        existFavorite
+        ? <FavoriteIcon className="favorite-icon" sx={{ fontSize: 25 }} onClick={() => removeProductToFavorites(product)} />
+        : <FavoriteBorderOutlinedIcon className="favorite-icon" sx={{ fontSize: 25 }} onClick={() => addProductToFavorites(product)} />
+      }
       <Link to={`/product/${product.slug}`}>
         <img
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           className="product-image"
         />
       </Link>
       <div>
-        <h2>{product.name}</h2>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
-        <p>{product.price}</p>
+        <div className="product-colors">
+          <span>{product.colors.length} colores</span>
+        </div>
+        <a>{product.name}</a>
+        <span>${product.price}</span>
         {
             product.countInStock === 0
-              ? <button>Out of stock</button>
-              : <button onClick={() => addToCartHandler(convertProductToCartItem(product))}>Add to cart</button>
+              ? <button className="out-stock-btn">SIN STOCK</button>
+              : <button className="add-to-cart-btn" onClick={() => addToCartHandler(convertProductToCartItem(product, product.colors[0], product.sizes[0]))}>AÑADIR AL CARRITO</button>
         }
       </div>
     </> 

@@ -10,7 +10,7 @@ const MONGODB_URL = process.env.MONGODB_URL ||  'mongodb://localhost/fym-indumen
 mongoose.set('strictQuery', true);
 mongoose.connect(MONGODB_URL)
     .then(()=> console.log('connected to mongodb'))
-    .catch(()=> console.log('error mongodb'));
+    .catch((e)=> console.log('error mongodb', e));
 
 const app = express();
 
@@ -21,14 +21,6 @@ app.use(
     })
 );
 
-// app.get('/api/products', (req: Request, res: Response) => {
-//     res.json(sampleProducts);
-// });
-
-// app.get('/api/products/:slug', (req: Request, res: Response) => {
-//     res.json(sampleProducts.find(x => x.slug === req.params.slug));
-// });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,7 +30,10 @@ app.use('/api/orders', orderRouter);
 app.use('/api/seed', seedRouter);
 app.use('/api/keys', keyRouter);
 
-const PORT = 4000;
+// app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+// app.get('*', (req: Request, res: Response) => res.sendFile(path.join(__dirname, '../../frontend/dist/index.html')))
+
+const PORT: number = parseInt((process.env.PORT || '4000') as string, 10);
 
 app.listen(PORT, () => {
     console.log(`Server started at http://localhost:${PORT}`)

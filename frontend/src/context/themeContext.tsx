@@ -1,17 +1,19 @@
-import { Cart, CartItem, ShippingAddress, UserInfo } from '@/models';
+import { Cart, CartItem, Product, ShippingAddress, UserInfo } from '@/models';
+import { getLocalStorage, setLocalStorage } from '@/utilities';
 import React, { createContext, useState } from 'react';
 
 
 interface ThemeContextInterface {
-  mode: string;
+  favorites: Product[],
   cart: Cart;
   userInfo?: UserInfo;
   userSignin: (data: UserInfo) => void;
   userSignout: () => void;
+  addProductToFavorites: (newFavoriteProduct: Product) => void;
+  removeProductToFavorites: (inFavoriteProducts: Product) => void;
   addItemToCart: (item: CartItem) => void;
   removeItemToCart: (item: CartItem) => void;
   cartClear: () => void;
-  updateMode: (newMode: string) => void;
   saveShippingAddress: (address: ShippingAddress) => void;
   savePaymentMethod: (payment: string) => void;
 }
@@ -21,52 +23,62 @@ interface ThemeProviderInterface {
 }
 
 const initialState = {
-  mode: localStorage.getItem('mode') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
-  cart: {
-    cartItems: localStorage.getItem('cartItems')
-      ? JSON.parse(localStorage.getItem('cartItems')!)
+  favorites: getLocalStorage('favoriteProducts')
+      ? JSON.parse(getLocalStorage('favoriteProducts')!)
       : [],
-    shippingAddress: localStorage.getItem('shippingAddress')
-      ? JSON.parse(localStorage.getItem('shippingAddress')!)
+  cart: {
+    cartItems: getLocalStorage('cartItems')
+      ? JSON.parse(getLocalStorage('cartItems')!)
+      : [],
+    shippingAddress: getLocalStorage('shippingAddress')
+      ? JSON.parse(getLocalStorage('shippingAddress')!)
       : {},
-    paymentMethod: localStorage.getItem('paymentMethod')
-      ? JSON.parse(localStorage.getItem('paymentMethod')!)
+    paymentMethod: getLocalStorage('paymentMethod')
+      ? JSON.parse(getLocalStorage('paymentMethod')!)
       : 'PayPal',
     itemsPrice: 0,
     shippingPrice: 0,
     taxPrice: 0,
     totalPrice: 0
   },
-  userInfo: localStorage.getItem('userInfo')
-    ? JSON.parse(localStorage.getItem('userInfo')!)
+  userInfo: getLocalStorage('userInfo')
+    ? JSON.parse(getLocalStorage('userInfo')!)
     : null,
 };
 
-const initialUserInfo: UserInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!) : null;
+const initialUserInfo: UserInfo = getLocalStorage('userInfo') ? JSON.parse(getLocalStorage('userInfo')!) : null;
 
 export const ThemeContext = createContext<ThemeContextInterface>({
-  mode: initialState.mode,
+  favorites: initialState.favorites,
   cart: initialState.cart,
   userInfo: initialState.userInfo,
   userSignin: () => {},
   userSignout: () => {},
+  addProductToFavorites: () => {},
+  removeProductToFavorites: () => {},
   addItemToCart: () => {},
   removeItemToCart: () => {},
   cartClear: () => {},
-  updateMode: () => {},
   saveShippingAddress: () => {},
   savePaymentMethod: () => {}
 });
 
 export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) => {
-  const [mode, setMode] = useState<string>(initialState.mode);
   const [cart, setCart] = useState<Cart>(initialState.cart);
+  const [favorites, setFavorites] = useState<Product[]>(initialState.favorites);
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
 
-  const updateMode = (newMode: string) => {
-    localStorage.setItem('mode', newMode);
-    setMode(newMode);
-  };
+  const addProductToFavorites = (newFavoriteProduct: Product) => {
+    const newFavorites = [...favorites, newFavoriteProduct];
+    setFavorites(newFavorites);
+    setLocalStorage('favoriteProducts', newFavorites);
+  }
+
+  const removeProductToFavorites = (inFavoriteProducts: Product) => {
+    const newFavorites = favorites.filter((favoriteProducts: Product) => favoriteProducts._id !== inFavoriteProducts._id);
+    setFavorites(newFavorites);
+    setLocalStorage('favoriteProducts', newFavorites);
+  }
 
   const addItemToCart = (item: CartItem) => {
     const newItem = item;
@@ -76,14 +88,14 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
       : [...cart.cartItems, newItem];
 
     setCart({ ...cart, cartItems: updatedCartItems });
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    setLocalStorage('cartItems', updatedCartItems);
   };
 
   const removeItemToCart = (item: CartItem) => {
     const cartItems = cart.cartItems.filter(
       (cartItem: CartItem) => cartItem._id !== item._id
     );
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    setLocalStorage('cartItems', cartItems);
     setCart({ ...cart, cartItems });
   }
 
@@ -103,8 +115,7 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
         fullName: '',
         address: '',
         postalCode: '',
-        city: '',
-        country: ''
+        city: ''
       },
       itemsPrice: 0,
       shippingPrice: 0,
@@ -112,9 +123,6 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
       totalPrice: 0
     };
     setCart(emptyCart);
-
-    const emptyMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    setMode(emptyMode);
   };
 
   const saveShippingAddress = (address: ShippingAddress) => {
@@ -130,15 +138,16 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
   }
   
   const themeContextValue: ThemeContextInterface = {
-    mode,
+    favorites,
     cart,
     userInfo,
     userSignin,
     userSignout,
+    addProductToFavorites,
+    removeProductToFavorites,
     addItemToCart,
     removeItemToCart,
     cartClear,
-    updateMode,
     saveShippingAddress,
     savePaymentMethod
   };
@@ -149,68 +158,3 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     </ThemeContext.Provider>
   );
 };
-
-// import { Cart, CartItem } from "@/models";
-// import React from "react";
-
-// type AppState = {
-//   mode: string;
-//   cart: Cart;
-// }
-
-// const initialState: AppState = {
-//   mode: localStorage.getItem('mdoe') ? localStorage.getItem('mode')! : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
-//   cart: {
-//     cartItems: localStorage.getItem('cartItems')
-//       ? JSON.parse(localStorage.getItem('cartItems')!)
-//       : [],
-//     shippingAddress: localStorage.getItem('shippingAddress')
-//       ? JSON.parse(localStorage.getItem('shippingAddress')!)
-//       : [],
-//     paymentMethod: localStorage.getItem('paymentMethod')
-//       ? JSON.parse(localStorage.getItem('paymentMethod')!)
-//       : 'PayPal',
-//     itemsPrice: 0,
-//     shippingPrice: 0,
-//     taxPrice: 0,
-//     totalPrice: 0
-//   }
-// }
-
-// type Action = { type: 'SWITCH_MODE' } | { type: 'CART_ADD_ITEM', payload: CartItem };
-
-// function reducer(state: AppState, action: Action): AppState {
-//   switch(action.type) {
-//     case 'SWITCH_MODE':
-//       return { ...state, mode: state.mode === 'dark' ? 'light' : 'dark' }
-//     case 'CART_ADD_ITEM':
-//       const newItem = action.payload;
-//       const existItem = state.cart.cartItems.find((item: CartItem) => item._id === newItem._id)
-//       const cartItems = existItem
-//         ? state.cart.cartItems.map((item: CartItem) => item._id === existItem._id ? newItem : item)
-//         : [...state.cart.cartItems, newItem];
-
-//       localStorage.setItem('cartItems', JSON.stringify(cartItems));
-//       return { ...state, cart: { ...state.cart, cartItems } };
-//     default:
-//       return state;
-//   }
-// }
-
-// const defaultDispatch: React.Dispatch<Action> = () => initialState;
-
-// const Store = React.createContext({
-//   state: initialState,
-//   dispatch: defaultDispatch
-// });
-
-// function StoreProvider(props: React.PropsWithChildren<{}>) {
-//   const [state, dispatch] = React.useReducer<React.Reducer<AppState, Action>> (
-//     reducer,
-//     initialState
-//   )
-  
-//   return <Store.Provider value={{ state, dispatch }} {...props} />
-// }
-
-// export { Store, StoreProvider }

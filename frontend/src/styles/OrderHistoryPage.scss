@@ -1,0 +1,70 @@
+//Navbar
+@use './components/Navbar.scss';
+
+//Footer
+@use './components/Footer.scss';
+
+// OrderHistoryPage.scss
+
+.order-history-main {
+    width: 100%;
+    max-width: 1300px;
+    min-height: 650px;
+    overflow-x: auto;
+
+    section {
+        width: 100%;
+
+        h1 {
+            font-size: 35px;
+            margin: 30px 0;
+        }
+
+        table {
+            min-width: 860px;
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+
+            thead {
+                th {
+                    padding: 20px;
+                    border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 20px;
+                        border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+
+                        button {
+                            color: #fff;
+                            border: none;
+                            border-radius: 5px;
+                            background-color: #26b16d;
+                            width: 75px;
+                            height: 40px;
+                            margin: auto;
+                            cursor: pointer;
+                            transition: background-color 0.3s;
+        
+                            &:hover {
+                                background-color: #23c476;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .order-history-main {
+        section {
+            padding: 0 50px;
+        }
+    }
+}

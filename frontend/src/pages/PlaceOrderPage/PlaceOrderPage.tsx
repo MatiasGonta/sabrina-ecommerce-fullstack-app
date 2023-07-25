@@ -1,4 +1,4 @@
-import { CheckoutSteps, LoadingSpinner } from "@/components";
+import { CheckoutSteps, Footer, LoadingSpinner, Navbar } from "@/components";
 import { ThemeContext } from "@/context";
 import { useCreateOrderMutation } from "@/hooks";
 import { ApiError } from "@/models";
@@ -6,8 +6,12 @@ import { getError } from "@/utilities";
 import { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import '../../styles/PlaceOrderPage.scss';
 
-const PlaceOrderPage = () => {
+interface PlaceOrderPageInterface {}
+
+const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
     const navigate = useNavigate();
 
     const { cart, userInfo } = useContext(ThemeContext);
@@ -36,7 +40,7 @@ const PlaceOrderPage = () => {
             localStorage.removeItem('cartItems');
             navigate(`/order/${data.order._id}`);
         } catch(error) {
-            alert(getError(error as ApiError));
+            toast.error(getError(error as ApiError));
         }
     }
 
@@ -47,95 +51,96 @@ const PlaceOrderPage = () => {
     }, [cart, navigate]);
 
     return (
-        <div>
-            <CheckoutSteps step1 step2 step3 step4 />
+        <>
+        <Navbar />
+        <main className="place-order-main">
             <Helmet>
-                <title>Preview Order</title>
+                <title>Vista previa del pedido</title>
             </Helmet>
-            <h1>Preview Order</h1>
-            <div>
-                <h4>Shipping</h4>
-                <p>
-                    <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                    <strong>Address: </strong> {cart.shippingAddress.address},
-                    {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
-                    {cart.shippingAddress.country}
-                </p>
-                <Link to="/shipping">Edit</Link>
-            </div>
-            <div>
-                <h4>Payment</h4>
-                <p>
-                    <strong>Method:</strong> {cart.paymentMethod}
-                </p>
-                <Link to="/payment">Edit</Link>
-            </div>
-            <div>
-                <h4>Items</h4>
-                <ul>
-                    {
-                        cart.cartItems.map((item) => (
-                            <li key={item._id}>
-                                <div>
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className="img-fluid rounded thumbnail"
-                                    />
-                                    <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                                </div>
-                                <div>
-                                    <span>{item.quantity}</span>
-                                </div>
-                                <div>${item.price}</div>
-                            </li>
-                        ))
-                    }
-                </ul>
-                <Link to="/cart">Edit</Link>
-            </div>
-            <div>
-                <div>
-                    <h5>Order Summary</h5>
-                    <ul>
-                        <li>Items</li>
+            <article>
+                <CheckoutSteps step1 step2 step3 step4 />
+            </article>
+            <article>
+                <section id="order-title-section">
+                    <h1>Vista previa del pedido</h1>
+                </section>
+                <section id="order-info-section">
+                    <div className="order-shipping-box">
+                        <h4>Envío</h4>
+                        <p>
+                            <strong>Nombre:</strong> {cart.shippingAddress.fullName}
+                            <br />
+                            <strong>Dirección: </strong> {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
+                        </p>
+                        <Link to="/shipping">Editar</Link>
+                    </div>
+                    <div className="order-payment-box">
+                        <h4>Pago</h4>
+                        <p>
+                            <strong>Método:</strong> {cart.paymentMethod}
+                        </p>
+                        <Link to="/payment">Editar</Link>
+                    </div>
+                    <div className="order-product-box">
+                        <h4>Productos</h4>
+                        <ul>
+                            {
+                                cart.cartItems.map((item) => (
+                                    <li key={item._id}>
+                                        <div>
+                                            <img
+                                                src={item.image}
+                                                alt={item.name}
+                                                className="img-fluid rounded thumbnail"
+                                            />
+                                            <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                                        </div>
+                                        <div>
+                                            <span>{item.quantity}</span>
+                                        </div>
+                                        <strong>${item.price}</strong>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                        <Link to="/cart">Editar</Link>
+                    </div>
+                </section>
+                <section id="order-summary-section">
+                    <h5>Resumen del pedido</h5>
+                    <ul className="items-row">
+                        <li>Productos</li>
                         <li>${cart.itemsPrice.toFixed(2)}</li>
                     </ul>
-                </div>
-                <div>
-                    <ul>
-                        <li>Shipping</li>
+                    <ul className="shipping-row">
+                        <li>Envío</li>
                         <li>${cart.shippingPrice.toFixed(2)}</li>
                     </ul>
-                </div>
-                <div>
-                    <ul>
+                    <ul className="tax-row">
                         <li>Tax</li>
                         <li>${cart.taxPrice.toFixed(2)}</li>
                     </ul>
-                </div>
-                <div>
-                    <ul>
+                    <ul className="order-total-row">
                         <li>
-                            <strong>Order Total</strong>
+                            <strong>Total del pedido</strong>
                         </li>
                         <li>
                             <strong>${cart.totalPrice.toFixed(2)}</strong>
                         </li>
                     </ul>
-                </div>
-                <div>
                     <button
                         type="button"
                         onClick={placeOrderHandler}
                         disabled={cart.cartItems.length === 0 || isLoading}
                     >
-                        Place Order
+                        Realizar pedido
                     </button>
                     {isLoading && <LoadingSpinner />}
-                </div>
-            </div>
-        </div>
+                </section>
+            </article>
+        </main>
+        <Footer />
+        </>
     )
 }
 

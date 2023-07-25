@@ -2,10 +2,11 @@ import { LoadingSpinner } from "@/components";
 import { ThemeContext } from "@/context";
 import { useSigninMutation } from "@/hooks";
 import { ApiError } from "@/models";
-import { getError } from "@/utilities";
+import { getError, setLocalStorage } from "@/utilities";
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 interface LoginPageInterface {}
 
@@ -27,10 +28,10 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
         try {
             const data = await signin({ email, password });
             userSignin(data);
-            localStorage.setItem('userInfo', JSON.stringify(data));
+            setLocalStorage('userInfo', data);
             navigate(redirect);
         } catch(error) {
-            alert(getError(error as ApiError));
+            toast.error(getError(error as ApiError));
         }
     }
 

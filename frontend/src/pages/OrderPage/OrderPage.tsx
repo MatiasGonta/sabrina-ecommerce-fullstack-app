@@ -6,6 +6,7 @@ import { ApiError } from "@/models";
 import { getError } from "@/utilities";
 import { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { toast } from 'react-toastify';
 import { Link, useParams } from "react-router-dom";
 
 
@@ -22,7 +23,7 @@ const OrderPage = () => {
     const testPayHandler = async () => {
         await payOrder({ orderId: orderId! });
         refetch();
-        console.log('Order is paid');
+        toast.success('El pedido se pagó con éxito');
     }
 
     const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer();
@@ -68,13 +69,13 @@ const OrderPage = () => {
                 try {
                     await payOrder({ orderId: orderId!, ...details });
                     refetch();
-                    console.log('Order is paid successfully');
+                    toast.success('El pedido se pagó con éxito');
                 } catch(error) {
-                    alert(getError(error as ApiError));
+                    toast.error(getError(error as ApiError));
                 }
             })
         },
-        onError: (err) => alert(getError(err as ApiError))
+        onError: (err) => toast.error(getError(err as ApiError))
     }
 
   return isLoading ? <LoadingSpinner /> : error ? <h2>{getError(error as ApiError)}</h2> : !order ? <h2>Order Not Found</h2> : (
@@ -89,7 +90,6 @@ const OrderPage = () => {
                 <strong>Name:</strong> {order!.shippingAddress.fullName} <br />
                 <strong>Address: </strong> {order.shippingAddress.address},
                 {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-                , {order.shippingAddress.country}
             </div>
             {
                 order.isDelivered ? <h2>Delivered at {order.deliveredAt}</h2> : <h2>Not Delivered</h2>
@@ -112,7 +112,7 @@ const OrderPage = () => {
                        <li key={item._id}>
                             <div>
                                 <img 
-                                    src={item.image}
+                                    src={item.image![0]}
                                     alt={item.name}
                                     className="img-fluid rounded thumbnail"
                                 />
@@ -154,9 +154,7 @@ const OrderPage = () => {
                     <>
                     {isPending ? <LoadingSpinner /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
                       <div>
-                        <PayPalButtons
-                          {...paypalButtonTransactionProps}
-                        >a</PayPalButtons>
+                        <PayPalButtons {...paypalButtonTransactionProps}></PayPalButtons>
                         <button onClick={testPayHandler}>Test Pay</button>{/* Is only for development state. Remove in deploy */}
                       </div>
                     )}

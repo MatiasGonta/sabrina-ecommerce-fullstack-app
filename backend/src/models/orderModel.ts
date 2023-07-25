@@ -1,6 +1,6 @@
 import { modelOptions, prop, getModelForClass, Ref } from '@typegoose/typegoose';
 import { ProductItem } from './productModel';
-import { User } from './useModel';
+import { User } from './userModel';
 
 class ShippingAddress {
   @prop()
@@ -25,7 +25,7 @@ class Item {
   @prop({ required: true })
   public quantity!: string
   @prop({ required: true })
-  public image!: number
+  public image!: string
   @prop({ required: true })
   public price!: number
   @prop({ ref: ProductItem })
