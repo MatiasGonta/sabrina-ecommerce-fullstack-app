@@ -51,7 +51,7 @@ const Home: React.FC<HomeInterface> = () => {
   
   const handlePriceChange = (min: string, max: string) => {
     setFilters({ ...filters, priceMin: min, priceMax: max });
-  };
+  };a
 
   const filteredProducts = products?.filter((product) => {
     // Filtrar por categoría
