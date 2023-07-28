@@ -12,6 +12,21 @@
     align-items: center;
 }
 
+.filters-container {
+    display: flex;
+    flex-direction: row;
+
+    li {
+        border: 1px solid #23c476;
+        margin: 0 10px;
+
+        div {
+            width: 25px;
+            height: 25px;
+        }
+    }
+}
+
 .home-main {
     display: flex;
     flex-direction: row;

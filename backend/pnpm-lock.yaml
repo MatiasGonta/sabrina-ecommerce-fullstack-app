@@ -4,6 +4,9 @@ dependencies:
   '@typegoose/typegoose':
     specifier: ^11.3.0
     version: 11.3.0(mongoose@7.3.4)
+  '@types/mongoose':
+    specifier: ^5.11.97
+    version: 5.11.97
   bcrypt:
     specifier: ^5.1.0
     version: 5.1.0
@@ -31,6 +34,9 @@ dependencies:
   mongoose:
     specifier: ^7.3.4
     version: 7.3.4
+  mongoose-paginate-v2:
+    specifier: ^1.7.31
+    version: 1.7.31
 
 devDependencies:
   '@types/bcryptjs':
@@ -279,6 +285,18 @@ packages:
   /@types/mime@3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
     dev: true
+
+  /@types/mongoose@5.11.97:
+    resolution: {integrity: sha512-cqwOVYT3qXyLiGw7ueU2kX9noE8DPGRY6z8eUxudhXY8NZ7DMKYAxyZkLSevGfhCX3dO/AoX5/SO9lAzfjon0Q==}
+    deprecated: Mongoose publishes its own types, so you do not need to install this package.
+    dependencies:
+      mongoose: 7.3.4
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-providers'
+      - mongodb-client-encryption
+      - snappy
+      - supports-color
+    dev: false
 
   /@types/node@20.4.2:
     resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
@@ -1542,6 +1560,11 @@ packages:
       socks: 2.7.1
     optionalDependencies:
       saslprep: 1.0.3
+    dev: false
+
+  /mongoose-paginate-v2@1.7.31:
+    resolution: {integrity: sha512-Zz7i/1k7/MJqipzttn9SUenbcW1hC63qBOB7HHBNMfIfg0AOPFT2CdAWpeAJ7BBGEQ4qC1Gu02fIaSeMmXOT0A==}
+    engines: {node: '>=4.0.0'}
     dev: false
 
   /mongoose@7.3.4:

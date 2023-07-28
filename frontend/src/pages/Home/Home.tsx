@@ -1,152 +1,138 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Footer, LoadingSpinner, Navbar, ProductItem } from "@/components";
-import { useGetProductsQuery } from "@/hooks";
-import { ApiError } from "@/models";
-import { getError } from "@/utilities";
-import { useState } from "react";
+import { useGetFilterCountsQuery, useGetProductsQuery } from "@/hooks";
+import { ApiError, FiltersInterface, Product } from "@/models";
+import { getError, getLocalStorage, setLocalStorage } from "@/utilities";
+import { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
-import '@/styles/Home.scss';
 import { Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import '@/styles/Home.scss';
 
 interface HomeInterface {}
 
+const emptyFilters: FiltersInterface = {
+  category: "",
+  size: "",
+  color: "",
+  priceMin: "",
+  priceMax: "",
+}
+
 const Home: React.FC<HomeInterface> = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>(getLocalStorage('filters') ? JSON.parse(getLocalStorage('filters')) : emptyFilters);
+
+  const handleFilterChange = (filterType: string, value: string) => {
+
+    const newSelectedFilters = {
+      ...selectedFilters,
+      [filterType]: value,
+    }
+
+    setSelectedFilters(newSelectedFilters);
+
+    setLocalStorage('filters', newSelectedFilters);
+  };
+
+  const { products, data, isLoading, error, refetch, hasNextPage, fetchNextPage } = useGetProductsQuery(selectedFilters) as {
+    products: Product[],
+    data: any,
+    isLoading: boolean,
+    error: any,
+    refetch: any,
+    hasNextPage: boolean,
+    fetchNextPage: () => void
+  };
+
+  const hasMore: boolean = hasNextPage ? hasNextPage : false;
+
+  const { data: filterCountsData, isLoading: filterCountsLoading, error: filterCountsError } = useGetFilterCountsQuery();
+  
   const [showMoreSizes, setShowMoreSizes] = useState<boolean>(false);
 
-  // Obtain all unique colors
-  const allColors: string[] = products ? products.reduce<string[]>((acc, product) => [...acc, ...product.colors], []) : [];
-  const allUniqueColors: Set<string> = new Set(allColors);
-  const allUniqueColorsArray: string[] = [...allUniqueColors];
-
-  interface FiltersInterface {
-    category: string;
-    size: string;
-    color: string;
-    priceMin: string;
-    priceMax: string;
-  }
-
-  const emptyFiltersValue: FiltersInterface = {
-    category: "",
-    size: "",
-    color: "",
-    priceMin: "",
-    priceMax: "",
-  };
-  
-  const [filters, setFilters] = useState<FiltersInterface>(emptyFiltersValue);
-
-  const handleCategoryChange = (category: string) => {
-    setFilters({ ...filters, category });
-  };
-  
-  const handleSizeChange = (size: string) => {
-    setFilters({ ...filters, size });
-  };
-  
-  const handleColorChange = (color: string) => {
-    setFilters({ ...filters, color });
-  };
-  
-  const handlePriceChange = (min: string, max: string) => {
-    setFilters({ ...filters, priceMin: min, priceMax: max });
-  };a
-
-  const filteredProducts = products?.filter((product) => {
-    // Filtrar por categoría
-    if (filters.category && product.category !== filters.category) {
-      return false;
-    }
-  
-    // Filtrar por talla
-    if (filters.size && !product.sizes.includes(filters.size)) {
-      return false;
-    }
-  
-    // Filtrar por color
-    if (filters.color && !product.colors.includes(filters.color)) {
-      return false;
-    }
-  
-    // Filtrar por precio
-    if (
-      (filters.priceMin && product.price < parseFloat(filters.priceMin)) ||
-      (filters.priceMax && product.price > parseFloat(filters.priceMax))
-    ) {
-      return false;
-    }
-  
-    return true;
-  });
+  useEffect(() => {
+    refetch(selectedFilters);
+  }, [selectedFilters]);
 
   return (
-    isLoading ? <LoadingSpinner /> : error ? <h4>{getError(error as ApiError)}</h4> : (
+    isLoading || filterCountsLoading ? <LoadingSpinner /> : error ? <h4>{getError(error as ApiError)}</h4> : (
       <>
         <Navbar />
+        <Helmet>
+          <title>F y M Indumentaria</title>
+        </Helmet>
         <div className='sub-navbar'>
           <h2 className="navigation-path"><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link></h2>
           <ul className="filters-container">
-            {
-              filters.category !== '' && <li onClick={() => handleCategoryChange('')}>{filters.category}</li>
-            }
-            {
-              filters.color !== '' && <li onClick={() => handleColorChange('')}>{filters.color}</li>
-            }
-            {
-              filters.size !== '' && <li onClick={() => handleSizeChange('')}>{filters.size}</li>
-            }
-            {
-              filters.priceMin !== '' && <li onClick={() => handlePriceChange('', filters.priceMax)}>{filters.priceMin}</li>
-            }
-            {
-              filters.priceMax !== '' && <li onClick={() => handlePriceChange(filters.priceMin, '')}>{filters.priceMax}</li>
-            }
+            {selectedFilters.category && (
+              <li onClick={() => handleFilterChange("category", "")}>
+                {selectedFilters.category}
+              </li>
+            )}
+            {selectedFilters.size && (
+              <li onClick={() => handleFilterChange("size", "")}>
+                {selectedFilters.size}
+              </li>
+            )}
+            {selectedFilters.color && (
+              <li onClick={() => handleFilterChange("color", "")}>
+                <div style={{ backgroundColor: selectedFilters.color }}></div>
+              </li>
+            )}
+            {selectedFilters.priceMin && selectedFilters.priceMax && (
+              <li onClick={() => handleFilterChange("", "")}>{`$${selectedFilters.priceMin} - $${selectedFilters.priceMax}`}</li>
+            )}
+            {selectedFilters.priceMin && !selectedFilters.priceMax && (
+              <li onClick={() => handleFilterChange("priceMin", "")}>{`Desde $${selectedFilters.priceMin}`}</li>
+            )}
+            {!selectedFilters.priceMin && selectedFilters.priceMax && (
+              <li onClick={() => handleFilterChange("priceMax", "")}>{`Hasta $${selectedFilters.priceMax}`}</li>
+            )}
           </ul>
         </div>
         <main className="home-main">
           <article className="home-filters-container">
             <section id="home-title-section">
-              <h2 onClick={() => setFilters(emptyFiltersValue)}>Filtros</h2>
-              <span>{filteredProducts!.length} resultados</span>
+              <h2>Filtros</h2>
+              <span>{data?.pages[0].totalDocs} resultados</span>
             </section>
             <section id="home-category-section">
               <h4>Categoría</h4>
               <ul>
-                <li onClick={() => handleCategoryChange('Shirts')}>Remeras (34)</li>
-                <li onClick={() => handleCategoryChange('Buzos')}>Buzos (42)</li>
-                <li onClick={() => handleCategoryChange('Pants')}>Pantalones (56)</li>
-                <li onClick={() => handleCategoryChange('Access')}>Accesorios (18)</li>
-                <li onClick={() => handleCategoryChange('Camperas')}>Camperas (12)</li>
+                {
+                  filterCountsData.categories.map((category: any) => (
+                    <li key={category._id} onClick={() => handleFilterChange("category", category._id)}>
+                      {`${category._id} (${category.count})`}
+                    </li>
+                  ))
+                }
               </ul>
             </section>
             <div className="home-separator"></div>
             <section id="home-size-section">
               <h4>Talle</h4>
               <ul>
-                <li onClick={() => handleSizeChange('16 años')}>16 años (23)</li>
-                <li onClick={() => handleSizeChange('XS')}>XS (12)</li>
-                <li onClick={() => handleSizeChange('S')}>S (15)</li>
-                <li onClick={() => handleSizeChange('M')}>M (18)</li>
-                <li onClick={() => handleSizeChange('L')}>L (11)</li>
-                <li onClick={() => handleSizeChange('XL')}>XL (12)</li>
-                <li onClick={() => handleSizeChange('2XL')}>2XL (8)</li>
-                <li onClick={() => handleSizeChange('3XL')}>3XL (3)</li>
-                <li onClick={() => handleSizeChange('4XL')}>4XL (6)</li>
+                {
+                  filterCountsData.sizes.map((size: any) => (
+                    <li key={size._id} onClick={() => handleFilterChange("size", size._id)}>
+                      {`${size._id} (${size.count})`}
+                    </li>
+                  ))
+                }
               </ul>
               {
                 showMoreSizes ? (
                     <>
                       <ul>
-                        <li onClick={() => handleSizeChange('16 años')}>16 años (23)</li>
-                        <li onClick={() => handleSizeChange('XS')}>XS (12)</li>
-                        <li onClick={() => handleSizeChange('S')}>S (15)</li>
-                        <li onClick={() => handleSizeChange('M')}>M (18)</li>
-                        <li onClick={() => handleSizeChange('L')}>L (11)</li>
-                        <li onClick={() => handleSizeChange('XL')}>XL (12)</li>
-                        <li onClick={() => handleSizeChange('2XL')}>2XL (8)</li>
-                        <li onClick={() => handleSizeChange('3XL')}>3XL (3)</li>
-                        <li onClick={() => handleSizeChange('4XL')}>4XL (6)</li>
+                        <li>16 años (23)</li>
+                        <li>XS (12)</li>
+                        <li>S (15)</li>
+                        <li>M (18)</li>
+                        <li>L (11)</li>
+                        <li>XL (12)</li>
+                        <li>2XL (8)</li>
+                        <li>3XL (3)</li>
+                        <li>4XL (6)</li>
                       </ul>
                       <span onClick={() => setShowMoreSizes(!showMoreSizes)}>Mostrar menos</span>
                     </>
@@ -160,9 +146,9 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Color</h4>
               <ul>
                 {
-                  allUniqueColorsArray.map(color => (
-                    <li key={color} onClick={() => handleColorChange(color)}>
-                      <div style={{ backgroundColor: color }}></div>
+                  filterCountsData.colors.map((color: any) => (
+                    <li key={color._id} onClick={() => handleFilterChange("color", color._id)}>
+                      <div style={{ backgroundColor: color._id }}></div>
                     </li>
                   ))
                 }
@@ -172,31 +158,46 @@ const Home: React.FC<HomeInterface> = () => {
             <section id="home-price-section">
               <h4>Precio</h4>
               <ul>
-                <li>Hasta $5.000 (5)</li>
-                <li>$5.000 a $7.500 (12)</li>
-                <li>Más de $7.500 (24)</li>
+                {
+                  filterCountsData.priceRanges.map((priceRange: any) => (
+                    <li key={priceRange.name} onClick={()=> {
+                      handleFilterChange("priceMin", priceRange.price.priceMin);
+                      handleFilterChange("priceMax", priceRange.price.priceMax);
+                    }}>
+                      {`${priceRange.name} (${priceRange.count})`}
+                    </li>
+                  ))
+                }
               </ul>
               <div>
-                <input type="number" placeholder="Min" onChange={(e) => handlePriceChange(e.target.value, filters.priceMax)} value={filters.priceMin} />
+                <input type="number" placeholder="Min" onChange={(e) => handleFilterChange("priceMin", e.target.value)} />
                 <span>-</span>
-                <input type="number" placeholder="Max" onChange={(e) => handlePriceChange(filters.priceMin, e.target.value)} value={filters.priceMax} />
+                <input type="number" placeholder="Max" onChange={(e) => handleFilterChange("priceMax", e.target.value)} />
                 <button><ArrowForwardIosIcon sx={{ fontSize: 10 }} /></button>
               </div>
             </section>
           </article>
           <article className="home-products-container">
-            <ul>
-              <Helmet>
-                <title>F y M Indumentaria</title>
-              </Helmet>
+            <InfiniteScroll
+              dataLength={products.length}
+              hasMore={hasMore}
+              next={()=> fetchNextPage()}
+              loader={<h4>Loading...</h4>}
+            >
               {
-                filteredProducts!.map(product => (
-                  <li key={product.slug}>
-                    <ProductItem product={product} />
-                  </li>
-                ))
+                data?.pages[0].totalDocs !== 0 ? (
+                  <ul>
+                    {
+                      products.map((product: Product) => (
+                        <li key={product.slug}>
+                          <ProductItem product={product} />
+                        </li>
+                      ))
+                    }
+                  </ul>
+                ) : <h5>No hay productos</h5>
               }
-            </ul>
+            </InfiniteScroll>
           </article>
         </main>
         <Footer />

@@ -4,7 +4,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-gray-shirt',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg','/src/assets/buzo-quiksilver-blue.jpg','/src/assets/lacoste-bluenight-pant.jpg'],
         price: 490,
         countInStock: 5,
@@ -16,7 +16,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Lacoste Pant',
         slug: 'lacoste-bluenight-pant',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
         countInStock: 0,
@@ -40,7 +40,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas Slim shirt',
         slug: 'adidas-red-slim-shirt',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
         countInStock: 3,
@@ -52,7 +52,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-black-pant',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
         countInStock: 10,
@@ -66,7 +66,7 @@ export const sampleProducts: ProductItem[] = [
         slug: 'campera-new-balance-lightgray',
         category: 'Camperas',
         images: ['/src/assets/campera-new-balance-lightgray.jpg'],
-        price: 720,
+        price: 7220,
         countInStock: 0,
         brand: 'New Balance',
         colors: ['lightgray','red','green','orange'],
@@ -88,7 +88,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-green-slim-shirt',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
         countInStock: 6,
@@ -100,7 +100,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'DC Slim shirt',
         slug: 'dc-black-slim-shirt',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
         countInStock: 2,
@@ -112,7 +112,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Drake pant',
         slug: 'drake-green-pant',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
         countInStock: 0,
@@ -122,11 +122,11 @@ export const sampleProducts: ProductItem[] = [
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
-        name: 'Charge pants',
+        name: 'Charge Pantalones',
         slug: 'pink-charge-pants',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
-        price: 680,
+        price: 10680,
         countInStock: 9,
         brand: 'Charge',
         colors: ['pink','palevioletred'],
@@ -138,7 +138,7 @@ export const sampleProducts: ProductItem[] = [
         slug: 'campera-reush-green',
         category: 'Camperas',
         images: ['/src/assets/campera-reush-green.jpg'],
-        price: 340,
+        price: 12340,
         countInStock: 4,
         brand: 'Reush',
         colors: ['green','black','orange','cyan'],
@@ -172,7 +172,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-green-pant',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
         countInStock: 20,
@@ -184,7 +184,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-gray-shirt6576',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg'],
         price: 490,
         countInStock: 5,
@@ -196,7 +196,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Lacoste Pant',
         slug: 'lacoste-bluenight-pant1',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
         countInStock: 0,
@@ -220,7 +220,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas Slim shirt',
         slug: 'adidas-red-slim-shirt1',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
         countInStock: 3,
@@ -232,7 +232,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-black-pant2',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
         countInStock: 10,
@@ -268,7 +268,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-green-slim-shirt32',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
         countInStock: 6,
@@ -280,7 +280,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'DC Slim shirt',
         slug: 'dc-black-slim-shirt32',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
         countInStock: 2,
@@ -292,7 +292,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Drake pant',
         slug: 'drake-green-pant32',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
         countInStock: 0,
@@ -302,9 +302,9 @@ export const sampleProducts: ProductItem[] = [
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
-        name: 'Charge pants',
+        name: 'Charge Pantalones',
         slug: 'pink-charge-pants32',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 680,
         countInStock: 9,
@@ -352,7 +352,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-green-pant32',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
         countInStock: 20,
@@ -364,7 +364,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-gray-shirt0',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg'],
         price: 490,
         countInStock: 5,
@@ -376,7 +376,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Lacoste Pant',
         slug: 'lacoste-bluenight-pant2332',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
         countInStock: 0,
@@ -400,7 +400,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas Slim shirt',
         slug: 'adidas-red-slim-shirt3',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
         countInStock: 3,
@@ -412,7 +412,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-black-pant4',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
         countInStock: 10,
@@ -448,7 +448,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-green-slim-shirt7',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
         countInStock: 6,
@@ -460,7 +460,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'DC Slim shirt',
         slug: 'dc-black-slim-shirt8',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
         countInStock: 2,
@@ -472,7 +472,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Drake pant',
         slug: 'drake-green-pant9',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
         countInStock: 0,
@@ -482,9 +482,9 @@ export const sampleProducts: ProductItem[] = [
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
-        name: 'Charge pants',
+        name: 'Charge Pantalones',
         slug: 'pink-charge-pants10',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 680,
         countInStock: 9,
@@ -532,7 +532,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-green-pant14',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
         countInStock: 20,
@@ -544,7 +544,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-gray-shirt15',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg'],
         price: 490,
         countInStock: 5,
@@ -556,7 +556,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Lacoste Pant',
         slug: 'lacoste-bluenight-pant16',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
         countInStock: 0,
@@ -580,7 +580,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas Slim shirt',
         slug: 'adidas-red-slim-shirt18',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
         countInStock: 3,
@@ -592,7 +592,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-black-pant19',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
         countInStock: 10,
@@ -628,7 +628,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Nike Slim shirt',
         slug: 'nike-green-slim-shirt22',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
         countInStock: 6,
@@ -640,7 +640,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'DC Slim shirt',
         slug: 'dc-black-slim-shirt23',
-        category: 'Shirts',
+        category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
         countInStock: 2,
@@ -652,7 +652,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Drake pant',
         slug: 'drake-green-pant24',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
         countInStock: 0,
@@ -662,9 +662,9 @@ export const sampleProducts: ProductItem[] = [
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
-        name: 'Charge pants',
+        name: 'Charge Pantalones',
         slug: 'pink-charge-pants25',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 680,
         countInStock: 9,
@@ -712,7 +712,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-green-pant29',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
         countInStock: 20,
@@ -724,7 +724,7 @@ export const sampleProducts: ProductItem[] = [
     {
         name: 'Adidas pant',
         slug: 'adidas-green-pant292',
-        category: 'Pants',
+        category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
         countInStock: 20,

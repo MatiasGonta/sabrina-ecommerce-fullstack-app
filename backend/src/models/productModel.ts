@@ -1,38 +1,72 @@
-import { modelOptions, prop, getModelForClass } from '@typegoose/typegoose';
+import { model, Schema, Document, PaginateModel } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-@modelOptions({ schemaOptions: { timestamps: true } })
-export class ProductItem {
-    public _id?: string
-
-    @prop({ required: true })
-    public name!: string
-
-    @prop({ required: true, unique: true })
-    public slug!: string
-
-    @prop({ required: true })
-    public images!: string[]
-
-    @prop({ required: true })
-    public brand!: string
-
-    @prop({ required: true })
-    public category!: string
-    
-    @prop({ required: true })
-    public description!: string
-
-    @prop({ required: true, default: 0 })
-    public price!: number
-    
-    @prop({ required: true, default: 0 })
-    public countInStock!: number
-
-    @prop({ required: false, default: 0 })
-    public colors!: string[]
-
-    @prop({ required: false, default: 0 })
-    public sizes!: string[]
+// Interfaz que define las propiedades del modelo
+export interface ProductItem {
+  name: string;
+  slug: string;
+  images: string[];
+  brand: string;
+  category: string;
+  description: string;
+  price: number;
+  countInStock: number;
+  colors: string[];
+  sizes: string[];
 }
 
-export const ProductModel = getModelForClass(ProductItem);
+// Define el esquema de Mongoose para el modelo
+const productSchema = new Schema<ProductItem>({
+  name: {
+    type: String,
+    required: true
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  images: {
+    type: [String],
+    required: true
+  },
+  brand: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  countInStock: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  colors: {
+    type: [String],
+    required: true,
+    default: []
+  },
+  sizes: {
+    type: [String],
+    required: true,
+    default: []
+  },
+});
+
+// Aplica el plugin de paginación al esquema
+productSchema.plugin(mongoosePaginate);
+
+// Define y exporta el modelo de Mongoose paginado
+// El tipo de la variable ProductModel será PaginateModel<ProductItem & Document>
+export const ProductModel: PaginateModel<ProductItem & Document> = model<ProductItem>('productitems', productSchema);
