@@ -100,7 +100,7 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Categoría</h4>
               <ul>
                 {
-                  filterCountsData.categories.map((category: any) => (
+                  filterCountsData?.categories.map((category: any) => (
                     <li key={category._id} onClick={() => handleFilterChange("category", category._id)}>
                       {`${category._id} (${category.count})`}
                     </li>
@@ -113,7 +113,7 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Talle</h4>
               <ul>
                 {
-                  filterCountsData.sizes.map((size: any) => (
+                  filterCountsData?.sizes.map((size: any) => (
                     <li key={size._id} onClick={() => handleFilterChange("size", size._id)}>
                       {`${size._id} (${size.count})`}
                     </li>
@@ -146,7 +146,7 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Color</h4>
               <ul>
                 {
-                  filterCountsData.colors.map((color: any) => (
+                  filterCountsData?.colors.map((color: any) => (
                     <li key={color._id} onClick={() => handleFilterChange("color", color._id)}>
                       <div style={{ backgroundColor: color._id }}></div>
                     </li>
@@ -159,7 +159,7 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Precio</h4>
               <ul>
                 {
-                  filterCountsData.priceRanges.map((priceRange: any) => (
+                  filterCountsData?.priceRanges.map((priceRange: any) => (
                     <li key={priceRange.name} onClick={()=> {
                       handleFilterChange("priceMin", priceRange.price.priceMin);
                       handleFilterChange("priceMax", priceRange.price.priceMax);

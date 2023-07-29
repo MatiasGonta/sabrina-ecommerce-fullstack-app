@@ -28,7 +28,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                   <HeartBrokenOutlinedIcon sx={{ fontSize: 100 }} />
                   <p>Aún no tenés productos en Favoritos.</p>
                   <Link to="/">Ir de compras</Link>
-                </section>
+                </section>s
               ) : (
                 <section>
                   <ul>
