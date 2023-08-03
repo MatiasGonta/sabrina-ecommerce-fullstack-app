@@ -31,7 +31,7 @@ export const useGetFilterCountsQuery = () => {
     });
 
     const categories = result.data?.categories;
-    const colors = result.data?.colors;
+    const colors = result.data?.colors;s
     const sizes = result.data?.sizes;
     const priceRanges = result.data?.priceRanges;
 
