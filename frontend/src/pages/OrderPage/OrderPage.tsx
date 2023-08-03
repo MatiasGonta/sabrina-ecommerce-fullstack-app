@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "@/components";
+import { Footer, LoadingSpinner, Navbar } from "@/components";
 import { ThemeContext } from "@/context";
 import { usePayPalScriptReducer, SCRIPT_LOADING_STATE, PayPalButtonsComponentProps, PayPalButtons } from '@paypal/react-paypal-js';
 import { useGetOrderDetailsQuery, useGetPaypalClientIdQuery, usePayOrderMutation } from "@/hooks";
@@ -7,11 +7,13 @@ import { getError } from "@/utilities";
 import { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { toast } from 'react-toastify';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import '@/styles/layouts/PlaceOrderPage/PlaceOrderPage.scss';
 
+interface OrderPageInterface {}
 
-const OrderPage = () => {
-    const { userInfo } = useContext(ThemeContext);
+const OrderPage: React.FC<OrderPageInterface> = () => {
+    const { userInfo, clearCart } = useContext(ThemeContext);
     
     const params = useParams();
     const { id: orderId } = params;
@@ -23,6 +25,7 @@ const OrderPage = () => {
     const testPayHandler = async () => {
         await payOrder({ orderId: orderId! });
         refetch();
+        clearCart();
         toast.success('El pedido se pagó con éxito');
     }
 
@@ -78,92 +81,118 @@ const OrderPage = () => {
         onError: (err) => toast.error(getError(err as ApiError))
     }
 
-  return isLoading ? <LoadingSpinner /> : error ? <h2>{getError(error as ApiError)}</h2> : !order ? <h2>Order Not Found</h2> : (
-    <div>
+  return isLoading ? <LoadingSpinner type='noflex' /> : error ? <h2>{getError(error as ApiError)}</h2> : !order ? <h2>Order Not Found</h2> : (
+    <>
+    <Navbar />
+    <main className="place-order-main">
         <Helmet>
-            <title>Order {orderId}</title>
+            <title>Orden {orderId}</title>
         </Helmet>
-        <h1>Order {orderId}</h1>
-        <div>
-            <h2>Shipping</h2>
-            <div>
-                <strong>Name:</strong> {order!.shippingAddress.fullName} <br />
-                <strong>Address: </strong> {order.shippingAddress.address},
-                {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-            </div>
-            {
-                order.isDelivered ? <h2>Delivered at {order.deliveredAt}</h2> : <h2>Not Delivered</h2>
-            }
-        </div>
-        <div>
-            <h2>Payment</h2>
-            <div>
-                <strong>Method:</strong> {order.paymentMethod}
-            </div>
-            {
-                order.isPaid ? <h2>Paid at {order.paidAt}</h2> : <h2>Not Paid</h2>
-            }
-        </div>
-        <div>
-            <h2>Items</h2>
-            <ul>
-                {
-                    order.orderItems.map((item) => 
-                       <li key={item._id}>
-                            <div>
-                                <img 
-                                    src={item.image![0]}
-                                    alt={item.name}
-                                    className="img-fluid rounded thumbnail"
-                                />
-                                <Link to={`/product/${item.slug}`}>{item.name}</Link>
+        <article className="order">
+            <section className="order-title-section">
+                <h1>Orden {orderId}</h1>
+            </section>
+            <section className="order-info-section">
+                <div className="order-info__shipping">
+                    <h4>Envío</h4>
+                    <p>
+                        <strong>Nombre:</strong> {order.shippingAddress.fullName}
+                        <br />
+                        <strong>Dirección: </strong> {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode}
+                    </p>
+                    {
+                        order.isDelivered ? (
+                            <div className="order-action-check">
+                                <span>Entregado el {order.deliveredAt.substring(0,10)}</span>
                             </div>
-                            <div>
-                                <span>{item.quantity}</span>
+                        ) : (
+                            <div className="order-action-no-check">
+                                <span>No entregado</span>
                             </div>
-                            <div>${item.price}</div>
-                       </li> 
-                    )
-                }
-            </ul>
-        </div>
-        <div>
-            <h2>Order Summary</h2>
-            <div>
-                <span>Items:</span>
-                <span>${order.itemsPrice.toFixed(2)}</span>
-            </div>
-            <div>
-                <span>Shipping:</span>
-                <span>${order.shippingPrice.toFixed(2)}</span>
-            </div>
-            <div>
-                <span>Tax:</span>
-                <span>${order.taxPrice.toFixed(2)}</span>
-            </div>
-            <div>
-                <div>
-                    <strong>Order Total:</strong>
+                        )
+                    }
                 </div>
-                <div>
-                    <strong>${order.totalPrice.toFixed(2)}</strong>
+                <div className="order-info__payment">
+                    <h4>Pago</h4>
+                    <p>
+                        <strong>Método:</strong> {order.paymentMethod}
+                    </p>
+                    {
+                        order.isPaid ? (
+                            <div className="order-action-check">
+                                <span>Pagado el {order.paidAt.substring(0,10)}</span>
+                            </div>
+                        ) : (
+                            <div className="order-action-no-check">
+                                <span>No pagado</span>
+                            </div>
+                        )
+                    }
                 </div>
-            </div>
-            <div>
-                {!order.isPaid && (
-                    <>
-                    {isPending ? <LoadingSpinner /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
-                      <div>
-                        <PayPalButtons {...paypalButtonTransactionProps}></PayPalButtons>
-                        <button onClick={testPayHandler}>Test Pay</button>{/* Is only for development state. Remove in deploy */}
-                      </div>
+                <div className="order-info__product">
+                    <h4>Productos</h4>
+                    <ul>
+                        {
+                            order.orderItems.map((item) => (
+                                <li key={item._id}>
+                                    <div>
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="order-info__product-image"
+                                        />
+                                        <span>{item.name}</span>
+                                    </div>
+                                    <div>
+                                        <span className="order-info__product-quantity">{item.quantity}</span>
+                                    </div>
+                                    <strong className="order-info__product-price">${item.price}</strong>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </section>
+            <section className="order-summary-section">
+                <h5>Resumen del pedido</h5>
+                <ul className="items-row">
+                    <li>Productos</li>
+                    <li>${order.itemsPrice.toFixed(2)}</li>
+                </ul>
+                <ul className="shipping-row">
+                    <li>Envío</li>
+                    <li>${order.shippingPrice.toFixed(2)}</li>
+                </ul>
+                <ul className="tax-row">
+                    <li>Tax</li>
+                    <li>${order.taxPrice.toFixed(2)}</li>
+                </ul>
+                <ul className="order-total-row">
+                    <li>
+                        <strong>Total del pedido</strong>
+                    </li>
+                    <li>
+                        <strong>${order.totalPrice.toFixed(2)}</strong>
+                    </li>
+                </ul>
+                <div>
+                    {!order.isPaid && (
+                        <>
+                        {isPending ? <LoadingSpinner type='flex' /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
+                          <div>
+                            <PayPalButtons {...paypalButtonTransactionProps}></PayPalButtons>
+                            <button onClick={testPayHandler}>Test Pay</button>
+                          </div>
+                        )}
+                        {LoadingPay && <LoadingSpinner type='flex' />}
+                        </>
                     )}
-                    {LoadingPay && <LoadingSpinner />}
-                    </>
-                )}
-            </div>
-        </div>
-    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+    <Footer />
+    </>
   )
 }
 

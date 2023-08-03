@@ -4,7 +4,7 @@ import { ApiError } from "@/models";
 import { getError } from "@/utilities";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import '../../styles/OrderHistoryPage.scss';
+import '../../styles/layouts/OrderHistoryPage/OrderHistoryPage.scss';
 
 const OrderHistoryPage = () => {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const OrderHistoryPage = () => {
                 <section>
                     <h1>Order History</h1>
                     {
-                        isLoading ? <LoadingSpinner /> : error ? <h2>{getError(error as ApiError)}</h2> : (
+                        isLoading ? <LoadingSpinner type='noflex' /> : error ? <h2>{getError(error as ApiError)}</h2> : (
                             <table>
                                 <thead>
                                     <tr>

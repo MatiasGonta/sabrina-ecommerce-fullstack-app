@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import { useGetProfileDetails } from "@/hooks";
 
 interface NavbarInterface {}
 
@@ -29,11 +29,14 @@ const Navbar: React.FC<NavbarInterface> = () => {
         };
     }, []);
 
-    const handleOnSubmit = (e: React.FormEvent) => e.preventDefault();
-
     const { userInfo, userSignout, cart, favorites } = useContext(ThemeContext);
     const cartItemsLength: number = cart.cartItems.reduce((a, c) => a + c.quantity, 0);
-  
+
+    const userId = userInfo?._id || '';
+    const userToken = userInfo?.token || '';
+
+    const { profileDetails } = useGetProfileDetails(userToken, userId);
+
     const signoutHandler = () => {
         userSignout();
         localStorage.removeItem('userInfo');
@@ -49,21 +52,15 @@ const Navbar: React.FC<NavbarInterface> = () => {
             <Link to="/">
                 <img src="/src/assets/fym-icon.png" alt="fym-icon" />
             </Link>
-            <form className="nav-search-box" onSubmit={handleOnSubmit}>
-                <input type="text" placeholder="BUSCAR" />
-                <button type="submit" >
-                    <SearchOutlinedIcon sx={{ fontSize: 20 }} />
-                </button>
-            </form>
             <div className="nav-actions">
-                <div className="icons-container">
-                    <Link className="dropdown-item" to="/">
+                <div className="nav-actions__navigate">
+                    <Link to="/">
                         <span>Inicio</span>
                     </Link>
-                    <Link className="dropdown-item" to="/products">
+                    <Link to="/products">
                         <span>Productos</span>
                     </Link>
-                    <Link className="dropdown-item" to="/orderhistory">
+                    <Link to="/orderhistory">
                         <span>Compras</span>
                     </Link>
                     <Link to="/favorites">
@@ -78,10 +75,10 @@ const Navbar: React.FC<NavbarInterface> = () => {
                     </Link>
                 </div>
                 {
-                    userInfo ? (
-                        <div className="account-container" ref={menuRef}>
+                    profileDetails ? (
+                        <div className="nav-actions__account" ref={menuRef}>
                             <div onClick={() => setOpen(!open)}>
-                                <span id="account-name">{userInfo.name}</span>
+                                <span id="account-name">{profileDetails.name}</span>
                                 <button id="account-icon">
                                     <AccountCircleIcon sx={{ fontSize: 35 }} />
                                 </button>
@@ -91,17 +88,20 @@ const Navbar: React.FC<NavbarInterface> = () => {
                                 open && (
                                     <div className="account-menu">
                                         <ul>
+                                            <li>
+                                                <span>{profileDetails.name}</span>
+                                            </li>
                                             {
-                                                userInfo.isAdmin && (
-                                                    <li>
-                                                        <Link to="/" className="dropdown-item">
+                                                profileDetails.isAdmin && (
+                                                    <li className="account-menu__option">
+                                                        <Link to="/dashboard" className="dropdown-item">
                                                             <LeaderboardIcon />
                                                             <span>Dashboard</span>
                                                         </Link>
                                                     </li>
                                                 )
                                             }
-                                            <li>
+                                            <li className="account-menu__option">
                                                 <Link to="#signout" className="dropdown-item" onClick={signoutHandler}>
                                                     <LogoutIcon />
                                                     <span>Sign Out</span>

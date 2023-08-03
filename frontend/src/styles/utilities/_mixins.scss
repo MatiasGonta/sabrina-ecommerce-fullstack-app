@@ -1,0 +1,27 @@
+// In stock button
+@mixin in-stock-btn ($width) {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-color: #26b16d;
+    width: $width;
+    height: 40px;
+    margin: 0 auto;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #23c476;
+    }
+}
+
+// Out stock button
+@mixin out-stock-btn ($width) {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-color: #b8b8b8;
+    width: $width;
+    height: 40px;
+    margin: 0 auto;
+}

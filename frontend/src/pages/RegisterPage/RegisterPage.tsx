@@ -1,3 +1,5 @@
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { ThemeContext } from "@/context";
 import { useSignupMutation } from "@/hooks";
 import { ApiError } from "@/models";
@@ -6,6 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { LoadingSpinner } from "@/components";
+import '@/styles/components/_Form.scss';
 
 interface RegisterPageInterface {}
 
@@ -19,6 +23,8 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const { userInfo, userSignin } = useContext(ThemeContext);
 
@@ -46,59 +52,93 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
         if (userInfo) {
           navigate(redirect);
         }
-      }, [navigate, redirect, userInfo]);
+    }, [navigate, redirect, userInfo]);
+
   return (
-    <div className="small-container">
-        <Helmet>
-            <title>Sign In</title>
-        </Helmet>
-        <h1>Sign In</h1>
-        <form onSubmit={submitHandler}>
-            <div>
-                <label htmlFor="name">Name :</label>
-                <input
-                    type="text"
-                    name="name"
-                    required
-                    onChange={(e)=> setName(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="email">Email :</label>
-                <input
-                    type="email"
-                    name="email"
-                    required
-                    onChange={(e)=> setEmail(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password :</label>
-                <input
-                    type="password"
-                    name="password"
-                    required
-                    onChange={(e)=> setPassword(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="confirm-password">Confirm Password :</label>
-                <input
-                    type="password"
-                    name="confirm-password"
-                    required
-                    onChange={(e)=> setConfirmPassword(e.target.value)}
-                />
-            </div>
-            <div>
-                <button type="submit">Sign Up</button>
-            </div>
-            <div>
-                Already have any account?{' '}
-                <Link to={`/signin?redirect=${redirect}`}>Sign-in</Link>
-            </div>
-        </form>
-    </div>
+    <main>
+        <article className="form-container">
+            <section>
+                <Helmet>
+                    <title>Crear Cuenta - F y M Indumentaria</title>
+                </Helmet>
+                <h1>Crear Cuenta</h1>
+                <form onSubmit={submitHandler}>
+                    <div className="group">
+                        <input
+                            type="name"
+                            name="name"
+                            value={name}
+                            required
+                            onChange={(e)=> setName(e.target.value)}
+                        />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label htmlFor="name">Name</label>
+                    </div>
+                    <div className="group">
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            required
+                            onChange={(e)=> setEmail(e.target.value)}
+                        />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label htmlFor="email">Email</label>
+                    </div>
+                    <div className="group">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            value={password}
+                            required
+                            onChange={(e)=> setPassword(e.target.value)}
+                        />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)}>
+                            {
+                                showPassword
+                                ? <VisibilityIcon sx={{ fontSize: 25 }} />
+                                : <VisibilityOffIcon sx={{ fontSize: 25 }} />
+                            }
+                        </button>
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label htmlFor="password">Contraseña</label>
+                    </div>
+                    <div className="group">      
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="confirm-password"
+                            value={confirmPassword}
+                            required
+                            onChange={(e)=> setConfirmPassword(e.target.value)}
+                        />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)}>
+                                {
+                                    showPassword
+                                    ? <VisibilityIcon sx={{ fontSize: 25 }} />
+                                    : <VisibilityOffIcon sx={{ fontSize: 25 }} />
+                                }
+                        </button>
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label htmlFor="confirm-password">Confirmar Contraseña</label>
+                    </div>
+                    <div className="from-submit">
+                        <button type="submit">Crear Cuenta</button>
+                        {
+                            isLoading && <LoadingSpinner type='flex' />
+                        }
+                        <div>
+                            ¿Ya tenés una cuenta?{' '}
+                            <Link to={`/signin?redirect=${redirect}`}>Iniciá sesión</Link>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </article>
+    </main>
   )
 }
 

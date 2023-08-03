@@ -13,7 +13,7 @@ interface ThemeContextInterface {
   removeProductToFavorites: (inFavoriteProducts: Product) => void;
   addItemToCart: (item: CartItem) => void;
   removeItemToCart: (item: CartItem) => void;
-  cartClear: () => void;
+  clearCart: () => void;
   saveShippingAddress: (address: ShippingAddress) => void;
   savePaymentMethod: (payment: string) => void;
 }
@@ -58,7 +58,7 @@ export const ThemeContext = createContext<ThemeContextInterface>({
   removeProductToFavorites: () => {},
   addItemToCart: () => {},
   removeItemToCart: () => {},
-  cartClear: () => {},
+  clearCart: () => {},
   saveShippingAddress: () => {},
   savePaymentMethod: () => {}
 });
@@ -99,7 +99,7 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     setCart({ ...cart, cartItems });
   }
 
-  const cartClear = () => {
+  const clearCart = () => {
     const newCart = { ...cart };
     newCart.cartItems = [];
     setCart(newCart);
@@ -147,7 +147,7 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     removeProductToFavorites,
     addItemToCart,
     removeItemToCart,
-    cartClear,
+    clearCart,
     saveShippingAddress,
     savePaymentMethod
   };

@@ -11,7 +11,7 @@ export const sampleProducts: ProductItem[] = [
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
         description: 'high quality shirt',
-        sizes: ['XS','S','M ']
+        sizes: ['XS','S','M']
     },
     {
         name: 'Lacoste Pant',
@@ -191,7 +191,7 @@ export const sampleProducts: ProductItem[] = [
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
         description: 'high quality shirt',
-        sizes: ['XS','S','M ']
+        sizes: ['XS','S','M']
     },
     {
         name: 'Lacoste Pant',
@@ -371,7 +371,7 @@ export const sampleProducts: ProductItem[] = [
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
         description: 'high quality shirt',
-        sizes: ['XS','S','M ']
+        sizes: ['XS','S','M']
     },
     {
         name: 'Lacoste Pant',
@@ -551,7 +551,7 @@ export const sampleProducts: ProductItem[] = [
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
         description: 'high quality shirt',
-        sizes: ['XS','S','M ']
+        sizes: ['XS','S','M']
     },
     {
         name: 'Lacoste Pant',

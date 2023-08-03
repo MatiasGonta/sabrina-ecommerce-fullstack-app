@@ -45,3 +45,18 @@ export const signup = asyncHandler(
         );
     }
 );
+
+export const getProfileDetails = asyncHandler(
+    async (req: Request, res: Response) => {
+        const { _id } = req.query;
+
+        const user = await UserModel.findOne({ _id });
+        
+        if (user) {
+            res.json(user);
+            return;
+        }
+
+        res.status(401).json({ message: 'User not found' });
+    }
+);

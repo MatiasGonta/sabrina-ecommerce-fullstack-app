@@ -1,3 +1,5 @@
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { LoadingSpinner } from "@/components";
 import { ThemeContext } from "@/context";
 import { useSigninMutation } from "@/hooks";
@@ -7,6 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import '@/styles/components/_Form.scss';
 
 interface LoginPageInterface {}
 
@@ -18,6 +21,7 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const { userInfo, userSignin } = useContext(ThemeContext);
 
@@ -43,48 +47,65 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
     
 
     return (
-        <div className="small-container">
-            <Helmet>
-                <title>Sign In</title>
-            </Helmet>
-            <h1>Sign In</h1>
-            <form onSubmit={submitHandler}>
-                <div>
-                    <label htmlFor="email">Email :</label>
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        onChange={(e)=> setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password :</label>
-                    <input
-                        type="password"
-                        name="password"
-                        required
-                        onChange={(e)=> setPassword(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <button
-                        type="submit"
-                        disabled={isLoading}
-                    >
-                        Sign In
-                    </button>
-                    {
-                        isLoading && <LoadingSpinner />
-                    }
-                </div>
-                <div>
-                    New customer?{' '}
-                    <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
-                </div>
-            </form>
-        </div>
-  )
+        <main>
+            <article className="form-container">
+                <section>
+                    <Helmet>
+                        <title>Iniciar Sesión - F y M Indumentaria</title>
+                    </Helmet>
+                    <h1>Iniciar Sesión</h1>
+                    <form onSubmit={submitHandler}>
+                        <div className="group">      
+                            <input
+                                type="email"
+                                name="email"
+                                value={email}
+                                required
+                                onChange={(e)=> setEmail(e.target.value)}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="email">Email</label>
+                        </div>
+                        <div className="group">      
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={password}
+                                required
+                                onChange={(e)=> setPassword(e.target.value)}
+                            />
+                            <button type="button" onClick={() => setShowPassword(!showPassword)}>
+                                {
+                                    showPassword
+                                    ? <VisibilityIcon sx={{ fontSize: 25 }} />
+                                    : <VisibilityOffIcon sx={{ fontSize: 25 }} />
+                                }
+                            </button>
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="password">Contraseña</label>
+                        </div>
+                        <div className="from-submit">
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                            >
+                                Iniciar sesión
+                            </button>
+                            {
+                                isLoading && <LoadingSpinner type='flex' />
+                            }
+                            <div>
+                                <span>¿No tenés cuenta?</span>{' '}
+                                <Link to={`/signup?redirect=${redirect}`}>Crear cuenta</Link>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </article>
+        </main>
+    )
 }
 
 export default LoginPage

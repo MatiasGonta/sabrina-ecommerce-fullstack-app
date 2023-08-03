@@ -9,7 +9,7 @@ import { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import '@/styles/ProductPage.scss';
+import '@/styles/layouts/ProductPage/ProductPage.scss';
 
 interface ProductPageInterface {}
 
@@ -17,7 +17,8 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   const params = useParams();
   const { slug } = params;
 
-  const { data: product, refetch, isLoading, error } = useGetProductDetailsBySlugQuery(slug!);
+  const { data: product, isLoading, error } = useGetProductDetailsBySlugQuery(slug!);
+
   const { favorites, addProductToFavorites, removeProductToFavorites, cart, addItemToCart } = useContext(ThemeContext);
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
       addItemToCart({ ...convertProductToCartItem(product!, selectedSize, selectedColor), quantity });
       toast.success('Producto añadido al carrito');
       navigate('/cart');
+      return;
     }
     toast.warn('Debes seleccionar un color y talle');
     return;
@@ -50,7 +52,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   const existFavorite: Product | undefined = favorites.find((x) => x._id === product?._id);
 
   return isLoading ? (
-      <LoadingSpinner />
+      <LoadingSpinner type='noflex' />
     ) : error ? (
       <h4>{getError(error as ApiError)}</h4>
     ) : !product ? (
@@ -62,10 +64,10 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
         </Helmet>
         <Navbar />
         <div className='sub-navbar'>
-          <h2 className="navigation-path"><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link> / {product.name}</h2>
+          <h2><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link> / {product.name}</h2>
         </div>
         <main className="product-page-main">
-          <article>
+          <article className='product'>
             <section className="product-images">
               <div className="second-images">
                 <ul>
@@ -83,7 +85,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
               </div>
             </section>
             <section className="product-details">
-              <div className="product-details-title">
+              <div className="product-details__title">
                 <h1>{product.name}</h1>
                 <span>${product.price}</span>
                 {
@@ -93,8 +95,8 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                 }
               </div>
               <div className="separator"></div>
-              <div className="product-details-options">
-                <div className="colors-box">
+              <div className="product-details__options">
+                <div className="product-details__options-colors">
                   <h4>Color: <span>{selectedColor}</span></h4>
                   <ul>
                     {
@@ -106,7 +108,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     }
                   </ul>
                 </div>
-                <div className="sizes-box">
+                <div className="product-details__options-sizes">
                   <h4>Talle: <span>{selectedSize}</span></h4>
                   <ul>
                     {
@@ -118,16 +120,14 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     }
                   </ul>
                 </div>
-                <div className="status-box">
+                <div className="sproduct-details__options-status">
                   <h4>Estado: <span>{product.countInStock > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
                 </div>
-                <div>
-                  {
-                    product.countInStock === 0
-                      ? <button className="out-stock-btn">SIN STOCK</button>
-                      : <button className="add-to-cart-btn" onClick={() => addToCartHandler()}>AÑADIR AL CARRITO</button>
-                  }
-                </div>
+                {
+                  product.countInStock === 0
+                    ? <button className="out-stock-btn">SIN STOCK</button>
+                    : <button className="add-to-cart-btn" onClick={() => addToCartHandler()}>AÑADIR AL CARRITO</button>
+                }
               </div>
             </section>
           </article>

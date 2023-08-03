@@ -9,7 +9,7 @@ export const useGetProductsQuery = (filters: FiltersInterface) => {
     };
 
     const result = useInfiniteQuery({
-        queryKey: ['products'], // Update this to match the backend pagination key
+        queryKey: ['products'],
         queryFn: fetchProducts,
         getNextPageParam: (lastPage) => {
             if (lastPage.page === lastPage.totalPages) return false;
@@ -18,18 +18,28 @@ export const useGetProductsQuery = (filters: FiltersInterface) => {
     });
 
     const products: Product[] = result.data?.pages.reduce((prevProducts, page) => prevProducts.concat(page.docs), []) || [];
+    const totalProducts: number = result.data?.pages[0].totalDocs;
+    const hasNextPage: boolean = result.hasNextPage ? result.hasNextPage : false;
 
-    return { ...result, products };
+    return { ...result, hasNextPage, products, totalProducts };
 };
 
-export const useGetFilterCountsQuery = () => 
-    useQuery({
+export const useGetFilterCountsQuery = () => {
+    const result = useQuery({
         queryKey: ['filterCounts'],
         queryFn: async () => (await apiClient.get(`api/products/filter-counts`)).data
     });
 
+    const categories = result.data?.categories;
+    const colors = result.data?.colors;
+    const sizes = result.data?.sizes;
+    const priceRanges = result.data?.priceRanges;
+
+    return { ...result, categories, colors, sizes, priceRanges };
+}
+
 export const useGetProductDetailsBySlugQuery = (slug: string) => 
-     useQuery({
+    useQuery({
         queryKey: ['products', slug],
         queryFn: async () => (await apiClient.get<Product>(`api/products/slug/${slug}`)).data,
     });

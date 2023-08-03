@@ -1,5 +1,9 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Footer, LoadingSpinner, Navbar, ProductItem } from "@/components";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { Footer, LoadingSpinner, Navbar } from "@/components";
+import { ProductItem } from "./components";
 import { useGetFilterCountsQuery, useGetProductsQuery } from "@/hooks";
 import { ApiError, FiltersInterface, Product } from "@/models";
 import { getError, getLocalStorage, setLocalStorage } from "@/utilities";
@@ -7,9 +11,21 @@ import { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import '@/styles/Home.scss';
+import '@/styles/layouts/Home/Home.scss';
 
 interface HomeInterface {}
+
+interface FilterItem {
+  _id: string;
+  count: number;
+}
+
+interface PriceRangeItem extends FilterItem {
+  price: {
+    priceMin: string;
+    priceMax: string;
+  };
+}
 
 const emptyFilters: FiltersInterface = {
   category: "",
@@ -20,7 +36,8 @@ const emptyFilters: FiltersInterface = {
 }
 
 const Home: React.FC<HomeInterface> = () => {
-  const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>(getLocalStorage('filters') ? JSON.parse(getLocalStorage('filters')) : emptyFilters);
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>(getLocalStorage('filters') ? JSON.parse(getLocalStorage('filters')!) : emptyFilters);
 
   const handleFilterChange = (filterType: string, value: string) => {
 
@@ -34,9 +51,9 @@ const Home: React.FC<HomeInterface> = () => {
     setLocalStorage('filters', newSelectedFilters);
   };
 
-  const { products, data, isLoading, error, refetch, hasNextPage, fetchNextPage } = useGetProductsQuery(selectedFilters) as {
+  const { products, totalProducts, isLoading, error, refetch, hasNextPage, fetchNextPage } = useGetProductsQuery(selectedFilters) as {
     products: Product[],
-    data: any,
+    totalProducts: number,
     isLoading: boolean,
     error: any,
     refetch: any,
@@ -44,63 +61,88 @@ const Home: React.FC<HomeInterface> = () => {
     fetchNextPage: () => void
   };
 
-  const hasMore: boolean = hasNextPage ? hasNextPage : false;
-
-  const { data: filterCountsData, isLoading: filterCountsLoading, error: filterCountsError } = useGetFilterCountsQuery();
-  
-  const [showMoreSizes, setShowMoreSizes] = useState<boolean>(false);
+  const { categories, colors, sizes, priceRanges, isLoading: filterCountsLoading, error: filterCountsError } = useGetFilterCountsQuery();
 
   useEffect(() => {
     refetch(selectedFilters);
   }, [selectedFilters]);
 
   return (
-    isLoading || filterCountsLoading ? <LoadingSpinner /> : error ? <h4>{getError(error as ApiError)}</h4> : (
+    isLoading || filterCountsLoading
+    ? <LoadingSpinner type='noflex'/> : error || filterCountsError
+    ? <h4>{getError(error as ApiError)}</h4> : (
       <>
         <Navbar />
         <Helmet>
           <title>F y M Indumentaria</title>
         </Helmet>
         <div className='sub-navbar'>
-          <h2 className="navigation-path"><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link></h2>
-          <ul className="filters-container">
-            {selectedFilters.category && (
-              <li onClick={() => handleFilterChange("category", "")}>
-                {selectedFilters.category}
-              </li>
-            )}
-            {selectedFilters.size && (
-              <li onClick={() => handleFilterChange("size", "")}>
-                {selectedFilters.size}
-              </li>
-            )}
-            {selectedFilters.color && (
-              <li onClick={() => handleFilterChange("color", "")}>
-                <div style={{ backgroundColor: selectedFilters.color }}></div>
-              </li>
-            )}
-            {selectedFilters.priceMin && selectedFilters.priceMax && (
-              <li onClick={() => handleFilterChange("", "")}>{`$${selectedFilters.priceMin} - $${selectedFilters.priceMax}`}</li>
-            )}
-            {selectedFilters.priceMin && !selectedFilters.priceMax && (
-              <li onClick={() => handleFilterChange("priceMin", "")}>{`Desde $${selectedFilters.priceMin}`}</li>
-            )}
-            {!selectedFilters.priceMin && selectedFilters.priceMax && (
-              <li onClick={() => handleFilterChange("priceMax", "")}>{`Hasta $${selectedFilters.priceMax}`}</li>
-            )}
-          </ul>
+          <h2><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link></h2>
+          <form className="sub-navbar__search-box" onSubmit={(e: React.FormEvent) => e.preventDefault()}>
+            <input type="text" placeholder="BUSCAR" />
+            <button type="submit" >
+              <SearchOutlinedIcon sx={{ fontSize: 20 }} />
+            </button>
+          </form>
+          <div id="sb-button" onClick={() => setOpen(true)}>
+            <span>Filtrar</span>
+            <ArrowForwardIosIcon sx={{ fontSize: 24 }} />
+          </div>
         </div>
         <main className="home-main">
-          <article className="home-filters-container">
+          <article className={open ? "home__filters-container sb-active" : "home__filters-container"}>
             <section id="home-title-section">
-              <h2>Filtros</h2>
-              <span>{data?.pages[0].totalDocs} resultados</span>
+              <div onClick={() => setOpen(false)}>
+                <ArrowBackIosNewIcon sx={{ fontSize: 32.5 }} className='sb-backarrow-icon' />
+                <h2>Filtros</h2>
+              </div>
+              <span>{totalProducts} resultados</span>
+              <ul className="selected-filters-container">
+                {selectedFilters.category && (
+                  <li onClick={() => handleFilterChange("category", "")}>
+                    <HighlightOffIcon sx={{ fontSize: 15 }}/>
+                    <span>{selectedFilters.category}</span>
+                  </li>
+                )}
+                {selectedFilters.size && (
+                  <li onClick={() => handleFilterChange("size", "")}>
+                    <HighlightOffIcon sx={{ fontSize: 15 }}/>
+                    <span>{selectedFilters.size}</span>
+                  </li>
+                )}
+                {selectedFilters.color && (
+                  <li onClick={() => handleFilterChange("color", "")}>
+                    <HighlightOffIcon sx={{ fontSize: 15 }}/>
+                    <div id="color-selected">
+                      <div style={{ backgroundColor: selectedFilters.color }}></div>
+                    </div>
+                  </li>
+                )}
+                {selectedFilters.priceMin && selectedFilters.priceMax && (
+                  <li onClick={() => handleFilterChange("", "")}>
+                    <HighlightOffIcon sx={{ fontSize: 15 }}/>
+                    <span>{`$${selectedFilters.priceMin} - $${selectedFilters.priceMax}`}</span>
+                  </li>
+                )}
+                {selectedFilters.priceMin && !selectedFilters.priceMax && (
+                  <li onClick={() => handleFilterChange("priceMin", "")}>
+                    <HighlightOffIcon sx={{ fontSize: 15 }}/>
+                    <span>{`Desde $${selectedFilters.priceMin}`}</span>
+                  </li>
+                )}
+                {!selectedFilters.priceMin && selectedFilters.priceMax && (
+                  <li onClick={() => handleFilterChange("priceMax", "")}>
+                    <HighlightOffIcon sx={{ fontSize: 15 }}/>
+                    <span>{`Hasta $${selectedFilters.priceMax}`}</span>
+                  </li>
+                )}
+              </ul>
             </section>
             <section id="home-category-section">
               <h4>Categoría</h4>
               <ul>
                 {
-                  filterCountsData?.categories.map((category: any) => (
+                  categories.map((category: FilterItem) => (
                     <li key={category._id} onClick={() => handleFilterChange("category", category._id)}>
                       {`${category._id} (${category.count})`}
                     </li>
@@ -113,40 +155,20 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Talle</h4>
               <ul>
                 {
-                  filterCountsData?.sizes.map((size: any) => (
+                  sizes.map((size: FilterItem) => (
                     <li key={size._id} onClick={() => handleFilterChange("size", size._id)}>
                       {`${size._id} (${size.count})`}
                     </li>
                   ))
                 }
               </ul>
-              {
-                showMoreSizes ? (
-                    <>
-                      <ul>
-                        <li>16 años (23)</li>
-                        <li>XS (12)</li>
-                        <li>S (15)</li>
-                        <li>M (18)</li>
-                        <li>L (11)</li>
-                        <li>XL (12)</li>
-                        <li>2XL (8)</li>
-                        <li>3XL (3)</li>
-                        <li>4XL (6)</li>
-                      </ul>
-                      <span onClick={() => setShowMoreSizes(!showMoreSizes)}>Mostrar menos</span>
-                    </>
-                  ) : (
-                    <span onClick={() => setShowMoreSizes(!showMoreSizes)}>Mostrar más</span>
-                  )
-              }
             </section>
             <div className="home-separator"></div>
             <section id="home-color-section">
               <h4>Color</h4>
               <ul>
                 {
-                  filterCountsData?.colors.map((color: any) => (
+                  colors.map((color: FilterItem) => (
                     <li key={color._id} onClick={() => handleFilterChange("color", color._id)}>
                       <div style={{ backgroundColor: color._id }}></div>
                     </li>
@@ -159,12 +181,12 @@ const Home: React.FC<HomeInterface> = () => {
               <h4>Precio</h4>
               <ul>
                 {
-                  filterCountsData?.priceRanges.map((priceRange: any) => (
-                    <li key={priceRange.name} onClick={()=> {
+                  priceRanges.map((priceRange: PriceRangeItem) => (
+                    <li key={priceRange._id} onClick={()=> {
                       handleFilterChange("priceMin", priceRange.price.priceMin);
                       handleFilterChange("priceMax", priceRange.price.priceMax);
                     }}>
-                      {`${priceRange.name} (${priceRange.count})`}
+                      {`${priceRange._id} (${priceRange.count})`}
                     </li>
                   ))
                 }
@@ -173,29 +195,25 @@ const Home: React.FC<HomeInterface> = () => {
                 <input type="number" placeholder="Min" onChange={(e) => handleFilterChange("priceMin", e.target.value)} />
                 <span>-</span>
                 <input type="number" placeholder="Max" onChange={(e) => handleFilterChange("priceMax", e.target.value)} />
-                <button><ArrowForwardIosIcon sx={{ fontSize: 10 }} /></button>
               </div>
             </section>
           </article>
-          <article className="home-products-container">
+          <article className={open ? "home__products-container sb-active" : "home__products-container"}>
             <InfiniteScroll
               dataLength={products.length}
-              hasMore={hasMore}
+              hasMore={hasNextPage}
               next={()=> fetchNextPage()}
-              loader={<h4>Loading...</h4>}
+              loader={<LoadingSpinner type='flex'/>}
             >
               {
-                data?.pages[0].totalDocs !== 0 ? (
+                totalProducts !== 0
+                ? (
                   <ul>
                     {
-                      products.map((product: Product) => (
-                        <li key={product.slug}>
-                          <ProductItem product={product} />
-                        </li>
-                      ))
+                      products.map((product: Product) => <ProductItem product={product} />)
                     }
                   </ul>
-                ) : <h5>No hay productos</h5>
+                ) : <h5>No hay productos que cumplan con los requisitos</h5>
               }
             </InfiniteScroll>
           </article>

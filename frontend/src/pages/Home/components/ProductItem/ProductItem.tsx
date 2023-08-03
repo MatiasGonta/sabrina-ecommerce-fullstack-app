@@ -27,32 +27,32 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
   const existFavorite = favorites.find((x) => x._id === product._id);
 
   return (
-    <>
+    <li key={product.slug} className="product-item">
       {
         existFavorite
-        ? <FavoriteIcon className="favorite-icon" sx={{ fontSize: 25 }} onClick={() => removeProductToFavorites(product)} />
-        : <FavoriteBorderOutlinedIcon className="favorite-icon" sx={{ fontSize: 25 }} onClick={() => addProductToFavorites(product)} />
+        ? <FavoriteIcon className="product-item__favorite-icon" sx={{ fontSize: 25 }} onClick={() => removeProductToFavorites(product)} />
+        : <FavoriteBorderOutlinedIcon className="product-item__favorite-icon" sx={{ fontSize: 25 }} onClick={() => addProductToFavorites(product)} />
       }
       <Link to={`/product/${product.slug}`}>
         <img
           src={product.images[0]}
           alt={product.name}
-          className="product-image"
+          className="product-item__image"
         />
       </Link>
       <div>
-        <div className="product-colors">
+        <div className="product-item__colors">
           <span>{product.colors.length} colores</span>
         </div>
-        <a>{product.name}</a>
-        <span>${product.price}</span>
+        <a className="product-item__name">{product.name}</a>
+        <span className="product-item__price">${product.price}</span>
         {
-            product.countInStock === 0
-              ? <button className="out-stock-btn">SIN STOCK</button>
-              : <button className="add-to-cart-btn" onClick={() => addToCartHandler(convertProductToCartItem(product, product.colors[0], product.sizes[0]))}>AÑADIR AL CARRITO</button>
+          product.countInStock === 0
+            ? <button className="out-stock-btn">SIN STOCK</button>
+            : <button className="add-to-cart-btn" onClick={() => addToCartHandler(convertProductToCartItem(product, product.colors[0], product.sizes[0]))}>AÑADIR AL CARRITO</button>
         }
       </div>
-    </> 
+    </li> 
   )
 }
 

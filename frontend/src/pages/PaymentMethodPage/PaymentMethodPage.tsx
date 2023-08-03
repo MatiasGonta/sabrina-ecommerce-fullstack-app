@@ -4,7 +4,7 @@ import { setLocalStorage } from "@/utilities";
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import '../../styles/PaymentMethodPage.scss';
+import '@/styles/layouts/PaymentMethodPage/PaymentMethodPage.scss';
 
 interface PaymentMethodPageInterface {}
 

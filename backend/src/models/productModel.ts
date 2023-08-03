@@ -1,7 +1,6 @@
 import { model, Schema, Document, PaginateModel } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-// Interfaz que define las propiedades del modelo
 export interface ProductItem {
   name: string;
   slug: string;
@@ -15,7 +14,6 @@ export interface ProductItem {
   sizes: string[];
 }
 
-// Define el esquema de Mongoose para el modelo
 const productSchema = new Schema<ProductItem>({
   name: {
     type: String,

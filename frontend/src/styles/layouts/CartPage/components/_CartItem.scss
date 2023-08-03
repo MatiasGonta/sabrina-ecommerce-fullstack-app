@@ -1,0 +1,119 @@
+@use '../../../utilities/variables' as V;
+
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: fit-content;
+    margin: 5px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid V.$color-primary-light;
+
+    .cart-item__info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        img {
+            width: 125px;
+            height: 100%;
+        }
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            min-width: 275px;
+            margin-left: 10px;
+
+            a {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                max-width: 120px;
+                margin-top: 25px;
+                position: relative;
+
+                span {
+                    color: V.$color-tertiary;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .cart-item__quantity {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 125px;
+            border: 1px solid V.$color-primary-light;
+            border-radius: 5px;
+
+            span {
+                font-size: 20px;
+            }
+
+            .plus-button, .minor-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+
+                * {
+                    color: V.$color-tertiary;
+                }
+
+                &.disable {
+                    * {
+                        color: V.$color-primary-light;
+                        cursor: default;
+                    }
+                }
+            }
+        }
+
+        #item-stock {
+            width: fit-content;
+            margin-top: 10px;
+            font-size: 15px;
+        }
+    }
+
+    .cart-item__price {
+        font-size: 25px;
+        min-width: 120px;
+        text-align: right;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .cart-item {
+        min-width: 370px;
+        flex-wrap: wrap;
+    
+        .cart-item__info {
+            width: 100%;
+            justify-content: flex-start;
+
+            & > div {
+                min-width: 225px;
+            }
+        }
+    }
+}

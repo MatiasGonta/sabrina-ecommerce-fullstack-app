@@ -4,7 +4,7 @@ import { PayPalScriptProvider, ReactPayPalScriptOptions } from '@paypal/react-pa
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from "./context";
-import { LoadingSpinner, ProtectedRoute } from "./components";
+import { LoadingSpinner, ProtectedRoute, ProtectedAdminRoute } from "./components";
 import { lazy, Suspense } from "react";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -25,6 +25,7 @@ const PlaceOrderPage = lazy(() => import('./pages/PlaceOrderPage/PlaceOrderPage'
 const OrderPage = lazy(() => import('./pages/OrderPage/OrderPage'));
 const OrderHistoryPage = lazy(() => import('./pages/OrderHistoryPage/OrderHistoryPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,16 @@ const router = createBrowserRouter([
       {
         path: '/orderhistory',
         element: <OrderHistoryPage />
+      },
+      {
+        path: '',
+        element: <ProtectedAdminRoute />,
+        children: [
+          {
+            path: '/dashboard',
+            element: <Dashboard />
+          }
+        ]
       }
     ]
   }
@@ -92,7 +103,7 @@ const App: React.FC<AppInterface> = () => {
       <PayPalScriptProvider options={paypalOptions} deferLoading={true}>
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>
-            <Suspense fallback={<LoadingSpinner />}>
+            <Suspense fallback={<LoadingSpinner type='noflex' />}>
               <ToastContainer position="bottom-center" limit={3} />
               <RouterProvider router={router} />
               <ReactQueryDevtools initialIsOpen={false} />

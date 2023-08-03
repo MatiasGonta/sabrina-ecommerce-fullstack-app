@@ -1,15 +1,9 @@
-//Navbar
-@use './components/Navbar.scss';
-
-//Footer
-@use './components/Footer.scss';
-
-// OrderHistoryPage.scss
+@use '../../utilities/mixins' as M;
 
 .order-history-main {
-    width: 100%;
-    max-width: 1300px;
-    min-height: 650px;
+    // width: 100%;
+    // max-width: 1300px;
+    // min-height: 700px;
     overflow-x: auto;
 
     section {
@@ -40,19 +34,7 @@
                         border-bottom: 1px solid rgb(0, 0, 0, 0.1);
 
                         button {
-                            color: #fff;
-                            border: none;
-                            border-radius: 5px;
-                            background-color: #26b16d;
-                            width: 75px;
-                            height: 40px;
-                            margin: auto;
-                            cursor: pointer;
-                            transition: background-color 0.3s;
-        
-                            &:hover {
-                                background-color: #23c476;
-                            }
+                            @include M.in-stock-btn(75px);
                         }
                     }
                 }

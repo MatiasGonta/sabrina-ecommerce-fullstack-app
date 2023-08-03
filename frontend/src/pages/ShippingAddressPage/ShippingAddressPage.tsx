@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
 import { CheckoutSteps, Footer, Navbar } from "@/components";
 import { setLocalStorage } from "@/utilities";
-import '../../styles/ShippingAddressPage.scss';
+import '@/styles/layouts/ShippingAddressPage/ShippingAddressPage.scss';
 
 interface ShippingAddressPageInterface {}
 
@@ -52,7 +52,7 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
             <article>
                 <CheckoutSteps step1 step2 />
             </article>
-            <article>
+            <article className="form-container">
                 <section>
                     <h1>Dirección de envío</h1>
                     <form onSubmit={submitHandler}>
@@ -104,7 +104,7 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
                             <span className="bar"></span>
                             <label htmlFor="postal-code">Código Postal</label>
                         </div>
-                        <div>
+                        <div className="from-submit">
                             <button type="submit">Continuar</button>
                         </div>
                     </form>

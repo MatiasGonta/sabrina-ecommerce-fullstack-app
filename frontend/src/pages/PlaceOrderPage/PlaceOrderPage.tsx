@@ -7,7 +7,7 @@ import { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import '../../styles/PlaceOrderPage.scss';
+import '@/styles/layouts/PlaceOrderPage/PlaceOrderPage.scss';
 
 interface PlaceOrderPageInterface {}
 
@@ -60,12 +60,12 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
             <article>
                 <CheckoutSteps step1 step2 step3 step4 />
             </article>
-            <article>
-                <section id="order-title-section">
+            <article className="order">
+                <section className="order-title-section">
                     <h1>Vista previa del pedido</h1>
                 </section>
-                <section id="order-info-section">
-                    <div className="order-shipping-box">
+                <section className="order-info-section">
+                    <div className="order-info__shipping">
                         <h4>Envío</h4>
                         <p>
                             <strong>Nombre:</strong> {cart.shippingAddress.fullName}
@@ -74,14 +74,14 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                         </p>
                         <Link to="/shipping">Editar</Link>
                     </div>
-                    <div className="order-payment-box">
+                    <div className="order-info__payment">
                         <h4>Pago</h4>
                         <p>
                             <strong>Método:</strong> {cart.paymentMethod}
                         </p>
                         <Link to="/payment">Editar</Link>
                     </div>
-                    <div className="order-product-box">
+                    <div className="order-info__product">
                         <h4>Productos</h4>
                         <ul>
                             {
@@ -91,14 +91,14 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                                             <img
                                                 src={item.image}
                                                 alt={item.name}
-                                                className="img-fluid rounded thumbnail"
+                                                className="order-info__product-image"
                                             />
-                                            <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                                            <span>{item.name}</span>
                                         </div>
                                         <div>
-                                            <span>{item.quantity}</span>
+                                            <span className="order-info__product-quantity">{item.quantity}</span>
                                         </div>
-                                        <strong>${item.price}</strong>
+                                        <strong className="order-info__product-price">${item.price}</strong>
                                     </li>
                                 ))
                             }
@@ -106,7 +106,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                         <Link to="/cart">Editar</Link>
                     </div>
                 </section>
-                <section id="order-summary-section">
+                <section className="order-summary-section">
                     <h5>Resumen del pedido</h5>
                     <ul className="items-row">
                         <li>Productos</li>
@@ -135,7 +135,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                     >
                         Realizar pedido
                     </button>
-                    {isLoading && <LoadingSpinner />}
+                    {isLoading && <LoadingSpinner type='flex' />}
                 </section>
             </article>
         </main>

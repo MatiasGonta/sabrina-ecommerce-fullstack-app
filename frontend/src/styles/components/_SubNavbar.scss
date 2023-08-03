@@ -1,0 +1,15 @@
+.sub-navbar {
+    width: 100%;
+    max-width: 1300px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1300px) {
+    .sub-navbar {
+        width: 85%;
+    }
+}
