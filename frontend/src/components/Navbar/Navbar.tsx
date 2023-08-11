@@ -75,10 +75,10 @@ const Navbar: React.FC<NavbarInterface> = () => {
                     </Link>
                 </div>
                 {
-                    profileDetails ? (
+                    userInfo ? (
                         <div className="nav-actions__account" ref={menuRef}>
                             <div onClick={() => setOpen(!open)}>
-                                <span id="account-name">{profileDetails.name}</span>
+                                <span id="account-name">{userInfo.name}</span>
                                 <button id="account-icon">
                                     <AccountCircleIcon sx={{ fontSize: 35 }} />
                                 </button>
@@ -89,7 +89,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
                                     <div className="account-menu">
                                         <ul>
                                             <li>
-                                                <span>{profileDetails.name}</span>
+                                                <span>{userInfo.name}</span>
                                             </li>
                                             {
                                                 profileDetails.isAdmin && (

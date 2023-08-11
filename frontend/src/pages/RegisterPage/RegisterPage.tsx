@@ -68,6 +68,9 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
                             type="name"
                             name="name"
                             value={name}
+                            pattern=".{4,25}"
+                            title="El nombre debe tener entre 4 y 25 caracteres"
+                            className={name !== '' ? 'active' : ''}
                             required
                             onChange={(e)=> setName(e.target.value)}
                         />
@@ -80,6 +83,7 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
                             type="email"
                             name="email"
                             value={email}
+                            className={email !== '' ? 'active' : ''}
                             required
                             onChange={(e)=> setEmail(e.target.value)}
                         />

@@ -51,6 +51,7 @@
           }
                     
           /* active state */
+          input.active ~ label,
           input:focus ~ label,
           input:valid ~ label {
             top: -20px;

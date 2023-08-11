@@ -105,7 +105,7 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
     } else {
       // If it does not exist, add a new item to the cart
       const updatedCartItems = [...cart.cartItems, newItem];
-      setCart({ ...cart, cartItems: updatedCartItems });
+      setCart({ ...cart, cartItems: updatedCartItems });a
       setLocalStorage('cartItems', updatedCartItems);
     }
   };
