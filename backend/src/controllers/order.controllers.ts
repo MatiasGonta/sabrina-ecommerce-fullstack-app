@@ -1,4 +1,4 @@
-import { Order, OrderModel, ProductItem } from "../models";
+import { Order, OrderModel, ProductItem, ProductModel } from "../models";
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 
@@ -7,7 +7,7 @@ export const getOrders = asyncHandler(async (req: Request, res: Response) => {
     res.json(orders);
   });
   
-  export const getOrderById = asyncHandler(
+export const getOrderById = asyncHandler(
     async (req: Request, res: Response) => {
       const order = await OrderModel.findById(req.params.id);
       if (order) {
@@ -18,7 +18,7 @@ export const getOrders = asyncHandler(async (req: Request, res: Response) => {
     }
   );
   
-  export const createOrder = asyncHandler(async (req: Request, res: Response) => {
+export const createOrder = asyncHandler(async (req: Request, res: Response) => {
     if (req.body.orderItems.length === 0) {
       res.status(400).json({ message: 'Cart is empty' });
     } else {
@@ -39,7 +39,7 @@ export const getOrders = asyncHandler(async (req: Request, res: Response) => {
     }
   });
   
-  export const updateOrderToPaid = asyncHandler(
+export const updateOrderToPaid = asyncHandler(
     async (req: Request, res: Response) => {
       const order = await OrderModel.findById(req.params.id);
   

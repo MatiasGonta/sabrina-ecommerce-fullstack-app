@@ -1,71 +1,111 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Footer, LoadingSpinner, Navbar } from "@/components";
-import { ProductItem } from "./components";
+import { Footer, LoadingSpinner, Navbar, ProductItem } from "@/components";
+import { ProductSearchBar } from "./components";
 import { useGetFilterCountsQuery, useGetProductsQuery } from "@/hooks";
-import { ApiError, FiltersInterface, Product } from "@/models";
-import { getError, getLocalStorage, setLocalStorage } from "@/utilities";
+import { ApiError, FiltersInterface, FilterItem, Product } from "@/models";
+import { getError, filterParamsUrlGenerator } from "@/utilities";
 import { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '@/styles/layouts/Home/Home.scss';
 
 interface HomeInterface {}
 
-interface FilterItem {
-  _id: string;
-  count: number;
-}
-
-interface PriceRangeItem extends FilterItem {
-  price: {
-    priceMin: string;
-    priceMax: string;
-  };
-}
-
-const emptyFilters: FiltersInterface = {
-  category: "",
-  size: "",
-  color: "",
-  priceMin: "",
-  priceMax: "",
-}
-
 const Home: React.FC<HomeInterface> = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>(getLocalStorage('filters') ? JSON.parse(getLocalStorage('filters')!) : emptyFilters);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-  const handleFilterChange = (filterType: string, value: string) => {
-
-    const newSelectedFilters = {
-      ...selectedFilters,
-      [filterType]: value,
-    }
-
-    setSelectedFilters(newSelectedFilters);
-
-    setLocalStorage('filters', newSelectedFilters);
+  const initialSelectedFilters: FiltersInterface = {
+    category: queryParams.getAll('category').flatMap(value => value.split('|')),
+    color: queryParams.getAll('color').flatMap(value => value.split('|')),
+    size: queryParams.getAll('size').flatMap(value => value.split('|')),
+    priceMin: queryParams.get('priceMin'),
+    priceMax: queryParams.get('priceMax'),
   };
-
-  const { products, totalProducts, isLoading, error, refetch, hasNextPage, fetchNextPage } = useGetProductsQuery(selectedFilters) as {
-    products: Product[],
-    totalProducts: number,
-    isLoading: boolean,
-    error: any,
-    refetch: any,
-    hasNextPage: boolean,
-    fetchNextPage: () => void
-  };
-
-  const { categories, colors, sizes, priceRanges, isLoading: filterCountsLoading, error: filterCountsError } = useGetFilterCountsQuery();
 
   useEffect(() => {
-    refetch(selectedFilters);
+    const handlePopstate = () => {
+      const queryParams = new URLSearchParams(location.search);
+      const updatedSelectedFilters: FiltersInterface = {
+        category: queryParams.getAll('category').flatMap(value => value.split('|')),
+        color: queryParams.getAll('color').flatMap(value => value.split('|')),
+        size: queryParams.getAll('size').flatMap(value => value.split('|')),
+        priceMin: queryParams.get('priceMin'),
+        priceMax: queryParams.get('priceMax'),
+      };
+      setSelectedFilters(updatedSelectedFilters);
+    };
+
+    window.addEventListener('popstate', handlePopstate);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+    };
+  }, []);
+
+  const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>(initialSelectedFilters);
+
+  // Filters sidebar status
+  const [open, setOpen] = useState<boolean>(false);
+
+  // Add and remove filter handlers
+  const handleAddFilter = (filterType: keyof FiltersInterface, value: string) => {
+    if (filterType === 'priceMin' || filterType === 'priceMax') {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        [filterType]: value,
+      }));
+    } else {
+      if (!selectedFilters[filterType]!.includes(value)) {
+        setSelectedFilters((prevFilters) => ({
+          ...prevFilters,
+          [filterType]: [...prevFilters[filterType]!, value],
+        }));
+      }
+    }
+  }
+
+  const handleRemoveFilter = (filterType: keyof FiltersInterface, filterIndex?: string) => {
+    if (filterType === 'priceMin' || filterType === 'priceMax' && !filterIndex) {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        [filterType]: null,
+      }));
+    } else {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        [filterType]: prevFilters[filterType]!.filter((item: string) => item !== filterIndex),
+      }));
+    }
+  }
+
+  // Price Ranges Filter
+  const [minPrice, setMinPrice] = useState<string>('');
+  const [maxPrice, setMaxPrice] = useState<string>('');
+
+  const handlePriceRangeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleAddFilter('priceMin', minPrice);
+    handleAddFilter('priceMax', maxPrice);
+  }
+
+  // Getting products
+  const { products, totalProducts, isLoading, error, refetch, hasNextPage, fetchNextPage } = useGetProductsQuery(selectedFilters);
+  console.log(products)
+
+  useEffect(() => {
+    const newQueryParams = filterParamsUrlGenerator(selectedFilters);
+
+    navigate(`/?${newQueryParams}`);
+    refetch();
   }, [selectedFilters]);
+
+  // Getting filters
+  const { categories, colors, sizes, isLoading: filterCountsLoading, error: filterCountsError } = useGetFilterCountsQuery();
 
   return (
     isLoading || filterCountsLoading
@@ -77,20 +117,15 @@ const Home: React.FC<HomeInterface> = () => {
           <title>F y M Indumentaria</title>
         </Helmet>
         <div className='sub-navbar'>
-          <h2><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link></h2>
-          <form className="sub-navbar__search-box" onSubmit={(e: React.FormEvent) => e.preventDefault()}>
-            <input type="text" placeholder="BUSCAR" />
-            <button type="submit" >
-              <SearchOutlinedIcon sx={{ fontSize: 20 }} />
-            </button>
-          </form>
+          <h2><Link to="/">Inicio</Link> / Productos</h2>
+          <ProductSearchBar />
           <div id="sb-button" onClick={() => setOpen(true)}>
             <span>Filtrar</span>
             <ArrowForwardIosIcon sx={{ fontSize: 24 }} />
           </div>
         </div>
         <main className="home-main">
-          <article className={open ? "home__filters-container sb-active" : "home__filters-container"}>
+          <article className={open ? "home__filters-container sb-open" : "home__filters-container"}>
             <section id="home-title-section">
               <div onClick={() => setOpen(false)}>
                 <ArrowBackIosNewIcon sx={{ fontSize: 32.5 }} className='sb-backarrow-icon' />
@@ -98,40 +133,43 @@ const Home: React.FC<HomeInterface> = () => {
               </div>
               <span>{totalProducts} resultados</span>
               <ul className="selected-filters-container">
-                {selectedFilters.category && (
-                  <li onClick={() => handleFilterChange("category", "")}>
+                {selectedFilters.category && selectedFilters.category.map((c)=> (
+                  <li key={c} onClick={() => handleRemoveFilter('category', c)}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
-                    <span>{selectedFilters.category}</span>
+                    <span>{c}</span>
                   </li>
-                )}
-                {selectedFilters.size && (
-                  <li onClick={() => handleFilterChange("size", "")}>
+                ))}
+                {selectedFilters.size && selectedFilters.size.map((s)=> (
+                  <li key={s} onClick={() => handleRemoveFilter('size', s)}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
-                    <span>{selectedFilters.size}</span>
+                    <span>{s}</span>
                   </li>
-                )}
-                {selectedFilters.color && (
-                  <li onClick={() => handleFilterChange("color", "")}>
+                ))}
+                {selectedFilters.color && selectedFilters.color.map((c)=> (
+                  <li key={c} onClick={() => handleRemoveFilter('color', c)}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
-                    <div id="color-selected">
-                      <div style={{ backgroundColor: selectedFilters.color }}></div>
+                    <div className="color-selected">
+                      <div style={{ backgroundColor: c }}></div>
                     </div>
                   </li>
-                )}
+                ))}
                 {selectedFilters.priceMin && selectedFilters.priceMax && (
-                  <li onClick={() => handleFilterChange("", "")}>
+                  <li key={`${selectedFilters.priceMin}-${selectedFilters.priceMax}`} onClick={() => {
+                    handleRemoveFilter('priceMin')
+                    handleRemoveFilter('priceMax')
+                  }}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
-                    <span>{`$${selectedFilters.priceMin} - $${selectedFilters.priceMax}`}</span>
+                    <span>{`Entre $${selectedFilters.priceMin} - $${selectedFilters.priceMax}`}</span>
                   </li>
                 )}
                 {selectedFilters.priceMin && !selectedFilters.priceMax && (
-                  <li onClick={() => handleFilterChange("priceMin", "")}>
+                  <li key={selectedFilters.priceMin} onClick={() => handleRemoveFilter('priceMin')}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
                     <span>{`Desde $${selectedFilters.priceMin}`}</span>
                   </li>
                 )}
                 {!selectedFilters.priceMin && selectedFilters.priceMax && (
-                  <li onClick={() => handleFilterChange("priceMax", "")}>
+                  <li key={selectedFilters.priceMax} onClick={() => handleRemoveFilter('priceMax')}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
                     <span>{`Hasta $${selectedFilters.priceMax}`}</span>
                   </li>
@@ -143,7 +181,7 @@ const Home: React.FC<HomeInterface> = () => {
               <ul>
                 {
                   categories.map((category: FilterItem) => (
-                    <li key={category._id} onClick={() => handleFilterChange("category", category._id)}>
+                    <li key={category._id} onClick={() => handleAddFilter('category', category._id)}>
                       {`${category._id} (${category.count})`}
                     </li>
                   ))
@@ -156,7 +194,7 @@ const Home: React.FC<HomeInterface> = () => {
               <ul>
                 {
                   sizes.map((size: FilterItem) => (
-                    <li key={size._id} onClick={() => handleFilterChange("size", size._id)}>
+                    <li key={size._id} onClick={() => handleAddFilter('size', size._id)}>
                       {`${size._id} (${size.count})`}
                     </li>
                   ))
@@ -169,7 +207,7 @@ const Home: React.FC<HomeInterface> = () => {
               <ul>
                 {
                   colors.map((color: FilterItem) => (
-                    <li key={color._id} onClick={() => handleFilterChange("color", color._id)}>
+                    <li key={color._id} onClick={() => handleAddFilter('color', color._id)}>
                       <div style={{ backgroundColor: color._id }}></div>
                     </li>
                   ))
@@ -179,26 +217,17 @@ const Home: React.FC<HomeInterface> = () => {
             <div className="home-separator"></div>
             <section id="home-price-section">
               <h4>Precio</h4>
-              <ul>
-                {
-                  priceRanges.map((priceRange: PriceRangeItem) => (
-                    <li key={priceRange._id} onClick={()=> {
-                      handleFilterChange("priceMin", priceRange.price.priceMin);
-                      handleFilterChange("priceMax", priceRange.price.priceMax);
-                    }}>
-                      {`${priceRange._id} (${priceRange.count})`}
-                    </li>
-                  ))
-                }
-              </ul>
-              <div>
-                <input type="number" placeholder="Min" onChange={(e) => handleFilterChange("priceMin", e.target.value)} />
+              <form onSubmit={(e) => handlePriceRangeSubmit(e)}>
+                <input type="number" placeholder="Mínimo" onChange={(e) => setMinPrice(e.target.value)} />
                 <span>-</span>
-                <input type="number" placeholder="Max" onChange={(e) => handleFilterChange("priceMax", e.target.value)} />
-              </div>
+                <input type="number" placeholder="Máximo" onChange={(e) => setMaxPrice(e.target.value)} />
+                <button type='submit'>
+                  <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
+                </button>
+              </form>
             </section>
           </article>
-          <article className={open ? "home__products-container sb-active" : "home__products-container"}>
+          <article className={open ? "home__products-container sb-open" : "home__products-container"}>
             <InfiniteScroll
               dataLength={products.length}
               hasMore={hasNextPage}
@@ -210,7 +239,7 @@ const Home: React.FC<HomeInterface> = () => {
                 ? (
                   <ul>
                     {
-                      products.map((product: Product) => <ProductItem product={product} />)
+                      products.map((product: Product) => <ProductItem key={product.slug} product={product} />)
                     }
                   </ul>
                 ) : <h5>No hay productos que cumplan con los requisitos</h5>

@@ -1,4 +1,4 @@
-import { CheckoutSteps, Footer, LoadingSpinner, Navbar } from "@/components";
+import { CheckoutSteps, Footer, LoadingSpinner, Navbar, OrderItem } from "@/components";
 import { ThemeContext } from "@/context";
 import { useCreateOrderMutation } from "@/hooks";
 import { ApiError } from "@/models";
@@ -85,22 +85,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                         <h4>Productos</h4>
                         <ul>
                             {
-                                cart.cartItems.map((item) => (
-                                    <li key={item._id}>
-                                        <div>
-                                            <img
-                                                src={item.image}
-                                                alt={item.name}
-                                                className="order-info__product-image"
-                                            />
-                                            <span>{item.name}</span>
-                                        </div>
-                                        <div>
-                                            <span className="order-info__product-quantity">{item.quantity}</span>
-                                        </div>
-                                        <strong className="order-info__product-price">${item.price}</strong>
-                                    </li>
-                                ))
+                                cart.cartItems.map((item) => <OrderItem key={item._id} item={item} />)
                             }
                         </ul>
                         <Link to="/cart">Editar</Link>
@@ -117,7 +102,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                         <li>${cart.shippingPrice.toFixed(2)}</li>
                     </ul>
                     <ul className="tax-row">
-                        <li>Tax</li>
+                        <li>Impuesto</li>
                         <li>${cart.taxPrice.toFixed(2)}</li>
                     </ul>
                     <ul className="order-total-row">

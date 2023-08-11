@@ -1,13 +1,13 @@
-@use '../../components/CheckoutSteps';
 @use '../../utilities/variables' as V;
 @use '../../utilities/mixins' as M;
 
+// CheckoutSteps
+@use '../../components/CheckoutSteps';
+
 .payment-main {
-//   width: 100%;
-//   max-width: 1300px;
-//   min-height: 650px;
 
     article:nth-child(2) {
+        
         section {
             width: 80%;
             max-width: 600px;

@@ -1,13 +1,13 @@
 @use '../../utilities/variables' as V;
 @use '../../utilities/mixins' as M;
 
+//SubNavbar
+@use '../../components/SubNavbar';
+
 // Carousel
 @use '../../components/ProductsCarousel';
 
 .product-page-main {
-    // width: 100%;
-    // max-width: 1300px;
-    margin-bottom: 100px;
 
     .product {
         display: flex;
@@ -103,7 +103,6 @@
             .separator {
                 width: 100%;
                 border: 1px solid V.$color-primary-light;
-                border-radius: 5px;
             }
 
             .product-details__options {
@@ -175,7 +174,7 @@
                     }
                 }
 
-                .sproduct-details__options-status {
+                .product-details__options-status {
                     margin: 25px 0;
 
                     h4 {
@@ -227,7 +226,7 @@
                         margin: 12.5px 0;
                     }
     
-                    .sproduct-details__options-status {
+                    .product-details__options-status {
                         margin: 12.5px 0;
                     }
                 }
@@ -320,7 +319,8 @@
                 .product-details__options {
 
                     .product-details__options-colors,
-                    .product-details__options-sizes {
+                    .product-details__options-sizes,
+                    .product-details__options-status {
                     
                         h4 {
                             font-size: 20px;

@@ -7,10 +7,25 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg','/src/assets/buzo-quiksilver-blue.jpg','/src/assets/lacoste-bluenight-pant.jpg'],
         price: 490,
-        countInStock: 5,
+        countInStockByVariant: {
+            'red-XS': 1,
+            'red-S': 1,
+            'red-M': 2,
+            'green-XS': 2,
+            'green-S': 0,
+            'green-M': 1,
+            'blue-XS': 0,
+            'blue-S': 0,
+            'blue-M': 2,
+            'gray-XS': 0,
+            'gray-S': 3,
+            'gray-M': 0,
+            'aquamarine-XS': 3,
+            'aquamarine-S': 2,
+            'aquamarine-M': 0,
+        },
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
-        description: 'high quality shirt',
         sizes: ['XS','S','M']
     },
     {
@@ -19,10 +34,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Lacoste',
         colors: ['darkblue','lightgray','darkgreen'],
-        description: 'high quality lacoste pant',
         sizes: ['S','M','L','XL']
     },
     {
@@ -31,10 +45,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-quiksilver-blue.jpg'],
         price: 900,
-        countInStock: 1,
+        countInStockByVariant: {
+            'blue-M': 1,
+            'blue-2XL': 3,
+            'burlywood-M': 0,
+            'burlywood-2XL': 4,
+            'lightcyan-M': 3,
+            'lightcyan-2XL': 5,
+            'green-M': 0,
+            'green-2XL': 1
+        },
         brand: 'Quiksilver',
         colors: ['blue','burlywood','lightcyan','green'],
-        description: 'high quality buzo',
         sizes: ['M','2XL']
     },
     {
@@ -43,10 +65,15 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
-        countInStock: 3,
+        countInStockByVariant: {
+            'red-16 años': 2,
+            'red-XS': 0,
+            'red-S': 0,
+            'red-M': 1,
+            'red-L': 0,
+        },
         brand: 'Adidas',
         colors: ['red'],
-        description: 'high quality red shirt',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -55,10 +82,31 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
-        countInStock: 10,
+        countInStockByVariant: {
+            'black-S': 1,
+            'black-M': 0,
+            'black-L': 0,
+            'darkgray-S': 0,
+            'darkgray-M': 3,
+            'darkgray-L': 0,
+            'darkblue-S': 0,
+            'darkblue-M': 1,
+            'darkblue-L': 0,
+            'saddlebrown-S': 1,
+            'saddlebrown-M': 5,
+            'saddlebrown-L': 2,
+            'paleturquoise-S': 0,
+            'paleturquoise-M': 0,
+            'paleturquoise-L': 1,
+            'forestgreen-S': 4,
+            'forestgreen-M': 0,
+            'forestgreen-L': 0,
+            'white-S': 0,
+            'white-M': 0,
+            'white-L': 0
+        }, 
         brand: 'Adidas',
         colors: ['black','darkgray','darkblue','saddlebrown','paleturquoise', 'forestgreen', 'white'],
-        description: 'high quality black shirt',
         sizes: ['S','M','L']
     },
     {
@@ -67,10 +115,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-new-balance-lightgray.jpg'],
         price: 7220,
-        countInStock: 0,
+        countInStockByVariant: {}, 
         brand: 'New Balance',
         colors: ['lightgray','red','green','orange'],
-        description: 'high quality campera',
         sizes: ['S','L','2XL','3XL']
     },
     {
@@ -79,10 +126,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-thrasher-flame-black.jpg'],
         price: 1000,
-        countInStock: 3,
+        countInStockByVariant: {
+            'black-S': 1,
+            'black-XS': 2,
+            'white-S': 1,
+            'white-XS': 0
+        },  
         brand: 'Thrasher',
         colors: ['black','white'],
-        description: 'high quality buzo',
         sizes: ['XS','S']
     },
     {
@@ -91,10 +142,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
-        countInStock: 6,
+        countInStockByVariant: {
+            'lime-XS': 4,
+            'lime-S': 2
+        },    
         brand: 'Nike',
         colors: ['lime'],
-        description: 'high quality shirt',
         sizes: ['XS','S']
     },
     {
@@ -103,10 +156,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
-        countInStock: 2,
+        countInStockByVariant: {
+            'darkgray-L': 4,
+            'seagreen-L': 1,
+            'darkgreen-L': 0,
+            'blue-L': 5,
+            'cyan-L': 3,
+            'sienna-L': 0,
+            'ghostwhite-L': 2,
+            'white-L': 1,
+        },
         brand: 'DC',
         colors: ['darkgray','seagreen','darkgreen','blue','cyan','sienna','ghostwhite','white'],
-        description: 'high quality shirt',
         sizes: ['L']
     },
     {
@@ -115,10 +176,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Drake',
         colors: ['green','lime'],
-        description: 'high quality pant',
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
@@ -127,10 +187,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 10680,
-        countInStock: 9,
+        countInStockByVariant: {
+            'pink-S': 3,
+            'pink-M': 3,
+            'palevioletred-S': 1,
+            'palevioletred-M': 2
+        },
         brand: 'Charge',
         colors: ['pink','palevioletred'],
-        description: 'high quality pant',
         sizes: ['S','M']
     },
     {
@@ -139,10 +203,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-reush-green.jpg'],
         price: 12340,
-        countInStock: 4,
+        countInStockByVariant: {
+            'green-M': 2,
+            'black-M': 3,
+            'orange-M': 1,
+            'cyan-M': 2
+        },
         brand: 'Reush',
         colors: ['green','black','orange','cyan'],
-        description: 'high quality campera',
         sizes: ['M']
     },
     {
@@ -151,10 +219,35 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-gray-black.jpg'],
         price: 1040,
-        countInStock: 2,
+        countInStockByVariant: {
+            'gray-16 años': 2,
+            'gray-XS': 1,
+            'gray-S': 0,
+            'gray-M': 5,
+            'gray-L': 2,
+            'black-16 años': 1,
+            'black-XS': 1,
+            'black-S': 0,
+            'black-M': 3,
+            'black-L': 5,
+            'lightgray-16 años': 1,
+            'lightgray-XS': 0,
+            'lightgray-S': 2,
+            'lightgray-M': 2,
+            'lightgray-L': 6,
+            'white-16 años': 2,
+            'white-XS': 1,
+            'white-S': 1,
+            'white-M': 2,
+            'white-L': 0,
+            'blue-16 años': 3,
+            'blue-XS': 2,
+            'blue-S': 3,
+            'blue-M': 1,
+            'blue-L': 0,
+        },
         brand: 'Puma',
         colors: ['gray','black','lightgray','white','blue'],
-        description: 'high quality buzo',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -163,10 +256,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-pink.jpg'],
         price: 375,
-        countInStock: 1,
+        countInStockByVariant: {
+            'pink-M': 0,
+            'pink-L': 1
+        },
         brand: 'Puma',
         colors: ['pink'],
-        description: 'high quality buzo',
         sizes: ['M','L']
     },
     {
@@ -175,10 +270,16 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
-        countInStock: 20,
+        countInStockByVariant: {
+            'limegreen-L': 2,
+            'limegreen-XL': 4,
+            'limegreen-2XL': 1,
+            'green-L': 5,
+            'green-XL': 1,
+            'green-2XL': 0
+        },
         brand: 'Adidas',
         colors: ['limegreen','green'],
-        description: 'high quality buzo',
         sizes: ['L','XL','2XL']
     },
     {
@@ -187,10 +288,25 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg'],
         price: 490,
-        countInStock: 5,
+        countInStockByVariant: {
+            'red-XS': 2,
+            'red-S': 4,
+            'red-M': 1,
+            'green-XS': 5,
+            'green-S': 1,
+            'green-M': 3,
+            'blue-XS': 2,
+            'blue-S': 0,
+            'blue-M': 5,
+            'gray-XS': 2,
+            'gray-S': 7,
+            'gray-M': 2,
+            'aquamarine-XS': 1,
+            'aquamarine-S': 1,
+            'aquamarine-M': 0
+        },
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
-        description: 'high quality shirt',
         sizes: ['XS','S','M']
     },
     {
@@ -199,10 +315,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Lacoste',
         colors: ['darkblue','white','lightgray','darkgreen'],
-        description: 'high quality lacoste pant',
         sizes: ['S','M','L','XL']
     },
     {
@@ -211,10 +326,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-quiksilver-blue.jpg'],
         price: 900,
-        countInStock: 1,
+        countInStockByVariant: {
+            'blue-M': 2,
+            'blue-2XL': 4,
+            'burlywood-M': 1,
+            'burlywood-2XL': 1,
+            'lightcyan-M': 2,
+            'lightcyan-2XL': 4,
+            'green-M': 0,
+            'green-2XL': 3,
+        },
         brand: 'Quiksilver',
         colors: ['blue','burlywood','lightcyan','green'],
-        description: 'high quality buzo',
         sizes: ['M','2XL']
     },
     {
@@ -223,10 +346,15 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
-        countInStock: 3,
+        countInStockByVariant: {
+            'red-16 años': 1,
+            'red-XS': 2,
+            'red-S': 2,
+            'red-M': 3,
+            'red-L': 2
+        },
         brand: 'Adidas',
         colors: ['red'],
-        description: 'high quality red shirt',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -235,10 +363,31 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
-        countInStock: 10,
+        countInStockByVariant: {
+            'black-S': 2,
+            'black-M': 1,
+            'black-L': 6,
+            'darkgray-S': 3,
+            'darkgray-M': 0,
+            'darkgray-L': 1,
+            'darkblue-S': 1,
+            'darkblue-M': 2,
+            'darkblue-L': 3,
+            'saddlebrown-S': 1,
+            'saddlebrown-M': 2,
+            'saddlebrown-L': 4,
+            'paleturquoise-S': 1,
+            'paleturquoise-M': 0,
+            'paleturquoise-L': 0,
+            'forestgreen-S': 2,
+            'forestgreen-M': 3,
+            'forestgreen-L': 1,
+            'white-S': 1,
+            'white-M': 5,
+            'white-L': 2,
+        },
         brand: 'Adidas',
         colors: ['black','darkgray','darkblue','saddlebrown','paleturquoise', 'forestgreen', 'white'],
-        description: 'high quality black shirt',
         sizes: ['S','M','L']
     },
     {
@@ -247,10 +396,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-new-balance-lightgray.jpg'],
         price: 720,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'New Balance',
         colors: ['lightgray','red','green','orange'],
-        description: 'high quality campera',
         sizes: ['S','L','2XL','3XL']
     },
     {
@@ -259,10 +407,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-thrasher-flame-black.jpg'],
         price: 1000,
-        countInStock: 3,
+        countInStockByVariant: {
+            'black-XS': 3,
+            'black-S': 1,
+            'white-XS': 2,
+            'white-S': 1,
+        },
         brand: 'Thrasher',
         colors: ['black','white'],
-        description: 'high quality buzo',
         sizes: ['XS','S']
     },
     {
@@ -271,10 +423,13 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
-        countInStock: 6,
+        countInStockByVariant: {
+            'lime-L': 3,
+            'lime-XL': 1,
+            'lime-2XL': 1
+        },
         brand: 'Nike',
         colors: ['lime'],
-        description: 'high quality shirt',
         sizes: ['L','XL','2XL']
     },
     {
@@ -283,10 +438,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
-        countInStock: 2,
+        countInStockByVariant: {
+            'darkgray-L': 2,
+            'seagreen-L': 3,
+            'darkgreen-L': 1,
+            'blue-L': 5,
+            'cyan-L': 1,
+            'sienna-L': 1,
+            'ghostwhite-L': 3,
+            'white-L': 2
+        },
         brand: 'DC',
         colors: ['darkgray','seagreen','darkgreen','blue','cyan','sienna','ghostwhite','white'],
-        description: 'high quality shirt',
         sizes: ['L']
     },
     {
@@ -295,10 +458,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Drake',
         colors: ['green','lime'],
-        description: 'high quality pant',
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
@@ -307,10 +469,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 680,
-        countInStock: 9,
+        countInStockByVariant: {
+            'pink-S': 2,
+            'pink-M': 3,
+            'palevioletred-S': 1,
+            'palevioletred-M': 4
+        },
         brand: 'Charge',
         colors: ['pink','palevioletred'],
-        description: 'high quality pant',
         sizes: ['S','M']
     },
     {
@@ -319,10 +485,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-reush-green.jpg'],
         price: 340,
-        countInStock: 4,
+        countInStockByVariant: {
+            'green-M': 2,
+            'black-M': 1,
+            'orange-M': 3,
+            'cyan-M': 2
+        },
         brand: 'Reush',
         colors: ['green','black','orange','cyan'],
-        description: 'high quality campera',
         sizes: ['M']
     },
     {
@@ -331,10 +501,35 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-gray-black.jpg'],
         price: 1040,
-        countInStock: 2,
+        countInStockByVariant: {
+            'gray-16 años': 0,
+            'gray-XS': 1,
+            'gray-S': 3,
+            'gray-M': 4,
+            'gray-L': 0,
+            'black-16 años': 2,
+            'black-XS': 1,
+            'black-S': 1,
+            'black-M': 1,
+            'black-L': 2,
+            'lightgray-16 años': 2,
+            'lightgray-XS': 3,
+            'lightgray-S': 3,
+            'lightgray-M': 1,
+            'lightgray-L': 1,
+            'white-16 años': 1,
+            'white-XS': 0,
+            'white-S': 4,
+            'white-M': 1,
+            'white-L': 2,
+            'blue-16 años': 1,
+            'blue-XS': 0,
+            'blue-S': 1,
+            'blue-M': 2,
+            'blue-L': 3,
+        },
         brand: 'Puma',
         colors: ['gray','black','lightgray','white','blue'],
-        description: 'high quality buzo',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -343,10 +538,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-pink.jpg'],
         price: 375,
-        countInStock: 1,
+        countInStockByVariant: {
+            'pink-M': 1,
+            'pink-L': 0
+        },
         brand: 'Puma',
         colors: ['pink'],
-        description: 'high quality buzo',
         sizes: ['M','L']
     },
     {
@@ -355,10 +552,16 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
-        countInStock: 20,
+        countInStockByVariant: {
+            'limegreen-L': 2,
+            'limegreen-XL': 4,
+            'limegreen-2XL': 1,
+            'green-L': 5,
+            'green-XL': 1,
+            'green-2XL': 0
+        },
         brand: 'Adidas',
         colors: ['limegreen','green'],
-        description: 'high quality buzo',
         sizes: ['L','XL','2XL']
     },
     {
@@ -367,10 +570,25 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg'],
         price: 490,
-        countInStock: 5,
+        countInStockByVariant: {
+            'red-XS': 1,
+            'red-S': 1,
+            'red-M': 2,
+            'green-XS': 2,
+            'green-S': 0,
+            'green-M': 1,
+            'blue-XS': 0,
+            'blue-S': 0,
+            'blue-M': 2,
+            'gray-XS': 0,
+            'gray-S': 3,
+            'gray-M': 0,
+            'aquamarine-XS': 3,
+            'aquamarine-S': 2,
+            'aquamarine-M': 0,
+        },
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
-        description: 'high quality shirt',
         sizes: ['XS','S','M']
     },
     {
@@ -379,10 +597,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Lacoste',
         colors: ['darkblue','white','lightgray','darkgreen'],
-        description: 'high quality lacoste pant',
         sizes: ['S','M','L','XL']
     },
     {
@@ -391,10 +608,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-quiksilver-blue.jpg'],
         price: 900,
-        countInStock: 1,
+        countInStockByVariant: {
+            'blue-M': 1,
+            'blue-2XL': 3,
+            'burlywood-M': 0,
+            'burlywood-2XL': 4,
+            'lightcyan-M': 3,
+            'lightcyan-2XL': 5,
+            'green-M': 0,
+            'green-2XL': 1
+        },
         brand: 'Quiksilver',
         colors: ['blue','burlywood','lightcyan','green'],
-        description: 'high quality buzo',
         sizes: ['M','2XL']
     },
     {
@@ -403,10 +628,15 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
-        countInStock: 3,
+        countInStockByVariant: {
+            'red-16 años': 2,
+            'red-XS': 0,
+            'red-S': 0,
+            'red-M': 1,
+            'red-L': 0,
+        },
         brand: 'Adidas',
         colors: ['red'],
-        description: 'high quality red shirt',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -415,10 +645,31 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
-        countInStock: 10,
+        countInStockByVariant: {
+            'black-S': 1,
+            'black-M': 0,
+            'black-L': 0,
+            'darkgray-S': 0,
+            'darkgray-M': 3,
+            'darkgray-L': 0,
+            'darkblue-S': 0,
+            'darkblue-M': 1,
+            'darkblue-L': 0,
+            'saddlebrown-S': 1,
+            'saddlebrown-M': 5,
+            'saddlebrown-L': 2,
+            'paleturquoise-S': 0,
+            'paleturquoise-M': 0,
+            'paleturquoise-L': 1,
+            'forestgreen-S': 4,
+            'forestgreen-M': 0,
+            'forestgreen-L': 0,
+            'white-S': 0,
+            'white-M': 0,
+            'white-L': 0
+        },
         brand: 'Adidas',
         colors: ['black','darkgray','darkblue','saddlebrown','paleturquoise', 'forestgreen', 'white'],
-        description: 'high quality black shirt',
         sizes: ['S','M','L']
     },
     {
@@ -427,10 +678,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-new-balance-lightgray.jpg'],
         price: 720,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'New Balance',
         colors: ['lightgray','red','green','orange'],
-        description: 'high quality campera',
         sizes: ['S','L','2XL','3XL']
     },
     {
@@ -439,10 +689,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-thrasher-flame-black.jpg'],
         price: 1000,
-        countInStock: 3,
+        countInStockByVariant: {
+            'black-S': 1,
+            'black-XS': 2,
+            'white-S': 1,
+            'white-XS': 0
+        },  
         brand: 'Thrasher',
         colors: ['black','white'],
-        description: 'high quality buzo',
         sizes: ['XS','S']
     },
     {
@@ -451,10 +705,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
-        countInStock: 6,
+        countInStockByVariant: {
+            'lime-XS': 4,
+            'lime-S': 2
+        }, 
         brand: 'Nike',
         colors: ['lime'],
-        description: 'high quality shirt',
         sizes: ['L','XL','2XL']
     },
     {
@@ -463,10 +719,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
-        countInStock: 2,
+        countInStockByVariant: {
+            'darkgray-L': 4,
+            'seagreen-L': 1,
+            'darkgreen-L': 0,
+            'blue-L': 5,
+            'cyan-L': 3,
+            'sienna-L': 0,
+            'ghostwhite-L': 2,
+            'white-L': 1,
+        },
         brand: 'DC',
         colors: ['darkgray','seagreen','darkgreen','blue','cyan','sienna','ghostwhite','white'],
-        description: 'high quality shirt',
         sizes: ['L']
     },
     {
@@ -475,10 +739,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Drake',
         colors: ['green','lime'],
-        description: 'high quality pant',
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
@@ -487,10 +750,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 680,
-        countInStock: 9,
+        countInStockByVariant: {
+            'pink-S': 3,
+            'pink-M': 3,
+            'palevioletred-S': 1,
+            'palevioletred-M': 2
+        },
         brand: 'Charge',
         colors: ['pink','palevioletred'],
-        description: 'high quality pant',
         sizes: ['S','M']
     },
     {
@@ -499,10 +766,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-reush-green.jpg'],
         price: 340,
-        countInStock: 4,
+        countInStockByVariant: {
+            'green-M': 2,
+            'black-M': 3,
+            'orange-M': 1,
+            'cyan-M': 2
+        },
         brand: 'Reush',
         colors: ['green','black','orange','cyan'],
-        description: 'high quality campera',
         sizes: ['M']
     },
     {
@@ -511,10 +782,35 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-gray-black.jpg'],
         price: 1040,
-        countInStock: 2,
+        countInStockByVariant: {
+            'gray-16 años': 2,
+            'gray-XS': 1,
+            'gray-S': 0,
+            'gray-M': 5,
+            'gray-L': 2,
+            'black-16 años': 1,
+            'black-XS': 1,
+            'black-S': 0,
+            'black-M': 3,
+            'black-L': 5,
+            'lightgray-16 años': 1,
+            'lightgray-XS': 0,
+            'lightgray-S': 2,
+            'lightgray-M': 2,
+            'lightgray-L': 6,
+            'white-16 años': 2,
+            'white-XS': 1,
+            'white-S': 1,
+            'white-M': 2,
+            'white-L': 0,
+            'blue-16 años': 3,
+            'blue-XS': 2,
+            'blue-S': 3,
+            'blue-M': 1,
+            'blue-L': 0,
+        },
         brand: 'Puma',
         colors: ['gray','black','lightgray','white','blue'],
-        description: 'high quality buzo',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -523,10 +819,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-pink.jpg'],
         price: 375,
-        countInStock: 1,
+        countInStockByVariant: {
+            'pink-M': 0,
+            'pink-L': 1
+        },
         brand: 'Puma',
         colors: ['pink'],
-        description: 'high quality buzo',
         sizes: ['M','L']
     },
     {
@@ -535,10 +833,16 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
-        countInStock: 20,
+        countInStockByVariant: {
+            'limegreen-L': 2,
+            'limegreen-XL': 4,
+            'limegreen-2XL': 1,
+            'green-L': 5,
+            'green-XL': 1,
+            'green-2XL': 0
+        },
         brand: 'Adidas',
         colors: ['limegreen','green'],
-        description: 'high quality buzo',
         sizes: ['L','XL','2XL']
     },
     {
@@ -547,10 +851,25 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-gray-shirt.jpg'],
         price: 490,
-        countInStock: 5,
+        countInStockByVariant: {
+            'red-XS': 1,
+            'red-S': 1,
+            'red-M': 2,
+            'green-XS': 2,
+            'green-S': 0,
+            'green-M': 1,
+            'blue-XS': 0,
+            'blue-S': 0,
+            'blue-M': 2,
+            'gray-XS': 0,
+            'gray-S': 3,
+            'gray-M': 0,
+            'aquamarine-XS': 3,
+            'aquamarine-S': 2,
+            'aquamarine-M': 0,
+        },
         brand: 'Nike',
         colors: ['red', 'green', 'blue', 'gray', 'aquamarine'],
-        description: 'high quality shirt',
         sizes: ['XS','S','M']
     },
     {
@@ -559,10 +878,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/lacoste-bluenight-pant.jpg'],
         price: 220,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Lacoste',
         colors: ['darkblue','white','lightgray','darkgreen'],
-        description: 'high quality lacoste pant',
         sizes: ['S','M','L','XL']
     },
     {
@@ -571,10 +889,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-quiksilver-blue.jpg'],
         price: 900,
-        countInStock: 1,
+        countInStockByVariant: {
+            'blue-M': 1,
+            'blue-2XL': 3,
+            'burlywood-M': 0,
+            'burlywood-2XL': 4,
+            'lightcyan-M': 3,
+            'lightcyan-2XL': 5,
+            'green-M': 0,
+            'green-2XL': 1
+        },
         brand: 'Quiksilver',
         colors: ['blue','burlywood','lightcyan','green'],
-        description: 'high quality buzo',
         sizes: ['M','2XL']
     },
     {
@@ -583,10 +909,15 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/adidas-red-slim-shirt.jpg'],
         price: 300,
-        countInStock: 3,
+        countInStockByVariant: {
+            'red-16 años': 2,
+            'red-XS': 0,
+            'red-S': 0,
+            'red-M': 1,
+            'red-L': 0,
+        },
         brand: 'Adidas',
         colors: ['red'],
-        description: 'high quality red shirt',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -595,10 +926,31 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-black-pant.jpg'],
         price: 560,
-        countInStock: 10,
+        countInStockByVariant: {
+            'black-S': 1,
+            'black-M': 0,
+            'black-L': 0,
+            'darkgray-S': 0,
+            'darkgray-M': 3,
+            'darkgray-L': 0,
+            'darkblue-S': 0,
+            'darkblue-M': 1,
+            'darkblue-L': 0,
+            'saddlebrown-S': 1,
+            'saddlebrown-M': 5,
+            'saddlebrown-L': 2,
+            'paleturquoise-S': 0,
+            'paleturquoise-M': 0,
+            'paleturquoise-L': 1,
+            'forestgreen-S': 4,
+            'forestgreen-M': 0,
+            'forestgreen-L': 0,
+            'white-S': 0,
+            'white-M': 0,
+            'white-L': 0
+        },
         brand: 'Adidas',
         colors: ['black','darkgray','darkblue','saddlebrown','paleturquoise', 'forestgreen', 'white'],
-        description: 'high quality black shirt',
         sizes: ['S','M','L']
     },
     {
@@ -607,10 +959,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-new-balance-lightgray.jpg'],
         price: 720,
-        countInStock: 0,
+        countInStockByVariant: {}, 
         brand: 'New Balance',
         colors: ['lightgray','red','green','orange'],
-        description: 'high quality campera',
         sizes: ['S','L','2XL','3XL']
     },
     {
@@ -619,10 +970,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-thrasher-flame-black.jpg'],
         price: 1000,
-        countInStock: 3,
+        countInStockByVariant: {
+            'black-S': 1,
+            'black-XS': 2,
+            'white-S': 1,
+            'white-XS': 0
+        },  
         brand: 'Thrasher',
         colors: ['black','white'],
-        description: 'high quality buzo',
         sizes: ['XS','S']
      },
     {
@@ -631,10 +986,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/nike-green-slim-shirt.jpg'],
         price: 800,
-        countInStock: 6,
+        countInStockByVariant: {
+            'lime-XS': 4,
+            'lime-S': 2
+        }, 
         brand: 'Nike',
         colors: ['lime'],
-        description: 'high quality shirt',
         sizes: ['L','XL','2XL']
     },
     {
@@ -643,10 +1000,18 @@ export const sampleProducts: ProductItem[] = [
         category: 'Remeras',
         images: ['/src/assets/dc-black-slim-shirt.jpg'],
         price: 450,
-        countInStock: 2,
+        countInStockByVariant: {
+            'darkgray-L': 4,
+            'seagreen-L': 1,
+            'darkgreen-L': 0,
+            'blue-L': 5,
+            'cyan-L': 3,
+            'sienna-L': 0,
+            'ghostwhite-L': 2,
+            'white-L': 1,
+        },
         brand: 'DC',
         colors: ['darkgray','seagreen','darkgreen','blue','cyan','sienna','ghostwhite','white'],
-        description: 'high quality shirt',
         sizes: ['L']
     },
     {
@@ -655,10 +1020,9 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/drake-green-pant.jpg'],
         price: 910,
-        countInStock: 0,
+        countInStockByVariant: {},
         brand: 'Drake',
         colors: ['green','lime'],
-        description: 'high quality pant',
         sizes: ['XL','2XL','3XL','4XL']
     },
     {
@@ -667,10 +1031,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/pink-charge-pants.jpg'],
         price: 680,
-        countInStock: 9,
+        countInStockByVariant: {
+            'pink-S': 3,
+            'pink-M': 3,
+            'palevioletred-S': 1,
+            'palevioletred-M': 2
+        },
         brand: 'Charge',
         colors: ['pink','palevioletred'],
-        description: 'high quality pant',
         sizes: ['S','M']
     },
     {
@@ -679,10 +1047,14 @@ export const sampleProducts: ProductItem[] = [
         category: 'Camperas',
         images: ['/src/assets/campera-reush-green.jpg'],
         price: 340,
-        countInStock: 4,
+        countInStockByVariant: {
+            'green-M': 2,
+            'black-M': 3,
+            'orange-M': 1,
+            'cyan-M': 2
+        },
         brand: 'Reush',
         colors: ['green','black','orange','cyan'],
-        description: 'high quality campera',
         sizes: ['M']
     },
     {
@@ -691,10 +1063,35 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-gray-black.jpg'],
         price: 1040,
-        countInStock: 2,
+        countInStockByVariant: {
+            'gray-16 años': 2,
+            'gray-XS': 1,
+            'gray-S': 0,
+            'gray-M': 5,
+            'gray-L': 2,
+            'black-16 años': 1,
+            'black-XS': 1,
+            'black-S': 0,
+            'black-M': 3,
+            'black-L': 5,
+            'lightgray-16 años': 1,
+            'lightgray-XS': 0,
+            'lightgray-S': 2,
+            'lightgray-M': 2,
+            'lightgray-L': 6,
+            'white-16 años': 2,
+            'white-XS': 1,
+            'white-S': 1,
+            'white-M': 2,
+            'white-L': 0,
+            'blue-16 años': 3,
+            'blue-XS': 2,
+            'blue-S': 3,
+            'blue-M': 1,
+            'blue-L': 0,
+        },
         brand: 'Puma',
         colors: ['gray','black','lightgray','white','blue'],
-        description: 'high quality buzo',
         sizes: ['16 años','XS','S','M','L']
     },
     {
@@ -703,10 +1100,12 @@ export const sampleProducts: ProductItem[] = [
         category: 'Buzos',
         images: ['/src/assets/buzo-puma-pink.jpg'],
         price: 375,
-        countInStock: 1,
+        countInStockByVariant: {
+            'pink-M': 0,
+            'pink-L': 1
+        },
         brand: 'Puma',
         colors: ['pink'],
-        description: 'high quality buzo',
         sizes: ['M','L']
     },
     {
@@ -715,10 +1114,16 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
-        countInStock: 20,
+        countInStockByVariant: {
+            'limegreen-L': 2,
+            'limegreen-XL': 4,
+            'limegreen-2XL': 1,
+            'green-L': 5,
+            'green-XL': 1,
+            'green-2XL': 0
+        },
         brand: 'Adidas',
         colors: ['limegreen','green'],
-        description: 'high quality buzo',
         sizes: ['L','XL','2XL']
     },
     {
@@ -727,10 +1132,16 @@ export const sampleProducts: ProductItem[] = [
         category: 'Pantalones',
         images: ['/src/assets/adidas-green-pant.jpg'],
         price: 240,
-        countInStock: 20,
+        countInStockByVariant: {
+            'limegreen-L': 2,
+            'limegreen-XL': 4,
+            'limegreen-2XL': 1,
+            'green-L': 5,
+            'green-XL': 1,
+            'green-2XL': 0
+        },
         brand: 'Adidas',
         colors: ['limegreen','green'],
-        description: 'high quality buzo',
         sizes: ['L','XL','2XL']
     }
 ];

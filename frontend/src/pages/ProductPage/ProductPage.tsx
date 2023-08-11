@@ -4,7 +4,7 @@ import { Footer, LoadingSpinner, Navbar } from '@/components';
 import { ThemeContext } from '@/context';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
 import { ApiError, CartItem, Product } from '@/models';
-import { convertProductToCartItem, getError } from '@/utilities';
+import { calculateTotalStock, convertProductToCartItem, getError } from '@/utilities';
 import { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -22,17 +22,27 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   const { favorites, addProductToFavorites, removeProductToFavorites, cart, addItemToCart } = useContext(ThemeContext);
   const navigate = useNavigate();
 
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<string>('');
+
+  const productVariant = `${selectedColor}-${selectedSize}`;
+
   const addToCartHandler = () => {
     if (selectedColor !== '' && selectedSize !== '') {
-      const existItem: CartItem | undefined = cart.cartItems.find((x)=> x._id === product!._id)
+      const existItem: CartItem | undefined = cart.cartItems.find(
+        (item) =>
+          item._id === product!._id &&
+          item.sizeSelected === selectedSize &&
+          item.colorSelected === selectedColor
+      );
       const quantity: number = existItem ? existItem.quantity + 1 : 1;
 
-      if(product!.countInStock < quantity) {
+      if(product!.countInStockByVariant[productVariant] < quantity) {
         toast.warn('Lo siento. Producto sin stock');
         return;
       }
 
-      addItemToCart({ ...convertProductToCartItem(product!, selectedSize, selectedColor), quantity });
+      addItemToCart({ ...convertProductToCartItem(product!, selectedColor, selectedSize), quantity });
       toast.success('Producto añadido al carrito');
       navigate('/cart');
       return;
@@ -41,8 +51,6 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
     return;
   }
 
-  const [selectedSize, setSelectedSize] = useState<string>('');
-  const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
   const handleImageClick = (index: number) => {
@@ -120,11 +128,11 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     }
                   </ul>
                 </div>
-                <div className="sproduct-details__options-status">
-                  <h4>Estado: <span>{product.countInStock > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
+                <div className="product-details__options-status">
+                  <h4>Estado: <span>{calculateTotalStock(product) > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
                 </div>
                 {
-                  product.countInStock === 0
+                  calculateTotalStock(product) === 0
                     ? <button className="out-stock-btn">SIN STOCK</button>
                     : <button className="add-to-cart-btn" onClick={() => addToCartHandler()}>AÑADIR AL CARRITO</button>
                 }

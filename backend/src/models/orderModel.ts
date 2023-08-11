@@ -5,29 +5,48 @@ import { User } from './userModel';
 class ShippingAddress {
   @prop()
   public fullName?: string
+
   @prop()
   public address?: string
+
   @prop()
   public city?: string
+
   @prop()
   public postalCode?: string
+
   @prop()
   public country?: string
+
   @prop()
   public lat?: number
+
   @prop()
   public lng?: number
 }
 
-class Item {
+export class Item {
   @prop({ required: true })
   public name!: string
+
   @prop({ required: true })
-  public quantity!: string
+  public quantity!: number
+
+  @prop({ required: true })
+  public colorSelected!: string
+
+  @prop({ required: true })
+  public sizeSelected!: string
+
+  @prop({ required: true })
+  public countInStock!: number
+
   @prop({ required: true })
   public image!: string
+
   @prop({ required: true })
   public price!: number
+
   @prop({ ref: ProductItem })
   public product?: Ref<ProductItem>
 }
@@ -35,10 +54,13 @@ class Item {
 class PaymentResult {
   @prop()
   public paymentId!: string
+
   @prop()
   public status!: string
+
   @prop()
   public update_time!: string
+
   @prop()
   public email_address!: string
 }
@@ -46,8 +68,10 @@ class PaymentResult {
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Order {
   public _id!: string
+
   @prop()
   public orderItems!: Item[]
+
   @prop()
   public shippingAddress?: ShippingAddress
 

@@ -14,6 +14,7 @@ interface AppInterface {}
 // Reemplazado por react-query: axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/';
 
 const Home = lazy(() => import('./pages/Home/Home'));
+const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'));
 const Error = lazy(() => import('./pages/Error/Error'));
 const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
 const CartPage = lazy(() => import('./pages/CartPage/CartPage'));
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Home />,
     errorElement: <Error />
+  },
+  {
+    path: '/search',
+    element: <SearchPage />
   },
   {
     path: '/product/:slug',

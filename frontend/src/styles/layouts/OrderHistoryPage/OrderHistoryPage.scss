@@ -1,9 +1,10 @@
 @use '../../utilities/mixins' as M;
+@use '../../utilities/variables' as V;
+
+//SubNavbar
+@use '../../components/SubNavbar';
 
 .order-history-main {
-    // width: 100%;
-    // max-width: 1300px;
-    // min-height: 700px;
     overflow-x: auto;
 
     section {
@@ -21,17 +22,19 @@
             text-align: center;
 
             thead {
+                
                 th {
                     padding: 20px;
-                    border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+                    border-bottom: 1px solid V.$color-primary-light;
                 }
             }
 
             tbody {
+
                 tr {
                     td {
                         padding: 20px;
-                        border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+                        border-bottom: 1px solid V.$color-primary-light;
 
                         button {
                             @include M.in-stock-btn(75px);

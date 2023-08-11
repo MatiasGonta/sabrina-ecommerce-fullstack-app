@@ -9,7 +9,7 @@ export const convertProductToCartItem = (product: Product, selectedColor: string
       price: product.price,
       colorSelected: selectedColor,
       sizeSelected: selectedSize,
-      countInStock: product.countInStock,
+      countInStock: product.countInStockByVariant[`${selectedColor}-${selectedSize}`],
       quantity: 1,
     }
     

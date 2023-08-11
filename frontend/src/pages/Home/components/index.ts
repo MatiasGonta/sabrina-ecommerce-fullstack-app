@@ -1,1 +1,1 @@
-export * from './ProductItem';
+export * from './ProductSearchBar';

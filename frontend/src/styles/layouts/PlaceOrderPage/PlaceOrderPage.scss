@@ -1,12 +1,13 @@
-@use '../../components/CheckoutSteps';
 @use '../../utilities/variables' as V;
 @use '../../utilities/mixins' as M;
 
+// CheckoutSteps
+@use '../../components/CheckoutSteps';
+
+// OrderItem
+@use './components/OrderItem';
+
 .place-order-main {
-    // width: 100%;
-    // max-width: 1300px;
-    // min-height: 650px;
-    margin-bottom: 100px;
 
     .order {
         width: 100%;
@@ -90,34 +91,6 @@
                 ul {
                     display: flex;
                     flex-direction: column;
-
-                    li {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        border-bottom: 1px solid V.$color-primary-light;
-                        padding: 25px 0;
-
-                        div:nth-child(1) {
-                            display: flex;
-                            align-items: center;
-                            width: 325px;
-
-                            .order-info__product-image {
-                                width: 125px;
-                                height: 125px;
-                            }
-
-                            .order-info__product-quantity,
-                            .order-info__product-price {
-                                font-size: 16px;
-                            }
-                        }
-
-                        &:last-child {
-                            margin-bottom: 25px;
-                        }
-                    }
                 }
             }
         }
@@ -153,7 +126,9 @@
 
 @media screen and (max-width: 1100px) {
     .place-order-main {
-        article:nth-child(2) {
+
+        .order {
+
             .order-info-section, .order-title-section {
                 margin: 0 auto
             }
@@ -173,7 +148,9 @@
 
 @media screen and (max-width: 850px) {
     .place-order-main {
-        article:nth-child(2) {
+
+        .order {
+
             .order-info-section, .order-title-section {
                 margin: 0 auto;
                 width: 90%;
@@ -184,7 +161,9 @@
 
 @media screen and (max-width: 500px) {
     .place-order-main {
-        article:nth-child(2) {
+        
+        .order {
+
             .order-info-section, .order-title-section {
                 margin: 0 auto;
                 width: 95%;

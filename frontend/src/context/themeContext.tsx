@@ -82,21 +82,40 @@ export const ThemeProvider: React.FC<ThemeProviderInterface> = ({ children }) =>
 
   const addItemToCart = (item: CartItem) => {
     const newItem = item;
-    const existItem = cart.cartItems.find((cartItem: CartItem) => cartItem._id === newItem._id);
-    const updatedCartItems = existItem
-      ? cart.cartItems.map((cartItem: CartItem) => (cartItem._id === existItem._id ? newItem : cartItem))
-      : [...cart.cartItems, newItem];
 
-    setCart({ ...cart, cartItems: updatedCartItems });
-    setLocalStorage('cartItems', updatedCartItems);
+    // Check if another item with the same _id, color and size already exists in the cart
+    const existItem = cart.cartItems.find(
+      (cartItem: CartItem) =>
+        cartItem._id === newItem._id &&
+        cartItem.colorSelected === newItem.colorSelected &&
+        cartItem.sizeSelected === newItem.sizeSelected
+    );
+
+    if (existItem) {
+      // If it already exists, increase the amount
+      const cartItems = cart.cartItems.map((cartItem: CartItem) =>
+        cartItem._id === existItem._id && cartItem.colorSelected === existItem.colorSelected && cartItem.sizeSelected === existItem.sizeSelected
+          ? { ...cartItem, quantity: newItem.quantity }
+          : cartItem
+      );
+    
+
+      setCart({ ...cart, cartItems });
+      setLocalStorage('cartItems', cartItems);
+    } else {
+      // If it does not exist, add a new item to the cart
+      const updatedCartItems = [...cart.cartItems, newItem];
+      setCart({ ...cart, cartItems: updatedCartItems });
+      setLocalStorage('cartItems', updatedCartItems);
+    }
   };
 
   const removeItemToCart = (item: CartItem) => {
-    const cartItems = cart.cartItems.filter(
-      (cartItem: CartItem) => cartItem._id !== item._id
+    const updatedCartItems = cart.cartItems.filter(
+      (cartItem: CartItem) => cartItem._id !== item._id || cartItem.colorSelected !== item.colorSelected || cartItem.sizeSelected !== item.sizeSelected
     );
-    setLocalStorage('cartItems', cartItems);
-    setCart({ ...cart, cartItems });
+    setLocalStorage('cartItems', updatedCartItems);
+    setCart({ ...cart, cartItems: updatedCartItems });
   }
 
   const clearCart = () => {

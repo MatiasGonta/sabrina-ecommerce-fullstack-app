@@ -1,6 +1,9 @@
 @use '../../utilities/variables' as V;
 @use '../../utilities/mixins' as M;
 
+//SubNavbar
+@use '../../components/SubNavbar';
+
 // CartItem
 @use './components/CartItem';
 
@@ -8,9 +11,6 @@
 @use '../../components/ProductsCarousel';
 
 .cart-main {
-    // width: 100%;
-    // max-width: 1300px;
-    // min-height: 625px;
 
     article:nth-child(1) {
         display: flex;

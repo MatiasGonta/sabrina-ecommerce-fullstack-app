@@ -1,11 +1,10 @@
 @use '../../utilities/variables' as V;
 
+//SubNavbar
+@use '../../components/SubNavbar';
+
 .favorites-main {
-    // width: 100%;
-    // max-width: 1300px;
-    // min-height: 500px;
     border-radius: 10px;
-    margin-bottom: 100px;
 
     #favorites-clear-section {
         width: 100%;

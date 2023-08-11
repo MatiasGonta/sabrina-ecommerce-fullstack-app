@@ -2,10 +2,10 @@
 
 //Loading Spinner
 @use './components/LoadingSpinner';
+
 //Navbar
 @use './components/Navbar.scss';
-//SubNavbar
-@use './components/SubNavbar.scss';
+
 //Footer
 @use './components/Footer.scss';
 
@@ -36,4 +36,5 @@ main {
   width: 100%;
   max-width: 1300px;
   min-height: 725px;
+  margin-bottom: 100px;
 }

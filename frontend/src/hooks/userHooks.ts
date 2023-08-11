@@ -76,7 +76,8 @@ export const useGetProfileDetails = (token: string, _id: string) => {
   const result = useQuery({
     queryKey: ['profileDetails'],
     queryFn: fetchProfileDetails,
-    enabled: !!_id || _id !== '',
+    enabled: _id !== '',
+    refetchInterval: false
   });
 
   const profileDetails: User = result.data;

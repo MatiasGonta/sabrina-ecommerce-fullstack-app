@@ -3,7 +3,7 @@ import { useGetOrderHistoryQuery } from "@/hooks";
 import { ApiError } from "@/models";
 import { getError } from "@/utilities";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../../styles/layouts/OrderHistoryPage/OrderHistoryPage.scss';
 
 const OrderHistoryPage = () => {
@@ -19,7 +19,9 @@ const OrderHistoryPage = () => {
         <main className="order-history-main">
             <article>
                 <section>
-                    <h1>Order History</h1>
+                    <div className='sub-navbar'>
+                        <h2><Link to="/">Inicio</Link> / Compras</h2>
+                    </div>
                     {
                         isLoading ? <LoadingSpinner type='noflex' /> : error ? <h2>{getError(error as ApiError)}</h2> : (
                             <table>

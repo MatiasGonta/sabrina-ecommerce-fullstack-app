@@ -1,5 +1,5 @@
 export type CartItem = {
-    image: string | undefined
+    image: string
     slug: string
     quantity: number
     countInStock: number

@@ -1,7 +1,7 @@
 export interface FiltersInterface {
-    category: string;
-    size: string;
-    color: string;
-    priceMin: string;
-    priceMax: string;
+    category: string[] | null;
+    size: string[] | null;
+    color: string[] | null;
+    priceMin: string | null;
+    priceMax: string | null;
 }

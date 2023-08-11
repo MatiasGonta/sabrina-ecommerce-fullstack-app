@@ -6,7 +6,9 @@ export type Product = {
     category: string;
     brand: string;
     price: number;
-    countInStock: number;
+    countInStockByVariant: {
+        [variant: string]: number;
+    },  
     description: string;
     numReviews: number;
     colors: string[];

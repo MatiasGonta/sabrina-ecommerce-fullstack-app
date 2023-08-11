@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import "react-multi-carousel/lib/styles.css";
 import '@/styles/layouts/CartPage/CartPage.scss';
-import { CartItem as Item } from '.';
+import { CartItem as Item } from './components';
 
 interface CartPageInterface {}
 
@@ -46,7 +46,7 @@ const CartPage: React.FC<CartPageInterface> = () => {
                                 <section id="cart-products-section">
                                     <ul>
                                         {
-                                            cart.cartItems.map((item: CartItem) => <Item item={item} />)
+                                            cart.cartItems.map((item: CartItem) => <Item key={item._id} item={item} />)
                                         }
                                     </ul>
                                 </section>

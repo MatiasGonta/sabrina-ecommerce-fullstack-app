@@ -7,9 +7,10 @@ export interface ProductItem {
   images: string[];
   brand: string;
   category: string;
-  description: string;
   price: number;
-  countInStock: number;
+  countInStockByVariant: {
+    [variant: string]: number;
+  },  
   colors: string[];
   sizes: string[];
 }
@@ -36,19 +37,16 @@ const productSchema = new Schema<ProductItem>({
     type: String,
     required: true
   },
-  description: {
-    type: String,
-    required: true
-  },
   price: {
     type: Number,
     required: true,
     default: 0
   },
-  countInStock: {
-    type: Number,
+  countInStockByVariant: {
+    type: Map,
+    of: Number,
     required: true,
-    default: 0
+    default: {},
   },
   colors: {
     type: [String],

@@ -4,7 +4,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from "react";
 import { ThemeContext } from "@/context";
-import { convertProductToCartItem } from "@/utilities";
+import { calculateTotalStock, convertProductToCartItem } from "@/utilities";
 import { toast } from 'react-toastify';
 
 interface ProductItemInterface {
@@ -16,7 +16,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
   const addToCartHandler = (item: CartItem) => {
     const existItem = cart.cartItems.find((x)=> x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    if(product.countInStock < quantity) {
+    if(item.countInStock < quantity) {
       toast.warn('Lo siento. Producto sin stock');
       return
     }
@@ -24,10 +24,10 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
     toast.success('Producto añadido al carrito');
   }
 
-  const existFavorite = favorites.find((x) => x._id === product._id);
+  const existFavorite: Product | undefined = favorites.find((x) => x._id === product._id);
 
   return (
-    <li key={product.slug} className="product-item">
+    <li className="product-item">
       {
         existFavorite
         ? <FavoriteIcon className="product-item__favorite-icon" sx={{ fontSize: 25 }} onClick={() => removeProductToFavorites(product)} />
@@ -44,10 +44,10 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
         <div className="product-item__colors">
           <span>{product.colors.length} colores</span>
         </div>
-        <a className="product-item__name">{product.name}</a>
+        <Link to={`/product/${product.slug}`} className="product-item__name">{product.name}</Link>
         <span className="product-item__price">${product.price}</span>
         {
-          product.countInStock === 0
+          calculateTotalStock(product) === 0
             ? <button className="out-stock-btn">SIN STOCK</button>
             : <button className="add-to-cart-btn" onClick={() => addToCartHandler(convertProductToCartItem(product, product.colors[0], product.sizes[0]))}>AÑADIR AL CARRITO</button>
         }

@@ -1,7 +1,7 @@
-import { Footer, LoadingSpinner, Navbar } from "@/components";
+import { Footer, LoadingSpinner, Navbar, OrderItem } from "@/components";
 import { ThemeContext } from "@/context";
 import { usePayPalScriptReducer, SCRIPT_LOADING_STATE, PayPalButtonsComponentProps, PayPalButtons } from '@paypal/react-paypal-js';
-import { useGetOrderDetailsQuery, useGetPaypalClientIdQuery, usePayOrderMutation } from "@/hooks";
+import { useGetOrderDetailsQuery, useGetPaypalClientIdQuery, usePayOrderMutation, useUpdateProductStock } from "@/hooks";
 import { ApiError } from "@/models";
 import { getError } from "@/utilities";
 import { useContext, useEffect } from "react";
@@ -13,7 +13,7 @@ import '@/styles/layouts/PlaceOrderPage/PlaceOrderPage.scss';
 interface OrderPageInterface {}
 
 const OrderPage: React.FC<OrderPageInterface> = () => {
-    const { userInfo, clearCart } = useContext(ThemeContext);
+    const { userInfo, cart, clearCart } = useContext(ThemeContext);
     
     const params = useParams();
     const { id: orderId } = params;
@@ -22,11 +22,18 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
 
     const { mutateAsync: payOrder, isLoading: LoadingPay} = usePayOrderMutation();
 
+    const { mutateAsync: updateProductStock } = useUpdateProductStock();
+
     const testPayHandler = async () => {
-        await payOrder({ orderId: orderId! });
-        refetch();
-        clearCart();
-        toast.success('El pedido se pagó con éxito');
+        try {
+            await payOrder({ orderId: orderId! });
+            await updateProductStock(cart.cartItems);
+            refetch();
+            clearCart();
+            toast.success('El pedido se pagó con éxito');
+        } catch (error) {
+            toast.error(getError(error as ApiError));
+        }
     }
 
     const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer();
@@ -71,6 +78,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
             return actions.order!.capture().then(async (details) => {
                 try {
                     await payOrder({ orderId: orderId!, ...details });
+                    await updateProductStock(cart.cartItems);
                     refetch();
                     toast.success('El pedido se pagó con éxito');
                 } catch(error) {
@@ -133,22 +141,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                     <h4>Productos</h4>
                     <ul>
                         {
-                            order.orderItems.map((item) => (
-                                <li key={item._id}>
-                                    <div>
-                                        <img
-                                            src={item.image}
-                                            alt={item.name}
-                                            className="order-info__product-image"
-                                        />
-                                        <span>{item.name}</span>
-                                    </div>
-                                    <div>
-                                        <span className="order-info__product-quantity">{item.quantity}</span>
-                                    </div>
-                                    <strong className="order-info__product-price">${item.price}</strong>
-                                </li>
-                            ))
+                            order.orderItems.map((item) => <OrderItem key={item._id} item={item} />)
                         }
                     </ul>
                 </div>
@@ -164,7 +157,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                     <li>${order.shippingPrice.toFixed(2)}</li>
                 </ul>
                 <ul className="tax-row">
-                    <li>Tax</li>
+                    <li>Impuesto</li>
                     <li>${order.taxPrice.toFixed(2)}</li>
                 </ul>
                 <ul className="order-total-row">
@@ -180,7 +173,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                         <>
                         {isPending ? <LoadingSpinner type='flex' /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
                           <div>
-                            <PayPalButtons {...paypalButtonTransactionProps}></PayPalButtons>
+                            <PayPalButtons {...paypalButtonTransactionProps} />
                             <button onClick={testPayHandler}>Test Pay</button>
                           </div>
                         )}

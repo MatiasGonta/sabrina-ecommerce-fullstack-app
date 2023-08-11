@@ -54,7 +54,7 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
                 </button>
                 <span>{item.quantity}</span>
                 <button 
-                    className={item.countInStock === 1 ? 'plus-button disable' : 'plus-button'} 
+                    className={item.countInStock - item.quantity === 0 ? 'plus-button disable' : 'plus-button'} 
                     onClick={() => updatedCartHandler(item, item.quantity + 1)} 
                     disabled={item.quantity === item.countInStock}
                 >

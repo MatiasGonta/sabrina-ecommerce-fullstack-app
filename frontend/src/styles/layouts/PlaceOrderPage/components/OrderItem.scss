@@ -1,0 +1,36 @@
+@use '../../../utilities/variables' as V;
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid V.$color-primary-light;
+    padding: 25px 0;
+    font-size: 16px;
+
+    div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        width: 325px;
+
+        .order-item__image {
+            width: 125px;
+            height: 125px;
+        }
+
+        .order-item__details {
+            
+            span {
+                display: block;
+
+                &:first-child {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 25px;
+    }
+}
