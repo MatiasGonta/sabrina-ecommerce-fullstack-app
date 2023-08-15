@@ -1,9 +1,10 @@
 import { CheckoutSteps, Footer, LoadingSpinner, Navbar, OrderItem } from "@/components";
-import { ThemeContext } from "@/context";
+import { useSelector } from 'react-redux';
+import { AppStore } from '@/redux/store';
 import { useCreateOrderMutation } from "@/hooks";
 import { ApiError } from "@/models";
 import { getError } from "@/utilities";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
@@ -12,16 +13,16 @@ import '@/styles/layouts/PlaceOrderPage/PlaceOrderPage.scss';
 interface PlaceOrderPageInterface {}
 
 const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
+    const cart = useSelector((store: AppStore) => store.cart);
+
     const navigate = useNavigate();
 
-    const { cart, userInfo } = useContext(ThemeContext);
+    const round2 = (num: number) => Math.round(num * 100 + Number.EPSILON) / 100
 
-    const round2 = (num: number) => Math.round(num * 100 + Number.EPSILON) / 100 //123.2345 => 123.23
-
-    cart.itemsPrice = round2(cart.cartItems.reduce((a,c) => a + c.quantity * c.price, 0));
-    cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
-    cart.taxPrice = round2(0.15 * cart.itemsPrice);
-    cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+    const itemsPrice = round2(cart.cartItems.reduce((a,c) => a + c.quantity * c.price, 0));
+    const shippingPrice = itemsPrice > 100 ? round2(0) : round2(10);
+    const taxPrice = round2(0.15 * itemsPrice);
+    const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
     const { mutateAsync: createOrder, isLoading } = useCreateOrderMutation();
 
@@ -31,10 +32,10 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                 orderItems: cart.cartItems,
                 shippingAddress: cart.shippingAddress,
                 paymentMethod: cart.paymentMethod,
-                itemsPrice: cart.itemsPrice,
-                shippingPrice: cart.shippingPrice,
-                taxPrice: cart.taxPrice,
-                totalPrice: cart.totalPrice,
+                itemsPrice: itemsPrice,
+                shippingPrice: shippingPrice,
+                taxPrice: taxPrice,
+                totalPrice: totalPrice,
             });
 
             localStorage.removeItem('cartItems');
@@ -85,7 +86,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                         <h4>Productos</h4>
                         <ul>
                             {
-                                cart.cartItems.map((item) => <OrderItem key={item._id} item={item} />)
+                                cart.cartItems.map((item, index) => <OrderItem key={`${item._id}${index}`} item={item} />)
                             }
                         </ul>
                         <Link to="/cart">Editar</Link>
@@ -95,22 +96,22 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                     <h5>Resumen del pedido</h5>
                     <ul className="items-row">
                         <li>Productos</li>
-                        <li>${cart.itemsPrice.toFixed(2)}</li>
+                        <li>${itemsPrice.toFixed(2)}</li>
                     </ul>
                     <ul className="shipping-row">
                         <li>Envío</li>
-                        <li>${cart.shippingPrice.toFixed(2)}</li>
+                        <li>${shippingPrice.toFixed(2)}</li>
                     </ul>
                     <ul className="tax-row">
                         <li>Impuesto</li>
-                        <li>${cart.taxPrice.toFixed(2)}</li>
+                        <li>${taxPrice.toFixed(2)}</li>
                     </ul>
                     <ul className="order-total-row">
                         <li>
                             <strong>Total del pedido</strong>
                         </li>
                         <li>
-                            <strong>${cart.totalPrice.toFixed(2)}</strong>
+                            <strong>${totalPrice.toFixed(2)}</strong>
                         </li>
                     </ul>
                     <button

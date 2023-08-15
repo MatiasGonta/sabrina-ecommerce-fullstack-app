@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { store } from "@/redux";
 import { HelmetProvider } from 'react-helmet-async';
 import { PayPalScriptProvider, ReactPayPalScriptOptions } from '@paypal/react-paypal-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ThemeProvider } from "./context";
 import { LoadingSpinner, ProtectedRoute, ProtectedAdminRoute } from "./components";
 import { lazy, Suspense } from "react";
 import { ToastContainer } from 'react-toastify';
@@ -27,6 +28,9 @@ const OrderPage = lazy(() => import('./pages/OrderPage/OrderPage'));
 const OrderHistoryPage = lazy(() => import('./pages/OrderHistoryPage/OrderHistoryPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
+const Ordersboard = lazy(() => import('./pages/Ordersboard/Ordersboard'));
+const Productsboard = lazy(() => import('./pages/Productsboard/Productsboard'));
+const Usersboard = lazy(() => import('./pages/Usersboard/Usersboard'));
 
 const router = createBrowserRouter([
   {
@@ -83,12 +87,24 @@ const router = createBrowserRouter([
         element: <OrderHistoryPage />
       },
       {
-        path: '',
+        path: '/dashboard',
         element: <ProtectedAdminRoute />,
         children: [
           {
-            path: '/dashboard',
+            path: '',
             element: <Dashboard />
+          },
+          {
+            path: 'orders',
+            element: <Ordersboard />
+          },
+          {
+            path: 'products',
+            element: <Productsboard />
+          },
+          {
+            path: 'users',
+            element: <Usersboard />
           }
         ]
       }
@@ -104,19 +120,19 @@ const App: React.FC<AppInterface> = () => {
   const queryClient = new QueryClient();
 
   return (
-    <ThemeProvider>
-      <PayPalScriptProvider options={paypalOptions} deferLoading={true}>
-        <HelmetProvider>
-          <QueryClientProvider client={queryClient}>
+    <PayPalScriptProvider options={paypalOptions} deferLoading={true}>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
             <Suspense fallback={<LoadingSpinner type='noflex' />}>
               <ToastContainer position="bottom-center" limit={3} />
               <RouterProvider router={router} />
               <ReactQueryDevtools initialIsOpen={false} />
             </Suspense>
-          </QueryClientProvider>
-        </HelmetProvider>
-      </PayPalScriptProvider>
-    </ThemeProvider>
+          </Provider>
+        </QueryClientProvider>
+      </HelmetProvider>
+    </PayPalScriptProvider>
   )
 }
 

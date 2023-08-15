@@ -1,10 +1,12 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { ThemeContext } from "@/context";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { userSignin } from '@/redux/states/userInfo.state';
 import { useSignupMutation } from "@/hooks";
 import { ApiError } from "@/models";
 import { getError, setLocalStorage } from "@/utilities";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
@@ -14,6 +16,9 @@ import '@/styles/components/_Form.scss';
 interface RegisterPageInterface {}
 
 const RegisterPage: React.FC<RegisterPageInterface> = () => {
+    const userInfo = useSelector((store: AppStore) => store.userInfo);
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
@@ -25,8 +30,6 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [showPassword, setShowPassword] = useState(false);
-
-    const { userInfo, userSignin } = useContext(ThemeContext);
 
     const { mutateAsync: signup, isLoading } = useSignupMutation();
 
@@ -40,7 +43,7 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
 
         try {
             const data = await signup({ name, email, password });
-            userSignin(data);
+            dispatch(userSignin(data));
             setLocalStorage('userInfo', data);
             navigate(redirect);
         } catch(error) {

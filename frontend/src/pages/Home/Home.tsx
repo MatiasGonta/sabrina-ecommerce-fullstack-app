@@ -4,13 +4,24 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Footer, LoadingSpinner, Navbar, ProductItem } from "@/components";
 import { ProductSearchBar } from "./components";
 import { useGetFilterCountsQuery, useGetProductsQuery } from "@/hooks";
-import { ApiError, FiltersInterface, FilterItem, Product } from "@/models";
+import { ApiError, FiltersInterface, FilterItem, Product, Colors } from "@/models";
 import { getError, filterParamsUrlGenerator } from "@/utilities";
 import { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '@/styles/layouts/Home/Home.scss';
+import { Tooltip } from '@mui/material';
+
+type PriceRange = {
+  minPrice: string;
+  maxPrice: string;
+}
+
+const emptyPriceRange: PriceRange = {
+  minPrice: '',
+  maxPrice: ''
+}
 
 interface HomeInterface {}
 
@@ -84,18 +95,16 @@ const Home: React.FC<HomeInterface> = () => {
   }
 
   // Price Ranges Filter
-  const [minPrice, setMinPrice] = useState<string>('');
-  const [maxPrice, setMaxPrice] = useState<string>('');
+  const [priceRange, setPriceRange] = useState<PriceRange>(emptyPriceRange);
 
   const handlePriceRangeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleAddFilter('priceMin', minPrice);
-    handleAddFilter('priceMax', maxPrice);
+    handleAddFilter('priceMin', priceRange.minPrice);
+    handleAddFilter('priceMax', priceRange.maxPrice);
   }
 
   // Getting products
   const { products, totalProducts, isLoading, error, refetch, hasNextPage, fetchNextPage } = useGetProductsQuery(selectedFilters);
-  console.log(products)
 
   useEffect(() => {
     const newQueryParams = filterParamsUrlGenerator(selectedFilters);
@@ -149,7 +158,7 @@ const Home: React.FC<HomeInterface> = () => {
                   <li key={c} onClick={() => handleRemoveFilter('color', c)}>
                     <HighlightOffIcon sx={{ fontSize: 15 }}/>
                     <div className="color-selected">
-                      <div style={{ backgroundColor: c }}></div>
+                      <div style={{ backgroundColor: Colors[c as keyof typeof Colors] }}></div>
                     </div>
                   </li>
                 ))}
@@ -208,7 +217,9 @@ const Home: React.FC<HomeInterface> = () => {
                 {
                   colors.map((color: FilterItem) => (
                     <li key={color._id} onClick={() => handleAddFilter('color', color._id)}>
-                      <div style={{ backgroundColor: color._id }}></div>
+                      <Tooltip title={color._id}>
+                        <div style={{ backgroundColor: Colors[color._id as keyof typeof Colors] }}></div>
+                      </Tooltip>
                     </li>
                   ))
                 }
@@ -218,11 +229,13 @@ const Home: React.FC<HomeInterface> = () => {
             <section id="home-price-section">
               <h4>Precio</h4>
               <form onSubmit={(e) => handlePriceRangeSubmit(e)}>
-                <input type="number" placeholder="Mínimo" onChange={(e) => setMinPrice(e.target.value)} />
+                <input type="number" placeholder="Mínimo" onChange={(e) => setPriceRange({ ...priceRange, minPrice: e.target.value})} />
                 <span>-</span>
-                <input type="number" placeholder="Máximo" onChange={(e) => setMaxPrice(e.target.value)} />
+                <input type="number" placeholder="Máximo" onChange={(e) => setPriceRange({ ...priceRange, maxPrice: e.target.value})} />
                 <button type='submit'>
-                  <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
+                  <Tooltip title="Aplicar">
+                    <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
+                  </Tooltip>
                 </button>
               </form>
             </section>

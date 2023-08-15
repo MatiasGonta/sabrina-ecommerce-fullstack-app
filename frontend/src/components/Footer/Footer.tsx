@@ -3,6 +3,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 
 interface FooterInterface {}
@@ -44,12 +45,16 @@ const Footer: React.FC<FooterInterface> = () => {
                     <ul>
                         <li>
                             <a href="" target="_blank">
-                                <InstagramIcon sx={{ fontSize: 25 }} />
+                                <Tooltip title='Instagram'>
+                                    <InstagramIcon sx={{ fontSize: 25 }} />
+                                </Tooltip>
                             </a>
                         </li>
                         <li>
                             <a href="" target="_blank">
-                                <FacebookIcon sx={{ fontSize: 25 }} />
+                                <Tooltip title='Facebook'>
+                                    <FacebookIcon sx={{ fontSize: 25 }} />
+                                </Tooltip>
                             </a>
                         </li>
                     </ul>

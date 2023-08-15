@@ -15,7 +15,11 @@ const OrderItem: React.FC<OrderItemInterface> = ({ item }) => {
             />
             <div className="order-item__details">
                 <span>{item.name}</span>
-                <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
+                {
+                    item.sizeSelected !== ''
+                        ? <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
+                        : <span>Color: {item.colorSelected}</span>
+                }
             </div>
         </div>
         <div>

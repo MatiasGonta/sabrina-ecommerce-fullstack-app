@@ -1,32 +1,32 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { ThemeContext } from "@/context";
 import { CartItem as CartItemData } from "@/models";
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch } from 'react-redux';
+import { addItemToCart, removeItemFromCart } from "@/redux/states/cart.state";
 
 interface CartItemInterface {
     item: CartItemData;
 }
 
 const CartItem: React.FC<CartItemInterface> = ({ item }) => {
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const { addItemToCart, removeItemToCart } = useContext(ThemeContext);
+    const navigate = useNavigate();
 
     const updatedCartHandler = (item: CartItemData, quantity: number) => {
         if (item.countInStock < quantity) {
             toast.warn('Lo siento. Producto sin stock');
             return;
         }
-        addItemToCart({ ...item, quantity });
+        dispatch(addItemToCart({ ...item, quantity }));
     }    
 
-    const removeItemHandler = (item: CartItemData) => removeItemToCart(item);
+    const removeItemHandler = (item: CartItemData) => dispatch(removeItemFromCart(item));
 
     const editItemHandler = (item: CartItemData) => {
-        removeItemToCart(item);
+        dispatch(removeItemFromCart(item));
         navigate(`/product/${item.slug}`);
     };
 
@@ -36,7 +36,11 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
             <img src={item.image} alt={item.name} />
             <div>
                 <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
+                {
+                    item.sizeSelected !== ''
+                        ? <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
+                        : <span>Color: {item.colorSelected}</span>
+                }
                 <div>
                     <span onClick={() => editItemHandler(item)}>Editar</span>
                     <span onClick={() => removeItemHandler(item)}>Eliminar</span>

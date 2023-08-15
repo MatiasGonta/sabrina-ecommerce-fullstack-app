@@ -1,11 +1,15 @@
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Tooltip from '@mui/material/Tooltip';
 import { Footer, LoadingSpinner, Navbar } from '@/components';
-import { ThemeContext } from '@/context';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { addItemToCart } from '@/redux/states/cart.state';
+import { addProductToFavorites, removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
-import { ApiError, CartItem, Product } from '@/models';
+import { ApiError, CartItem, Colors, Product } from '@/models';
 import { calculateTotalStock, convertProductToCartItem, getError } from '@/utilities';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -14,40 +18,56 @@ import '@/styles/layouts/ProductPage/ProductPage.scss';
 interface ProductPageInterface {}
 
 const ProductPage: React.FC<ProductPageInterface> = () => {
+  const favorites = useSelector((store: AppStore) => store.favorites);
+  const cart = useSelector((store: AppStore) => store.cart);
+  const dispatch = useDispatch();
+
   const params = useParams();
   const { slug } = params;
 
   const { data: product, isLoading, error } = useGetProductDetailsBySlugQuery(slug!);
 
-  const { favorites, addProductToFavorites, removeProductToFavorites, cart, addItemToCart } = useContext(ThemeContext);
   const navigate = useNavigate();
 
+  // Product settings
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>('');
 
   const productVariant = `${selectedColor}-${selectedSize}`;
 
   const addToCartHandler = () => {
-    if (selectedColor !== '' && selectedSize !== '') {
+    if (selectedColor !== '' && selectedSize !== '' || product?.category === 'Bufandas' && selectedColor !== '') {
       const existItem: CartItem | undefined = cart.cartItems.find(
         (item) =>
           item._id === product!._id &&
           item.sizeSelected === selectedSize &&
           item.colorSelected === selectedColor
       );
+
       const quantity: number = existItem ? existItem.quantity + 1 : 1;
 
       if(product!.countInStockByVariant[productVariant] < quantity) {
-        toast.warn('Lo siento. Producto sin stock');
+
+        if (product?.category === 'Bufandas') {
+          toast.warn(`Lo siento. Producto de color ${selectedColor} sin stock`);
+        } else {
+          toast.warn(`Lo siento. Producto de color ${selectedColor} y talle ${selectedSize} sin stock`);
+        }
+        
         return;
       }
 
-      addItemToCart({ ...convertProductToCartItem(product!, selectedColor, selectedSize), quantity });
+      dispatch(addItemToCart({ ...convertProductToCartItem(product!, selectedColor, selectedSize), quantity }));
       toast.success('Producto añadido al carrito');
       navigate('/cart');
       return;
     }
-    toast.warn('Debes seleccionar un color y talle');
+
+    if (product?.category === 'Bufandas') {
+      toast.warn('Debes seleccionar un color');
+    } else {
+      toast.warn('Debes seleccionar un color y talle');
+    }
     return;
   }
 
@@ -97,9 +117,21 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                 <h1>{product.name}</h1>
                 <span>${product.price}</span>
                 {
-                  existFavorite
-                  ? <FavoriteIcon className="favorite-icon" sx={{ fontSize: 25 }} onClick={() => removeProductToFavorites(product)} />
-                  : <FavoriteBorderOutlinedIcon className="favorite-icon" sx={{ fontSize: 25 }} onClick={() => addProductToFavorites(product)} />
+                  <Tooltip title={existFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
+                    {
+                      existFavorite
+                        ? <FavoriteIcon
+                            className="favorite-icon"
+                            sx={{ fontSize: 25 }}
+                            onClick={() => dispatch(removeProductFromFavorites(product))}
+                          />
+                        : <FavoriteBorderOutlinedIcon
+                            className="favorite-icon"
+                            sx={{ fontSize: 25 }}
+                            onClick={() => dispatch(addProductToFavorites(product))}
+                          />
+                    }
+                  </Tooltip>
                 }
               </div>
               <div className="separator"></div>
@@ -110,13 +142,13 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     {
                       product.colors.map(color => (
                         <li key={color} className={selectedColor === color ? "selected" : ""} onClick={() => setSelectedColor(color)}>
-                          <div style={{ backgroundColor: color }}></div>
+                          <div style={{ backgroundColor: Colors[color as keyof typeof Colors] }}></div>
                         </li>
                       ))
                     }
                   </ul>
                 </div>
-                <div className="product-details__options-sizes">
+                {product.category !== 'Bufandas' && (<div className="product-details__options-sizes">
                   <h4>Talle: <span>{selectedSize}</span></h4>
                   <ul>
                     {
@@ -127,7 +159,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                       ))
                     }
                   </ul>
-                </div>
+                </div>)}
                 <div className="product-details__options-status">
                   <h4>Estado: <span>{calculateTotalStock(product) > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
                 </div>

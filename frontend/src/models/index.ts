@@ -1,5 +1,6 @@
 export * from './ApiError';
 export * from './Cart';
+export * from './Colors';
 export * from './FilterItem';
 export * from './Filters';
 export * from './Order';

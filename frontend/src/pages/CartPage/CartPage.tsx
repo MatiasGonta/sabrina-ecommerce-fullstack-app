@@ -1,20 +1,21 @@
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import { Footer, Navbar, ProductsCarousel } from "@/components";
-import { ThemeContext } from "@/context";
 import { CartItem, Product } from "@/models";
-import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { CartItem as Item } from './components';
 import "react-multi-carousel/lib/styles.css";
 import '@/styles/layouts/CartPage/CartPage.scss';
-import { CartItem as Item } from './components';
 
 interface CartPageInterface {}
 
 const CartPage: React.FC<CartPageInterface> = () => {
-    const navigate = useNavigate();
+    const favorites = useSelector((store: AppStore) => store.favorites);
+    const cart = useSelector((store: AppStore) => store.cart);
 
-    const { favorites, cart } = useContext(ThemeContext);   
+    const navigate = useNavigate();
 
     const checkoutHandler = () => navigate('/signin?redirect=/shipping');
 
@@ -46,7 +47,7 @@ const CartPage: React.FC<CartPageInterface> = () => {
                                 <section id="cart-products-section">
                                     <ul>
                                         {
-                                            cart.cartItems.map((item: CartItem) => <Item key={item._id} item={item} />)
+                                            cart.cartItems.map((item: CartItem, index) => <Item key={`${item._id}${index}`} item={item} />)
                                         }
                                     </ul>
                                 </section>
@@ -67,7 +68,9 @@ const CartPage: React.FC<CartPageInterface> = () => {
                     }
             </article>
             {
-                favorites.length !== 0 && <ProductsCarousel title="Productos que te gustaron" items={favoriteProductsNotInCart} />
+                cart.cartItems.length !== 0 &&
+                favorites.length !== 0 &&
+                <ProductsCarousel title="Productos que te gustaron" items={favoriteProductsNotInCart} />
             }
         </main>
         <Footer />

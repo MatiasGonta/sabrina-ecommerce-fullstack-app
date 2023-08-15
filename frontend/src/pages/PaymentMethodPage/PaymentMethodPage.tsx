@@ -1,7 +1,9 @@
 import { CheckoutSteps, Footer, Navbar } from "@/components";
-import { ThemeContext } from "@/context";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { savePaymentMethod } from "@/redux/states/cart.state";
 import { setLocalStorage } from "@/utilities";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import '@/styles/layouts/PaymentMethodPage/PaymentMethodPage.scss';
@@ -9,8 +11,10 @@ import '@/styles/layouts/PaymentMethodPage/PaymentMethodPage.scss';
 interface PaymentMethodPageInterface {}
 
 const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
+    const { shippingAddress, paymentMethod } = useSelector((store: AppStore) => store.cart);
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
-    const { cart: {shippingAddress, paymentMethod}, savePaymentMethod } = useContext(ThemeContext);
     
     const [paymentMethodName, setPaymentMethodName] = useState<string>(paymentMethod || 'PayPal');
 
@@ -22,7 +26,7 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
     
     const submitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        savePaymentMethod(paymentMethodName);
+        dispatch(savePaymentMethod(paymentMethodName));
         setLocalStorage('paymentMethod', paymentMethodName);
         navigate('/placeorder');
     }

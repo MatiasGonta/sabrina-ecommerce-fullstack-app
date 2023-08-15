@@ -1,5 +1,7 @@
-import { ThemeContext } from "@/context";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { clearCart } from "@/redux/states/cart.state";
 import { Link } from "react-router-dom";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -12,6 +14,12 @@ import { useGetProfileDetails } from "@/hooks";
 interface NavbarInterface {}
 
 const Navbar: React.FC<NavbarInterface> = () => {
+    const favorites = useSelector((store: AppStore) => store.favorites);
+    const userInfo = useSelector((store: AppStore) => store.userInfo);
+    const cart = useSelector((store: AppStore) => store.cart);
+    const dispatch = useDispatch();
+
+    // Account menu status
     const [open, setOpen] = useState<boolean>(false);
 
     const menuRef: any = useRef();
@@ -29,7 +37,6 @@ const Navbar: React.FC<NavbarInterface> = () => {
         };
     }, []);
 
-    const { userInfo, userSignout, cart, favorites } = useContext(ThemeContext);
     const cartItemsLength: number = cart.cartItems.reduce((a, c) => a + c.quantity, 0);
 
     const userId = userInfo?._id || '';
@@ -38,7 +45,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
     const { profileDetails } = useGetProfileDetails(userToken, userId);
 
     const signoutHandler = () => {
-        userSignout();
+        dispatch(clearCart);
         localStorage.removeItem('userInfo');
         localStorage.removeItem('cartItems');
         localStorage.removeItem('shippingAddress');

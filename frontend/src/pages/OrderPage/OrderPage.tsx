@@ -1,10 +1,11 @@
 import { Footer, LoadingSpinner, Navbar, OrderItem } from "@/components";
-import { ThemeContext } from "@/context";
 import { usePayPalScriptReducer, SCRIPT_LOADING_STATE, PayPalButtonsComponentProps, PayPalButtons } from '@paypal/react-paypal-js';
 import { useGetOrderDetailsQuery, useGetPaypalClientIdQuery, usePayOrderMutation, useUpdateProductStock } from "@/hooks";
 import { ApiError } from "@/models";
 import { getError } from "@/utilities";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { clearCartItems } from "@/redux/states/cart.state";
 import { Helmet } from "react-helmet-async";
 import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
@@ -13,7 +14,7 @@ import '@/styles/layouts/PlaceOrderPage/PlaceOrderPage.scss';
 interface OrderPageInterface {}
 
 const OrderPage: React.FC<OrderPageInterface> = () => {
-    const { userInfo, cart, clearCart } = useContext(ThemeContext);
+    const dispatch = useDispatch();
     
     const params = useParams();
     const { id: orderId } = params;
@@ -27,9 +28,9 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
     const testPayHandler = async () => {
         try {
             await payOrder({ orderId: orderId! });
-            await updateProductStock(cart.cartItems);
+            await updateProductStock(order!.orderItems);
             refetch();
-            clearCart();
+            dispatch(clearCartItems());
             toast.success('El pedido se pagó con éxito');
         } catch (error) {
             toast.error(getError(error as ApiError));
@@ -78,7 +79,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
             return actions.order!.capture().then(async (details) => {
                 try {
                     await payOrder({ orderId: orderId!, ...details });
-                    await updateProductStock(cart.cartItems);
+                    await updateProductStock(order!.orderItems);
                     refetch();
                     toast.success('El pedido se pagó con éxito');
                 } catch(error) {
@@ -141,7 +142,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                     <h4>Productos</h4>
                     <ul>
                         {
-                            order.orderItems.map((item) => <OrderItem key={item._id} item={item} />)
+                            order.orderItems.map((item, index) => <OrderItem key={`${item._id}${index}`} item={item} />)
                         }
                     </ul>
                 </div>
@@ -173,7 +174,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                         <>
                         {isPending ? <LoadingSpinner type='flex' /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
                           <div>
-                            <PayPalButtons {...paypalButtonTransactionProps} />
+                            <PayPalButtons {...paypalButtonTransactionProps}></PayPalButtons>
                             <button onClick={testPayHandler}>Test Pay</button>
                           </div>
                         )}

@@ -1,5 +1,7 @@
-import { ThemeContext } from "@/context";
-import { useContext, useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { saveShippingAddress } from '@/redux/states/cart.state';
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
 import { CheckoutSteps, Footer, Navbar } from "@/components";
@@ -9,8 +11,11 @@ import '@/styles/layouts/ShippingAddressPage/ShippingAddressPage.scss';
 interface ShippingAddressPageInterface {}
 
 const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
+    const userInfo = useSelector((store: AppStore) => store.userInfo);
+    const { shippingAddress } = useSelector((store: AppStore) => store.cart);
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
-    const { userInfo, cart: {shippingAddress}, saveShippingAddress } = useContext(ThemeContext);
 
     useEffect(() => {
       if (!userInfo) {
@@ -25,12 +30,12 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
     
     const submitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        saveShippingAddress({
+        dispatch(saveShippingAddress({
             fullName,
             address,
             city,
             postalCode
-        });
+        }));
 
         setLocalStorage('shippingAddress', {
             fullName,

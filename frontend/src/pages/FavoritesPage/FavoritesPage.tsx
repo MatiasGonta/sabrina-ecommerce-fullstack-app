@@ -1,7 +1,8 @@
 import HeartBrokenOutlinedIcon from '@mui/icons-material/HeartBrokenOutlined';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { Footer, Navbar } from "@/components";
-import { ThemeContext } from "@/context";
-import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import '@/styles/layouts/FavoritesPage/FavoritesPage.scss';
@@ -9,7 +10,8 @@ import '@/styles/layouts/FavoritesPage/FavoritesPage.scss';
 interface FavoritesPageInterface {}
 
 const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
-    const { favorites, removeProductToFavorites } = useContext(ThemeContext);
+    const favorites = useSelector((store: AppStore) => store.favorites)
+    const dispatch = useDispatch();
 
   return (
     <>
@@ -49,7 +51,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                             <a className='favorites-product__name'>{product.name}</a>
                             <span className='favorites-product__price'>${product.price}</span>
                             <span
-                              onClick={() => removeProductToFavorites(product)}
+                              onClick={() => dispatch(removeProductFromFavorites(product))}
                               className="favorites-product__remove"
                             >Eliminar</span>
                           </div>

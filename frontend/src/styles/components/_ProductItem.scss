@@ -63,6 +63,82 @@
             font-weight: bold;
             font-size: 25px;
         }
+
+        // Add to cart settings
+        .product-item__settings {
+            width: 100%;
+            height: 100%;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            position: relative;
+
+            .product-item__setting-close {
+                border-radius: 50%;
+                position: absolute;
+                top: -39px;
+                right: 0;
+                z-index: 1;
+                cursor: pointer;
+            }
+
+            .product-item__settings-color,
+            .product-item__settings-size {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .product-item__settings-color {
+                li {
+                    width: 20px;
+                    height: 20px;
+                    max-width: 20px;
+                    max-height: 20px;
+                    border: 1px solid V.$color-primary-semi-light;
+                    padding: 1px;
+                    cursor: pointer;
+                    
+                    &.selected {
+                        border: 2px solid V.$color-tertiary;
+                    }
+
+                    div {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .product-item__settings-size {
+                li {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 30px;
+                    width: auto;
+                    max-width: 55px;
+                    height: 20px;
+                    max-height: 20px;
+                    background: #fff;
+                    border-radius: 2.5px;
+                    border: 1px solid V.$color-primary-semi-light;
+                    cursor: pointer;
+
+                    span {
+                        white-space: nowrap;
+                        width: fit-content;
+                        font-size: 15px;
+                    }
+                    
+                    &.selected {
+                        border: 2px solid V.$color-tertiary;
+                    }
+                }
+            }
+        }
         
         .add-to-cart-btn {
             @include M.in-stock-btn(70%);

@@ -1,4 +1,5 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +19,9 @@ const ProductSearchBar: React.FC<ProductSearchBarInterface> = () => {
     <form className="sub-navbar__search-box" onSubmit={(e) => handleSearchSubmit(e)}>
       <input type="text" placeholder="BUSCAR" onChange={(e) => setSearchTerm(e.target.value)} />
       <button type="submit" >
-        <SearchOutlinedIcon sx={{ fontSize: 20 }} />
+        <Tooltip title='Buscar'>
+          <SearchOutlinedIcon sx={{ fontSize: 20 }} />
+        </Tooltip>
       </button>
     </form>
   )

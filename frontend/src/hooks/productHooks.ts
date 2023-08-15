@@ -2,7 +2,7 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tansta
 import { apiClient } from "@/services";
 import { CartItem, FiltersInterface, Product } from '@/models';
 
-export const useGetProductsQuery = (filters: FiltersInterface) => {
+export const useGetProductsQuery = (filters?: FiltersInterface) => {
     const fetchProducts = async ({ pageParam = 1 }) => {
         const response = await apiClient.get(`api/products?page=${pageParam}`, { params: filters })
         return response.data;
@@ -70,7 +70,7 @@ export const useUpdateProductStock = () => {
     const queryClient = useQueryClient();
       
     return useMutation({
-        mutationFn: async (cartItems: CartItem[]) => await apiClient.put(`api/products/update-stock`, cartItems),
+        mutationFn: async (orderItems: CartItem[]) => await apiClient.put(`api/products/update-stock`, orderItems),
         onSuccess: () => {
             queryClient.invalidateQueries(['products']);
         },
