@@ -79,7 +79,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
                                   iconBoxShadow={card.iconBoxShadow}
                                 />)
             }
-          </section>
+          </section> 
           <section className="dashboard__statistics-details">
             <div className="dashboard__statistics-details-sales">
               <h3>Ventas por mes</h3>
