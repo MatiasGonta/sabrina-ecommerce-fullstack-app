@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { Cart, Product, UserInfo } from '@/models';
+import { Cart, Product, User } from '@/models';
 import { userInfoSlice, cartSlice, favoritesSlice } from './states';
 
 
 export interface AppStore {
-  userInfo: UserInfo | null;
+  userInfo: User | null;
   cart: Cart;
   favorites: Product[];
 }

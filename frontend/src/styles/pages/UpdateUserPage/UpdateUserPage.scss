@@ -1,0 +1,105 @@
+@use '../../utilities/variables' as V;
+
+//Sidebar
+@use '../../components/Sidebar';
+
+//Form
+@use '../../components/Form';
+
+.update-user {
+    grid-row: span 2;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    padding: 25px;
+
+    .update-user__card {
+
+        .user-card {
+            border: 2px solid V.$color-primary-semi-light;
+            box-shadow: 2px 2px 0px 2px V.$color-primary-light;
+            display: grid;
+            grid-template-columns: 85px calc(100% - 85px);
+            grid-row: auto auto;
+            margin-top: 45px;
+            position: relative;
+            min-width: 356.5px;
+            height: fit-content;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 0 10px 10px 10px;
+            z-index: 1;
+
+            * {
+                color: V.$color-primary-semi-light; 
+            }
+
+            &::before,
+            &::after {
+                position: absolute;
+                padding: 5px;
+                width: 160px;
+                text-align: center;
+                background-color: #fff;
+                pointer-events: none;
+            }
+
+            &::before {
+                border-top: 2px solid V.$color-primary-semi-light;
+                border-right: 2px solid V.$color-primary-semi-light;
+                border-left: 2px solid V.$color-primary-semi-light;
+                top: -30px;
+                left: -2px;
+                height: 30px;
+                content: "Usuario";
+                color: V.$color-primary-semi-light; 
+                font-weight: 900;
+                border-radius: 50px 200px 0 0;
+                z-index: -1;
+            }
+
+            &::after {
+                top: 0px;
+                left: 5px;
+                height: 5px;
+                content: "";
+            }
+
+            .user-card__main-info {
+                span {
+                    cursor: pointer;
+                }
+            }
+
+            .user-card__details {
+                margin-top: 5px;
+                grid-column: span 2;
+                height: fit-content;
+            }
+        }
+    }
+
+    .update-user__form {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 810px) {
+    .update-user {
+        flex-direction: column;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 405px) {
+    .update-user {
+
+        .update-user__card {
+
+            .user-card {
+                min-width: 290px;
+            }
+        }
+    }
+}

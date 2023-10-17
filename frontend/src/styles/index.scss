@@ -37,4 +37,18 @@ main {
   max-width: 1300px;
   min-height: 725px;
   margin-bottom: 100px;
+
+  &.admin {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    max-width: none;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  main.admin {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
 }

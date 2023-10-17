@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSearchProductsQuery } from '@/hooks';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import '@/styles/layouts/SearchPage/SearchPage.scss';
+import '@/styles/pages/SearchPage/SearchPage.scss';
 
 interface SearchPageInterface {}
 
@@ -37,7 +37,7 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
     <>
         <Navbar />
         <Helmet>
-          <title>{searchTerm} - F y M Indumentaria</title>
+          <title>{searchTerm} - SABRINA</title>
         </Helmet>
         <div className='sub-navbar'>
           <h2><Link to="/">Inicio</Link> / Resultados de Búsqueda </h2>

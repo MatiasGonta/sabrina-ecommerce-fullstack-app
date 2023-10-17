@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { AppStore } from '@/redux/store';
-import { clearCart } from "@/redux/states/cart.state";
-import { Link } from "react-router-dom";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStore } from '@/redux/store';
+import { clearCart } from "@/redux/states/cart.state";
+import { Link } from "react-router-dom";
 import { useGetProfileDetails } from "@/hooks";
 
 interface NavbarInterface {}
@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
     <header>
         <nav>
             <Link to="/">
-                <img src="/src/assets/fym-icon.png" alt="fym-icon" />
+                <img src="/src/assets/sabrina-icon.png" alt="sabrina-icon" />
             </Link>
             <div className="nav-actions">
                 <div className="nav-actions__navigate">

@@ -22,7 +22,7 @@ footer {
       font-size: 25px;
   
       h5 {
-        color: #cecece;
+        color: V.$color-secondary;
       }
   
       li, span {
@@ -31,10 +31,10 @@ footer {
         margin: 10px 0;
         display: flex;
         align-items: center;
-        color: #ededed;
+        color: V.$color-secondary;
 
         & * {
-          color: #ededed;
+          color: V.$color-secondary;
         }
       }
 
@@ -55,7 +55,7 @@ footer {
             height: 30px;
             margin: 5px;
             border-radius: 50%;
-            background-color: #ededed;
+            background-color: V.$color-secondary;
             cursor: pointer;
 
             a {
@@ -73,7 +73,7 @@ footer {
 
     .footer-separator {
       width: 90%;
-      border: 1px solid #ededed;
+      border: 1px solid V.$color-secondary;
       margin: 0 auto;
     }
 
@@ -85,15 +85,16 @@ footer {
       align-items: center;
 
       img {
-        width: 75px;
-        height: 75px;
+        user-select: none;
+        width: 70px;
+        height: 55px;
       }
       
       p {
         font-size: 10px;
         max-width: 500px;
         line-height: 20px;
-        color: #ededed;
+        color: V.$color-secondary;
         text-align: right;
 
         a {

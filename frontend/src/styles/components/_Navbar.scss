@@ -1,5 +1,7 @@
 @use '../utilities/variables' as V;
 
+$icon-counter-color: #ff0000;
+
 header {
   display: flex;
   justify-content: center;
@@ -18,12 +20,13 @@ header {
 
     * {
       color: V.$color-secondary;
+      user-select: none;
     }
 
     //Logo Section
     img {
-      width: 75px;
-      height: 75px;
+      width: 70px;
+      height: 55px;
     }
 
     // Actions Section
@@ -61,13 +64,14 @@ header {
     align-items: center;
     position: relative;
 
-    &:hover {
+    &:hover,
+    &:focus {
       * {
         transition: color 0.3s;
       }
         
       &::after {
-        width: 100%; // Añadimos el subrayado al hacer hover
+        width: 100%;
       }
     }
 
@@ -103,7 +107,7 @@ header {
       height: 15px;
     
       color: #fff;
-      background-color: #ff0000;
+      background-color: $icon-counter-color;
       font-size: 10px;
       border-radius: 50%;
 
@@ -167,9 +171,9 @@ header {
     width: 180px;
     border-radius: 8px;
     background-color: V.$color-primary;
-    border: 1px solid gray;
+    border: 1px solid V.$acc-menu-border-color;
     text-align: center;
-    z-index: 5;
+    z-index: 1000;
 
     &::before {
       content: '';
@@ -180,8 +184,8 @@ header {
       height: 20px;
       transform: rotate(45deg);
       background-color: V.$color-primary;
-      border-left: 1px solid gray;
-      border-top: 1px solid gray;
+      border-left: 1px solid V.$acc-menu-border-color;
+      border-top: 1px solid V.$acc-menu-border-color;
     }
 
     ul {
@@ -220,26 +224,23 @@ header {
       #account-name {
         display: none;
       }
+    }
+  }
 
-      .nav-actions {
+  .nav-actions__account {
 
-        .nav-actions__account {
+    .account-menu {
 
-          .account-menu {
+      ul {
 
-            ul {
-
-              li:nth-child(1) {
-                display: block;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-              }
-            }
-          }
+        li:nth-child(1) {
+          display: block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
-    }  
+    }
   }
 } 
 
@@ -247,36 +248,33 @@ header {
   header{
     nav {
       padding: 0;
+    }
+  }
 
-      .nav-actions {
+  .nav-actions__navigate {
+    gap: 7.5px;
 
-        .nav-actions__navigate {
-          gap: 7.5px;
-
-          a:nth-child(4), a:nth-child(5) {
-            span {
-              display: none;
-            }
+    a:nth-child(4), a:nth-child(5) {
+      span {
+        display: none;
+      }
       
-            .counter {
-              display: flex;
+      .counter {
+        display: flex;
       
-              &.favorites {
-                top: -6px;
-                right: 1px;
-              }
-      
-              &.cart {
-                top: -6px;
-                right: 1px;
-              }
-            }
-
-            svg {
-              margin-right: 0;
-            }
-          }
+        &.favorites {
+          top: -6px;
+          right: -4px;
         }
+      
+        &.cart {
+          top: -6px;
+          right: -4px;
+        }
+      }
+
+      svg {
+        margin-right: 0;
       }
     }
   }

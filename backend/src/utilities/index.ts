@@ -1,2 +1,3 @@
-export * from './generateToken';
 export * from './isAuthenticated';
+export * from './isValidEmail';
+export * from './token';

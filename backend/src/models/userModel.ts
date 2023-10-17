@@ -1,20 +1,44 @@
-import { modelOptions, prop, getModelForClass } from '@typegoose/typegoose';
+import { model, Schema, Document} from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-@modelOptions({ schemaOptions: { timestamps: true } })
-export class User {
-    public _id?: string
-
-    @prop({ required: true })
-    public name!: string
-
-    @prop({ required: true, unique: true })
-    public email!: string
-
-    @prop({ required: true })
-    public password!: string
-
-    @prop({ required: true, default: false })
-    public isAdmin!: boolean
+export interface User extends Document {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
+    verify: boolean;
 }
 
-export const UserModel = getModelForClass(User);
+const userSchema = new Schema<User>({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    verify: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
+},
+{
+    timestamps: true
+});
+
+userSchema.plugin(mongoosePaginate);
+
+export const UserModel = model<User>('User', userSchema);

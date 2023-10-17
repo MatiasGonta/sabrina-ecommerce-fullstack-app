@@ -1,0 +1,41 @@
+@use '../../../utilities/variables' as V;
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid V.$color-primary-light;
+    padding: 25px 0;
+    font-size: 16px;
+
+    div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        width: 360px;
+
+        .order-item__image {
+            min-width: 125px;
+            width: 125px;
+            max-width: 125px;
+            min-height: 125px;
+            height: 125px;
+            max-height: 125px;
+        }
+
+        .order-item__details {
+            
+            span {
+                display: block;
+                margin-left: 15px;
+
+                &:first-child {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 25px;
+    }
+}

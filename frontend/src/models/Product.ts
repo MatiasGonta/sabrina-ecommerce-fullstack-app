@@ -1,3 +1,5 @@
+import { TypeWithKey } from ".";
+
 export type Product = {
     _id?: string;
     name: string;
@@ -6,11 +8,9 @@ export type Product = {
     category: string;
     brand: string;
     price: number;
-    countInStockByVariant: {
-        [variant: string]: number;
-    },  
-    description: string;
-    numReviews: number;
+    countInStockByVariant: TypeWithKey<number>,  
     colors: string[];
     sizes: string[];
+    createdAt: string;
+    updatedAt: string;
 }

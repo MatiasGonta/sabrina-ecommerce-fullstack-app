@@ -1,0 +1,21 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+//Form
+@use '../../components/Form';
+
+.authenticated-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    height: 100vh;
+    margin-bottom: 0px;
+
+    article {
+        @include M.WrapperTemplate();
+        min-width: 300px;
+        width: 40%;
+        height: fit-content;
+    }
+}

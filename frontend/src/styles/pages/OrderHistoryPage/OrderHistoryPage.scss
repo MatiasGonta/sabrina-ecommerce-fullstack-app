@@ -1,0 +1,22 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+//SubNavbar
+@use '../../components/SubNavbar';
+
+//Table
+@use '../../components/Table';
+
+.order-history-main {
+
+    section {
+        @include M.WrapperTemplate();
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .order-history-main {
+        padding: 0 20px;
+    }
+}

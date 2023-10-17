@@ -1,0 +1,15 @@
+@use '../../utilities/variables' as V;
+
+//Sidebar
+@use '../../components/Sidebar';
+
+//Form
+@use '../../components/Form';
+
+.update-product-form {
+    width: 100%;
+
+    section {
+        width: 100%;
+    }
+}

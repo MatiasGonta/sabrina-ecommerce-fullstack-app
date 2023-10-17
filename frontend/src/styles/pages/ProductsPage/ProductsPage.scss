@@ -1,0 +1,50 @@
+@use '../../utilities/variables' as V;
+
+// SubNavbar
+@use '../../components/SubNavbar';
+
+// Product Item
+@use '../../components/ProductItem';
+
+// Filters
+@use './components/FiltersBoard';
+
+// Products
+@use '../../components/ProductsCatalog';
+
+// PurchaseInfoBanner
+@use '../../components/PurchaseInfoBanner';
+
+.products-page-main {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-row: repeat(2, auto);
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .products-page__purchase-path {
+        grid-row: span 2;
+        grid-column: 1/-1;
+
+        section {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .products-page-main {
+        grid-template-columns: 20% 65%;
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .products-page-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}

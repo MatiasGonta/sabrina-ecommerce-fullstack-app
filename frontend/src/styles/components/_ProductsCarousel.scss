@@ -5,17 +5,30 @@
 
     h5 {
         font-size: 30px;
-        margin-left: 15px;
+        margin: 15px;
     }
 
     .carousel-container {
-        width: 90%;
-        height: 375px;
+        width: 98%;
+        max-width: 1300px;
+        height: 365px;
         margin: 0 auto;
+
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: V.$color-tertiary;
+        }
+
+        .swiper-pagination-bullet {
+          background-color: V.$color-tertiary-light;
+        }
+
+        .swiper-pagination-bullet-active {
+          background-color: V.$color-tertiary;
+        }
         
         .carousel-item {
-            width: 195px;
-            height: 310px;
+            height: 330px;
             background-color: #fff;
             border-radius: 5px;
             position: relative;
@@ -60,12 +73,12 @@
 
                 .carousel-item__name {
                     margin-bottom: 20px;
-                    font-size: 20px;
+                    font-size: 14px;
                 }
 
                 .carousel-item__price {
                     font-weight: bold;
-                    font-size: 25px;
+                    font-size: 20px;
                     margin-bottom: 40px;
                 }
             }

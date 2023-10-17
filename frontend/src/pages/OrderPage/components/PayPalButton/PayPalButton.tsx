@@ -1,0 +1,99 @@
+import { LoadingSpinner } from "@/components";
+import { useGetPaypalClientIdQuery, useUpdateOrderMutation, useUpdateProductStock } from "@/hooks";
+import { ApiError, Order } from "@/models";
+import { getError } from "@/utilities";
+import { PayPalButtonsComponentProps, PayPalButtons, usePayPalScriptReducer, SCRIPT_LOADING_STATE } from "@paypal/react-paypal-js";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
+interface PayPalButtonInterface {
+    order: Order;
+    checkoutStock: () => void;
+}
+
+const PayPalButton: React.FC<PayPalButtonInterface> = ({ order, checkoutStock }) => {
+    const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer();
+
+    const { data: paypalConfig } = useGetPaypalClientIdQuery();
+
+    useEffect(() => {
+        if (paypalConfig && paypalConfig.clientId) {
+            const loadPaypalScript = async () => {
+                paypalDispatch({
+                    type: 'resetOptions',
+                    value: {
+                        'client-id': paypalConfig!.clientId,
+                        currency: 'USD',
+                    },
+                })
+                paypalDispatch({
+                    type: 'setLoadingStatus',
+                    value: SCRIPT_LOADING_STATE.PENDING,
+                })
+            }
+            loadPaypalScript();
+        }
+    }, [paypalConfig])
+
+    const { mutateAsync: updateOrder } = useUpdateOrderMutation();
+    const { mutateAsync: updateStock } = useUpdateProductStock();
+
+    const paypalButtonTransactionProps: PayPalButtonsComponentProps = {
+        style: {
+            layout: 'vertical',
+            color: 'blue'
+        },
+        async createOrder(data, actions) {
+            try {
+                await checkoutStock();
+                // Proceed with creating the order if stock check is successful
+                const orderId = await actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: order!.totalPrice.toString(),
+                      },
+                    },
+                  ],
+                });
+
+                return orderId;
+            } catch (err) {
+                toast.error(getError(err as ApiError));
+                throw err;
+            }
+        },
+        onApprove(data, actions) {
+            console.log('data: ', data);
+            return actions.order!.capture().then(async (details) => {
+                try {
+                    console.log('details', details);
+                    const data = await updateOrder({
+                        orderId: order._id,
+                        delivered: false,
+                        paid: true,
+                        paymentMethod: order.paymentMethod,
+                        paymentId: details.id
+                    });
+                    await updateStock({ orderItems: order.orderItems, action: 'discount' });
+                    toast.success(data.payMessage, {
+                        icon: '🎉',
+                    });
+                } catch (err) {
+                    toast.error(getError(err as ApiError))
+                }
+            })
+        },
+        onError: (err) => {
+            toast.error(getError(err as ApiError))
+        },
+    }
+
+    return (
+        isPending ? <LoadingSpinner type='flex' /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
+            <PayPalButtons {...paypalButtonTransactionProps} />
+        )
+    )
+}
+
+export default PayPalButton

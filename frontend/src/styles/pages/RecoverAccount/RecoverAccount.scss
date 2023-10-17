@@ -1,0 +1,50 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+// Form
+@use '../../components/Form';
+
+.recover-account-main {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .recover-account-md {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 450px;
+        height: 350px;
+        @include M.WrapperTemplate();
+        h3 {
+            margin: 5px 0;
+        }
+
+        p {
+            margin: 25px 0;
+        }
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .recover-account-main  {
+    
+        .recover-account-md {
+            width: 375px;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .recover-account-main  {
+    
+        .recover-account-md {
+            width: 350px;
+        }
+    }
+}

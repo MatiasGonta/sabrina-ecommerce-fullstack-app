@@ -1,0 +1,96 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+// Cells Colors
+$even-cell-color: transparent;
+$odd-cell-color: #f8f8f8;
+
+.sizes-guide-main article {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        overflow-x: auto;
+        z-index: 5;
+
+        h3 {
+            display: inline;
+            margin: 15px 0;
+        }
+    }
+}
+
+.size-guide__wrapper {
+    @include M.WrapperTemplate();
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        height: 10px;
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: V.$color-tertiary-light;
+    }
+      
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: V.$color-tertiary;
+    }
+
+    .size-guide__wrapper-table {
+        min-width: 370px;
+        width: 500px;
+        border-collapse: collapse;
+        text-align: center;
+
+        thead {
+
+            tr {
+
+                &:first-child th {
+                    border-radius: 5px 5px 0 0;
+                    background-color: V.$color-primary-light;
+                    color: V.$color-primary-semi-light;
+                    padding: 20px 0 20px 0;
+                }
+
+                th {
+                    background-color: V.$color-primary;
+                    color: #fff;
+                    max-width: 100px;
+                    padding: 10px 5px;
+                    border-bottom: 1px solid V.$color-primary-light;
+    
+                    span {
+                        font-weight: lighter;
+                    }
+                }
+            }
+        }
+    
+        tbody {
+
+            tr {
+                &:nth-child(even) {
+                    background-color: $odd-cell-color;
+                }
+    
+                &:nth-child(odd) {
+                    background-color: $even-cell-color;
+                }
+    
+                td {
+                    font-size: 15px;
+                    padding: 10px 5px;
+                    border-bottom: 1px solid V.$color-primary-light;
+                }
+            }
+        }
+    }
+}

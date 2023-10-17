@@ -1,3 +1,4 @@
+// Add user property to Express Request object
 declare namespace Express {
     export interface Request {
       user: {

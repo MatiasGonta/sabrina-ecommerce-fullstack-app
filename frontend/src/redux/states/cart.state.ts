@@ -79,7 +79,7 @@ const cartSlice = createSlice({
       state.shippingAddress = action.payload;
       setLocalStorage('shippingAddress', action.payload);
     },
-    savePaymentMethod: (state, action: PayloadAction<string>) => {
+    savePaymentMethod: (state, action: PayloadAction<'PayPal' | 'MercadoPago' | 'Efectivo' | 'Otros' | 'Transferencia' | 'Depósito' | 'Rapi Pago' | 'Pago Fácil' | 'Billetera Santa Fe'>) => {
       state.paymentMethod = action.payload;
       setLocalStorage('paymentMethod', action.payload);
     },

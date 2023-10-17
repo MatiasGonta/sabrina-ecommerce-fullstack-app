@@ -1,0 +1,151 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+//Sidebar
+@use '../../components/Sidebar';
+
+//Table
+@use '../../components/Table';
+
+//Card
+@use '../../components/Card';
+
+.dashboard__statistics {
+    h3 {
+        font-size: 20px;
+    }
+}
+
+.dashboard__statistics {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+
+    h2 {
+        margin-bottom: 25px;
+        font-size: 25px;
+    }
+
+    .dashboard__statistics-info {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dashboard__statistics-details {
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
+
+        .dashboard__statistics-details-sales,
+        .dashboard__statistics-details-categories {
+            @include M.WrapperTemplate();
+            position: relative;
+
+            button {
+                border: none;
+                background: transparent;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                cursor: pointer;
+            }
+        }
+
+        .dashboard__statistics-details-sales {
+            width: 65%;
+
+            .sales-line-chart-container {
+                width: 100%;
+                height: 375px;
+            }
+        }
+
+        .dashboard__statistics-details-categories {
+            width: 30%;
+
+            .sales-categories-doughnut-chart-container {
+                width: 100%;
+                height: 375px;
+            }
+        }
+    }
+}
+
+.dashboard__latest-orders {
+    padding: 0 25px 25px 25px;
+    overflow: hidden;
+
+    section {
+        @include M.WrapperTemplate();
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        a {
+            margin-top: 15px;
+            align-self: center;
+            font-size: 17.5px;
+            color: V.$color-tertiary;
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (max-width: 1118px) {
+    .dashboard__statistics {
+
+        .dashboard__statistics-details {
+    
+            .dashboard__statistics-details-sales {
+                width: 66%;
+            }
+    
+            .dashboard__statistics-details-categories {
+                width: 32%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .dashboard__statistics {
+        padding: 15px;
+    
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        .dashboard__statistics-info {
+            flex-direction: column;
+            height: 340px;
+        }
+
+        .dashboard__statistics-details {
+            flex-direction: column;
+            margin-top: 15px;
+                
+            .dashboard__statistics-details-sales {
+                width: 100%;
+
+                .sales-line-chart-container {
+                    width: 99.9%;
+                    height: 375px;
+                }
+            }
+
+            .dashboard__statistics-details-categories {
+                margin-top: 15px;
+                width: 100%;
+
+                .sales-categories-doughnut-chart-container {
+                    width: 99.9%;
+                    height: 375px;
+                }
+            }
+        }
+    }
+        
+    .dashboard__latest-orders {
+        padding: 0 15px 15px 15px;
+    }
+}

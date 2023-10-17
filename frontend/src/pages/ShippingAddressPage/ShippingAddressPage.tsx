@@ -1,48 +1,34 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { saveShippingAddress } from '@/redux/states/cart.state';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
 import { CheckoutSteps, Footer, Navbar } from "@/components";
-import { setLocalStorage } from "@/utilities";
-import '@/styles/layouts/ShippingAddressPage/ShippingAddressPage.scss';
+import { handleFormInputChange, setLocalStorage } from "@/utilities";
+import { ShippingAddress } from '@/models';
+import '@/styles/pages/ShippingAddressPage/ShippingAddressPage.scss';
 
 interface ShippingAddressPageInterface {}
 
 const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
-    const userInfo = useSelector((store: AppStore) => store.userInfo);
     const { shippingAddress } = useSelector((store: AppStore) => store.cart);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-      if (!userInfo) {
-        navigate('/signin?redirect=/shipping');
-      }
-    }, [userInfo, navigate]);
-
-    const [fullName, setFullName] = useState(shippingAddress.fullName || '');
-    const [address, setAddress] = useState(shippingAddress.address || '');
-    const [city, setCity] = useState(shippingAddress.city || '');
-    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
+    const [formData, setFormData] = useState<ShippingAddress>({
+        fullName: shippingAddress.fullName || '',
+        address: shippingAddress.address || '',
+        city: shippingAddress.city || '',
+        postalCode: shippingAddress.postalCode || ''
+    });
     
     const submitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        dispatch(saveShippingAddress({
-            fullName,
-            address,
-            city,
-            postalCode
-        }));
+        dispatch(saveShippingAddress(formData));
 
-        setLocalStorage('shippingAddress', {
-            fullName,
-            address,
-            city,
-            postalCode
-        });
+        setLocalStorage('shippingAddress', formData);
 
         navigate('/payment');
     }
@@ -57,41 +43,30 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
             <article>
                 <CheckoutSteps step1 step2 />
             </article>
-            <article className="form-container">
+            <article>
                 <section>
-                    <h1>Dirección de envío</h1>
+                    <div className="form-container">
+                    <h3>Dirección de envío</h3>
                     <form onSubmit={submitHandler}>
                         <div className="group">      
                             <input
                                 type="text"
-                                name="full-name"
-                                value={fullName}
+                                name="fullName"
+                                value={formData.fullName}
                                 required
-                                onChange={(e)=> setFullName(e.target.value)}
+                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
-                            <label htmlFor="full-name">Full Name</label>
-                        </div>
-                        <div className="group">      
-                            <input
-                                type="text"
-                                name="address"
-                                value={address}
-                                required
-                                onChange={(e)=> setAddress(e.target.value)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="full-name">Dirección</label>
+                            <label htmlFor="fullName">Nombre Completo</label>
                         </div>
                         <div className="group">      
                             <input
                                 type="text"
                                 name="city"
-                                value={city}
+                                value={formData.city}
                                 required
-                                onChange={(e)=> setCity(e.target.value)}
+                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
@@ -99,20 +74,33 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
                         </div>
                         <div className="group">      
                             <input
-                                type="number"
-                                name="postal-code"
-                                value={postalCode}
+                                type="text"
+                                name="address"
+                                value={formData.address}
                                 required
-                                onChange={(e)=> setPostalCode(e.target.value)}
+                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
-                            <label htmlFor="postal-code">Código Postal</label>
+                            <label htmlFor="address">Domicilio</label>
                         </div>
-                        <div className="from-submit">
+                        <div className="group">      
+                            <input
+                                type="number"
+                                name="postalCode"
+                                value={formData.postalCode}
+                                required
+                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label htmlFor="postalCode">Código Postal</label>
+                        </div>
+                        <div className="form-submit">
                             <button type="submit">Continuar</button>
                         </div>
                     </form>
+                    </div>
                 </section>
             </article>
         </main>

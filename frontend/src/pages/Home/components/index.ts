@@ -1,1 +1,1 @@
-export * from './ProductSearchBar';
+export * from './Accordion';

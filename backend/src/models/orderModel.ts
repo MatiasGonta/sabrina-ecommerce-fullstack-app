@@ -1,105 +1,127 @@
-import { modelOptions, prop, getModelForClass, Ref } from '@typegoose/typegoose';
+import mongoose, { Schema, Document, PaginateModel } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 import { ProductItem } from './productModel';
 import { User } from './userModel';
 
-class ShippingAddress {
-  @prop()
-  public fullName?: string
-
-  @prop()
-  public address?: string
-
-  @prop()
-  public city?: string
-
-  @prop()
-  public postalCode?: string
-
-  @prop()
-  public country?: string
-
-  @prop()
-  public lat?: number
-
-  @prop()
-  public lng?: number
+interface ShippingAddress {
+  fullName: string;
+  address: string;
+  city: string;
+  postalCode: string;
 }
 
-export class Item {
-  @prop({ required: true })
-  public name!: string
-
-  @prop({ required: true })
-  public quantity!: number
-
-  @prop({ required: true })
-  public colorSelected!: string
-
-  @prop({ required: true })
-  public sizeSelected!: string
-
-  @prop({ required: true })
-  public countInStock!: number
-
-  @prop({ required: true })
-  public image!: string
-
-  @prop({ required: true })
-  public price!: number
-
-  @prop({ ref: ProductItem })
-  public product?: Ref<ProductItem>
+export interface Item extends Document {
+  name: string;
+  quantity: number;
+  category: string;
+  colorSelected: string;
+  sizeSelected: string;
+  countInStock: number;
+  image: string;
+  price: number;
+  product?: ProductItem['_id'];
 }
 
-class PaymentResult {
-  @prop()
-  public paymentId!: string
-
-  @prop()
-  public status!: string
-
-  @prop()
-  public update_time!: string
-
-  @prop()
-  public email_address!: string
+interface PaymentResult {
+  paymentId: string;
+  status: string;
 }
 
-@modelOptions({ schemaOptions: { timestamps: true } })
-export class Order {
-  public _id!: string
-
-  @prop()
-  public orderItems!: Item[]
-
-  @prop()
-  public shippingAddress?: ShippingAddress
-
-  @prop({ ref: User })
-  public user?: Ref<User>
-
-  @prop({ required: true })
-  public paymentMethod!: string
-
-  @prop()
-  public paymentResult?: PaymentResult
-
-  @prop({ required: true, default: 0 })
-  public itemsPrice!: number
-  @prop({ required: true, default: 0 })
-  public shippingPrice!: number
-  @prop({ required: true, default: 0 })
-  public taxPrice!: number
-  @prop({ required: true, default: 0 })
-  public totalPrice!: number
-  @prop({ required: true, default: false })
-  public isPaid!: boolean
-  @prop()
-  public paidAt!: Date
-  @prop({ required: true, default: false })
-  public isDelivered!: boolean
-  @prop()
-  public deliveredAt!: Date
+export interface Order extends Document {
+  orderItems: Item[];
+  shippingAddress?: ShippingAddress;
+  userId: User['_id'];
+  userEmail: User['email'];
+  paymentMethod: 'PayPal' | 'MercadoPago' | 'Efectivo' | 'Otros' | 'Transferencia' | 'Depósito' | 'Rapi Pago' | 'Pago Fácil' | 'Billetera Santa Fe';
+  paymentResult?: PaymentResult;
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
+  isPaid: boolean;
+  paidAt?: Date;
+  isDelivered: boolean;
+  deliveredAt?: Date;
+  isCancelled: boolean;
+  cancelledAt?: Date;
 }
 
-export const OrderModel = getModelForClass(Order)
+const shippingAddressSchema = new Schema<ShippingAddress>({
+  fullName: String,
+  address: String,
+  city: String,
+  postalCode: String,
+});
+
+export const itemSchema = new Schema<Item>({
+  name: String,
+  category: String,
+  quantity: Number,
+  colorSelected: String,
+  sizeSelected: String,
+  countInStock: Number,
+  image: String,
+  price: Number,
+  product: {
+    type: Schema.Types.ObjectId,
+    ref: 'ProductItem'
+  },
+});
+
+const paymentResultSchema = new Schema<PaymentResult>({
+  paymentId: String,
+  status: String,
+});
+
+const orderSchema = new Schema<Order>({
+  orderItems: [itemSchema],
+  shippingAddress: shippingAddressSchema,
+  userId: {
+    type: String,
+    ref: 'User'
+  },
+  userEmail: {
+    type: String,
+    ref: 'User'
+  },
+  paymentMethod: String,
+  paymentResult: paymentResultSchema,
+  itemsPrice: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  shippingPrice: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  taxPrice: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  isPaid: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  paidAt: Date,
+  isDelivered: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  deliveredAt: Date,
+}, {
+  timestamps: true
+});
+
+orderSchema.plugin(mongoosePaginate);
+
+export const OrderModel = mongoose.model<Order>('Order', orderSchema);

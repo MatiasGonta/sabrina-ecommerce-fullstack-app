@@ -1,6 +1,7 @@
 export type CartItem = {
     image: string
     slug: string
+    category: string
     quantity: number
     countInStock: number
     price: number
@@ -20,7 +21,7 @@ export type ShippingAddress = {
 export type Cart = {
     cartItems: CartItem[]
     shippingAddress: ShippingAddress
-    paymentMethod: string
+    paymentMethod: 'PayPal' | 'MercadoPago' | 'Efectivo' | 'Otros' | 'Transferencia' | 'Depósito' | 'Rapi Pago' | 'Pago Fácil' | 'Billetera Santa Fe'
     itemsPrice: number
     shippingPrice: number
     taxPrice: number

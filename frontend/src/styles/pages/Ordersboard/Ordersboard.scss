@@ -1,0 +1,22 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+//Sidebar
+@use '../../components/Sidebar';
+
+//Table
+@use '../../components/Table';
+
+.ordersboard__control-panel {
+    grid-row: span 2;
+    padding: 25px;
+    overflow: hidden;
+
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    section {
+        @include M.WrapperTemplate();
+    }
+}

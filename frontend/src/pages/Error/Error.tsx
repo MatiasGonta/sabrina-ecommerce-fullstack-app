@@ -16,13 +16,13 @@ const Error: React.FC<ErrorInterface> = () => {
   return (
     <div id="error-page">
         <Helmet>
-          <title>Error - F y M Indumentaria</title>
+          <title>Error - SABRINA</title>
         </Helmet>
         <img src="https://cdn.rawgit.com/ahmedhosna95/upload/1731955f/sad404.svg" alt="error" />
         <h1>Error</h1>
         <p>{error.statusText || error.message}</p>
         <Link to='/'>
-          <button>Return to Home</button>
+          <button>Volver al inicio</button>
         </Link>
     </div>
   )

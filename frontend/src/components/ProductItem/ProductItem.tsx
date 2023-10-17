@@ -1,4 +1,4 @@
-import { CartItem, Colors, Product } from "@/models"
+import { CartItem, COLORS, Product } from "@/models"
 import { Link, useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CloseIcon from '@mui/icons-material/Close';
@@ -32,7 +32,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
   const productVariant = `${selectedColor}-${selectedSize}`;
 
   const addToCartHandler = () => {
-    if (selectedColor !== '' && selectedSize !== '' || product?.category === 'Bufandas' && selectedColor !== '') {
+    if (selectedColor !== '' && selectedSize !== '' || product?.sizes.length === 0 && selectedColor !== '') {
       const existItem: CartItem | undefined = cart.cartItems.find(
         (item) =>
           item._id === product!._id &&
@@ -41,14 +41,14 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
       );
       const quantity: number = existItem ? existItem.quantity + 1 : 1;
 
-      if(product!.countInStockByVariant[productVariant] < quantity) {
+      if (product!.countInStockByVariant[productVariant] < quantity) {
 
-        if (product?.category === 'Bufandas') {
+        if (product?.sizes.length === 0) {
           toast.warn(`Lo siento. Producto de color ${selectedColor} sin stock`);
         } else {
           toast.warn(`Lo siento. Producto de color ${selectedColor} y talle ${selectedSize} sin stock`);
         }
-        
+
         return;
       }
 
@@ -57,7 +57,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
       return;
     }
 
-    if (product?.category === 'Bufandas') {
+    if (product?.sizes.length === 0) {
       toast.warn('Debes seleccionar un color');
     } else {
       toast.warn('Debes seleccionar un color y talle');
@@ -74,19 +74,19 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
           {
             existFavorite
               ? <FavoriteIcon
-                  className="product-item__favorite-icon"
-                  sx={{ fontSize: 25 }}
-                  onClick={() => dispatch(removeProductFromFavorites(product))}
-                />
+                className="product-item__favorite-icon"
+                sx={{ fontSize: 30 }}
+                onClick={() => dispatch(removeProductFromFavorites(product))}
+              />
               : <FavoriteBorderOutlinedIcon
-                  className="product-item__favorite-icon"
-                  sx={{ fontSize: 25 }}
-                  onClick={() => dispatch(addProductToFavorites(product))}
-                />
+                className="product-item__favorite-icon"
+                sx={{ fontSize: 30 }}
+                onClick={() => dispatch(addProductToFavorites(product))}
+              />
           }
         </Tooltip>
       }
-      <Link to={`/product/${product.slug}`}>
+      <Link to={`/products/${product.slug}`}>
         <img
           src={product.images[0]}
           alt={product.name}
@@ -97,78 +97,77 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
         <div className="product-item__colors">
           <span>{product.colors.length} colores</span>
         </div>
-        <Link to={`/product/${product.slug}`} className="product-item__name">{product.name}</Link>
-        { 
+        {
           addCartSettings
-          ? (
-            <div className="product-item__settings">
-              <Tooltip title="Cerrar">
-                <CloseIcon
-                  className="product-item__setting-close"
-                  sx={{ fontSize: 25 }}
-                  onClick={() => setAddCartSettings(false)}
-                />
-              </Tooltip>
-              <ul className="product-item__settings-color">
+            ? (
+              <div className="product-item__settings">
+                <Tooltip title="Cerrar">
+                  <button className="product-item__setting-close" onClick={() => setAddCartSettings(false)}>
+                    <CloseIcon sx={{ fontSize: 25 }} />
+                  </button>
+                </Tooltip>
+                <ul className="product-item__settings-color">
+                  {
+                    product.colors.slice(0, 6).map(color => (
+                      <li
+                        key={color}
+                        className={selectedColor === color ? "selected" : ""}
+                        onClick={() => setSelectedColor(color)}
+                      >
+                        <Tooltip title={color} >
+                          <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
+                        </Tooltip>
+                      </li>
+                    ))
+                  }
+                  {
+                    product.colors.length > 6 && (
+                      <li onClick={() => navigate(`/products/${product.slug}`)}>
+                        <span>
+                          <u>+{product.colors.length - 6}</u>
+                        </span>
+                      </li>
+                    )
+                  }
+                </ul>
+                <ul className="product-item__settings-size">
+                  {
+                    product.sizes.slice(0, 4).map(size => (
+                      <li key={size} className={selectedSize === size ? "selected" : ""} onClick={() => setSelectedSize(size)}>
+                        <span>{size}</span>
+                      </li>
+                    ))
+                  }
+                  {
+                    product.sizes.length > 4 && (
+                      <li onClick={() => navigate(`/products/${product.slug}`)}>
+                        <span>
+                          <u>+{product.sizes.length - 4}</u>
+                        </span>
+                      </li>
+                    )
+                  }
+                </ul>
+                <button className="add-to-cart-btn" onClick={addToCartHandler} >AÑADIR</button>
+              </div>
+            ) : (
+              <>
+                <Link to={`/products/${product.slug}`} className="product-item__name">{product.name}</Link>
+                <span className="product-item__price">${product.price}</span>
+
                 {
-                  product.colors.slice(0, 6).map(color => (
-                    <li
-                      key={color}
-                      className={selectedColor === color ? "selected" : ""}
-                      onClick={() => setSelectedColor(color)}
-                    >
-                      <Tooltip title={color} >
-                        <div style={{ backgroundColor: Colors[color as keyof typeof Colors] }}></div>
-                      </Tooltip>
-                    </li>
-                  ))
-                }
-                {
-                  product.colors.length > 6 && (
-                    <li onClick={() => navigate(`/product/${product.slug}`)}>
-                      <span>+{product.colors.length - 6}</span>
-                    </li>
-                  )
-                }
-              </ul>
-              <ul className="product-item__settings-size">
-                {
-                  product.sizes.slice(0,4).map(size => (
-                    <li key={size} className={selectedSize === size ? "selected" : ""} onClick={() => setSelectedSize(size)}>
-                      <span>{size}</span>
-                    </li>
-                  ))
-                }
-                {
-                  product.sizes.length > 4 && (
-                    <li onClick={() => navigate(`/product/${product.slug}`)}>
-                      <span>+{product.sizes.length - 4}</span>
-                    </li>
-                  )
-                }
-              </ul>
-              <button
-                className="add-to-cart-btn"
-                onClick={addToCartHandler}
-              >AÑADIR AL CARRITO</button>
-            </div>
-          ) : (
-            <>
-              <span className="product-item__price">${product.price}</span>
-        
-              {
-                calculateTotalStock(product) === 0
-                  ? <button className="out-stock-btn">SIN STOCK</button>
-                  : <button
+                  calculateTotalStock(product) === 0
+                    ? <button className="out-stock-btn">SIN STOCK</button>
+                    : <button
                       className="add-to-cart-btn"
                       onClick={() => setAddCartSettings(true)}
                     >AÑADIR AL CARRITO</button>
-              }
-            </>
-          )
+                }
+              </>
+            )
         }
       </div>
-    </li> 
+    </li>
   )
 }
 

@@ -1,0 +1,51 @@
+@use '../utilities/variables' as V;
+@use '../utilities/mixins' as M;
+
+.card {
+    @include M.WrapperTemplate();
+    display: flex;
+    height: 100px;
+    align-items: center;
+    width: 30%;
+
+    .card-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 50%;
+
+        * {
+            color: #fff;
+        }
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+            
+        .card-body__title,
+        .card-body__text {
+            font-size: 18px;
+            font-weight: 600;
+            color: V.$color-primary-semi-light;
+        }
+
+        .card-body__text {
+            font-weight: 800;
+        }
+    }
+}
+
+@media screen and (max-width: 1118px) {
+    .card {
+        width: 32%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .card {
+        width: 100%;
+    }
+}

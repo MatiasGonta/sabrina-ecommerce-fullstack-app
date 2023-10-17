@@ -27,7 +27,7 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
 
     const editItemHandler = (item: CartItemData) => {
         dispatch(removeItemFromCart(item));
-        navigate(`/product/${item.slug}`);
+        navigate(`/products/${item.slug}`);
     };
 
   return (
@@ -35,7 +35,7 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
         <div className='cart-item__info'>
             <img src={item.image} alt={item.name} />
             <div>
-                <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                <Link to={`/products/${item.slug}`}>{item.name}</Link>
                 {
                     item.sizeSelected !== ''
                         ? <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>

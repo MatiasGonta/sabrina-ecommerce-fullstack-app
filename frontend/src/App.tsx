@@ -10,17 +10,18 @@ import { lazy, Suspense } from "react";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-interface AppInterface {}
-
-// Reemplazado por react-query: axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/';
-
 const Home = lazy(() => import('./pages/Home/Home'));
+const ProductsPage = lazy(() => import('./pages/ProductsPage/ProductsPage'));
 const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'));
 const Error = lazy(() => import('./pages/Error/Error'));
 const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
+const SizesGuide = lazy(() => import('./pages/SizesGuide/SizesGuide'));
 const CartPage = lazy(() => import('./pages/CartPage/CartPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
+const RecoverAccount = lazy(() => import('./pages/RecoverAccount/RecoverAccount'));
+const RestorePassword = lazy(() => import('./pages/RestorePassword/RestorePassword'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage'));
+const VerifyAccount = lazy(() => import('./pages/VerifyAccount/VerifyAccount'));
 const ShippingAddressPage = lazy(() => import('./pages/ShippingAddressPage/ShippingAddressPage'));
 const PaymentMethodPage = lazy(() => import('./pages/PaymentMethodPage/PaymentMethodPage'));
 const PlaceOrderPage = lazy(() => import('./pages/PlaceOrderPage/PlaceOrderPage'));
@@ -31,6 +32,9 @@ const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Ordersboard = lazy(() => import('./pages/Ordersboard/Ordersboard'));
 const Productsboard = lazy(() => import('./pages/Productsboard/Productsboard'));
 const Usersboard = lazy(() => import('./pages/Usersboard/Usersboard'));
+const UpdateUserPage = lazy(() => import('./pages/UpdateUserPage/UpdateUserPage'));
+const UpdateProductPage = lazy(() => import('./pages/UpdateProductPage/UpdateProductPage'));
+const CreateProductPage = lazy(() => import('./pages/CreateProductPage/CreateProductPage'));
 
 const router = createBrowserRouter([
   {
@@ -39,12 +43,20 @@ const router = createBrowserRouter([
     errorElement: <Error />
   },
   {
+    path: '/products',
+    element: <ProductsPage />
+  },
+  {
     path: '/search',
     element: <SearchPage />
   },
   {
-    path: '/product/:slug',
+    path: '/products/:slug',
     element: <ProductPage />
+  },
+  {
+    path: '/sizes-guide',
+    element: <SizesGuide /> 
   },
   {
     path: '/favorites',
@@ -61,6 +73,18 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <RegisterPage />
+  },
+  {
+    path: '/restore-password',
+    element: <RecoverAccount />
+  },
+  {
+    path: '/restore-password/:id',
+    element: <RestorePassword />
+  },
+  {
+    path: '/verify/:id',
+    element: <VerifyAccount /> 
   },
   {
     path: '',
@@ -103,14 +127,28 @@ const router = createBrowserRouter([
             element: <Productsboard />
           },
           {
+            path: 'products/create-product',
+            element: <CreateProductPage />
+          },
+          {
+            path: 'products/update-product/:slug',
+            element: <UpdateProductPage />
+          },
+          {
             path: 'users',
-            element: <Usersboard />
+            element: <Usersboard />,
+          },
+          {
+            path: 'users/update-user/:id',
+            element: <UpdateUserPage />
           }
         ]
       }
     ]
   }
 ]);
+
+interface AppInterface {}
 
 const paypalOptions: ReactPayPalScriptOptions = {
   'clientId': 'sb',
@@ -120,12 +158,12 @@ const App: React.FC<AppInterface> = () => {
   const queryClient = new QueryClient();
 
   return (
-    <PayPalScriptProvider options={paypalOptions} deferLoading={true}>
+    <PayPalScriptProvider options={paypalOptions}>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
             <Suspense fallback={<LoadingSpinner type='noflex' />}>
-              <ToastContainer position="bottom-center" limit={3} />
+              <ToastContainer position="bottom-center" limit={3} autoClose={3000} />
               <RouterProvider router={router} />
               <ReactQueryDevtools initialIsOpen={false} />
             </Suspense>

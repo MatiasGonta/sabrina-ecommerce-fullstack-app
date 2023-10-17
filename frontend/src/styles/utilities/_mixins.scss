@@ -1,5 +1,4 @@
-// In stock button
-@mixin in-stock-btn ($width) {
+@mixin Button ($width) {
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -10,13 +9,17 @@
     transition: background-color 0.3s;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: #23c476;
+    }
+
+    @media screen and (max-width: 1300px) {
+        font-size: 12.5px;
     }
 }
 
-// Out stock button
-@mixin out-stock-btn ($width) {
+@mixin DisabledButton ($width) {
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -24,4 +27,11 @@
     width: $width;
     height: 40px;
     margin: 0 auto;
+}
+
+@mixin WrapperTemplate () {
+    background-color: #fff;
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.04), 0px 2px 6px rgba(0,0,0,0.04), 0px 10px 20px rgba(0,0,0,0.04);
+    border-radius: 10px;
+    padding: 20px;
 }

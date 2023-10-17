@@ -1,62 +1,22 @@
-import { Footer, LoadingSpinner, Navbar } from "@/components";
-import { useGetOrderHistoryQuery } from "@/hooks";
-import { ApiError } from "@/models";
-import { getError } from "@/utilities";
+import { Footer, Navbar, OrderTable } from "@/components";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
-import '../../styles/layouts/OrderHistoryPage/OrderHistoryPage.scss';
+import { Link } from "react-router-dom";
+import '../../styles/pages/OrderHistoryPage/OrderHistoryPage.scss';
 
 const OrderHistoryPage = () => {
-    const navigate = useNavigate();
-    const { data: orders, isLoading, error } = useGetOrderHistoryQuery();
-
   return (
     <>
         <Helmet>
-            <title>Mis Compras</title>
+            <title>Mis Compras - SABRINA</title>
         </Helmet>
         <Navbar />
+        <div className='sub-navbar'>
+            <h2><Link to="/">Inicio</Link> / Compras</h2>
+        </div>
         <main className="order-history-main">
             <article>
                 <section>
-                    <div className='sub-navbar'>
-                        <h2><Link to="/">Inicio</Link> / Compras</h2>
-                    </div>
-                    {
-                        isLoading ? <LoadingSpinner type='noflex' /> : error ? <h2>{getError(error as ApiError)}</h2> : (
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>FECHA</th>
-                                        <th>TOTAL</th>
-                                        <th>PAGADO</th>
-                                        <th>ENTREGADO</th>
-                                        <th>DETALLE</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        orders!.map((order) => (
-                                            <tr key={order._id}>
-                                                <td>{order._id}</td>
-                                                <td>{order.createdAt.substring(0,10)}</td>
-                                                <td>{order.totalPrice.toFixed(2)}</td>
-                                                <td>{order.isPaid ? order.paidAt.substring(0,10) : 'No'}</td>
-                                                <td>{order.isDelivered ? order.deliveredAt.substring(0,10) : 'No'}</td>
-                                                <td>
-                                                    <button
-                                                        type="button"
-                                                        onClick={()=> navigate(`/order/${order._id}`)}
-                                                    >Detalle</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
-                        )
-                    }
+                    <OrderTable itemsPerPage={10} type="default" user={true} />
                 </section>
             </article>
         </main>

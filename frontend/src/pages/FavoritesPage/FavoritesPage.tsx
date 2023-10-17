@@ -5,7 +5,7 @@ import { removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { Footer, Navbar } from "@/components";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import '@/styles/layouts/FavoritesPage/FavoritesPage.scss';
+import '@/styles/pages/FavoritesPage/FavoritesPage.scss';
 
 interface FavoritesPageInterface {}
 
@@ -16,7 +16,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
   return (
     <>
         <Helmet>
-          <title>Favoritos</title>
+          <title>Favoritos - SABRINA</title>
         </Helmet>
         <Navbar />
         <div className='sub-navbar'>
@@ -25,7 +25,8 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
         <main className="favorites-main">
           <article>
             {
-              favorites.length === 0 ? (
+              favorites.length === 0
+              ? (
                 <section id="favorites-clear-section">
                   <HeartBrokenOutlinedIcon sx={{ fontSize: 100 }} />
                   <p>Aún no tenés productos en Favoritos.</p>
@@ -37,7 +38,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                     {
                       favorites!.map(product => (
                         <li key={product.slug} className="favorites-product">
-                          <Link to={`/product/${product.slug}`}>
+                          <Link to={`/products/${product.slug}`}>
                             <img
                               src={product.images[0]}
                               alt={product.name}
@@ -48,8 +49,8 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                             <div className="favorites-product__colors">
                               <span>{product.colors.length} colores</span>
                             </div>
-                            <a className='favorites-product__name'>{product.name}</a>
-                            <span className='favorites-product__price'>${product.price}</span>
+                            <Link to={`/products/${product.slug}`} className="favorites-product__name">{product.name}</Link>
+                            <span className="favorites-product__price">${product.price}</span>
                             <span
                               onClick={() => dispatch(removeProductFromFavorites(product))}
                               className="favorites-product__remove"

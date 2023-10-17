@@ -1,0 +1,136 @@
+@use '../../utilities/variables' as V;
+@use '../../utilities/mixins' as M;
+
+.verify-main {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .verify-user-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        height: 250px;
+        @include M.WrapperTemplate();
+
+        .verify-icon {
+            position: absolute;
+            top: -70px;
+            background-color: #23c476;
+            border-radius: 50%;
+            padding: 10px;
+            border: 10px solid #fff;
+            animation: showVerifyCheck .4s ease-in-out;
+            
+            * {
+                color: #fff;
+            }
+        }
+    
+        h2 {
+            text-align: center;
+            width: 300px;
+            display: inline;
+            font-size: 25px;
+        }
+
+        .verify-progress {
+            width: 300px;
+            margin: 15px 0;
+    
+            .verify-progress__bar {
+                height: 5px;
+                background-color: V.$color-tertiary-light;
+                width: 100%;
+                overflow: hidden;
+    
+                .verify-progress__bar-value {
+                    width: 100%;
+                    height: 100%;
+                    background-color: V.$color-tertiary;
+                    animation: indeterminateAnimation 1s infinite linear;
+                    transform-origin: 0% 50%;
+                }
+            }
+        }
+
+        span {
+            width: 170px;
+            margin-top: 10px;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        h2,
+        span {
+            &.animated-dots::after {
+                display: inline-block;
+                content: "...";
+                animation: dotAnimation .75s infinite;
+            }
+        }
+    }
+}
+
+@keyframes showVerifyCheck {
+    0% {
+        opacity: 0;
+        transform: scale(0.25);
+    }
+    40% {
+        opacity: .5;
+        transform: scale(0.50);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes indeterminateAnimation {
+    0% {
+      transform:  translateX(0) scaleX(0);
+    }
+    40% {
+      transform:  translateX(0) scaleX(0.4);
+    }
+    100% {
+      transform:  translateX(100%) scaleX(0.5);
+    }
+}
+
+@keyframes dotAnimation {
+    0%, 20% {
+      content: ".";
+    }
+    40%, 60% {
+      content: "..";
+    }
+    80%, 100% {
+      content: "...";
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .verify-main {
+    
+        .verify-user-container {
+            width: 375px;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .verify-main {
+    
+        .verify-user-container {
+            width: 350px;
+        }
+    }
+}
