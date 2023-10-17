@@ -1,12 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@paypal/checkout-server-sdk':
-    specifier: ^1.0.3
-    version: 1.0.3
-  '@paypal/paypalhttp':
-    specifier: ^1.0.1
-    version: 1.0.1
   '@typegoose/typegoose':
     specifier: ^11.3.0
     version: 11.3.0(mongoose@7.3.4)
@@ -78,9 +72,6 @@ devDependencies:
   '@types/nodemailer':
     specifier: ^6.4.11
     version: 6.4.11
-  '@types/paypal__checkout-server-sdk':
-    specifier: ^1.0.5
-    version: 1.0.5
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.0.0
     version: 6.0.0(@typescript-eslint/parser@6.0.0)(eslint@8.45.0)(typescript@5.1.6)
@@ -223,18 +214,6 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@paypal/checkout-server-sdk@1.0.3:
-    resolution: {integrity: sha512-UEdq8akEdMz0Vs4qoQFU2gMp8PpyE/HKyMwiZuK4vIWUKl8jfd1fWKjQN5cDFm9NkFUIp5U7h++rdMOVj9WMNA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@paypal/paypalhttp': 1.0.1
-    dev: false
-
-  /@paypal/paypalhttp@1.0.1:
-    resolution: {integrity: sha512-DC7AHxTT7drF6dUi3YaFdPVuT15sIkpD5H2eHmdtFgxM4UanS1o1ZDfMhR9mpxd8o+X6pz2r+EZVRRq+n1cssQ==}
-    engines: {node: '>=4'}
-    dev: false
-
   /@tsconfig/node10@1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
     dev: true
@@ -348,18 +327,6 @@ packages:
 
   /@types/nodemailer@6.4.11:
     resolution: {integrity: sha512-Ld2c0frwpGT4VseuoeboCXQ7UJIkK3X7Lx/4YsZEiUHtHsthWAOCYtf6PAiLhMtfwV0cWJRabLBS3+LD8x6Nrw==}
-    dependencies:
-      '@types/node': 20.4.2
-    dev: true
-
-  /@types/paypal__checkout-server-sdk@1.0.5:
-    resolution: {integrity: sha512-pGpESvscnVi26tPOZGEXzr1PQXgNW8aaKtMSB2C8K41+4UW3kT28MCMLmKJkSkkNaJ4LHKEOzfun/c2ntC416g==}
-    dependencies:
-      '@types/paypal__paypalhttp': 1.0.0
-    dev: true
-
-  /@types/paypal__paypalhttp@1.0.0:
-    resolution: {integrity: sha512-JSrGEKWT+VnMNNkOFPYRcBdv/W5FuDP0ZDp9KxExZVEtX8xZTO4NFfkG9gkQ+g/RnEbVZnFwrQ04LH5HLio5Gw==}
     dependencies:
       '@types/node': 20.4.2
     dev: true
