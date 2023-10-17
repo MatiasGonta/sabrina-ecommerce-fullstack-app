@@ -64,9 +64,6 @@ const productSchema = new Schema<ProductItem>({
   timestamps: true
 });
 
-// Aplica el plugin de paginación al esquema
 productSchema.plugin(mongoosePaginate);
 
-// Define y exporta el modelo de Mongoose paginado
-// El tipo de la variable ProductModel será PaginateModel<ProductItem & Document>
 export const ProductModel = model<ProductItem>('productitems', productSchema);

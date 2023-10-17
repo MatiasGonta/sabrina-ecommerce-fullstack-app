@@ -1,4 +1,3 @@
-// Importa los módulos necesarios
 import { ProductItem } from "../models";
 
 export const sampleProducts: ProductItem = [

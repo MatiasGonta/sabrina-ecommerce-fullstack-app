@@ -25,7 +25,7 @@ export const transporter = nodemailer.createTransport({
         pass: process.env.NODEMAILER_PASSWORD
     },
     tls: {
-        // Permitir certificados autofirmados
+        // Allow self-signed certificates
         rejectUnauthorized: false
     }
 });

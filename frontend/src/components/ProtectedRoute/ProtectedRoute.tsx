@@ -13,7 +13,7 @@ export default function ProtectedRoute() {
     const { profileDetails, isLoading } = useGetProfileDetails(userToken, userId);
 
     if (isLoading && userId !== '' && userToken !== '') {
-        // Espera a que se carguen los detalles del perfil antes de redirigir
+        // Wait for profile details to load before redirecting
         return <LoadingSpinner type='noflex' />;
     } else {
         if(profileDetails) {
