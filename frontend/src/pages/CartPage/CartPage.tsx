@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { CartItem as Item } from './components';
-import "react-multi-carousel/lib/styles.css";
 import '@/styles/pages/CartPage/CartPage.scss';
 
 interface CartPageInterface {}

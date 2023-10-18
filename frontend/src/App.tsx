@@ -4,7 +4,6 @@ import { store } from "@/redux";
 import { HelmetProvider } from 'react-helmet-async';
 import { PayPalScriptProvider, ReactPayPalScriptOptions } from '@paypal/react-paypal-js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { LoadingSpinner, ProtectedRoute, ProtectedAdminRoute } from "./components";
 import { lazy, Suspense } from "react";
 import { ToastContainer } from 'react-toastify';
@@ -165,7 +164,6 @@ const App: React.FC<AppInterface> = () => {
             <Suspense fallback={<LoadingSpinner type='noflex' />}>
               <ToastContainer position="bottom-center" limit={3} autoClose={3000} />
               <RouterProvider router={router} />
-              <ReactQueryDevtools initialIsOpen={false} />
             </Suspense>
           </Provider>
         </QueryClientProvider>
