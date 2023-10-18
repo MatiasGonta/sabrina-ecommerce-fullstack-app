@@ -35,7 +35,7 @@ keyRouter.post('/mercadopago/create-order', asyncHandler(async (req: Request, re
         }] = order.orderItems.map((item: Item) => {
             const { image, quantity, name } = item;
 
-            const round2 = (num: number) => Math.round(num * 100 + Number.EPSILON) / 100
+            const round2 = (num: number) => Math.round(num * 100 + Number.EPSILON) / 100;
 
             const itemPrice = round2(item.price);
             const taxPrice = round2(0.05 * itemPrice);
