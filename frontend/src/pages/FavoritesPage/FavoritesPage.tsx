@@ -50,7 +50,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                               <span>{product.colors.length} colores</span>
                             </div>
                             <Link to={`/products/${product.slug}`} className="favorites-product__name">{product.name}</Link>
-                            <span className="favorites-product__price">${product.price}</span>
+                            <span className="favorites-product__price">${product.price.toFixed(2)}</span>
                             <span
                               onClick={() => dispatch(removeProductFromFavorites(product))}
                               className="favorites-product__remove"

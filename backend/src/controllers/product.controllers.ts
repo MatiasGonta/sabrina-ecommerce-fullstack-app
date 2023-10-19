@@ -61,10 +61,10 @@ export const getProductsCatalog = asyncHandler(async (req, res) => {
         }
 
         const products = await ProductModel.paginate(filter, options);
-        
+
         // Sort the sizes according to the sizesOrder
         const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-        
+
         if (products.docs && products.docs.length > 0) {
             products.docs.forEach((product: ProductItem) => {
                 if (product.sizes) {
@@ -225,36 +225,44 @@ export const getCartItemsStock = asyncHandler(async (req: Request, res: Response
 );
 
 export const updateProductsStock = asyncHandler(async (req: Request, res: Response) => {
-    const itemsToUpdate = req.body;
-    const { action } = req.query;
+    try {
+        const itemsToUpdate = req.body;
+        const { action } = req.query;
 
-    if (action === 'discount') {
-        for (let item of itemsToUpdate) {
-            const variant = `${item.colorSelected}-${item.sizeSelected}`;
-    
-            await ProductModel.findByIdAndUpdate(
-                item._id,
-                {
-                    $inc: { [`countInStockByVariant.${variant}`]: -item.quantity } // Subtract the order quantity from the stock
-                },
-                { new: true } // Return updated document
-            );
+        if (!itemsToUpdate) {
+            res.status(400).json({ message: 'No se han recibido nuevos productos para actualizar el stock' });
         }
-    } else {
-        for (let item of itemsToUpdate) {
-            const variant = `${item.colorSelected}-${item.sizeSelected}`;
-    
-            await ProductModel.findByIdAndUpdate(
-                item._id,
-                {
-                    $inc: { [`countInStockByVariant.${variant}`]: +item.quantity } // Add the stock order quantity
-                },
-                { new: true } // Return updated document
-            );
+
+        if (action === 'discount') {
+            for (let item of itemsToUpdate) {
+                const variant = `${item.colorSelected}-${item.sizeSelected}`;
+
+                await ProductModel.findByIdAndUpdate(
+                    item._id,
+                    {
+                        $inc: { [`countInStockByVariant.${variant}`]: -item.quantity } // Subtract the order quantity from the stock
+                    },
+                    { new: true } // Return updated document
+                );
+            }
+        } else {
+            for (let item of itemsToUpdate) {
+                const variant = `${item.colorSelected}-${item.sizeSelected}`;
+
+                await ProductModel.findByIdAndUpdate(
+                    item._id,
+                    {
+                        $inc: { [`countInStockByVariant.${variant}`]: +item.quantity } // Add the stock order quantity
+                    },
+                    { new: true } // Return updated document
+                );
+            }
         }
+
+        res.status(201).json({ message: 'Stock actualizado exitosamente' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error en el servidor' });
     }
-
-    res.status(201).json({ message: 'Stock actualizado exitosamente' });
 });
 
 export const createProduct = asyncHandler(async (req: Request, res: Response) => {

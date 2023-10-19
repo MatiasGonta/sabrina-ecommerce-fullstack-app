@@ -20,8 +20,10 @@ export const useGetOrderDetailsQuery = (id: string) =>
     staleTime: 300000
   });
 
-export const useCreateOrderMutation = () =>
-  useMutation({
+export const useCreateOrderMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: async (order: {
       orderItems: CartItem[]
       shippingAddress: ShippingAddress
@@ -31,7 +33,11 @@ export const useCreateOrderMutation = () =>
       taxPrice: number
       totalPrice: number
     }) => (await apiClient.post<{ message: string; order: Order }>(`api/orders/create-order`, order)).data,
+    onSuccess: () => {
+      queryClient.refetchQueries(['order-history-all']);
+    }
   });
+}
 
 export const useUpdateOrderMutation = () => {
   const queryClient = useQueryClient();

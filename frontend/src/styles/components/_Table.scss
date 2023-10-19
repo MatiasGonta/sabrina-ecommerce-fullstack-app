@@ -569,6 +569,7 @@ $odd-cell-color: #f8f8f8;
                 }
 
                 & ~ label {
+                    user-select: none;
                     width: 100px;
                     color: V.$color-primary-semi-light; 
                     font-size: 18px;

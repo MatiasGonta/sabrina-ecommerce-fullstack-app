@@ -111,12 +111,14 @@ export const useUpdateUserMutation = (_id: string) => {
     mutationFn: async ({
       name,
       email,
-      isAdmin
+      isAdmin,
+      verify
     }: {
       name: string
       email: string
-      isAdmin: boolean | undefined
-    }) => (await apiClient.put(`api/users/update-user/${_id}`, { name, email, isAdmin })).data,
+      isAdmin: boolean | undefined,
+      verify: boolean | undefined
+    }) => (await apiClient.put(`api/users/update-user/${_id}`, { name, email, isAdmin, verify })).data,
     onSuccess: () => {
       queryClient.refetchQueries(['users']);
     }

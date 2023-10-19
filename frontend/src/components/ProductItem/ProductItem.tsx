@@ -153,7 +153,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
             ) : (
               <>
                 <Link to={`/products/${product.slug}`} className="product-item__name">{product.name}</Link>
-                <span className="product-item__price">${product.price}</span>
+                <span className="product-item__price">${product.price.toFixed(2)}</span>
 
                 {
                   calculateTotalStock(product) === 0

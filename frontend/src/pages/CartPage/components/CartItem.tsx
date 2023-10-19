@@ -68,7 +68,7 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
             <span id="item-stock">{item.countInStock - item.quantity} disponibles</span>
         </div>
         <div className='cart-item__price'>
-            <span>$ {item.price}</span>
+            <span>$ {item.price.toFixed(2)}</span>
         </div>
     </li>
   )

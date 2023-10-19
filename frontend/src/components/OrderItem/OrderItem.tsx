@@ -25,7 +25,7 @@ const OrderItem: React.FC<OrderItemInterface> = ({ item }) => {
         <div>
             <span className="order-item__quantity">{item.quantity}</span>
         </div>
-        <strong className="order-item__price">${item.price}</strong>
+        <strong className="order-item__price">${item.price.toFixed(2)}</strong>
     </li>
   )
 }

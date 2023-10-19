@@ -45,14 +45,14 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
     const submitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const { name, email, isAdmin } = formData;
+            const { name, email, isAdmin, verify } = formData;
 
             // If the new email is the same as the current one, reset it
             if (email === user.email) {
                 setFormData({ ...formData, email: '' })
             }
 
-            await toast.promise(updateUser({ name, email, isAdmin }), {
+            await toast.promise(updateUser({ name, email, isAdmin, verify }), {
                 pending: {
                     render() {
                         return `Actualizando información del usuario...`

@@ -34,7 +34,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
     const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
     const { mutateAsync: createOrder, isLoading } = useCreateOrderMutation();
-
+    
     const checkoutCartStock = () => {
         cart.cartItems.forEach(item => {
             const itemId: string = item._id;
@@ -139,7 +139,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                             <h4>Productos</h4>
                             <ul>
                                 {
-                                    cart.cartItems.map((item, index) => <OrderItem key={`${item._id}-${index}`} item={item} />)
+                                    cart.cartItems.map((item, index) => <OrderItem key={index} item={item} />)
                                 }
                             </ul>
                             <Link to="/cart">Editar</Link>

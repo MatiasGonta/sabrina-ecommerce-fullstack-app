@@ -41,11 +41,11 @@ const UpdateCell: React.FC<UpdateCellInterface> = ({ orderId, orderItems, isDeli
 
             const { delivered, paid, paymentMethod } = formData;
 
-            if (paid && paid !== isPaid) {
-                await updateStock({ orderItems: orderItems, action: 'discount' });
-            } else if (!paid && paid !== isPaid) {
-                await updateStock({ orderItems: orderItems, action: 'restore' });
-            }
+            // if (paid && paid !== isPaid) {
+            //     await updateStock({ orderItems: orderItems, action: 'discount' });
+            // } else if (!paid && paid !== isPaid) {
+            //     await updateStock({ orderItems: orderItems, action: 'restore' });
+            // }
 
             await toast.promise(updateOrder({ orderId, delivered, paid, paymentMethod }), {
                 pending: {

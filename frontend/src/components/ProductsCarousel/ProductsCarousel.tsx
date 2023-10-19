@@ -83,7 +83,7 @@ const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ title, items })
                                     <span>{item.colors.length} colores</span>
                                 </div>
                                 <Link to={`/products/${item.slug}`} className="carousel-item__name">{item.name}</Link>
-                                <span className="carousel-item__price">${item.price}</span>
+                                <span className="carousel-item__price">${item.price.toFixed(2)}</span>
                             </div>
                         </SwiperSlide>
                     ))}

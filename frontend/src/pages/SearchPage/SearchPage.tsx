@@ -42,7 +42,11 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
         <div className='sub-navbar'>
           <h2><Link to="/">Inicio</Link> / Resultados de Búsqueda </h2>
           <form className="sub-navbar__search-box" onSubmit={(e) => handleSearchSubmit(e)}>
-            <input type="text" placeholder="BUSCAR" onChange={(e) => setSearchTerm(e.target.value)} />
+            <input type="text"
+              placeholder="BUSCAR"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <button type="submit" >
               <SearchOutlinedIcon sx={{ fontSize: 20 }} />
             </button>

@@ -3,134 +3,127 @@ import bcrypt from 'bcryptjs';
 
 export const sampleUsers: User[] = [
     {
-        name: 'Pepe',
-        email: 'pepegaming2023@example.com',
+        name: 'Pepe García',
+        email: 'pepegarcia2023@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: true,
         verify: true
     },
     {
-        name: 'Juan',
-        email: 'juangaming@gmail.com',
+        name: 'Juan Sánchez',
+        email: 'juansanchez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 4',
-        email: 'user4@gmail.com',
+        name: 'Juan Martínez',
+        email: 'juanmartinez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 5',
-        email: 'user5@gmail.com',
+        name: 'Isabella López',
+        email: 'isabellalopez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: true,
         verify: true
     },
     {
-        name: 'User 6',
-        email: 'user6@gmail.com',
+        name: 'Alejandro García',
+        email: 'alejandrogarcia@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 7',
-        email: 'user7@gmail.com',
+        name: 'Diego Hernandez',
+        email: 'diegohernandez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 8',
-        email: 'user8@gmail.com',
+        name: 'Valentina Pérez',
+        email: 'valentinaperez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 9',
-        email: 'user9@gmail.com',
+        name: 'Miguel Fernández',
+        email: 'miguelfernandez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: true,
         verify: true
     },
     {
         name: 'Nicolas Alvarez',
-        email: 'nico@gmail.com',
+        email: 'nicolasalvarez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 11',
-        email: 'user11@gmail.com',
+        name: 'Sofia González',
+        email: 'sofiagonzalez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true
     },
     {
-        name: 'User 12',
-        email: 'user12@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: false,
-        verify: true
-    },
-    {
-        name: 'User 13',
-        email: 'user13@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: true,
-        verify: false
-    },
-    {
-        name: 'User 14',
-        email: 'user14@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: false,
-        verify: true
-    },
-    {
-        name: 'User 15',
-        email: 'user15@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: false,
-        verify: true
-    },
-    {
-        name: 'User 16',
-        email: 'user16@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: false,
-        verify: true
-    },
-    {
-        name: 'User 17',
-        email: 'user17@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: true,
-        verify: true
-    },
-    {
-        name: 'User 18',
-        email: 'user18@gmail.com',
-        password: bcrypt.hashSync('123456'),
-        isAdmin: false,
-        verify: true
-    },
-    {
-        name: 'User 19',
-        email: 'user19@gmail.com',
+        name: 'Camila Ramírez',
+        email: 'camilaramirez@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: false
     },
     {
-        name: 'User 20',
-        email: 'user20@gmail.com',
+        name: 'Daniel Torres',
+        email: 'danieltorres@gmail.com',
+        password: bcrypt.hashSync('123456'),
+        isAdmin: false,
+        verify: true
+    },
+    {
+        name: 'Andrés Vargas',
+        email: 'andresvargas@gmail.com',
+        password: bcrypt.hashSync('123456'),
+        isAdmin: false,
+        verify: true
+    },
+    {
+        name: 'Lucas Herrera',
+        email: 'lucasherrera@gmail.com',
+        password: bcrypt.hashSync('123456'),
+        isAdmin: false,
+        verify: true
+    },
+    {
+        name: 'Francisco Gómez',
+        email: 'franciscogomez@gmail.com',
+        password: bcrypt.hashSync('123456'),
+        isAdmin: true,
+        verify: true
+    },
+    {
+        name: 'Victoria Ruiz',
+        email: 'victoriaruiz@gmail.com',
+        password: bcrypt.hashSync('123456'),
+        isAdmin: false,
+        verify: true
+    },
+    {
+        name: 'Laura Castro',
+        email: 'lauracastro@gmail.com',
+        password: bcrypt.hashSync('123456'),
+        isAdmin: false,
+        verify: false
+    },
+    {
+        name: 'Pedro Díaz',
+        email: 'pedrodiaz@gmail.com',
         password: bcrypt.hashSync('123456'),
         isAdmin: false,
         verify: true

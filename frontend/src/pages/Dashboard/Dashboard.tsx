@@ -25,7 +25,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
   const cards: CardInterface[] = [
     {
       title: 'Ventas totales',
-      text: `$${totalSales}`,
+      text: `$${totalSales && totalSales.toFixed(2)}`,
       icon: <AttachMoneyIcon sx={{ fontSize: 25 }} />,
       iconBackground: "#fe9016",
       iconBoxShadow: "#fce8cd"

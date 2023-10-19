@@ -85,7 +85,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
                     userInfo ? (
                         <div className="nav-actions__account" ref={menuRef}>
                             <div onClick={() => setOpen(!open)}>
-                                <span id="account-name">{userInfo.name}</span>
+                                <span id="account-name">{profileDetails?.name}</span>
                                 <button id="account-icon">
                                     <AccountCircleIcon sx={{ fontSize: 35 }} />
                                 </button>
@@ -111,7 +111,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
                                             <li className="account-menu__option">
                                                 <Link to="#signout" className="dropdown-item" onClick={signoutHandler}>
                                                     <LogoutIcon />
-                                                    <span>Sign Out</span>
+                                                    <span>Salir</span>
                                                 </Link>
                                             </li>
                                         </ul>

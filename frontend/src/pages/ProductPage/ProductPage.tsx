@@ -29,7 +29,6 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   const navigate = useNavigate();
 
   const { product, relatedProducts, isLoading, error } = useGetProductDetailsBySlugQuery(slug!);
-  console.log(product)
 
   // Product settings
   const [selectedSize, setSelectedSize] = useState<string>('');
@@ -117,7 +116,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
             <section className="product-details">
               <div className="product-details__title">
                 <h1>{product!.name}</h1>
-                <span>${product!.price}</span>
+                <span>${product!.price.toFixed(2)}</span>
                 {
                   <Tooltip title={existFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
                     {

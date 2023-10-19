@@ -132,7 +132,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user })
                 </th>
                 <th>Estado</th>
                 <th>Detalle</th>
-                <th>Actualizar</th>
+                {type !== 'default' && <th>Actualizar</th>}
                 <th>Eliminar</th>
               </tr>
             </thead>

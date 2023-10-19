@@ -57,7 +57,7 @@ const CartPage: React.FC<CartPageInterface> = () => {
                                     <div>
                                         <div id='purchase-summary-info'>
                                             <span>Total ({cart.cartItems.reduce((a,c) => a + c.quantity, 0)})</span>
-                                            <span>$ {cart.cartItems.reduce((a,c) => a + c.price * c.quantity, 0)}</span>
+                                            <span>$ {cart.cartItems.reduce((a,c) => a + c.price * c.quantity, 0).toFixed(2)}</span>
                                         </div>
                                         <button onClick={checkoutHandler} disabled={cart.cartItems.length === 0}>Continuar compra</button>
                                     </div>

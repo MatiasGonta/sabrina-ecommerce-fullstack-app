@@ -5,7 +5,7 @@ export const sampleProducts: ProductItem = [
         name: 'Bufanda Cuello Infinito',
         slug: 'buzanda-cuello-infinito-bowen',
         category: 'Bufandas',
-        images: ['https://res.cloudinary.com/duihep83l/image/upload/v1697054969/buzanda-cuello-infinito-oliva_wvcvqr.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697054967/buzanda-cuello-infinito-maiz_yv3gkv.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697054971/buzanda-cuello-infinito-darkgray_a2gmfd.webp', 'https://res.cloudinary.com/duihep83l/image/upload/v1696378301/buzanda-cuello-infinito-blue_cjwdsk.webp', 'https://res.cloudinary.com/duihep83l/image/upload/v1696378296/buzanda-cuello-infinito-red_lrttuy.webp'],
+        images: ['https://res.cloudinary.com/duihep83l/image/upload/v1697652734/buzanda-cuello-infinito-oliva_qxmv3v.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697652752/buzanda-cuello-infinito-maiz_ak2ygt.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697652744/buzanda-cuello-infinito-darkgray_ztsi3d.webp', 'https://res.cloudinary.com/duihep83l/image/upload/v1697652734/buzanda-cuello-infinito-blue_vzuv0t.webp', 'https://res.cloudinary.com/duihep83l/image/upload/v1696378296/buzanda-cuello-infinito-red_lrttuy.webp'],
         price: 17.99,
         countInStockByVariant: {
             'rojo-': 1,
@@ -357,15 +357,15 @@ export const sampleProducts: ProductItem = [
         images: ['https://res.cloudinary.com/duihep83l/image/upload/v1696375874/bermuda-jean_gztvcc.webp'],
         price: 24.99,
         countInStockByVariant: {
-            'rojo-16 años': 1,
-            'rojo-XS': 2,
-            'rojo-S': 2,
-            'rojo-M': 3,
-            'rojo-L': 2,
-            'rojo-XL': 0
+            'azulino-16 años': 1,
+            'azulino-XS': 2,
+            'azulino-S': 2,
+            'azulino-M': 3,
+            'azulino-L': 2,
+            'azulino-XL': 0
         },
         brand: 'Quiksilver',
-        colors: ['rojo'],
+        colors: ['azul'],
         sizes: ['XS','S','M','XXL','XXXL']
     },
     {
@@ -402,7 +402,7 @@ export const sampleProducts: ProductItem = [
         slug: 'short-algodón-rustico',
         category: 'Shorts',
         images: ['https://res.cloudinary.com/duihep83l/image/upload/v1696375761/pantalon-corto-algodon-light-gray_ccb4ll.webp','https://res.cloudinary.com/duihep83l/image/upload/v1696375758/pantalon-corto-algodon-militar_dhj9os.webp'],
-        price: 1000,
+        price: 17.99,
         countInStockByVariant: {
             'gris claro-XS': 3,
             'gris claro-S': 1,
@@ -944,7 +944,7 @@ export const sampleProducts: ProductItem = [
         name: 'Jean Denim Wide Ancho Recto Tiro Alto Palazzo',
         slug: 'jean-denim-wide-ancho-recto-tiro-alto-palazzo',
         category: 'Pantalones',
-        images: ['https://res.cloudinary.com/duihep83l/image/upload/v1697055253/jean-denim_wide-ancho-recto-tiro-alto-palazzo-black_x8hfbv.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697055250/jean-denim_wide-ancho-recto-tiro-alto-palazzo-celeste_xstzy7.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697055255/jean-denim_wide-ancho-recto-tiro-alto-palazzo-azuloscuro_jd4iqp.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697055258/jean-denim_wide-ancho-recto-tiro-alto-palazzo-azul_j8kpot.webp'],
+        images: ['https://res.cloudinary.com/duihep83l/image/upload/v1697669244/jean-denim_wide-ancho-recto-tiro-alto-palazzo-black_nlltem.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697669243/jean-denim_wide-ancho-recto-tiro-alto-palazzo-celeste_raaswg.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697669237/jean-denim_wide-ancho-recto-tiro-alto-palazzo-azuloscuro_xq9vfa.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697669237/jean-denim_wide-ancho-recto-tiro-alto-palazzo-azul_baoysl.webp'],
         price: 39.99,
         countInStockByVariant: {
             'negro-S': 3,
@@ -1048,7 +1048,7 @@ export const sampleProducts: ProductItem = [
         name: 'Buzo Kingdom Oversize Hoodie Canguro',
         slug: 'buzo-kingdom-oversize-hoodie-canguro',
         category: 'Buzos',
-        images: ['https://res.cloudinary.com/duihep83l/image/upload/v1697500501/buzo-kingdom-oversize-hoodie-canguro-beige_dcu2ft.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697500501/buzo-kingdom-oversize-hoodie-canguro-black_osc63p.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697125966/buzo-kingdom-oversize-hoodie-canguro-celeste_csmtv7.webp','https://res.cloudinary.com/duihep83l/image/upload/v1696607530/buzo-kingdom-oversize-hoodie-canguro-verdeagua_dyckor.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697500559/buzo-kingdom-oversize-hoodie-canguro-militar_bt9zuc.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697500670/buzo-kingdom-oversize-hoodie-canguro-rosaclaro_wkfltz.webp','https://res.cloudinary.com/duihep83l/image/upload/v1696607525/buzo-kingdom-oversize-hoodie-canguro-naranja_afxvm1.webp'],
+        images: ['https://res.cloudinary.com/duihep83l/image/upload/v1697500501/buzo-kingdom-oversize-hoodie-canguro-beige_dcu2ft.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697500501/buzo-kingdom-oversize-hoodie-canguro-black_osc63p.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697680339/buzo-kingdom-oversize-hoodie-canguro-celeste_xxdy3e.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697652572/buzo-kingdom-oversize-hoodie-canguro-verdeagua_dzfbku.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697500559/buzo-kingdom-oversize-hoodie-canguro-militar_bt9zuc.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697500670/buzo-kingdom-oversize-hoodie-canguro-rosaclaro_wkfltz.webp','https://res.cloudinary.com/duihep83l/image/upload/v1697652534/buzo-kingdom-oversize-hoodie-canguro-naranja_bobk0d.webp'],
         price: 35.99,
         countInStockByVariant: {
             'tostado-XS': 1,
@@ -1230,8 +1230,8 @@ export const sampleProducts: ProductItem = [
         images: ['https://res.cloudinary.com/duihep83l/image/upload/v1696614304/saco-blazer-mujer_v34kcg.webp'],
         price: 76.99,
         countInStockByVariant: {
-            'negro-S': 2,
-            'negro-L': 4
+            'azul-S': 2,
+            'azul-L': 4
         },
         brand: 'Bross',
         colors: ['azul'],

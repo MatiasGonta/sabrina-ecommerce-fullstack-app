@@ -12,7 +12,7 @@ interface BarChartInterface {
 
 const BarChart: React.FC<BarChartInterface> = ({ data }) => {
   ChartJS.register(BarElement, LineElement, CategoryScale, LinearScale, PointElement, Tool, Legend, Filler, Title);
-  
+
   const barChart = useRef(null);
 
   const labels: string[] = Object.keys(data);
@@ -61,6 +61,9 @@ const BarChart: React.FC<BarChartInterface> = ({ data }) => {
           scales: {
             y: {
               beginAtZero: true,
+              ticks: {
+                stepSize: 1,
+              },
             },
           },
         }}
