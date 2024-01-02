@@ -4,7 +4,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Footer, LoadingSpinner, Navbar, ProductItem, PurchaseInfoBanner } from "@/components";
 import { ProductSearchBar } from "./components";
 import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from "@/hooks";
-import { ApiError, FiltersInterface, FilterItem, Product, COLORS, Routes } from "@/models";
+import { ApiError, FiltersInterface, FilterItem, Product, COLORS, Routes, LoadingSpinnerType } from "@/models";
 import { getError, filterParamsUrlGenerator } from "@/utilities";
 import { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
@@ -106,7 +106,7 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
 
   return (
     isLoading || filterCountsLoading
-      ? <LoadingSpinner type='noflex' /> : error || filterCountsError
+      ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} /> : error || filterCountsError
         ? <h4>{getError(error as ApiError)}</h4> : (
           <>
             <Navbar />
@@ -255,7 +255,7 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
                   dataLength={products.length}
                   hasMore={hasNextPage}
                   next={() => fetchNextPage()}
-                  loader={<LoadingSpinner type='flex' />}
+                  loader={<LoadingSpinner type={LoadingSpinnerType.FLEX} />}
                 >
                   {
                     totalProducts !== 0

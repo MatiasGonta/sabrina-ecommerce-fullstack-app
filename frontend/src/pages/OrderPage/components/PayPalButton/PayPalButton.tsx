@@ -1,6 +1,6 @@
 import { LoadingSpinner } from "@/components";
 import { useGetPaypalClientIdQuery, useUpdateOrderMutation, useUpdateProductStock } from "@/hooks";
-import { ApiError, Order } from "@/models";
+import { ApiError, LoadingSpinnerType, Order } from "@/models";
 import { getError } from "@/utilities";
 import { PayPalButtonsComponentProps, PayPalButtons, usePayPalScriptReducer, SCRIPT_LOADING_STATE } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
@@ -90,7 +90,7 @@ const PayPalButton: React.FC<PayPalButtonInterface> = ({ order, checkoutStock })
     }
 
     return (
-        isPending ? <LoadingSpinner type='flex' /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
+        isPending ? <LoadingSpinner type={LoadingSpinnerType.FLEX} /> : isRejected ? <h2>Error in connecting to PayPal</h2> : (
             <PayPalButtons {...paypalButtonTransactionProps} />
         )
     )

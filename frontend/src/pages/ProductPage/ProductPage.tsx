@@ -8,7 +8,7 @@ import { AppStore } from '@/redux/store';
 import { addItemToCart } from '@/redux/states/cart.state';
 import { addProductToFavorites, removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
-import { ApiError, CartItem, COLORS, Product, Routes } from '@/models';
+import { ApiError, CartItem, COLORS, LoadingSpinnerType, Product, Routes } from '@/models';
 import { calculateTotalStock, convertProductToCartItem, getError } from '@/utilities';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -81,7 +81,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   const existFavorite: Product | undefined = favorites.find((x) => x._id === product?._id);
 
   return isLoading ? (
-      <LoadingSpinner type='noflex' />
+      <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
     ) : error ? (
       <h4>{getError(error as ApiError)}</h4>
     ) : !product && !relatedProducts ? (

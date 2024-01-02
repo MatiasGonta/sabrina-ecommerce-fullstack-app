@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import { Navbar, Sidebar, Footer, LoadingSpinner } from '@/components';
 import { useCreateProductMutation, useGetFilterCountsQuery } from '@/hooks';
-import { ApiError, FilterItem, TypeWithKey, COLORS } from '@/models';
+import { ApiError, FilterItem, TypeWithKey, LoadingSpinnerType, COLORS } from '@/models';
 import { getError, handleFormInputChange } from '@/utilities';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -202,7 +202,7 @@ const CreateProductPage = () => {
 
   return (
     filterCountsLoading
-      ? <LoadingSpinner type='noflex' />
+      ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
       : (
         <>
           <Helmet>

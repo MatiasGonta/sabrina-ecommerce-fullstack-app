@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoadingSpinner, ProtectedRoute, ProtectedAdminRoute } from "./components";
 import { lazy, Suspense } from "react";
 import { ToastContainer } from 'react-toastify';
-import { Routes } from "./models";
+import { Routes, LoadingSpinnerType } from "./models";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = lazy(() => import('./pages/Home/Home'));
@@ -162,7 +162,7 @@ const App: React.FC<AppInterface> = () => {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            <Suspense fallback={<LoadingSpinner type='noflex' />}>
+            <Suspense fallback={<LoadingSpinner type={LoadingSpinnerType.NOFLEX} />}>
               <ToastContainer position="bottom-center" limit={3} autoClose={3000} />
               <RouterProvider router={router} />
             </Suspense>

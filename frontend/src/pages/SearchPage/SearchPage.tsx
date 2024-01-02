@@ -1,7 +1,7 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Footer, LoadingSpinner, Navbar, ProductItem } from '@/components';
-import { ApiError, Product, Routes } from '@/models';
+import { ApiError, LoadingSpinnerType, Product, Routes } from '@/models';
 import { getError } from '@/utilities';
 import { Helmet } from 'react-helmet-async';
 import { useSearchProductsQuery } from '@/hooks';
@@ -32,7 +32,7 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
     }, [searchParam]);
     
   return isLoading
-    ? <LoadingSpinner type="noflex" /> : error
+    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} /> : error
     ? <h4>Error: {getError(error as ApiError)}</h4> : (
     <>
         <Navbar />
@@ -58,7 +58,7 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
                   dataLength={searchProducts.length}
                   hasMore={hasNextPage}
                   next={()=> fetchNextPage()}
-                  loader={<LoadingSpinner type='flex'/>}
+                  loader={<LoadingSpinner type={LoadingSpinnerType.FLEX}/>}
                 >
                   {
                     totalSearchProducts !== 0

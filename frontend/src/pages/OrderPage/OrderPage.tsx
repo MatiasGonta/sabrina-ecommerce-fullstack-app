@@ -4,7 +4,7 @@ import {
     useGetCartItemsStockByIdQuery,
     useGetOrderDetailsQuery
 } from "@/hooks";
-import { ApiError, Routes, monthNames } from "@/models";
+import { ApiError, Routes, monthNames, LoadingSpinnerType } from "@/models";
 import { getError } from "@/utilities";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -69,7 +69,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
 
     return (
         isLoading || isLoadingStock
-            ? <LoadingSpinner type='noflex' />
+            ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
             : error || stockError ? <h2>{getError(error as ApiError)}</h2>
                 : !order || !stock ? <h2>Order Not Found</h2> : (
                     <>

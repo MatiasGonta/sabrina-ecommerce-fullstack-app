@@ -2,7 +2,7 @@ import { CheckoutSteps, Footer, LoadingSpinner, Navbar, OrderItem } from "@/comp
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { useCreateOrderMutation, useGetCartItemsStockByIdQuery } from "@/hooks";
-import { ApiError, Routes } from "@/models";
+import { ApiError, LoadingSpinnerType, Routes } from "@/models";
 import { getError } from "@/utilities";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -102,7 +102,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
 
     return (
         isLoadingStock
-        ? <LoadingSpinner type='noflex' />
+        ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
         : error ? <h2>{getError(error as ApiError)}</h2>
         : !stock ? <h2>Order Not Found</h2> : (
         <>

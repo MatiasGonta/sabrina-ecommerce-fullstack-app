@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteOrderMutation, useGetAllOrdersHistoryQuery } from "@/hooks";
-import { ApiError, Routes, monthNames } from "@/models";
+import { ApiError, LoadingSpinnerType, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteCell, LoadingSpinner } from "..";
@@ -95,7 +95,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user })
         </Tooltip>
       )}
       {isLoading ? (
-        <LoadingSpinner type='flex' />
+        <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
         <h4>{getError(error as ApiError)}</h4>
       ) : (

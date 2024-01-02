@@ -4,7 +4,7 @@ import { Footer, LoadingSpinner, Navbar, Sidebar } from "@/components";
 import { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { UserCard } from './components';
-import { ApiError, TypeWithKey } from '@/models';
+import { ApiError, LoadingSpinnerType, TypeWithKey } from '@/models';
 import { useParams } from 'react-router-dom';
 import { useGetUser, useUpdateUserMutation } from '@/hooks';
 import { getError, handleFormInputChange } from '@/utilities';
@@ -73,7 +73,7 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
 
   return (
     isLoading
-    ? <LoadingSpinner type='noflex'/> : error
+    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : error
     ? <h4>{getError(error as ApiError)}</h4>
     : (
     <>

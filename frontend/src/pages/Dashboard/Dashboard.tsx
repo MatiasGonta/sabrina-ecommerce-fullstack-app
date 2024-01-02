@@ -3,7 +3,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Footer, Navbar, Sidebar, OrderTable, LoadingSpinner, Card } from "@/components";
 import { CardInterface } from '@/components/Card/Card';
-import { FilterItem, Order, TypeWithKey, Routes } from '@/models';
+import { FilterItem, Order, TypeWithKey, Routes, LoadingSpinnerType } from '@/models';
 import { Link } from 'react-router-dom';
 import { SalesCategoriesDoughnutChart, SalesLineChart } from './components';
 import { useGetAllOrdersHistoryQuery, useGetFilterCountsQuery, useGetSales } from '@/hooks';
@@ -58,7 +58,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
 
   return (
     isLoadingOrders || filterCountsLoading || isLoadingSales
-    ? <LoadingSpinner type='noflex'/> : (
+    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : (
     <>
       <Helmet>
         <title>Dashboard - SABRINA</title>

@@ -3,7 +3,7 @@ import { AppStore } from '@/redux/store';
 import { useGetProfileDetails } from "@/hooks";
 import { Navigate, Outlet } from "react-router-dom";
 import { LoadingSpinner } from '@/components';
-import { Routes } from '@/models';
+import { LoadingSpinnerType, Routes } from '@/models';
 
 export default function ProtectedRoute() {
     const userInfo = useSelector((store: AppStore) => store.userInfo);
@@ -15,7 +15,7 @@ export default function ProtectedRoute() {
 
     if (isLoading && userId !== '' && userToken !== '') {
         // Wait for profile details to load before redirecting
-        return <LoadingSpinner type='noflex' />;
+        return <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />;
     } else {
         if(profileDetails) {
             return <Outlet />

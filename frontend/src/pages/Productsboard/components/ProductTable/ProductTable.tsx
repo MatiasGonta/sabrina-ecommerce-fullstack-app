@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteProductMutation, useGetProductsQuery } from "@/hooks";
-import { ApiError, COLORS, Product, Routes, monthNames } from "@/models";
+import { ApiError, COLORS, LoadingSpinnerType, Product, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { DeleteCell, LoadingSpinner } from "@/components";
 import { useState } from "react";
@@ -83,7 +83,7 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
         </button>
       </Tooltip>
       {isLoading ? (
-        <LoadingSpinner type='flex' />
+        <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
         <h4>{getError(error as ApiError)}</h4>
       ) : (

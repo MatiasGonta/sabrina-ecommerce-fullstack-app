@@ -9,6 +9,7 @@ import { CardInterface } from "@/components/Card/Card";
 import { useGetUsersStatistics } from '@/hooks';
 import { useState } from 'react';
 import '@/styles/pages/Usersboard/Usersboard.scss';
+import { LoadingSpinnerType } from '@/models';
 
 interface UsersboardInterface {}
 
@@ -43,7 +44,7 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
 
   return (
     isLoading
-    ? <LoadingSpinner type='noflex'/>
+    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/>
     : (
     <>
       <Helmet>

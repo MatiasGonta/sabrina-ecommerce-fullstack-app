@@ -3,6 +3,7 @@ export * from './Cart';
 export * from './Colors.model';
 export * from './FilterItem';
 export * from './Filters';
+export * from './LoadingSpinnerType.model';
 export * from './MonthNames';
 export * from './Order';
 export * from './Product';

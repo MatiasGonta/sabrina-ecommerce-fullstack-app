@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteUserMutation, useGetAllUsers } from "@/hooks";
-import { ApiError, Routes, monthNames } from "@/models";
+import { ApiError, LoadingSpinnerType, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { DeleteCell, LoadingSpinner } from "@/components";
 import { useState } from "react";
@@ -84,7 +84,7 @@ const UserTable: React.FC<UserTableInterface> = ({ itemsPerPage }) => {
         </button>
       </Tooltip>
       {isLoading ? (
-        <LoadingSpinner type='flex' />
+        <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
         <h4>{getError(error as ApiError)}</h4>
       ) : (

@@ -3,7 +3,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import { Footer, LoadingSpinner, Navbar, ProductItem, PurchaseInfoBanner } from "@/components";
-import { ApiError, Product, FilterItem, Routes } from '@/models';
+import { ApiError, Product, FilterItem, LoadingSpinnerType, Routes } from '@/models';
 import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from '@/hooks';
 import { getError } from '@/utilities';
 import { useNavigate } from 'react-router-dom';
@@ -84,7 +84,7 @@ const Home: React.FC<HomeInterface> = () => {
 
   return (
     isLoading || filterCountsLoading 
-    ? <LoadingSpinner type='noflex'/> : error || filterCountsError
+    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : error || filterCountsError
     ? <h4>{getError(error as ApiError)}</h4> : (
     <>
         <Helmet>
