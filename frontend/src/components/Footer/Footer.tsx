@@ -6,6 +6,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Routes } from '@/models';
 
 interface FooterInterface {}
 
@@ -23,11 +24,11 @@ const Footer: React.FC<FooterInterface> = () => {
                     <nav className='footer-info-navigation'>
                         <h5>NAVEGACIÓN</h5>
                         <ul>
-                            <li><Link to="/">Inicio</Link></li>
-                            <li><Link to="/products">Productos</Link></li>
-                            <li><Link to="/orderhistory">Compras</Link></li>
-                            <li><Link to="/favorites">Favoritos</Link></li>
-                            <li><Link to="/cart">Carrito</Link></li>
+                            <li><Link to={Routes.HOME}>Inicio</Link></li>
+                            <li><Link to={Routes.PRODUCTS}>Productos</Link></li>
+                            <li><Link to={Routes.ORDER_HISTORY}>Compras</Link></li>
+                            <li><Link to={Routes.FAVORITES}>Favoritos</Link></li>
+                            <li><Link to={Routes.CART}>Carrito</Link></li>
                         </ul>
                     </nav>
                     <div className='footer-info-contact'>
@@ -65,7 +66,7 @@ const Footer: React.FC<FooterInterface> = () => {
                 </div>
                 <div className='footer-separator'></div>
                 <div className='footer-copyright-container'>
-                    <Link to="/">
+                    <Link to={Routes.HOME}>
                         <img src="/src/assets/sabrina-icon.png" alt="sabrina-icon" />
                     </Link>
                     <p>COPYRIGHT SABRINA CABA - 2023. TODOS LOS DERECHOS RESERVADOS. DEFENSA DE LAS Y LOS CONSUMIDORES. PARA RECLAMOS <a href="https://autogestion.produccion.gob.ar/consumidores" target="_blank">INGRESE AQUÍ</a>.</p>

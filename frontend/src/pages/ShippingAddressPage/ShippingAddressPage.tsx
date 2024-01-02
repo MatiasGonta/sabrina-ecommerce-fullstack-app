@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
 import { CheckoutSteps, Footer, Navbar } from "@/components";
 import { handleFormInputChange, setLocalStorage } from "@/utilities";
-import { ShippingAddress } from '@/models';
+import { Routes, ShippingAddress } from '@/models';
 import '@/styles/pages/ShippingAddressPage/ShippingAddressPage.scss';
 
 interface ShippingAddressPageInterface {}
@@ -30,7 +30,7 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
 
         setLocalStorage('shippingAddress', formData);
 
-        navigate('/payment');
+        navigate(Routes.PAYMENT);
     }
 
     return (

@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteUserMutation, useGetAllUsers } from "@/hooks";
-import { ApiError, monthNames } from "@/models";
+import { ApiError, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { DeleteCell, LoadingSpinner } from "@/components";
 import { useState } from "react";
@@ -150,7 +150,7 @@ const UserTable: React.FC<UserTableInterface> = ({ itemsPerPage }) => {
                       <button className="edit-btn">
                         <EditOutlinedIcon
                           sx={{ fontSize: 25, cursor: 'pointer' }}
-                          onClick={() => navigate(`/dashboard/users/update-user/${user._id}`)}
+                          onClick={() => navigate(`${Routes.DASHBOARD_USERS_UPDATE}/${user._id}`)}
                         />
                       </button>
                     </Tooltip>

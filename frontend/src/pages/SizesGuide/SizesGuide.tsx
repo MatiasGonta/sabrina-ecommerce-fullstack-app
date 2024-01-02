@@ -2,6 +2,7 @@ import { Footer, Navbar } from "@/components";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import '@/styles/pages/SizesGuide/SizesGuide.scss';
+import { Routes } from "@/models";
 
 interface SizesGuideInterface { }
 
@@ -100,7 +101,7 @@ const SizesGuide: React.FC<SizesGuideInterface> = () => {
             </Helmet>
             <Navbar />
             <div className='sub-navbar'>
-                <h2><Link to="/">Inicio</Link> / Guía de Talles</h2>
+                <h2><Link to={Routes.HOME}>Inicio</Link> / Guía de Talles</h2>
             </div>
             <main className="sizes-guide-main">
                 <article>

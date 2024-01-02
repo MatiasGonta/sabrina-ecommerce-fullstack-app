@@ -3,6 +3,7 @@ import { AppStore } from '@/redux/store';
 import { useGetProfileDetails } from "@/hooks";
 import { Navigate, Outlet } from "react-router-dom";
 import { LoadingSpinner } from '@/components';
+import { Routes } from '@/models';
 
 export default function ProtectedRoute() {
     const userInfo = useSelector((store: AppStore) => store.userInfo);
@@ -19,7 +20,7 @@ export default function ProtectedRoute() {
         if(profileDetails) {
             return <Outlet />
         } else {
-            return <Navigate to="/signin" />
+            return <Navigate to={Routes.SIGNIN} />
         }
     }
 }

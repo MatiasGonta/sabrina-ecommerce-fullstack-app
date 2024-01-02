@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteProductMutation, useGetProductsQuery } from "@/hooks";
-import { ApiError, COLORS, Product, monthNames } from "@/models";
+import { ApiError, COLORS, Product, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { DeleteCell, LoadingSpinner } from "@/components";
 import { useState } from "react";
@@ -127,7 +127,7 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td className="name-cell">
-                    <Link to={`/products/${product.slug}`}>{product.name}</Link>
+                    <Link to={`${Routes.PRODUCTS}/${product.slug}`}>{product.name}</Link>
                   </td>
                   <td className="img-cell__main">
                     <img src={product.images[0]} alt={product.slug} />
@@ -190,7 +190,7 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
                       <button className="edit-btn">
                         <EditOutlinedIcon
                           sx={{ fontSize: 25, cursor: 'pointer' }}
-                          onClick={() => navigate(`/dashboard/products/update-product/${product.slug}`)}
+                          onClick={() => navigate(`${Routes.DASHBOARD_PRODUCTS_UPDATE}/${product.slug}`)}
                         />
                       </button>
                     </Tooltip>

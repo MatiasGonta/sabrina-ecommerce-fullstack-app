@@ -1,4 +1,4 @@
-import { Product } from '@/models';
+import { Product, Routes } from '@/models';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ const ProductSearchBar: React.FC<ProductSearchBarInterface> = ({ products }) => 
 
     const handleSearchSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      navigate(`/search?q=${searchTerm}`);
+      navigate(`${Routes.SEARCH}?q=${searchTerm}`);
     };
 
   return (

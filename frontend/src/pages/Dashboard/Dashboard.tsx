@@ -3,7 +3,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Footer, Navbar, Sidebar, OrderTable, LoadingSpinner, Card } from "@/components";
 import { CardInterface } from '@/components/Card/Card';
-import { FilterItem, Order, TypeWithKey } from '@/models';
+import { FilterItem, Order, TypeWithKey, Routes } from '@/models';
 import { Link } from 'react-router-dom';
 import { SalesCategoriesDoughnutChart, SalesLineChart } from './components';
 import { useGetAllOrdersHistoryQuery, useGetFilterCountsQuery, useGetSales } from '@/hooks';
@@ -99,7 +99,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
           <section>
             <h3>Últimos pedidos</h3>
             <OrderTable itemsPerPage={6} type="short" />
-            <Link to="/dashboard/orders">Más pedidos</Link>
+            <Link to={Routes.DASHBOARD_ORDERS}>Más pedidos</Link>
           </section>
         </article>
       </main>

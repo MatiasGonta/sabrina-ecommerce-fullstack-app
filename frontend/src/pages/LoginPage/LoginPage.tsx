@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { userSignin } from '@/redux/states/userInfo.state';
 import { useSigninMutation } from "@/hooks";
-import { ApiError, TypeWithKey } from "@/models";
+import { ApiError, Routes, TypeWithKey } from "@/models";
 import { getError, handleFormInputChange, setLocalStorage } from "@/utilities";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -21,7 +21,7 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
     const navigate = useNavigate();
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
-    const redirect = redirectInUrl ? redirectInUrl : '/';
+    const redirect = redirectInUrl ? redirectInUrl : Routes.HOME;
 
     //Form inputs values
     const [formData, setFormData] = useState<TypeWithKey<string>>({ email: '', password: '' });
@@ -107,11 +107,11 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
                                     Iniciar sesión
                                 </button>
                                 <div>
-                                    <Link to={`/restore-password`}>¿Olvidaste tu contraseña?</Link>
+                                    <Link to={Routes.RESTORE_PASSWORD}>¿Olvidaste tu contraseña?</Link>
                                 </div>
                                 <div>
                                     <span>¿No tenés cuenta?</span>{' '}
-                                    <Link to={`/signup`}>Crear cuenta</Link>
+                                    <Link to={Routes.SIGNUP}>Crear cuenta</Link>
                                 </div>
                             </div>
                         </form>

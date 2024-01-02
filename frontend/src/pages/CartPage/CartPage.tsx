@@ -1,6 +1,6 @@
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import { Footer, Navbar, ProductsCarousel } from "@/components";
-import { CartItem, Product } from "@/models";
+import { CartItem, Product, Routes } from "@/models";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const CartPage: React.FC<CartPageInterface> = () => {
 
     const navigate = useNavigate();
 
-    const checkoutHandler = () => navigate('/signin?redirect=/shipping');
+    const checkoutHandler = () => navigate(`${Routes.SIGNIN}?redirect=${Routes.SHIPPING}`);
 
     const favoriteProductsNotInCart: Product[] = favorites.filter(
         (favorite) => !cart.cartItems.some((item) => item._id === favorite._id)
@@ -29,7 +29,7 @@ const CartPage: React.FC<CartPageInterface> = () => {
         </Helmet>
         <Navbar />
         <div className='sub-navbar'>
-          <h2><Link to="/">Inicio</Link> / Carrito de Compras</h2>
+          <h2><Link to={Routes.HOME}>Inicio</Link> / Carrito de Compras</h2>
         </div>
         <main className='cart-main'>
             <article>
@@ -39,7 +39,7 @@ const CartPage: React.FC<CartPageInterface> = () => {
                             <section id="cart-clear-section">
                                 <StorefrontOutlinedIcon sx={{ fontSize: 100 }} />
                                 <p>Tu carrito está vacío.</p>
-                                <Link to="/">Ir de compras</Link>
+                                <Link to={Routes.HOME}>Ir de compras</Link>
                             </section>
                         ) : (
                             <>

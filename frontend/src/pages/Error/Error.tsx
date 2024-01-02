@@ -1,3 +1,4 @@
+import { Routes } from "@/models";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useRouteError } from "react-router-dom";
@@ -21,7 +22,7 @@ const Error: React.FC<ErrorInterface> = () => {
         <img src="https://cdn.rawgit.com/ahmedhosna95/upload/1731955f/sad404.svg" alt="error" />
         <h1>Error</h1>
         <p>{error.statusText || error.message}</p>
-        <Link to='/'>
+        <Link to={Routes.HOME}>
           <button>Volver al inicio</button>
         </Link>
     </div>

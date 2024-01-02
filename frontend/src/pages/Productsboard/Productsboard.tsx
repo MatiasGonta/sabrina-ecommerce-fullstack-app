@@ -3,6 +3,7 @@ import { Navbar, Sidebar, Footer } from "@/components"
 import { ProductTable } from "./components";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from 'react-router-dom';
+import { Routes } from '@/models';
 import '@/styles/pages/Productsboard/Productsboard.scss';
 
 interface ProductsboardInterface { }
@@ -21,7 +22,7 @@ const Productsboard: React.FC<ProductsboardInterface> = () => {
         <article className="productsboard__statistics">
           <div>
             <h2>Productos</h2>
-            <button onClick={() => navigate('/dashboard/products/create-product')}>
+            <button onClick={() => navigate(Routes.DASHBOARD_PRODUCTS_CREATE)}>
               <AddIcon sx={{ fontSize: 25 }} />
               <span>Crear producto</span>
             </button>

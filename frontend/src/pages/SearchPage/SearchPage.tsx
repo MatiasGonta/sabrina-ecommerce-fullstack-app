@@ -1,7 +1,7 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Footer, LoadingSpinner, Navbar, ProductItem } from '@/components';
-import { ApiError, Product } from '@/models';
+import { ApiError, Product, Routes } from '@/models';
 import { getError } from '@/utilities';
 import { Helmet } from 'react-helmet-async';
 import { useSearchProductsQuery } from '@/hooks';
@@ -23,7 +23,7 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
 
     const handleSearchSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      navigate(`/search?q=${searchTerm}`);
+      navigate(`${Routes.SEARCH}?q=${searchTerm}`);
     };
     
     useEffect(() => {
@@ -40,7 +40,7 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
           <title>{searchTerm} - SABRINA</title>
         </Helmet>
         <div className='sub-navbar'>
-          <h2><Link to="/">Inicio</Link> / Resultados de Búsqueda </h2>
+          <h2><Link to={Routes.HOME}>Inicio</Link> / Resultados de Búsqueda </h2>
           <form className="sub-navbar__search-box" onSubmit={(e) => handleSearchSubmit(e)}>
             <input type="text"
               placeholder="BUSCAR"

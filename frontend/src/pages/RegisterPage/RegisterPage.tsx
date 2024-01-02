@@ -1,7 +1,7 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useSignupMutation } from "@/hooks";
-import { ApiError, TypeWithKey } from "@/models";
+import { ApiError, Routes, TypeWithKey } from "@/models";
 import { getError, handleFormInputChange } from "@/utilities";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -13,7 +13,7 @@ interface RegisterPageInterface { }
 const RegisterPage: React.FC<RegisterPageInterface> = () => {
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
-    const redirect = redirectInUrl ? redirectInUrl : '/';
+    const redirect = redirectInUrl ? redirectInUrl : Routes.HOME;
 
     //Form inputs values
     const [formData, setFormData] = useState<TypeWithKey<string>>({ name: '', email: '', password: '', confirmPassword: '' });
@@ -131,7 +131,7 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
                                 <button type="submit">Crear Cuenta</button>
                                 <div>
                                     ¿Ya tenés una cuenta?{' '}
-                                    <Link to={`/signin?redirect=${redirect}`}>Iniciá sesión</Link>
+                                    <Link to={`${Routes.SIGNIN}?redirect=${redirect}`}>Iniciá sesión</Link>
                                 </div>
                             </div>
                         </form>

@@ -1,6 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { CartItem as CartItemData } from "@/models";
+import { CartItem as CartItemData, Routes } from "@/models";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux';
@@ -27,7 +27,7 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
 
     const editItemHandler = (item: CartItemData) => {
         dispatch(removeItemFromCart(item));
-        navigate(`/products/${item.slug}`);
+        navigate(`${Routes.PRODUCTS}/${item.slug}`);
     };
 
   return (
@@ -35,7 +35,7 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
         <div className='cart-item__info'>
             <img src={item.image} alt={item.name} />
             <div>
-                <Link to={`/products/${item.slug}`}>{item.name}</Link>
+                <Link to={`${Routes.PRODUCTS}/${item.slug}`}>{item.name}</Link>
                 {
                     item.sizeSelected !== ''
                         ? <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>

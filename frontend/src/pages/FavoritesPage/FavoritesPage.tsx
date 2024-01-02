@@ -6,6 +6,7 @@ import { Footer, Navbar } from "@/components";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import '@/styles/pages/FavoritesPage/FavoritesPage.scss';
+import { Routes } from '@/models';
 
 interface FavoritesPageInterface {}
 
@@ -20,7 +21,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
         </Helmet>
         <Navbar />
         <div className='sub-navbar'>
-          <h2><Link to="/">Inicio</Link> / Favoritos</h2>
+          <h2><Link to={Routes.HOME}>Inicio</Link> / Favoritos</h2>
         </div>
         <main className="favorites-main">
           <article>
@@ -30,7 +31,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                 <section id="favorites-clear-section">
                   <HeartBrokenOutlinedIcon sx={{ fontSize: 100 }} />
                   <p>Aún no tenés productos en Favoritos.</p>
-                  <Link to="/">Ir de compras</Link>
+                  <Link to={Routes.HOME}>Ir de compras</Link>
                 </section>
               ) : (
                 <section id="favorites-product-section">
@@ -38,7 +39,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                     {
                       favorites!.map(product => (
                         <li key={product.slug} className="favorites-product">
-                          <Link to={`/products/${product.slug}`}>
+                          <Link to={`${Routes.PRODUCTS}/${product.slug}`}>
                             <img
                               src={product.images[0]}
                               alt={product.name}
@@ -49,7 +50,7 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
                             <div className="favorites-product__colors">
                               <span>{product.colors.length} colores</span>
                             </div>
-                            <Link to={`/products/${product.slug}`} className="favorites-product__name">{product.name}</Link>
+                            <Link to={`${Routes.PRODUCTS}/${product.slug}`} className="favorites-product__name">{product.name}</Link>
                             <span className="favorites-product__price">${product.price.toFixed(2)}</span>
                             <span
                               onClick={() => dispatch(removeProductFromFavorites(product))}

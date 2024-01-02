@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from "@/models";
+import { Product, Routes } from "@/models";
 import { Link } from "react-router-dom";
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -71,7 +71,7 @@ const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ title, items })
                 <Swiper {...swiperParams}>
                     {items.map((item: Product) => (
                         <SwiperSlide key={item._id} className="carousel-item">
-                            <Link to={`/products/${item.slug}`}>
+                            <Link to={`${Routes.PRODUCTS}/${item.slug}`}>
                                 <img
                                     src={item.images[0]}
                                     alt={item.name}
@@ -82,7 +82,7 @@ const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ title, items })
                                 <div className="carousel-item__colors">
                                     <span>{item.colors.length} colores</span>
                                 </div>
-                                <Link to={`/products/${item.slug}`} className="carousel-item__name">{item.name}</Link>
+                                <Link to={`${Routes.PRODUCTS}/${item.slug}`} className="carousel-item__name">{item.name}</Link>
                                 <span className="carousel-item__price">${item.price.toFixed(2)}</span>
                             </div>
                         </SwiperSlide>

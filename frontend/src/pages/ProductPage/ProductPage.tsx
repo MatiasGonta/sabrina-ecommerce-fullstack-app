@@ -8,7 +8,7 @@ import { AppStore } from '@/redux/store';
 import { addItemToCart } from '@/redux/states/cart.state';
 import { addProductToFavorites, removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
-import { ApiError, CartItem, COLORS, Product } from '@/models';
+import { ApiError, CartItem, COLORS, Product, Routes } from '@/models';
 import { calculateTotalStock, convertProductToCartItem, getError } from '@/utilities';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -93,7 +93,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
         </Helmet>
         <Navbar />
         <div className='sub-navbar'>
-          <h2><Link to="/">Inicio</Link> / <Link to="/products">Productos</Link> / {product!.name}</h2>
+          <h2><Link to={Routes.HOME}>Inicio</Link> / <Link to={Routes.PRODUCTS}>Productos</Link> / {product!.name}</h2>
         </div>
         <main className="product-page-main">
           <article className='product'>
@@ -169,7 +169,7 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                           ))
                         }
                       </ul>
-                      <Link to="/sizes-guide">
+                      <Link to={Routes.SIZES_GUIDE}>
                         <StraightenOutlinedIcon sx={{ fontSize: '20px', position: 'relative', bottom: '1.5px' }} />
                         <span>Guía de talles</span>
                       </Link>

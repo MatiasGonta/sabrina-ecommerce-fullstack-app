@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import '@/styles/pages/PaymentMethodPage/PaymentMethodPage.scss';
+import { Routes } from "@/models";
 
 interface PaymentMethodPageInterface {}
 
@@ -20,7 +21,7 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
 
     useEffect(() => {
       if (!shippingAddress.address) {
-        navigate('/shipping');
+        navigate(Routes.SHIPPING);
       }
     }, [shippingAddress, navigate]);
     
@@ -28,7 +29,7 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
         e.preventDefault();
         dispatch(savePaymentMethod(paymentMethodName));
         setLocalStorage('paymentMethod', paymentMethodName);
-        navigate('/placeorder');
+        navigate(Routes.PLACEORDER);
     }
 
     return (

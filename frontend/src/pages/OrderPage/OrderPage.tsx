@@ -4,7 +4,7 @@ import {
     useGetCartItemsStockByIdQuery,
     useGetOrderDetailsQuery
 } from "@/hooks";
-import { ApiError, monthNames } from "@/models";
+import { ApiError, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -53,7 +53,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
 
                 setTimeout(() => {
                     toast.dismiss('loading-toast');
-                    navigate('/');
+                    navigate(Routes.HOME);
                 }, 11600);
 
                 throw new Error(errorMsg);

@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoadingSpinner, ProtectedRoute, ProtectedAdminRoute } from "./components";
 import { lazy, Suspense } from "react";
 import { ToastContainer } from 'react-toastify';
+import { Routes } from "./models";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = lazy(() => import('./pages/Home/Home'));
@@ -37,52 +38,52 @@ const CreateProductPage = lazy(() => import('./pages/CreateProductPage/CreatePro
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: Routes.HOME,
     element: <Home />,
     errorElement: <Error />
   },
   {
-    path: '/products',
+    path: Routes.PRODUCTS,
     element: <ProductsPage />
   },
   {
-    path: '/search',
+    path: Routes.SEARCH,
     element: <SearchPage />
   },
   {
-    path: '/products/:slug',
+    path: `${Routes.PRODUCTS}/:slug`,
     element: <ProductPage />
   },
   {
-    path: '/sizes-guide',
+    path: Routes.SIZES_GUIDE,
     element: <SizesGuide /> 
   },
   {
-    path: '/favorites',
+    path: Routes.FAVORITES,
     element: <FavoritesPage />
   },
   {
-    path: '/cart',
+    path: Routes.CART,
     element: <CartPage />
   },
   {
-    path: '/signin',
+    path: Routes.SIGNIN,
     element: <LoginPage />
   },
   {
-    path: '/signup',
+    path: Routes.SIGNUP,
     element: <RegisterPage />
   },
   {
-    path: '/restore-password',
+    path: Routes.RESTORE_PASSWORD,
     element: <RecoverAccount />
   },
   {
-    path: '/restore-password/:id',
+    path: `${Routes.RESTORE_PASSWORD}/:id`,
     element: <RestorePassword />
   },
   {
-    path: '/verify/:id',
+    path: `${Routes.VERIFY}/:id`,
     element: <VerifyAccount /> 
   },
   {
@@ -90,27 +91,27 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />,
     children: [
       {
-        path: '/shipping',
+        path: Routes.SHIPPING,
         element: <ShippingAddressPage />
       },
       {
-        path: '/payment',
+        path: Routes.PAYMENT,
         element: <PaymentMethodPage />
       },
       {
-        path: '/placeorder',
+        path: Routes.PLACEORDER,
         element: <PlaceOrderPage />
       },
       {
-        path: '/order/:id',
+        path: `${Routes.ORDER}/:id`,
         element: <OrderPage />
       },
       {
-        path: '/orderhistory',
+        path: Routes.ORDER_HISTORY,
         element: <OrderHistoryPage />
       },
       {
-        path: '/dashboard',
+        path: Routes.DASHBOARD,
         element: <ProtectedAdminRoute />,
         children: [
           {

@@ -1,4 +1,4 @@
-import { CartItem, COLORS, Product } from "@/models"
+import { CartItem, COLORS, Product, Routes } from "@/models"
 import { Link, useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CloseIcon from '@mui/icons-material/Close';
@@ -86,7 +86,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
           }
         </Tooltip>
       }
-      <Link to={`/products/${product.slug}`}>
+      <Link to={`${Routes.PRODUCTS}/${product.slug}`}>
         <img
           src={product.images[0]}
           alt={product.name}
@@ -122,7 +122,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                   }
                   {
                     product.colors.length > 6 && (
-                      <li onClick={() => navigate(`/products/${product.slug}`)}>
+                      <li onClick={() => navigate(`${Routes.PRODUCTS}/${product.slug}`)}>
                         <span>
                           <u>+{product.colors.length - 6}</u>
                         </span>
@@ -140,7 +140,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                   }
                   {
                     product.sizes.length > 4 && (
-                      <li onClick={() => navigate(`/products/${product.slug}`)}>
+                      <li onClick={() => navigate(`${Routes.PRODUCTS}/${product.slug}`)}>
                         <span>
                           <u>+{product.sizes.length - 4}</u>
                         </span>
@@ -152,7 +152,7 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
               </div>
             ) : (
               <>
-                <Link to={`/products/${product.slug}`} className="product-item__name">{product.name}</Link>
+                <Link to={`${Routes.PRODUCTS}/${product.slug}`} className="product-item__name">{product.name}</Link>
                 <span className="product-item__price">${product.price.toFixed(2)}</span>
 
                 {

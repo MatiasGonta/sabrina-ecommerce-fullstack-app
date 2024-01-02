@@ -2,7 +2,7 @@ import { CheckoutSteps, Footer, LoadingSpinner, Navbar, OrderItem } from "@/comp
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { useCreateOrderMutation, useGetCartItemsStockByIdQuery } from "@/hooks";
-import { ApiError } from "@/models";
+import { ApiError, Routes } from "@/models";
 import { getError } from "@/utilities";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -87,7 +87,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
 
                 dispatch(clearCartItems());
                 localStorage.removeItem('cartItems');
-                navigate(`/order/${data.order._id}`);
+                navigate(`${Routes.ORDER}/${data.order._id}`);
             }
         } catch(error) {
             toast.error(getError(error as ApiError));
@@ -96,7 +96,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
 
     useEffect(() => {
         if (!cart.paymentMethod) {
-            navigate('/payment');
+            navigate(Routes.PAYMENT);
         }
     }, [cart, navigate]);
 
@@ -126,14 +126,14 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                                 <br />
                                 <strong>Dirección: </strong> {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
                             </p>
-                            <Link to="/shipping">Editar</Link>
+                            <Link to={Routes.SHIPPING}>Editar</Link>
                         </div>
                         <div className="order-info__payment">
                             <h4>Pago</h4>
                             <p>
                                 <strong>Método:</strong> {cart.paymentMethod}
                             </p>
-                            <Link to="/payment">Editar</Link>
+                            <Link to={Routes.PAYMENT}>Editar</Link>
                         </div>
                         <div className="order-info__product">
                             <h4>Productos</h4>
@@ -142,7 +142,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                                     cart.cartItems.map((item, index) => <OrderItem key={index} item={item} />)
                                 }
                             </ul>
-                            <Link to="/cart">Editar</Link>
+                            <Link to={Routes.CART}>Editar</Link>
                         </div>
                     </section>
                     <section className="order-summary-section">

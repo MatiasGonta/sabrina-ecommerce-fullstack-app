@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
+import { Routes } from '@/models';
 import '@/styles/pages/VerifyAccount/VerifyAccount.scss';
 
 interface VerifyAccountInterface { }
@@ -30,7 +31,7 @@ const VerifyAccount: React.FC<VerifyAccountInterface> = () => {
                     dispatch(userSignin(newUser));
                     setLocalStorage('userInfo', newUser);
                     setTimeout(() => {
-                        navigate('/');
+                        navigate(Routes.HOME);
                     }, 3000);
                 }
 

@@ -1,6 +1,6 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { ApiError, TypeWithKey } from "@/models";
+import { ApiError, Routes, TypeWithKey } from "@/models";
 import { getError, handleFormInputChange } from "@/utilities";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useRestorePasswordMutation } from "@/hooks";
@@ -43,7 +43,7 @@ const RestorePassword: React.FC<RestorePasswordInterface> = () => {
                 }
             });
 
-            setTimeout(() => navigate('/signin'), 3250);
+            setTimeout(() => navigate(Routes.SIGNIN), 3250);
         } catch (error) {
             toast.error(getError(error as ApiError));
         }

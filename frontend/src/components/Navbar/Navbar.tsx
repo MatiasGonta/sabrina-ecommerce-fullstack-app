@@ -10,6 +10,7 @@ import { AppStore } from '@/redux/store';
 import { clearCart } from "@/redux/states/cart.state";
 import { Link } from "react-router-dom";
 import { useGetProfileDetails } from "@/hooks";
+import { Routes } from '@/models';
 
 interface NavbarInterface {}
 
@@ -50,32 +51,32 @@ const Navbar: React.FC<NavbarInterface> = () => {
         localStorage.removeItem('cartItems');
         localStorage.removeItem('shippingAddress');
         localStorage.removeItem('paymentMethod');
-        window.location.href = '/signin';
+        window.location.href = Routes.SIGNIN;
     }
     
   return (
     <header>
         <nav>
-            <Link to="/">
+            <Link to={Routes.HOME}>
                 <img src="/src/assets/sabrina-icon.png" alt="sabrina-icon" />
             </Link>
             <div className="nav-actions">
                 <div className="nav-actions__navigate">
-                    <Link to="/">
+                    <Link to={Routes.HOME}>
                         <span>Inicio</span>
                     </Link>
-                    <Link to="/products">
+                    <Link to={Routes.PRODUCTS}>
                         <span>Productos</span>
                     </Link>
-                    <Link to="/orderhistory">
+                    <Link to={Routes.ORDER_HISTORY}>
                         <span>Compras</span>
                     </Link>
-                    <Link to="/favorites">
+                    <Link to={Routes.FAVORITES}>
                         <FavoriteBorderOutlinedIcon sx={{ fontSize: 25 }} />
                         {favorites.length > 0 && <span className="counter favorites">{favorites.length > 9 ? '+9' : favorites.length}</span>}
                         <span>Favoritos</span>
                     </Link>
-                    <Link to="/cart">
+                    <Link to={Routes.CART}>
                         <ShoppingCartOutlinedIcon sx={{ fontSize: 25 }} />
                         {cart.cartItems.length > 0 && <span className="counter cart">{cartItemsLength > 9 ? '+9' : cartItemsLength}</span>}
                         <span>Carrito</span>
@@ -101,7 +102,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
                                             {
                                                 profileDetails.isAdmin && (
                                                     <li className="account-menu__option">
-                                                        <Link to="/dashboard" className="dropdown-item">
+                                                        <Link to={Routes.DASHBOARD} className="dropdown-item">
                                                             <LeaderboardIcon />
                                                             <span>Dashboard</span>
                                                         </Link>
@@ -120,7 +121,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
                             }
                         </div>
                     ) : (
-                        <Link className="dropdown-item" to="/signin">
+                        <Link className="dropdown-item" to={Routes.SIGNIN}>
                             <span>Sign In</span>
                         </Link>
                     )

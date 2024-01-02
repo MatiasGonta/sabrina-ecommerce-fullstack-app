@@ -4,7 +4,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Footer, LoadingSpinner, Navbar, ProductItem, PurchaseInfoBanner } from "@/components";
 import { ProductSearchBar } from "./components";
 import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from "@/hooks";
-import { ApiError, FiltersInterface, FilterItem, Product, COLORS } from "@/models";
+import { ApiError, FiltersInterface, FilterItem, Product, COLORS, Routes } from "@/models";
 import { getError, filterParamsUrlGenerator } from "@/utilities";
 import { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
@@ -98,7 +98,7 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
     const newQueryParams = filterParamsUrlGenerator(selectedFilters);
 
     refetch();
-    navigate(`/products/?${newQueryParams}`);
+    navigate(`${Routes.PRODUCTS}/?${newQueryParams}`);
   }, [selectedFilters]);
 
   // Getting filters
@@ -114,7 +114,7 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
               <title>Productos - SABRINA</title>
             </Helmet>
             <div className='sub-navbar'>
-              <h2><Link to="/">Inicio</Link> / Productos</h2>
+              <h2><Link to={Routes.HOME}>Inicio</Link> / Productos</h2>
               <ProductSearchBar products={products} />
               <div id="sb-button" onClick={() => setOpen(true)}>
                 <span>Filtrar</span>

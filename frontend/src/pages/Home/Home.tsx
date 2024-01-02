@@ -3,7 +3,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import { Footer, LoadingSpinner, Navbar, ProductItem, PurchaseInfoBanner } from "@/components";
-import { ApiError, Product, FilterItem } from '@/models';
+import { ApiError, Product, FilterItem, Routes } from '@/models';
 import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from '@/hooks';
 import { getError } from '@/utilities';
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +52,7 @@ const Home: React.FC<HomeInterface> = () => {
         queryParams.append('category', category);
         queryParams.toString();
 
-        navigate(`/products/?${queryParams}`)
+        navigate(`${Routes.PRODUCTS}/?${queryParams}`)
     }
 
     const accordions: AccordionInterface[] = [
@@ -99,14 +99,14 @@ const Home: React.FC<HomeInterface> = () => {
                             <img
                                 src="/src/assets/sabrina-local-exterior.png"
                                 alt="sabrina-local-exterior"
-                                onClick={() => navigate(`/products`)}
+                                onClick={() => navigate(Routes.PRODUCTS)}
                             />
                         </SwiperSlide>
                         <SwiperSlide  className="commerce-carrousel__item">
                             <img
                                 src="/src/assets/sabrina-local-interior.jpg"
                                 alt="sabrina-local-interior"
-                                onClick={() => navigate(`/products`)}
+                                onClick={() => navigate(Routes.PRODUCTS)}
                             />
                         </SwiperSlide>
                     </Swiper>
@@ -139,7 +139,7 @@ const Home: React.FC<HomeInterface> = () => {
                         }
                     </ul>
                     <div id="more-products-btn">
-                        <button onClick={() => navigate('/products')}>VER TODOS LOS PRODUCTOS</button>
+                        <button onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
                     </div>
                 </section>
             </article>

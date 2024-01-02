@@ -4,6 +4,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Routes } from '@/models';
 
 interface SidebarInterface {
   page: 'dashboard' | 'productsboard' | 'ordersboard'| 'usersboard'
@@ -41,28 +42,28 @@ const Sidebar: React.FC<SidebarInterface> = ({ page }) => {
         <ul>
           <li
             className={page === 'dashboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate(Routes.DASHBOARD)}
           >
             <DashboardIcon sx={{ fontSize: 25 }} />
             <span>Dashboard</span>
           </li>
           <li
             className={page === 'productsboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate('/dashboard/products')}
+            onClick={() => navigate(Routes.DASHBOARD_PRODUCTS)}
           >
             <InventoryIcon sx={{ fontSize: 25 }} />
             <span>Productos</span>
           </li>
           <li
             className={page === 'ordersboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate('/dashboard/orders')}
+            onClick={() => navigate(Routes.DASHBOARD_ORDERS)}
           >
             <ShoppingCartIcon sx={{ fontSize: 25 }} />
             <span>Pedidos</span>
           </li>
           <li
             className={page === 'usersboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate('/dashboard/users')}
+            onClick={() => navigate(Routes.DASHBOARD_USERS)}
           >
             <GroupIcon sx={{ fontSize: 25 }} />
             <span>Usuarios</span>

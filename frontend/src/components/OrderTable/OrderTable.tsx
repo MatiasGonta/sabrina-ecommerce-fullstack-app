@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteOrderMutation, useGetAllOrdersHistoryQuery } from "@/hooks";
-import { ApiError, monthNames } from "@/models";
+import { ApiError, Routes, monthNames } from "@/models";
 import { getError } from "@/utilities";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteCell, LoadingSpinner } from "..";
@@ -170,7 +170,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user })
                   <td>
                     <button
                       type="button"
-                      onClick={() => navigate(`/order/${order._id}`)}
+                      onClick={() => navigate(`${Routes.ORDER}/${order._id}`)}
                       className="details-btn"
                     >Detalle</button>
                   </td>
@@ -204,7 +204,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user })
                 </tr>
               )) : (
                 user
-                  ? <span className="table-empty-message">No hay pedidos para mostrar. <Link to="/products">¿Por qué no empiezas haciendo tu primer pedido?</Link></span>
+                  ? <span className="table-empty-message">No hay pedidos para mostrar. <Link to={Routes.PRODUCTS}>¿Por qué no empiezas haciendo tu primer pedido?</Link></span>
                   : <span className="table-empty-message">No hay pedidos disponibles en este momento...</span>
               )
               }
