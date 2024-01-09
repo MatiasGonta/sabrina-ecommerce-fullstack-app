@@ -64,7 +64,7 @@
         }
     }
 
-    #sb-button {
+    &__button {
         display: none;
         justify-content: center;
         align-items: center;
@@ -86,7 +86,7 @@
 @media screen and (max-width: 940px) {
     .sub-navbar {
 
-        #sb-button {
+        &__button {
             display: flex;
         }
     }

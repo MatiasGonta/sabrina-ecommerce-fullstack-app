@@ -1,5 +1,7 @@
 @use '../utilities/variables' as V;
-@use '../utilities/mixins' as M;
+
+// CartButtons
+@use './CartButtons';
 
 $product-item-box-shadow: 0px 10px 10px 0 V.$color-primary-light, 0 -1px 2px 0 V.$color-primary-light;
 
@@ -160,14 +162,6 @@ $product-item-box-shadow: 0px 10px 10px 0 V.$color-primary-light, 0 -1px 2px 0 V
                     }
                 }
             }
-        }
-        
-        .add-to-cart-btn {
-            @include M.Button(70%);
-        }
-
-        .out-stock-btn {
-            @include M.DisabledButton(70%);
         }
     }
 }

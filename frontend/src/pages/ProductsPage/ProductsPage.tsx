@@ -116,7 +116,7 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
             <div className='sub-navbar'>
               <h2><Link to={Routes.HOME}>Inicio</Link> / Productos</h2>
               <ProductSearchBar products={products} />
-              <div id="sb-button" onClick={() => setOpen(true)}>
+              <div className="sub-navbar__button" onClick={() => setOpen(true)}>
                 <span>Filtrar</span>
                 <ArrowForwardIosIcon sx={{ fontSize: 24 }} />
               </div>

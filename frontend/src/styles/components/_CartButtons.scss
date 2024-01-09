@@ -1,0 +1,72 @@
+.add-to-cart-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #26b16d;
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    div {
+        color: #fff;
+        position: relative;
+        width: fit-content;
+    }
+
+    &__cart-icon {
+        position: relative;
+        margin-right: 5px;
+        z-index: 2;
+    }
+    
+    &__clothes-icon {
+        position: absolute;
+        width: 12px;
+        border-radius: 3px;
+        content: "";
+        left: 2px;
+        bottom: 10px;
+        opacity: 0;
+        z-index: 1;
+        fill: rgb(211, 211, 211);
+    }
+
+    &:hover,
+    &:focus {
+        background-color: #23c476;
+
+        .add-to-cart-btn__clothes-icon {
+            animation: slide-in-top 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+    }
+
+    @keyframes slide-in-top {
+        0% {
+          transform: translateY(-30px);
+          opacity: 1;
+        }
+      
+        100% {
+          transform: translateY(0) rotate(-90deg);
+          opacity: 1;
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        font-size: 12.5px;
+    }
+}
+
+.out-stock-btn {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-color: #b8b8b8;
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+}

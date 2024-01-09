@@ -1,11 +1,13 @@
 @use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
 
-//SubNavbar
+// SubNavbar
 @use '../../components/SubNavbar';
 
 // Carousel
 @use '../../components/ProductsCarousel';
+
+// CartButtons
+@use '../../components/CartButtons';
 
 .product-page-main {
 
@@ -202,14 +204,6 @@
                     font-weight: bold;
                 }
             }
-        }
-
-        .add-to-cart-btn {
-            @include M.Button(100%);
-        }
-
-        .out-stock-btn {
-            @include M.DisabledButton(100%);
         }
     }
 }
