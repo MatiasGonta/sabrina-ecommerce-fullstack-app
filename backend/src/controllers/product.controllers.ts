@@ -54,8 +54,10 @@ export const getProductsCatalog = asyncHandler(async (req, res) => {
             filter.search = {
                 $or: [
                     { name: regex },
+                    { brand: regex },
                     { category: regex },
-                    { brand: regex }
+                    { colors: regex },
+                    { sizes: regex }
                 ]
             }
         }
@@ -74,7 +76,7 @@ export const getProductsCatalog = asyncHandler(async (req, res) => {
         }
 
         if (products) {
-            res.json(products);
+            res.status(201).json(products);
         } else {
             res.status(404).json({ message: 'Productos no encontrados' });
         }
@@ -140,7 +142,7 @@ export const getFiltersCounts = asyncHandler(async (req: Request, res: Response)
     };
 
     if (filterCounts) {
-        res.json(filterCounts);
+        res.status(201).json(filterCounts);
     } else {
         res.status(404).json({ message: 'Recuentos de filtros no encontrados' });
     }
@@ -168,7 +170,7 @@ export const searchProducts = asyncHandler(async (req: Request, res: Response) =
     }, options);
 
     if (searchResults) {
-        res.json(searchResults);
+        res.status(201).json(searchResults);
     } else {
         res.status(404).json({ message: 'Resultados de búsqueda no encontrados' });
     }

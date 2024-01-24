@@ -102,4 +102,5 @@
 
 .out-stock-btn {
     @include M.ButtonTemplate(100%, #b8b8b8);
+    cursor: default;
 }

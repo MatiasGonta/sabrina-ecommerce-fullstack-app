@@ -1,4 +1,5 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import Tooltip from '@mui/material/Tooltip';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar, ProductItem } from '@/components';
 import { LoadingSpinner, Footer } from '@/components/ui';
@@ -47,11 +48,13 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
               className="sub-navbar__search-bar__input"
               type="text"
               placeholder="BUSCAR"
-              value={searchTerm}
+              defaultValue={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button className="sub-navbar__search-bar__btn" type="submit">
-              <SearchOutlinedIcon sx={{ fontSize: 20 }} />
+              <Tooltip title="Buscar">
+                <SearchOutlinedIcon sx={{ fontSize: 20 }} />
+              </Tooltip>
             </button>
           </form>
         </div>
