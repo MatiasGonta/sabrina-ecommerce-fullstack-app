@@ -12,6 +12,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '@/styles/pages/ProductsPage/ProductsPage.scss';
+import { ProductsListWrapper } from '@/components/ui';
 
 type PriceRange = {
   minPrice: string;
@@ -277,16 +278,11 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
                   next={() => fetchNextPage()}
                   loader={<LoadingSpinner type={LoadingSpinnerType.FLEX} />}
                 >
-                  {
-                    totalProducts !== 0
-                      ? (
-                        <ul className="products-catalog__list">
-                          {
-                            products.map((product: Product, index: number) => <ProductItem key={index} product={product} />)
-                          }
-                        </ul>
-                      ) : <p className="products-catalog__empty-msg">No hay productos que cumplan con los requisitos</p>
-                  }
+                  <ProductsListWrapper isEmpty={totalProducts !== 0}>
+                    {
+                      products.map((product: Product, index: number) => <ProductItem key={index} product={product} />)
+                    }
+                  </ProductsListWrapper>
                 </InfiniteScroll>
               </section>
               <section className="products-page-purchase-path">

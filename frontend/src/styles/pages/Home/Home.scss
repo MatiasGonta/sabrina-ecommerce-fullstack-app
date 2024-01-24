@@ -1,19 +1,22 @@
 @use '../../utilities/_variables' as V;
 
 // Product Item
-@use '../../components/ProductItem';
+@use '../../components/_ProductItem';
+
+// ProductsListWrapper
+@use '../../components/_ProductsListWrapper';
 
 // Products
-@use '../../components/ProductsCatalog';
+@use '../../components/_ProductsCatalog';
 
 // PurchaseInfoBanner
-@use '../../components/PurchaseInfoBanner';
+@use '../../components/_PurchaseInfoBanner';
 
 // Accordion
-@use './components/Accordion';
+@use './components/_Accordion';
 
 // Slider buttons
-@use './components/SliderButtons';
+@use './components/_SliderButtons';
 
 // Commerce section
 .home__commerce {

@@ -36,6 +36,7 @@
                 font-size: 20px;
                 font-weight: bold;
                 margin-bottom: 10px;
+                max-width: 275px;
             }
 
             &__actions {
@@ -58,7 +59,7 @@
         }
     }
 
-    .cart-item__quantity {
+    &__quantity {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -103,7 +104,7 @@
         }
     }
 
-    .cart-item__price {
+    &__price {
         font-size: 25px;
         min-width: 120px;
         text-align: right;
@@ -115,7 +116,7 @@
         min-width: auto;
         flex-wrap: nowrap;
     
-        .cart-item__info {
+        &__info {
             width: auto;
             justify-content: space-between;
 

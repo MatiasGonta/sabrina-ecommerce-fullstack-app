@@ -14,6 +14,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import '@/styles/pages/Home/Home.scss';
+import { ProductsListWrapper } from '@/components/ui';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -134,16 +135,11 @@ const Home: React.FC<HomeInterface> = () => {
             </section>
             <section className="home__products-preview products-catalog">
                 <article>
-                    {
-                        products.length > 0
-                            ? (
-                                <ul className="products-catalog__list">
-                                    {
-                                        products.splice(0,21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
-                                    }
-                                </ul>
-                            ) : <p className="products-catalog__empty-msg">No hay productos que cumplan con los requisitos</p>
-                    }
+                    <ProductsListWrapper isEmpty={products.length > 0}>
+                        {
+                            products.splice(0,21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
+                        }
+                    </ProductsListWrapper>
                     <div className="home__products-preview__more">
                         <button className="home__products-preview__more__btn" onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
                     </div>
