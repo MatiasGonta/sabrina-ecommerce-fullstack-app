@@ -1,80 +1,91 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
-.verify-main {
+.main--verify {
     width: 100vw;
     height: 100vh;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
-    .verify-user-container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+.verify-user-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 250px;
+    @include M.WrapperTemplate();
+
+    h2 {
+        text-align: center;
+        width: 300px;
+        display: inline;
+        font-size: 25px;
+    }
+
+    span {
+        width: 170px;
+        margin-top: 10px;
+        font-size: 20px;
+        text-align: left;
+    }
+}
+
+.verify-animated-dots {
+    display: inline-block;
+    content: "...";
+    animation: dotAnimation .75s infinite;
+}
+
+// Progress bar
+.verify-progress {
+    width: 300px;
+    margin: 15px 0;
+
+    .verify-progress__bar {
+        height: 5px;
+        background-color: V.$color-tertiary-light;
+        width: 100%;
+        overflow: hidden;
+
+        .verify-progress__bar-value {
+            width: 100%;
+            height: 100%;
+            background-color: V.$color-tertiary;
+            animation: indeterminateAnimation 1s infinite linear;
+            transform-origin: 0% 50%;
+        }
+    }
+}
+
+// Success icon
+.verify-icon {
+    position: absolute;
+    top: -70px;
+    background-color: #146c54;
+    border-radius: 50%;
+    padding: 10px;
+    border: 10px solid #fff;
+    animation: showVerifyCheck .4s ease-in-out;
+    
+    * {
+        color: #fff;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .verify-user-wrapper {
+        width: 375px;
+    }
+}
+
+@media screen and (min-width: 525px) {
+    .verify-user-wrapper {
         width: 500px;
-        height: 250px;
-        @include M.WrapperTemplate();
-
-        .verify-icon {
-            position: absolute;
-            top: -70px;
-            background-color: #23c476;
-            border-radius: 50%;
-            padding: 10px;
-            border: 10px solid #fff;
-            animation: showVerifyCheck .4s ease-in-out;
-            
-            * {
-                color: #fff;
-            }
-        }
-    
-        h2 {
-            text-align: center;
-            width: 300px;
-            display: inline;
-            font-size: 25px;
-        }
-
-        .verify-progress {
-            width: 300px;
-            margin: 15px 0;
-    
-            .verify-progress__bar {
-                height: 5px;
-                background-color: V.$color-tertiary-light;
-                width: 100%;
-                overflow: hidden;
-    
-                .verify-progress__bar-value {
-                    width: 100%;
-                    height: 100%;
-                    background-color: V.$color-tertiary;
-                    animation: indeterminateAnimation 1s infinite linear;
-                    transform-origin: 0% 50%;
-                }
-            }
-        }
-
-        span {
-            width: 170px;
-            margin-top: 10px;
-            font-size: 20px;
-            text-align: left;
-        }
-
-        h2,
-        span {
-            &.animated-dots::after {
-                display: inline-block;
-                content: "...";
-                animation: dotAnimation .75s infinite;
-            }
-        }
     }
 }
 
@@ -114,23 +125,5 @@
     }
     80%, 100% {
       content: "...";
-    }
-}
-
-@media screen and (max-width: 525px) {
-    .verify-main {
-    
-        .verify-user-container {
-            width: 375px;
-        }
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .verify-main {
-    
-        .verify-user-container {
-            width: 350px;
-        }
     }
 }

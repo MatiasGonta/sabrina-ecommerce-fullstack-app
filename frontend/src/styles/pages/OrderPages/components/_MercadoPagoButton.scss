@@ -1,0 +1,10 @@
+@use '../../../utilities/_mixins' as M;
+
+.mercado-pago-payment-btn {
+    @include M.ButtonTemplate(100%, #009ee3, #25afeb);
+    gap: 10px;
+
+    * {
+        color: #fff;
+    }
+}

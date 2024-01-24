@@ -1,0 +1,51 @@
+@use '../../../utilities/_variables' as V;
+// Slider buttons
+.swiper-button-next,
+.swiper-button-prev {
+    display: none;
+    position: absolute;
+    width: 5%;
+    height: 12.5%;
+    background-color: V.$color-secondary;
+    color: V.$color-tertiary;
+
+    &::after {
+        position: absolute;
+        font-size: 30px;
+    }
+}
+
+.swiper-button-prev {
+    border-radius: 0 50% 50% 0;
+    left: -30px;
+    left: -2.2%;
+
+    &::after {
+        right: 12.5px;
+    }
+}
+    
+.swiper-button-next {
+    border-radius: 50% 0 0 50%;
+    right: -30px;
+    right: -2.2%;
+
+    &::after {
+        left: 12.5px;
+    }
+}
+
+.swiper-pagination-bullet {
+    background-color: V.$color-tertiary-light;
+}
+    
+.swiper-pagination-bullet-active {
+    background-color: V.$color-tertiary;
+}
+
+@media screen and (min-width: 1024px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: flex;
+    }
+}

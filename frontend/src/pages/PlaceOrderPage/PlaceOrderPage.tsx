@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { clearCartItems } from "@/redux/states/cart.state";
-import '@/styles/pages/PlaceOrderPage/PlaceOrderPage.scss';
+import '@/styles/pages/OrderPages/OrderPages.scss';
 
 interface PlaceOrderPageInterface {}
 
@@ -107,59 +107,61 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
         : !stock ? <h2>Order Not Found</h2> : (
         <>
             <Navbar />
-            <main className="place-order-main">
+            <main>
                 <Helmet>
                     <title>Vista previa del pedido</title>
                 </Helmet>
-                <article>
-                    <CheckoutSteps step1 step2 step3 step4 />
-                </article>
-                <article className="order">
-                    <section className="order-title-section">
-                        <h1>Vista previa del pedido</h1>
-                    </section>
-                    <section className="order-info-section">
-                        <div className="order-info__shipping">
-                            <h4>Envío</h4>
+                <section>
+                    <article>
+                        <CheckoutSteps step1 step2 step3 step4 />
+                    </article>
+                </section>
+                <section className="order">
+                    <article className="order__header">
+                        <h1 className="order__header__title">Vista previa del pedido</h1>
+                    </article>
+                    <article className="order__info">
+                        <div className="order__info__shipping">
+                            <h4 className="order__info__shipping__title">Envío</h4>
                             <p>
                                 <strong>Nombre:</strong> {cart.shippingAddress.fullName}
                                 <br />
                                 <strong>Dirección: </strong> {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
                             </p>
-                            <Link to={Routes.SHIPPING}>Editar</Link>
+                            <Link to={Routes.SHIPPING} className="order__info__shipping__link">Editar</Link>
                         </div>
-                        <div className="order-info__payment">
-                            <h4>Pago</h4>
+                        <div className="order__info__payment">
+                            <h4 className="order__info__payment__title">Pago</h4>
                             <p>
                                 <strong>Método:</strong> {cart.paymentMethod}
                             </p>
-                            <Link to={Routes.PAYMENT}>Editar</Link>
+                            <Link to={Routes.PAYMENT} className="order__info__payment__link">Editar</Link>
                         </div>
-                        <div className="order-info__product">
-                            <h4>Productos</h4>
-                            <ul>
+                        <div className="order__info__product">
+                            <h4 className="order__info__product__title">Productos</h4>
+                            <ul className="order__info__product__list">
                                 {
                                     cart.cartItems.map((item, index) => <OrderItem key={index} item={item} />)
                                 }
                             </ul>
-                            <Link to={Routes.CART}>Editar</Link>
+                            <Link to={Routes.CART} className="order__info__product__link">Editar</Link>
                         </div>
-                    </section>
-                    <section className="order-summary-section">
-                        <h5>Resumen del pedido</h5>
-                        <ul className="items-row">
+                    </article>
+                    <article className="order__summary">
+                        <h5 className="order__summary__title">Resumen del pedido</h5>
+                        <ul className="order__summary__items-row">
                             <li>Productos</li>
                             <li>${itemsPrice.toFixed(2)}</li>
                         </ul>
-                        <ul className="shipping-row">
+                        <ul className="order__summary__shipping-row">
                             <li>Envío</li>
                             <li>${shippingPrice.toFixed(2)}</li>
                         </ul>
-                        <ul className="tax-row">
+                        <ul className="order__summary__tax-row">
                             <li>Impuesto</li>
                             <li>${taxPrice.toFixed(2)}</li>
                         </ul>
-                        <ul className="order-total-row">
+                        <ul className="order__summary__total-row">
                             <li>
                                 <strong>Total del pedido</strong>
                             </li>
@@ -168,14 +170,15 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                             </li>
                         </ul>
                         <button
+                            className="order__summary__ordering-btn"
                             type="button"
                             onClick={placeOrderHandler}
                             disabled={cart.cartItems.length === 0 || isLoading}
                         >
                             Realizar pedido
                         </button>
-                    </section>
-                </article>
+                    </article>
+                </section>
             </main>
             <Footer />
         </>

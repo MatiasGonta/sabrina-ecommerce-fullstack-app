@@ -1,4 +1,4 @@
-@use '../utilities/variables' as V;
+@use '../utilities/_variables' as V;
 
 //Sidebar colors
 $border-color: rgba(255,255,255,0.18);
@@ -6,70 +6,84 @@ $box-sw-color: rgba(0,0,0,0.3);
 
 .sidebar {
     top: 0;
-    position: sticky;
+    position: fixed;
     grid-row: span 2;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #fff;
-    width: 250px;
-    height: 750px;
+    width: 100vw;
+    height: 100vh;
     transition: all .1s ease-out;
-    margin-bottom: 25px;
-    border-radius: 0 0 10px 10px;
+    margin-bottom: 0;
+    border-radius: 0;
     border: 1px solid $border-color;
     box-shadow: 0 8px 32px 0 $box-sw-color;
+    z-index: 100;
 
-    &.close {
-        width: 95px;
+    &.sidebar--close {
+        width: 100%;
+        height: 75px;
+        flex-direction: row;
         position: sticky;
 
-        .sidebar-logo {
-            justify-content: center;
-            align-items: center;
-            padding: 0;
+        &.sidebar--sticky {
+            width: 95%;
+            margin: 0 auto;
+            border-radius: 0 0 10px 10px;
         }
 
-        .sidebar-navigate {
-            display: flex;
+        .sidebar__icon {
+            width: 75px;
+            height: 60px;
+            padding: 0;
             justify-content: center;
-            margin-top: 25px;
+            align-items: center;
+            border: none;
+            border-right: 1px solid V.$color-primary-semi-light;
+        }
+
+        .sidebar__navigate {
+            display: flex;
+            padding: 0;
+            align-items: center;
+            width: 100%;
+            height: 75px;
+            margin-top: 0;
+        }
+
+        .sidebar__navigate__list {
+            width: 100%;
+            height: fit-content;
+            flex-direction: row;
+            justify-content: space-evenly;
             padding: 0;
 
-            .sidebar-navigate__item {
-                span {
-                    display: none;
-                    opacity: 0;
-                }
+            &__item span {
+                display: none;
+                opacity: 0;
             }
         }
     }
 
-    .sidebar-logo {
+    &__icon {
         display: flex;
         justify-content: flex-end;
         padding: 25px;
         width: 100%;
         height: 75px;
-        border-bottom: 1px solid rgba(0,0,0,0.3);
+        border-bottom: 1px solid V.$color-primary-semi-light;
 
-        a,
-        img {
-            width: 45px;
-            height: 45px;
-        }
-
-        .menu-bar {
+        & > div {
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
-        
             width: 30px;
             height: 30px;
-        
             cursor: pointer;
         }
         
-        .line {
+        &__line {
             width: 100%;
             height: 3px;
             background: V.$color-primary-semi-light;
@@ -78,22 +92,22 @@ $box-sw-color: rgba(0,0,0,0.3);
             transform-origin: 0px 100%;
             transition: all 600ms;
 
-            &.activeLine1 {
+            &--activeLine1 {
                 transform: rotate(45deg) translate(-3px, 1px);
             }
             
-            &.activeLine2 {
+            &--activeLine2 {
                 opacity: 0;
                 margin-left: -30px;
             }
             
-            &.activeLine3 {
+            &--activeLine3 {
                 transform: rotate(-45deg) translate(-2px, 2px);
             }
         }
     }
 
-    .sidebar-navigate {
+    &__navigate {
         width: 100%;
         height: 500px;
         padding: 25px;
@@ -102,13 +116,13 @@ $box-sw-color: rgba(0,0,0,0.3);
             color: V.$color-primary-semi-light;
         }
 
-        ul {
+        &__list {
             height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
 
-            .sidebar-navigate__item {
+            &__item__link {
                 display: flex;
                 align-items: center;
                 height: 50px;
@@ -122,8 +136,12 @@ $box-sw-color: rgba(0,0,0,0.3);
                     background-color: V.$color-primary-light;
                 }
 
-                &.active {
+                &--active {
                     background-color: V.$color-tertiary-light;
+
+                    &:hover {
+                        background-color: V.$color-tertiary-light;
+                    }
 
                     * {
                         color: V.$color-tertiary;
@@ -140,55 +158,56 @@ $box-sw-color: rgba(0,0,0,0.3);
     }
 }
 
-@media screen and (max-width: 1118px) {
+@media screen and (min-width: 992px) {
     .sidebar {
         width: 210px;
-    }
-}
+        height: 750px;
+        position: sticky;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        border-radius: 0 0 10px 10px;
 
-@media screen and (max-width: 992px) {
-    .sidebar {
-        align-items: center;
-        margin-bottom: 0;
-        border-radius: 0;
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        z-index: 100;
-    
-        &.close {
+        &.sidebar--close {
             top: 0;
             width: 100%;
-            height: 75px;
-            flex-direction: row;
+            height: auto;
+            flex-direction: column;
             border-radius: 0;
 
-            &.sticky {
-                width: 95%;
-                margin: 0 auto;
-                border-radius: 0 0 10px 10px;
+            &.sidebar--sticky {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
             }
 
-            .sidebar-logo {
-                width: 75px;
-                height: 60px;
-                border: none;
-                border-right: 1px solid V.$color-primary-semi-light;
-            }
-        
-            .sidebar-navigate {
+            .sidebar__icon {
+                justify-content: center;
                 align-items: center;
                 width: 100%;
                 height: 75px;
+                padding: 25px;
+                border: none;
+                border-bottom: 1px solid V.$color-primary-semi-light;
+            }
+
+            .sidebar__navigate {
+                padding: 25px;
+                width: 100%;
+                height: auto;
                 margin-top: 0;
-        
-                ul {
-                    width: 100%;
-                    height: fit-content;
-                    flex-direction: row;
-                    justify-content: space-evenly;
+
+                &__list {
+                    height: 300px;
+                    flex-direction: column;
+                    justify-content: space-between;
                 }
             }
         }
+    }
+}
+
+@media screen and (min-width: 1118px) {
+    .sidebar {
+        width: 250px;
     }
 }

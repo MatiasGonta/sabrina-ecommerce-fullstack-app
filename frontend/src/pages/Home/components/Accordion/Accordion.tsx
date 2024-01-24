@@ -1,15 +1,22 @@
-import { AccordionInterface } from "../../models";
+import { ReactNode } from "react";
 
-const Accordion: React.FC<AccordionInterface> = ({ number, title, text, icon }) => {
+export interface AccordionInterface {
+  number: number;
+  title: string;
+  children: ReactNode;
+  icon: ReactNode;
+}
+
+const Accordion: React.FC<AccordionInterface> = ({ number, title, children, icon }) => {
   return (
     <div className="accordion">
-      <div className="accordion-header">
-        <span className="accordion-header__number">{number}</span>
-        <h3 className="accordion-header__title">{title}</h3>
+      <div className="accordion__header">
+        <span className="accordion__header__number">{number}</span>
+        <h3 className="accordion__header__title">{title}</h3>
       </div>
-      <div className="accordion-body">
-        <p className="accordion-body__text">{text}</p>
-        <div className="accordion-body__icon">
+      <div className="accordion__body">
+        <p className="accordion__body__text">{children}</p>
+        <div className="accordion__body__icon">
           {icon}
         </div>
       </div>

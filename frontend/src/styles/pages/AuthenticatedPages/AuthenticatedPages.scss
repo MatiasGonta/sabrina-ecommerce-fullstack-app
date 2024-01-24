@@ -1,21 +1,21 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 //Form
-@use '../../components/Form';
+@use '../../components/_Form';
 
-.authenticated-main {
+.main--authenticated {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 400px;
     height: 100vh;
     margin-bottom: 0px;
+}
 
-    article {
-        @include M.WrapperTemplate();
-        min-width: 300px;
-        width: 40%;
-        height: fit-content;
-    }
+.authenticated-wrapper {
+    @include M.WrapperTemplate();
+    min-width: 300px;
+    width: 40%;
+    height: fit-content;
 }

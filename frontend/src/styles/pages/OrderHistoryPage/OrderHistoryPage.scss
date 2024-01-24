@@ -1,22 +1,29 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 //SubNavbar
-@use '../../components/SubNavbar';
+@use '../../components/_SubNavbar';
 
 //Table
-@use '../../components/Table';
+@use '../../components/_Table';
 
-.order-history-main {
+.order-history-table {
+    @include M.WrapperTemplate();
+    overflow: hidden;
+}
 
-    section {
-        @include M.WrapperTemplate();
-        overflow: hidden;
+.order-history-table {
+    margin: 0 15px;
+}
+
+@media screen and (min-width: 640px) {
+    .order-history-table {
+        margin: 0 25px;
     }
 }
 
-@media screen and (max-width: 1300px) {
-    .order-history-main {
-        padding: 0 20px;
+@media screen and (min-width: 1280px) {
+    .order-history-table {
+        margin: 0;
     }
 }

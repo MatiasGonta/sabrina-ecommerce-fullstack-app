@@ -3,7 +3,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Routes } from '@/models';
 
 interface SidebarInterface {
@@ -11,8 +11,6 @@ interface SidebarInterface {
 }
 
 const Sidebar: React.FC<SidebarInterface> = ({ page }) => {
-  const navigate = useNavigate();
-
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -30,43 +28,41 @@ const Sidebar: React.FC<SidebarInterface> = ({ page }) => {
   }, []);
 
   return (
-    <aside className={`${isMenuOpen ? "sidebar" : "sidebar close"} ${isSticky ? "sticky" : ""}`}>
-      <div className="sidebar-logo">
-        <div className="menu-bar" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          <div className={isMenuOpen ? "line activeLine1" : "line"}></div>
-          <div className={isMenuOpen ? "line activeLine2" : "line"}></div>
-          <div className={isMenuOpen ? "line activeLine3" : "line"}></div>
+    <aside className={`sidebar ${!isMenuOpen && "sidebar--close"} ${isSticky && "sidebar--sticky"}`}>
+      {/* Sidebar toggle icon */}
+      <div className="sidebar__icon">
+        <div onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <div className={`sidebar__icon__line ${isMenuOpen && "sidebar__icon__line--activeLine1"}`}></div>
+          <div className={`sidebar__icon__line ${isMenuOpen && "sidebar__icon__line--activeLine2"}`}></div>
+          <div className={`sidebar__icon__line ${isMenuOpen && "sidebar__icon__line--activeLine3"}`}></div>
         </div>
       </div>
-      <nav className="sidebar-navigate">
-        <ul>
-          <li
-            className={page === 'dashboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate(Routes.DASHBOARD)}
-          >
-            <DashboardIcon sx={{ fontSize: 25 }} />
-            <span>Dashboard</span>
+
+      <nav className="sidebar__navigate">
+        <ul className="sidebar__navigate__list">
+          <li className="sidebar__navigate__list__item">
+            <Link to={Routes.DASHBOARD} className={`sidebar__navigate__list__item__link ${page === 'dashboard' && "sidebar__navigate__list__item__link--active"}`}>
+              <DashboardIcon sx={{ fontSize: 25 }} />
+              <span>Dashboard</span>
+            </Link>
           </li>
-          <li
-            className={page === 'productsboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate(Routes.DASHBOARD_PRODUCTS)}
-          >
-            <InventoryIcon sx={{ fontSize: 25 }} />
-            <span>Productos</span>
+          <li className="sidebar__navigate__list__item">
+            <Link to={Routes.DASHBOARD_PRODUCTS} className={`sidebar__navigate__list__item__link ${page === 'productsboard' && "sidebar__navigate__list__item__link--active"}`}>
+              <InventoryIcon sx={{ fontSize: 25 }} />
+              <span>Productos</span>
+            </Link>
           </li>
-          <li
-            className={page === 'ordersboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate(Routes.DASHBOARD_ORDERS)}
-          >
-            <ShoppingCartIcon sx={{ fontSize: 25 }} />
-            <span>Pedidos</span>
+          <li className="sidebar__navigate__list__item">
+            <Link to={Routes.DASHBOARD_ORDERS} className={`sidebar__navigate__list__item__link ${page === 'ordersboard' && "sidebar__navigate__list__item__link--active"}`}>
+              <ShoppingCartIcon sx={{ fontSize: 25 }} />
+              <span>Pedidos</span>
+            </Link>
           </li>
-          <li
-            className={page === 'usersboard' ? "sidebar-navigate__item active" : "sidebar-navigate__item"}
-            onClick={() => navigate(Routes.DASHBOARD_USERS)}
-          >
-            <GroupIcon sx={{ fontSize: 25 }} />
-            <span>Usuarios</span>
+          <li className="sidebar__navigate__list__item">
+            <Link to={Routes.DASHBOARD_USERS} className={`sidebar__navigate__list__item__link ${page === 'usersboard' && "sidebar__navigate__list__item__link--active"}`}>
+              <GroupIcon sx={{ fontSize: 25 }} />
+              <span>Usuarios</span>
+            </Link>
           </li>
         </ul>
       </nav>

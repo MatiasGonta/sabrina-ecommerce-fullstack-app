@@ -1,5 +1,5 @@
-@use '../utilities/variables' as V;
-@use '../utilities/mixins' as M;
+@use '../utilities/_variables' as V;
+@use '../utilities/_mixins' as M;
 
 .form-container {
   position: relative;
@@ -46,7 +46,7 @@
   margin-bottom: 45px;
 
   input {
-    font-size: 18px;
+    font-size: 16px;
     padding: 10px 10px 10px 5px;
     display: block;
     width: 100%;
@@ -450,13 +450,13 @@
     & ~ label,
     &:focus ~ label {
       position: absolute;
-      top: -30px;
+      top: -50px;
       left: 0;
       font-size: 18px;
       color: V.$color-primary-semi-light;
 
-      @media screen and (max-width: 730px) {
-        top: -50px;
+      @media screen and (min-width: 730px) {
+        top: -30px;
       }
     }
   }
@@ -511,7 +511,7 @@
   margin-bottom: 20px;
 
   button {
-    @include M.Button(200px);
+    @include M.ButtonTemplate(200px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
   }
 
   div {

@@ -35,20 +35,21 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
     return (
     <>
         <Navbar />
-        <main className="payment-main">
-            <article>
+        <main>
+            <section>
                 <CheckoutSteps step1 step2 step3 />
-            </article>
-            <article>
-                <section>
+            </section>
+            <section>
+                <article className="payment-method-wrapper">
                     <Helmet>
                         <title>Método de Pago</title>
                     </Helmet>
-                    <h3>Método de Pago</h3>
-                    <form onSubmit={submitHandler} >
-                        <div className="payment-option">
+                    <h3 className="payment-method-wrapper__title">Método de Pago</h3>
+                    <form onSubmit={submitHandler} className="payment-method-form">
+                        <div className="payment-method-form__field">
                             <label htmlFor="paypal">Paypal</label>
                             <input
+                                className="payment-method-form__field__input-radio"
                                 type="radio"
                                 id="PayPal"
                                 name="paypal"
@@ -57,9 +58,10 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
                                 onChange={(e) => setPaymentMethodName(e.target.value as 'PayPal')}
                             />
                         </div>
-                        <div className="payment-option">
+                        <div className="payment-method-form__field">
                             <label htmlFor="mercadopago">MercadoPago</label>
                             <input
+                                className="payment-method-form__field__input-radio"
                                 type="radio"
                                 id="MercadoPago"
                                 name="mercadopago"
@@ -68,15 +70,16 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
                                 onChange={(e) => setPaymentMethodName(e.target.value as 'MercadoPago')}
                             />
                         </div>
-                        <div className="payment-option">
+                        <div className="payment-method-form__field">
                             {
                                 paymentMethodName === 'Efectivo' &&
-                                <div className="payment-message" id="cash-payment-message">
+                                <div className="payment-message payment-message--cash">
                                     <p>💡Si optas por el pago en <strong>efectivo</strong>, te esperamos con gusto en nuestra tienda para que realices el pago y retires tu pedido. Por favor, ten en cuenta que el stock de los productos se reservará únicamente durante <strong>48 horas</strong> a partir de la confirmación de tu pedido.</p>
                                 </div>
                             }
                             <label htmlFor="efectivo">Efectivo</label>
                             <input
+                                className="payment-method-form__field__input-radio"
                                 type="radio"
                                 id="Efectivo"
                                 name="efectivo"
@@ -85,15 +88,16 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
                                 onChange={(e) => setPaymentMethodName(e.target.value as 'Efectivo')}
                             />
                         </div>
-                        <div className="payment-option">
+                        <div className="payment-method-form__field">
                             {
                                 paymentMethodName === 'Otros' &&
-                                <div className="payment-message" id="others-payment-message">
+                                <div className="payment-message payment-message--others">
                                     <p>💡Si eliges la opción de <strong>otros</strong> métodos de pago alternativos, que incluyen Transferencia, Depósito, Rapi Pago, Pago Fácil o Billetera Santa Fe, te invitamos a ponerte en contacto con nosotros. Una vez realizado el pedido, comunícate al número de teléfono <strong>+541152799723</strong> a través de nuestro chat de WhatsApp de atención al cliente. Estaremos encantados de atenderte dentro de las próximas <strong>24 horas</strong> de realizado el pedido, para coordinar la alternativa de pago y asegurarnos de que puedas completar tu compra de manera conveniente.</p>
                                 </div>
                             }
                             <label htmlFor="otros">Otros</label>
                             <input
+                                className="payment-method-form__field__input-radio"
                                 type="radio"
                                 id="Otros"
                                 name="otros"
@@ -103,11 +107,11 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
                             />
                         </div>
                         <div>
-                            <button type="submit">Continuar</button>
+                            <button className="payment-method-form__submit" type="submit">Continuar</button>
                         </div>
                     </form>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
         <Footer />
     </>

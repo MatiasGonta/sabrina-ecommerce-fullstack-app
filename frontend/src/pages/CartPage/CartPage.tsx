@@ -8,7 +8,7 @@ import { AppStore } from '@/redux/store';
 import { CartItem as Item } from './components';
 import '@/styles/pages/CartPage/CartPage.scss';
 
-interface CartPageInterface {}
+interface CartPageInterface { }
 
 const CartPage: React.FC<CartPageInterface> = () => {
     const favorites = useSelector((store: AppStore) => store.favorites);
@@ -22,59 +22,73 @@ const CartPage: React.FC<CartPageInterface> = () => {
         (favorite) => !cart.cartItems.some((item) => item._id === favorite._id)
     );
 
-  return (
-    <>
-        <Helmet>
-            <title>Carrito de Compras</title>
-        </Helmet>
-        <Navbar />
-        <div className='sub-navbar'>
-          <h2><Link to={Routes.HOME}>Inicio</Link> / Carrito de Compras</h2>
-        </div>
-        <main className='cart-main'>
-            <article>
+    return (
+        <>
+            <Helmet>
+                <title>Carrito de Compras</title>
+            </Helmet>
+            <Navbar />
+
+            <div className='sub-navbar'>
+                <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Carrito de Compras</h2>
+            </div>
+
+            <main>
+                <section className="cart-info">
                     {
                         cart.cartItems.length === 0
-                        ? (
-                            <section id="cart-clear-section">
-                                <StorefrontOutlinedIcon sx={{ fontSize: 100 }} />
-                                <p>Tu carrito está vacío.</p>
-                                <Link to={Routes.HOME}>Ir de compras</Link>
-                            </section>
-                        ) : (
-                            <>
-                                <section id="cart-products-section">
-                                    <ul>
-                                        {
-                                            cart.cartItems.map((item: CartItem, index) => <Item key={`${item._id}${index}`} item={item} />)
-                                        }
-                                    </ul>
-                                </section>
-                                <section id="cart-purchase-summary-section">
-                                    <div>
-                                        <h3>Resumen de compra</h3>
-                                    </div>
-                                    <div>
-                                        <div id='purchase-summary-info'>
-                                            <span>Total ({cart.cartItems.reduce((a,c) => a + c.quantity, 0)})</span>
-                                            <span>$ {cart.cartItems.reduce((a,c) => a + c.price * c.quantity, 0).toFixed(2)}</span>
+                            ? (
+                                <article className="cart-clear">
+                                    <StorefrontOutlinedIcon sx={{ fontSize: 100 }} />
+                                    <p className="cart-clear__text">Tu carrito está vacío.</p>
+                                    <Link to={Routes.HOME} className="cart-clear__link">Ir de compras</Link>
+                                </article>
+                            ) : (
+                                <>
+                                    <article className="cart-info__products">
+                                        <ul>
+                                            {
+                                                cart.cartItems.map((item: CartItem, index) => <Item key={`${item._id}${index}`} item={item} />)
+                                            }
+                                        </ul>
+                                    </article>
+                                    <article className="cart-info__purchase-summary">
+                                        <div className="cart-info__purchase-summary__head">
+                                            <h3 className="cart-info__purchase-summary__head__title">Resumen de compra</h3>
                                         </div>
-                                        <button onClick={checkoutHandler} disabled={cart.cartItems.length === 0}>Continuar compra</button>
-                                    </div>
-                                </section>
-                            </>
-                        )
+                                        <div className="cart-info__purchase-summary__body">
+                                            <div className="cart-info__purchase-summary__body__total">
+                                                <span>Total ({cart.cartItems.reduce((a, c) => a + c.quantity, 0)})</span>
+                                                <strong>$ {cart.cartItems.reduce((a, c) => a + c.price * c.quantity, 0).toFixed(2)}</strong>
+                                            </div>
+                                            <button
+                                                className="cart-info__purchase-summary__body__btn"
+                                                onClick={checkoutHandler}
+                                                disabled={cart.cartItems.length === 0}
+                                            >
+                                                Continuar compra
+                                            </button>
+                                        </div>
+                                    </article>
+                                </>
+                            )
                     }
-            </article>
-            {
-                cart.cartItems.length !== 0 &&
-                favorites.length !== 0 &&
-                <ProductsCarousel title="Productos que te gustaron" items={favoriteProductsNotInCart} />
-            }
-        </main>
-        <Footer />
-    </>
-  )
+                </section>
+                <section>
+                    <article>
+                        {
+                            cart.cartItems.length !== 0 &&
+                            favorites.length !== 0 &&
+                            <ProductsCarousel items={favoriteProductsNotInCart}>
+                                Productos que te gustaron
+                            </ProductsCarousel>
+                        }
+                    </article>
+                </section>
+            </main>
+            <Footer />
+        </>
+    )
 }
 
 export default CartPage

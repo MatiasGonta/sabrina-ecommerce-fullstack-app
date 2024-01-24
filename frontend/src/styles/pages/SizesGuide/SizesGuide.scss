@@ -1,16 +1,16 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 // Cells Colors
 $even-cell-color: transparent;
 $odd-cell-color: #f8f8f8;
 
-.sizes-guide-main article {
+.sizes-guide {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 
-    section {
+    .guide {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -18,14 +18,14 @@ $odd-cell-color: #f8f8f8;
         overflow-x: auto;
         z-index: 5;
 
-        h3 {
+        &__title {
             display: inline;
             margin: 15px 0;
         }
     }
 }
 
-.size-guide__wrapper {
+.guide__body {
     @include M.WrapperTemplate();
     overflow-x: auto;
 
@@ -43,53 +43,42 @@ $odd-cell-color: #f8f8f8;
         background-color: V.$color-tertiary;
     }
 
-    .size-guide__wrapper-table {
+    &__table {
         min-width: 370px;
         width: 500px;
         border-collapse: collapse;
         text-align: center;
 
-        thead {
+        &__head__table-row {
+            &:first-child th {
+                border-radius: 5px 5px 0 0;
+                background-color: V.$color-primary-light;
+                color: V.$color-primary-semi-light;
+                padding: 20px 0 20px 0;
+            }
 
-            tr {
-
-                &:first-child th {
-                    border-radius: 5px 5px 0 0;
-                    background-color: V.$color-primary-light;
-                    color: V.$color-primary-semi-light;
-                    padding: 20px 0 20px 0;
-                }
-
-                th {
-                    background-color: V.$color-primary;
-                    color: #fff;
-                    max-width: 100px;
-                    padding: 10px 5px;
-                    border-bottom: 1px solid V.$color-primary-light;
-    
-                    span {
-                        font-weight: lighter;
-                    }
-                }
+            th {
+                background-color: V.$color-primary;
+                color: #fff;
+                max-width: 100px;
+                padding: 10px 5px;
+                border-bottom: 1px solid V.$color-primary-light;
             }
         }
     
-        tbody {
-
-            tr {
-                &:nth-child(even) {
-                    background-color: $odd-cell-color;
-                }
+        &__body__table-row {
+            &:nth-child(even) {
+                background-color: $odd-cell-color;
+            }
     
-                &:nth-child(odd) {
-                    background-color: $even-cell-color;
-                }
+            &:nth-child(odd) {
+                background-color: $even-cell-color;
+            }
     
-                td {
-                    font-size: 15px;
-                    padding: 10px 5px;
-                    border-bottom: 1px solid V.$color-primary-light;
-                }
+            &__td {
+                font-size: 15px;
+                padding: 10px 5px;
+                border-bottom: 1px solid V.$color-primary-light;
             }
         }
     }

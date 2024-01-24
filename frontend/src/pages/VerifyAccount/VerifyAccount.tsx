@@ -46,18 +46,18 @@ const VerifyAccount: React.FC<VerifyAccountInterface> = () => {
     }, [])
 
     return (
-        <main className="verify-main">
+        <main className="main--verify">
             <Helmet>
                 <title>Verificación de usuario</title>
             </Helmet>
-            <article>
-                <section>
-                    <div className="verify-user-container">
+            <section>
+                <article>
+                    <div className="verify-user-wrapper">
                         {
                             !emailToken || isLoading
                                 ? (
                                     <>
-                                        <h2>VERIFICANDO LA CUENTA<span className="animated-dots"></span></h2>
+                                        <h2>VERIFICANDO LA CUENTA<span className="verify-animated-dots"></span></h2>
                                         <div className="verify-progress">
                                             <div className="verify-progress__bar">
                                                 <div className="verify-progress__bar-value"></div>
@@ -69,13 +69,13 @@ const VerifyAccount: React.FC<VerifyAccountInterface> = () => {
                                     <>
                                         <TaskAltIcon className="verify-icon" sx={{ fontSize: 125 }} />
                                         <h2>USUARIO VERIFICADO CORRECTAMENTE</h2>
-                                        <span>Redireccionando<span className="animated-dots"></span></span>
+                                        <span>Redireccionando<span className="verify-animated-dots"></span></span>
                                     </>
                                 )
                         }
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
     );
 }

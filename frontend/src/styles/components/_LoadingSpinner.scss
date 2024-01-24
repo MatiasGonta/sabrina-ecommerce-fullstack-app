@@ -1,4 +1,4 @@
-@use '../utilities/variables' as V;
+@use '../utilities/_variables' as V;
 
 .loading-box {
   display: flex;
@@ -6,28 +6,27 @@
   justify-content: center;
   flex-wrap: nowrap;
   align-items: center;
-  
   width: 100vw;
   height: 100vh;
 
-  &.flex {
+  &--flex {
     width: 100%;
     height: 100%;
   }
 
-  img {
+  &__logo {
     margin-left: 5px;
     width: 80px;
     height: 65px;
   }
 
-  .spinner {
+  &__spinner {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
 
-    & div {
+    &__circle {
       position: absolute;
       top: 33px;
       width: 13px;
@@ -37,26 +36,26 @@
       animation-timing-function: cubic-bezier(0, 1, 1, 0);
     }
 
-    & div:nth-child(1) {
+    &__circle:nth-child(1) {
       left: 8px;
-      animation: loading-icon1 0.6s infinite;
+      animation: loading1 0.6s infinite;
     }
-    & div:nth-child(2) {
+    &__circle:nth-child(2) {
       left: 8px;
-      animation: loading-icon2 0.6s infinite;
+      animation: loading2 0.6s infinite;
     }
-    & div:nth-child(3) {
+    &__circle:nth-child(3) {
       left: 32px;
-      animation: loading-icon2 0.6s infinite;
+      animation: loading2 0.6s infinite;
     }
-    & div:nth-child(4) {
+    &__circle:nth-child(4) {
       left: 56px;
-      animation: loading-icon3 0.6s infinite;
+      animation: loading3 0.6s infinite;
     }
   }
 }
 
-@keyframes loading-icon1 {
+@keyframes loading1 {
   0% {
     transform: scale(0);
   }
@@ -65,7 +64,7 @@
   }
 }
   
-@keyframes loading-icon2 {
+@keyframes loading2 {
   0% {
     transform: translate(0, 0);
   }
@@ -74,7 +73,7 @@
   }
 }
   
-@keyframes loading-icon3 {
+@keyframes loading3 {
   0% {
     transform: scale(1);
   }

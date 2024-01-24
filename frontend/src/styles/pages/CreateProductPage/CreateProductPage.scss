@@ -1,15 +1,15 @@
-@use '../../utilities/variables' as V;
+@use '../../utilities/_variables' as V;
 
 //Sidebar
-@use '../../components/Sidebar';
+@use '../../components/_Sidebar';
 
 //Form
-@use '../../components/Form';
+@use '../../components/_Form';
 
 .create-product-form {
   width: 100%;
 
-  section {
+  article {
     width: 100%;
   }
 }

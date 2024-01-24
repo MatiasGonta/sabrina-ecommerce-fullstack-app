@@ -31,19 +31,25 @@ const CartItem: React.FC<CartItemInterface> = ({ item }) => {
     };
 
   return (
-    <li key={item._id} className='cart-item'>
+    <li className='cart-item'>
         <div className='cart-item__info'>
-            <img src={item.image} alt={item.name} />
-            <div>
-                <Link to={`${Routes.PRODUCTS}/${item.slug}`}>{item.name}</Link>
+            <img src={item.image} alt={item.name} className='cart-item__info__img' />
+            <div className='cart-item__info__body'>
+                <Link to={`${Routes.PRODUCTS}/${item.slug}`} className='cart-item__info__body__link'>
+                    {item.name}
+                </Link>
                 {
                     item.sizeSelected !== ''
                         ? <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
                         : <span>Color: {item.colorSelected}</span>
                 }
-                <div>
-                    <span onClick={() => editItemHandler(item)}>Editar</span>
-                    <span onClick={() => removeItemHandler(item)}>Eliminar</span>
+                <div className='cart-item__info__body__actions'>
+                    <button className='cart-item__info__body__actions__edit' onClick={() => editItemHandler(item)}>
+                        Editar
+                    </button>
+                    <button className='cart-item__info__body__actions__remove' onClick={() => removeItemHandler(item)}>
+                        Eliminar
+                    </button>
                 </div>
             </div>
         </div>

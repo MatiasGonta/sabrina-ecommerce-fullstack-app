@@ -4,7 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { clearCart } from "@/redux/states/cart.state";
@@ -23,25 +23,10 @@ const Navbar: React.FC<NavbarInterface> = () => {
     // Account menu status
     const [open, setOpen] = useState<boolean>(false);
 
-    const menuRef: any = useRef();
-    useEffect(() => {
-        const handleOutsideClick = (event: MouseEvent) => {
-          if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setOpen(false);
-          }
-        };
-    
-        document.addEventListener('mousedown', handleOutsideClick);
-    
-        return () => {
-          document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, []);
-
     const cartItemsLength: number = cart.cartItems.reduce((a, c) => a + c.quantity, 0);
 
-    const userId = userInfo?._id || '';
-    const userToken = userInfo?.token || '';
+    let userId = userInfo?._id || '';
+    let userToken = userInfo?.token || '';
 
     const { profileDetails } = useGetProfileDetails(userToken, userId);
 
@@ -55,42 +40,56 @@ const Navbar: React.FC<NavbarInterface> = () => {
     }
     
   return (
+    <>
+    {/* Account menu modal */}
+    <div className={`account-menu-modal ${open && 'account-menu-modal--open'}`} onClick={() => setOpen(false)}></div>
+
     <header>
         <nav>
-            <Link to={Routes.HOME}>
-                <img src="/src/assets/sabrina-icon.png" alt="sabrina-icon" />
-            </Link>
+            <div className="nav-logo">
+                <Link to={Routes.HOME}>
+                    <img src="/src/assets/sabrina-icon.png" alt="sabrina-icon" />
+                </Link>
+            </div>
             <div className="nav-actions">
                 <div className="nav-actions__navigate">
-                    <Link to={Routes.HOME}>
+                    <Link to={Routes.HOME} className="nav-actions__navigate__link">
                         <span>Inicio</span>
                     </Link>
-                    <Link to={Routes.PRODUCTS}>
+                    <Link to={Routes.PRODUCTS} className="nav-actions__navigate__link">
                         <span>Productos</span>
                     </Link>
-                    <Link to={Routes.ORDER_HISTORY}>
+                    <Link to={Routes.ORDER_HISTORY} className="nav-actions__navigate__link">
                         <span>Compras</span>
                     </Link>
-                    <Link to={Routes.FAVORITES}>
+                    <Link to={Routes.FAVORITES} className="nav-actions__navigate__link">
                         <FavoriteBorderOutlinedIcon sx={{ fontSize: 25 }} />
-                        {favorites.length > 0 && <span className="counter favorites">{favorites.length > 9 ? '+9' : favorites.length}</span>}
+                        {favorites.length > 0 && (
+                            <div className="counter counter--favorites">
+                                <span>{favorites.length > 9 ? '+9' : favorites.length}</span>
+                            </div>
+                        )}
                         <span>Favoritos</span>
                     </Link>
-                    <Link to={Routes.CART}>
+                    <Link to={Routes.CART} className="nav-actions__navigate__link">
                         <ShoppingCartOutlinedIcon sx={{ fontSize: 25 }} />
-                        {cart.cartItems.length > 0 && <span className="counter cart">{cartItemsLength > 9 ? '+9' : cartItemsLength}</span>}
+                        {cart.cartItems.length > 0 && (
+                            <div className="counter counter--cart">
+                                <span>{cartItemsLength > 9 ? '+9' : cartItemsLength}</span>
+                            </div>
+                        )}
                         <span>Carrito</span>
                     </Link>
                 </div>
                 {
                     userInfo ? (
-                        <div className="nav-actions__account" ref={menuRef}>
-                            <div onClick={() => setOpen(!open)}>
-                                <span id="account-name">{profileDetails?.name}</span>
-                                <button id="account-icon">
+                        <div className="nav-actions__account">
+                            <div className="nav-actions__account__badge" onClick={() => setOpen(!open)}>
+                                <span className="nav-actions__account__badge__name">{profileDetails?.name}</span>
+                                <button className="nav-actions__account__badge__icon">
                                     <AccountCircleIcon sx={{ fontSize: 35 }} />
                                 </button>
-                                <ExpandLessOutlinedIcon className={open ? "arrow" : "arrow down"} />
+                                <ExpandLessOutlinedIcon className={`nav-actions__account__badge__arrow ${open && "nav-actions__account__badge__arrow--down"}`} />
                             </div>
                             {
                                 open && (
@@ -129,6 +128,7 @@ const Navbar: React.FC<NavbarInterface> = () => {
             </div>
         </nav>
     </header>
+    </>
   )
 }
 

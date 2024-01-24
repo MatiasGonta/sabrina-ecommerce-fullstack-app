@@ -19,8 +19,13 @@ const ProductSearchBar: React.FC<ProductSearchBarInterface> = ({ products }) => 
     };
 
   return (
-    <form className="sub-navbar__search-box" onSubmit={(e) => handleSearchSubmit(e)}>
-      <input list="products" type="text" placeholder="BUSCAR" onChange={(e) => setSearchTerm(e.target.value)} />
+    <form className="sub-navbar__search-bar" onSubmit={(e) => handleSearchSubmit(e)}>
+      <input
+        className="sub-navbar__search-bar__input"
+        list="products"
+        type="text" placeholder="BUSCAR"
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <datalist id="products">
         {
           products.map(({ name }) => (
@@ -28,8 +33,9 @@ const ProductSearchBar: React.FC<ProductSearchBarInterface> = ({ products }) => 
           ))
         }
       </datalist>
-      <button type="submit" >
-        <Tooltip title='Buscar'>
+      
+      <button className="sub-navbar__search-bar__btn" type="submit" >
+        <Tooltip title="Buscar">
           <SearchOutlinedIcon sx={{ fontSize: 20 }} />
         </Tooltip>
       </button>

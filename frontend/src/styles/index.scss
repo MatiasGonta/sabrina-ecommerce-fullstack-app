@@ -1,4 +1,4 @@
-@use './utilities/variables' as V;
+@use './utilities/_variables' as V;
 
 //Loading Spinner
 @use './components/LoadingSpinner';
@@ -38,17 +38,17 @@ main {
   min-height: 725px;
   margin-bottom: 100px;
 
-  &.admin {
+  &.main--admin {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     max-width: none;
     margin: 0;
   }
 }
 
-@media screen and (max-width: 992px) {
-  main.admin {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+@media screen and (min-width: 992px) {
+  main.main--admin {
+    grid-template-columns: auto 1fr;
   }
 }

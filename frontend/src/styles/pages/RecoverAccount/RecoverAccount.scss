@@ -1,50 +1,54 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 // Form
-@use '../../components/Form';
+@use '../../components/_Form';
 
-.recover-account-main {
-    width: 100vw;
+.main--recover-account {
+    min-height: auto;
+    margin-bottom: 0;
+}
+
+.recover-account-wrapper {
+    width: 100%;
     height: 100vh;
-    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
-    .recover-account-md {
-        position: relative;
+.recover-account-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    @include M.WrapperTemplate();
+
+    &__header {
+        width: 80%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        gap: 30px;
+
+        &__title {
+            font-size: 35px;
+        }
+    }
+}
+
+
+@media screen and (min-width: 400px) {
+    .recover-account-form {
+        width: 375px;
+    }
+}
+
+@media screen and (min-width: 525px) {
+    .recover-account-form {
         width: 450px;
-        height: 350px;
-        @include M.WrapperTemplate();
-        h3 {
-            margin: 5px 0;
-        }
-
-        p {
-            margin: 25px 0;
-        }
-    }
-}
-
-@media screen and (max-width: 525px) {
-    .recover-account-main  {
-    
-        .recover-account-md {
-            width: 375px;
-        }
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .recover-account-main  {
-    
-        .recover-account-md {
-            width: 350px;
-        }
     }
 }

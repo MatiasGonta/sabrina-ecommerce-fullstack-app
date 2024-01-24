@@ -1,131 +1,134 @@
-@use '../utilities/variables' as V;
+@use '../utilities/_variables' as V;
 
 footer {
   width: 100%;
   height: auto;
   background-color: V.$color-primary;
+}
 
-  .footer-container {
-    max-width: 1300px;
+.footer-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin: 30px auto;
+  font-size: 25px;
+  height: 450px;
+
+  &__navigation,
+  &__contact,
+  &__social-networks {
+    width: 70%;
+    height: auto;
     margin: 0 auto;
 
-    .footer-info-navigation,.footer-info-contact,.footer-info-social-networks {
-      height: 160px;
+    &__title {
+      color: V.$color-secondary;
+      margin-bottom: 15px;
     }
-  
-    .footer-info-container {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 100%;
-      margin: 30px auto;
-      font-size: 25px;
-  
-      h5 {
-        color: V.$color-secondary;
+  }
+
+  &__navigation ul,
+  &__contact ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__social-networks ul {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    li {
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: V.$color-secondary;
+      cursor: pointer;
+
+      a {
+        max-width: 25px;
+        max-height: 25px;
       }
-  
-      li, span {
-        height: 17px;
-        font-size: 15px;
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-        color: V.$color-secondary;
 
-        & * {
-          color: V.$color-secondary;
-        }
-      }
-
-      .footer-info-contact {
-        span {
-          margin-left: 10px;
-        }
-      }
-  
-      .footer-info-social-networks {
-        ul {
-          display: flex;
-          flex-direction: row;
-
-          li {
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            margin: 5px;
-            border-radius: 50%;
-            background-color: V.$color-secondary;
-            cursor: pointer;
-
-            a {
-              max-width: 25px;
-              max-height: 25px;
-            }
-
-            & * {
-              color: V.$color-primary;
-            }
-          }
-        }
+      & * {
+        color: V.$color-primary;
       }
     }
+  }
 
-    .footer-separator {
-      width: 90%;
-      border: 1px solid V.$color-secondary;
-      margin: 0 auto;
-    }
+  li, span {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: V.$color-secondary;
 
-    .footer-copyright-container {
-      width: 80%;
-      margin: 30px auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      img {
-        user-select: none;
-        width: 70px;
-        height: 55px;
-      }
-      
-      p {
-        font-size: 10px;
-        max-width: 500px;
-        line-height: 20px;
-        color: V.$color-secondary;
-        text-align: right;
-
-        a {
-          color: V.$color-tertiary;
-          text-decoration: underline;
-        }
-      }
+    & * {
+      color: V.$color-secondary;
     }
   }
 }
 
-@media screen and (max-width: 850px) {
-  footer {
-    .footer-container {
-      .footer-info-container {
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-start;
-        height: 450px;
-        
-        .footer-info-navigation,.footer-info-contact,.footer-info-social-networks {
-          width: 70%;
-          height: auto;
-          margin: 0 auto;
-        }
-      }
+.footer-separator {
+  width: 90%;
+  border: 1px solid V.$color-secondary;
+  margin: 0 auto;
+}
 
-      .footer-copyright-container {
-        width: 70%;
-        margin: 20px auto;
-      }
+.footer-copyright {
+  width: 70%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo {
+    user-select: none;
+    width: 70px;
+    height: 55px;
+  }
+      
+  &__p {
+    font-size: 10px;
+    max-width: 500px;
+    line-height: 20px;
+    color: V.$color-secondary;
+    text-align: right;
+
+    &__link {
+      color: V.$color-tertiary;
+      text-decoration: underline;
     }
+  }
+}
+
+@media screen and (min-width: 850px) {
+  .footer-info {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+        
+    &__navigation,
+    &__contact,
+    &__social-networks {
+      width: auto;
+      height: 160px;
+      margin: 0;
+    }
+  }
+
+  .footer-copyright {
+    width: 80%;
+    margin: 30px auto;
   }
 }

@@ -4,3 +4,28 @@
     border-radius: 10px;
     padding: 20px;
 }
+
+@mixin ButtonTemplate ($width, $backgroundColor, $hoverBackgroundColor: $backgroundColor, $margin: 0 auto) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12.5px;
+    width: $width;
+    height: 40px;
+    background-color: $backgroundColor;
+    margin: $margin;
+    transition: background-color 0.3s linear;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        background-color: $hoverBackgroundColor;
+    }
+
+    @media screen and (min-width: 1300px) {
+        font-size: 14px;
+    }
+}

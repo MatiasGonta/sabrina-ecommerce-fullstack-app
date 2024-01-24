@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet-async";
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MercadoPagoButton, PayPalButton } from "./components";
-import '@/styles/pages/PlaceOrderPage/PlaceOrderPage.scss';
+import '@/styles/pages/OrderPages/OrderPages.scss';
 
 interface OrderPageInterface { }
 
@@ -74,17 +74,17 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                 : !order || !stock ? <h2>Order Not Found</h2> : (
                     <>
                         <Navbar />
-                        <main className="place-order-main">
+                        <main>
                             <Helmet>
                                 <title>Orden {orderId}</title>
                             </Helmet>
-                            <article className="order">
-                                <section className="order-title-section">
-                                    <h1>Orden {orderId}</h1>
-                                </section>
-                                <section className="order-info-section">
-                                    <div className="order-info__shipping">
-                                        <h4>Envío</h4>
+                            <section className="order">
+                                <article className="order__header">
+                                    <h1 className="order__header__title">Orden {orderId}</h1>
+                                </article>
+                                <article className="order__info">
+                                    <div className="order__info__shipping">
+                                        <h4 className="order__info__shipping__title">Envío</h4>
                                         <p>
                                             <strong>Nombre:</strong> {order.shippingAddress.fullName}
                                             <br />
@@ -93,58 +93,58 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                         {
                                             order.isDelivered
                                                 ? (
-                                                    <div className="order-action-check">
+                                                    <div className="order__info__shipping__check">
                                                         <span>Entregado el {`${order.deliveredAt.substring(8, 10)} ${monthNames[parseInt(order.deliveredAt.substring(5, 7)) - 1]} ${order.deliveredAt.substring(0, 4)}`}</span>
                                                     </div>
                                                 ) : (
-                                                    <div className="order-action-no-check">
+                                                    <div className="order__info__shipping__not-check">
                                                         <span>No entregado</span>
                                                     </div>
                                                 )
                                         }
                                     </div>
-                                    <div className="order-info__payment">
-                                        <h4>Pago</h4>
+                                    <div className="order__info__payment">
+                                        <h4 className="order__info__payment__title">Pago</h4>
                                         <p>
                                             <strong>Método:</strong> {order.paymentMethod}
                                         </p>
                                         {
                                             order.isPaid
                                                 ? (
-                                                    <div className="order-action-check">
+                                                    <div className="order__info__payment__check">
                                                         <span>Pagado el {`${order.paidAt.substring(8, 10)} ${monthNames[parseInt(order.paidAt.substring(5, 7)) - 1]} ${order.paidAt.substring(0, 4)}`}</span>
                                                     </div>
                                                 ) : (
-                                                    <div className="order-action-no-check">
+                                                    <div className="order__info__payment__not-check">
                                                         <span>No pagado</span>
                                                     </div>
                                                 )
                                         }
                                     </div>
-                                    <div className="order-info__product">
-                                        <h4>Productos</h4>
-                                        <ul>
+                                    <div className="order__info__product">
+                                        <h4 className="order__info__product__title">Productos</h4>
+                                        <ul className="order__info__product__list">
                                             {
                                                 order.orderItems.map((item, index) => <OrderItem key={`${item._id}${index}`} item={item} />)
                                             }
                                         </ul>
                                     </div>
-                                </section>
-                                <section className="order-summary-section">
-                                    <h5>Resumen del pedido</h5>
-                                    <ul className="items-row">
+                                </article>
+                                <article className="order__summary">
+                                    <h5 className="order__summary__title">Resumen del pedido</h5>
+                                    <ul className="order__summary__items-row">
                                         <li>Productos</li>
                                         <li>${order.itemsPrice.toFixed(2)}</li>
                                     </ul>
-                                    <ul className="shipping-row">
+                                    <ul className="order__summary__shipping-row">
                                         <li>Envío</li>
                                         <li>${order.shippingPrice.toFixed(2)}</li>
                                     </ul>
-                                    <ul className="tax-row">
+                                    <ul className="order__summary__tax-row">
                                         <li>Impuesto</li>
                                         <li>${order.taxPrice.toFixed(2)}</li>
                                     </ul>
-                                    <ul className="order-total-row">
+                                    <ul className="order__summary__total-row">
                                         <li>
                                             <strong>Total del pedido</strong>
                                         </li>
@@ -162,8 +162,8 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                             </>
                                         )}
                                     </div>
-                                </section>
-                            </article>
+                                </article>
+                            </section>
                         </main>
                         <Footer />
                     </>

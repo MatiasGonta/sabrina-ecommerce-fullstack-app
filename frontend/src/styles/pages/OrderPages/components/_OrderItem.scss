@@ -1,19 +1,20 @@
-@use '../../../utilities/variables' as V;
+@use '../../../utilities/_variables' as V;
 
 .order-item {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
     align-items: center;
     border-bottom: 1px solid V.$color-primary-light;
     padding: 25px 0;
     font-size: 16px;
 
-    div:nth-child(1) {
+    &__body {
         display: flex;
         align-items: center;
         width: 360px;
 
-        .order-item__image {
+        &__image {
             min-width: 125px;
             width: 125px;
             max-width: 125px;
@@ -22,20 +23,16 @@
             max-height: 125px;
         }
 
-        .order-item__details {
-            
-            span {
+        &__details {
+            &__name,
+            &__feature {
                 display: block;
                 margin-left: 15px;
+            }
 
-                &:first-child {
-                    font-weight: bold;
-                }
+            &__name {
+                font-weight: bold;
             }
         }
-    }
-
-    &:last-child {
-        margin-bottom: 25px;
     }
 }

@@ -2,7 +2,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Footer, Navbar, Sidebar, OrderTable, LoadingSpinner, Card } from "@/components";
-import { CardInterface } from '@/components/Card/Card';
 import { FilterItem, Order, TypeWithKey, Routes, LoadingSpinnerType } from '@/models';
 import { Link } from 'react-router-dom';
 import { SalesCategoriesDoughnutChart, SalesLineChart } from './components';
@@ -16,13 +15,12 @@ const Dashboard: React.FC<DashboardInterface> = () => {
   const { data: allOrders, isLoading: isLoadingOrders } = useGetAllOrdersHistoryQuery(1);
   const { categories, isLoading: filterCountsLoading } = useGetFilterCountsQuery();
   const { data, isLoading: isLoadingSales } = useGetSales();
-  console.log(data)
 
   const totalSales: number = data?.sales.reduce((total: number, sale: Order) => total + sale.totalPrice, 0);
 
   const totalProducts: number = categories?.reduce((total: number, category: FilterItem) => total + category.count, 0);
 
-  const cards: CardInterface[] = [
+  const cards = [
     {
       title: 'Ventas totales',
       text: `$${totalSales && totalSales.toFixed(2)}`,
@@ -64,45 +62,54 @@ const Dashboard: React.FC<DashboardInterface> = () => {
         <title>Dashboard - SABRINA</title>
       </Helmet>
       <Navbar />
-      <main className="dashboard admin">
+      <main className="main--admin">
         <Sidebar page="dashboard" />
-        <article className="dashboard__statistics">
-          <h2>Dashboard</h2>
-          <section className="dashboard__statistics-info">
+
+        <section className="dashboard__statistics">
+          <h2 className="dashboard__statistics__title">Dashboard</h2>
+          <article className="dashboard__statistics__info">
             {
-              cards.map(card => <Card
-                                  key={card.title}
-                                  title={card.title}
-                                  text={card.text}
-                                  icon={card.icon}
-                                  iconBackground={card.iconBackground}
-                                  iconBoxShadow={card.iconBoxShadow}
-                                />)
+              cards.map(card => (
+                <Card
+                  key={card.title}
+                  title={card.title}
+                  icon={card.icon}
+                  iconBackground={card.iconBackground}
+                  iconBoxShadow={card.iconBoxShadow}
+                >
+                  {card.text}
+                </Card>
+              ))
             }
-          </section> 
-          <section className="dashboard__statistics-details">
-            <div className="dashboard__statistics-details-sales">
-              <h3>Ventas por mes</h3>
-              <div className="sales-line-chart-container">
+          </article> 
+
+          <article className="dashboard__statistics__details">
+            <div className="dashboard__statistics__details__sales">
+              <h3 className="dashboard__statistics__details__sales__title">Ventas por mes</h3>
+              <div className="dashboard__statistics__details__sales__line-chart-wrapper">
                 <SalesLineChart monthlySales={data!.monthlySales} categoryColors={categoryColors} />
               </div>
             </div>
-            <div className="dashboard__statistics-details-categories">
-              <h3>Ventas por categoria</h3>
-              <div className="sales-categories-doughnut-chart-container">
+            <div className="dashboard__statistics__details__categories">
+              <h3 className="dashboard__statistics__details__categories__title">Ventas por categoria</h3>
+              <div className="dashboard__statistics__details__categories__doughnut-chart-wrapper">
                 <SalesCategoriesDoughnutChart salesByCategory={data!.salesByCategory} categoryColors={categoryColors} />
               </div>
             </div>
-          </section>
-        </article>
-        <article className="dashboard__latest-orders">
-          <section>
-            <h3>Últimos pedidos</h3>
+          </article>
+        </section>
+
+        <section className="dashboard__latest-orders">
+          <article className="dashboard__latest-orders__wrapper">
+            <h3 className="dashboard__latest-orders__wrapper__title">
+              Últimos pedidos
+            </h3>
             <OrderTable itemsPerPage={6} type="short" />
-            <Link to={Routes.DASHBOARD_ORDERS}>Más pedidos</Link>
-          </section>
-        </article>
+            <Link to={Routes.DASHBOARD_ORDERS} className="dashboard__latest-orders__wrapper__link">Más pedidos</Link>
+          </article>
+        </section>
       </main>
+
       <Footer />
     </>
     )

@@ -40,20 +40,23 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
           <title>{searchTerm} - SABRINA</title>
         </Helmet>
         <div className='sub-navbar'>
-          <h2><Link to={Routes.HOME}>Inicio</Link> / Resultados de Búsqueda </h2>
-          <form className="sub-navbar__search-box" onSubmit={(e) => handleSearchSubmit(e)}>
-            <input type="text"
+          <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Resultados de Búsqueda </h2>
+          <form className="sub-navbar__search-bar" onSubmit={(e) => handleSearchSubmit(e)}>
+            <input
+              className="sub-navbar__search-bar__input"
+              type="text"
               placeholder="BUSCAR"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="submit" >
+            <button className="sub-navbar__search-bar__btn" type="submit">
               <SearchOutlinedIcon sx={{ fontSize: 20 }} />
             </button>
           </form>
         </div>
-        <main className="search-main">
-            <article className="search__products-container">
+
+        <main className="main--search">
+            <article className="search-products">
                 <InfiniteScroll
                   dataLength={searchProducts.length}
                   hasMore={hasNextPage}
@@ -63,12 +66,12 @@ const SearchPage: React.FC<SearchPageInterface> = () => {
                   {
                     totalSearchProducts !== 0
                     ? (
-                      <ul>
+                      <ul className="search-products__list">
                         {
                           searchProducts.map((product: Product) => <ProductItem product={product} />)
                         }
                       </ul>
-                    ) : <h5>No se encontraron productos</h5>
+                    ) : <h5 className="search-products__empty-msg">No se encontraron productos</h5>
                   }
                 </InfiniteScroll>
             </article>

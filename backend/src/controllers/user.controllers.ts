@@ -163,7 +163,7 @@ export const sendRestorePasswordEmail = asyncHandler(
     
                 res.status(201).json({ message: 'Se ha enviado un correo electrónico para restablecer la contraseña. Por favor, revise su bandeja de entrada o sección de spam.' });
             } else {
-                res.status(404).json({ message: 'No hemos encontrado ninguna cuenta asociada a ese correo electrónico. Por favor, asegúrate de que ingresaste la dirección correcta o regístrate si aún no lo has hecho.' });
+                res.status(404).json({ message: 'No hemos encontrado ninguna cuenta asociada a ese correo electrónico.' });
             }
         } catch (error) {
             res.status(500).json({ message: 'Error en el servidor' });

@@ -70,7 +70,7 @@ const BarChart: React.FC<BarChartInterface> = ({ data }) => {
         ref={barChart}
       />
       <Tooltip title='Descargar'>
-        <button onClick={() => chartDownload(barChart, 'usuarios-mensuales')}>
+        <button className="usersboard__users__statistics__bar-chart__download-btn" onClick={() => chartDownload(barChart, 'usuarios-mensuales')}>
           <FileDownloadOutlinedIcon sx={{ fontSize: 25 }} />
         </button>
       </Tooltip>

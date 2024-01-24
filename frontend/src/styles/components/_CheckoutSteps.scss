@@ -1,12 +1,12 @@
-@use '../utilities/variables' as V;
+@use '../utilities/_variables' as V;
 
-.checkout-steps {
+.checkout {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
-    div {
+    &__step {
         width: 25%;
         height: 75px;
         padding: 5px 15px;
@@ -15,14 +15,14 @@
         align-items: flex-end;
         border-bottom: 5px solid V.$color-primary-light;
 
-        span {
+        &__name {
             color: V.$color-primary-semi-light;
         }
 
-        &.active {
+        &.checkout__step--active {
             border-bottom: 5px solid V.$color-tertiary;
             
-            span {
+            .checkout__step__name {
                 color: V.$color-tertiary;
             }
         }

@@ -101,21 +101,21 @@ const SizesGuide: React.FC<SizesGuideInterface> = () => {
             </Helmet>
             <Navbar />
             <div className='sub-navbar'>
-                <h2><Link to={Routes.HOME}>Inicio</Link> / Guía de Talles</h2>
+                <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Guía de Talles</h2>
             </div>
-            <main className="sizes-guide-main">
-                <article>
+            <main>
+                <section className="sizes-guide">
                     {
                         guides.map((guide, index) => (
-                            <section key={index}>
-                                <h3>{guide.sectionTitle}</h3>
-                                <div className="size-guide__wrapper">
-                                    <table className="size-guide__wrapper-table">
-                                        <thead>
-                                            <tr>
+                            <article key={index} className="guide">
+                                <h3 className="guide__title">{guide.sectionTitle}</h3>
+                                <div className="guide__body">
+                                    <table className="guide__body__table">
+                                        <thead className="guide__body__table__head">
+                                            <tr className="guide__body__table__head__table-row">
                                                 <th colSpan={guide.tableHead.length}>{guide.tableTitle}</th>
                                             </tr>
-                                            <tr>
+                                            <tr className="guide__body__table__head__table-row">
                                                 {
                                                     guide.tableHead.map((th, index) => (
                                                         <th key={index}>{th}</th>
@@ -123,13 +123,13 @@ const SizesGuide: React.FC<SizesGuideInterface> = () => {
                                                 }
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody className="guide__body__table__body">
                                             {
                                                 guide.tableBody.map((tr, index) => (
-                                                    <tr key={index}>
+                                                    <tr key={index} className="guide__body__table__body__table-row">
                                                         {
                                                             tr.map((td, index) => (
-                                                                <td key={index}>{td}</td>
+                                                                <td key={index} className="guide__body__table__body__table-row__td">{td}</td>
                                                             ))
                                                         }
                                                     </tr>
@@ -138,10 +138,10 @@ const SizesGuide: React.FC<SizesGuideInterface> = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                            </section>
+                            </article>
                         ))
                     }
-                </article>
+                </section>
             </main>
             <Footer />
         </>

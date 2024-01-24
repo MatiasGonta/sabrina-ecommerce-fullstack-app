@@ -1,147 +1,109 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
 
 // CheckoutSteps
 @use '../../components/CheckoutSteps';
 
-.payment-main {
+.payment-method-wrapper {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
 
-    article:nth-child(2) {
-        
-        section {
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
+    &__title {
+      font-size: 35px;
+      margin: 30px 0;
+    }
+}
+.payment-method-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
 
-            h3 {
-              font-size: 35px;
-              margin: 30px 0;
+    &__field {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 150px;
+
+        &__input-radio {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid V.$color-tertiary;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+
+            &:checked {
+                border-color: V.$color-tertiary;
             }
 
-            form {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                height: 200px;
-
-                .payment-option {
-                    position: relative;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    width: 150px;
-
-                    .payment-message {
-                        position: absolute;
-                        top: -85px;
-                        right: -425px;
-                        padding: 15px;
-                        width: 325px;
-                        height: fit-content;
-                        border-radius: 10px;
-                        background-color: V.$color-tertiary-light;
-                        border: 2px solid V.$color-tertiary;
-
-                        &#cash-payment-message {
-                            top: -85px;
-                        }
-
-                        &#others-payment-message {
-                            top: -125px;
-                        }
-
-                        p {
-                            text-align: justify;
-                        }
-                    }
-
-                    input[type="radio"] {
-                        appearance: none;
-                        width: 20px;
-                        height: 20px;
-                        border: 2px solid V.$color-tertiary;
-                        border-radius: 50%;
-                        outline: none;
-                        cursor: pointer;
-                        transition: border-color 0.3s ease;
-
-                        &:checked {
-                            border-color: V.$color-tertiary;
-                        }
-
-                        &::before {
-                            content: ".";
-                            display: block;
-                            width: 12px;
-                            height: 12px;
-                            background-color: V.$color-tertiary;
-                            border-radius: 50%;
-                            margin: 2px;
-                        }
-
-                        &:not(:checked)::before {
-                            content: none;
-                        }
-                    }
-                }
-
-                button {
-                    @include M.Button(200px);
-                }
+            &::before {
+                content: ".";
+                display: block;
+                width: 12px;
+                height: 12px;
+                background-color: V.$color-tertiary;
+                border-radius: 50%;
+                margin: 2px;
             }
+
+            &:not(:checked)::before {
+                content: none;
+            }
+        }
+    }
+
+    &__submit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 5px;
+        background-color: #17795e;
+        color: #fff;
+        font-size: 12.5px;
+        width: 200px;
+        height: 40px;
+        margin: 0 auto;
+        transition: background-color 0.3s;
+        cursor: pointer;
+            
+        &:hover,
+        &:focus {
+            background-color: #146c54;
         }
     }
 }
 
-@media screen and (max-width: 700px) {
-    .payment-main {
+// Message
+.payment-message {
+    position: absolute;
+    top: 125px;
+    right: -145px;
+    padding: 15px;
+    width: 280px;
+    height: fit-content;
+    border-radius: 10px;
+    background-color: V.$color-tertiary-light;
+    border: 2px solid V.$color-tertiary;
+    text-align: justify;
 
-        article:nth-child(2) {
-            
-            section {
-    
-                form {
-    
-                    .payment-option {
-    
-                        .payment-message {
-                            top: 125px;
-                            right: -175px;
+    &.payment-message--cash {
+        top: 165px;
+    }
 
-                            &#cash-payment-message {
-                                top: 165px;
-                            }
-    
-                            &#others-payment-message {
-                                top: 125px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    &.payment-message--others {
+        top: 125px;
     }
 }
 
-@media screen and (max-width: 380px) {
-    .payment-main {
-
-        article:nth-child(2) {
-            
-            section {
-    
-                form {
-    
-                    .payment-option {
-    
-                        .payment-message {
-                            width: 300px;
-                            top: 125px;
-                            right: -145px;
-                        }
-                    }
-                }
-            }
-        }
+@media screen and (min-width: 380px) {
+    .payment-message {
+        width: 315.5px;
+        top: 125px;
+        right: -175px;
     }
 }

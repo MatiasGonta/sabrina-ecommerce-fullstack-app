@@ -1,15 +1,8 @@
+@use '../utilities/_variables' as V;
+@use '../utilities/_mixins' as M;
+
 .add-to-cart-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 5px;
-    background-color: #26b16d;
-    width: 100%;
-    height: 40px;
-    margin: 0 auto;
-    transition: background-color 0.3s;
-    cursor: pointer;
+    @include M.ButtonTemplate(100%, V.$btn-green-bg, V.$btn-green-bg-hover);
 
     div {
         color: #fff;
@@ -35,18 +28,68 @@
         fill: rgb(211, 211, 211);
     }
 
-    &:hover,
-    &:focus {
-        background-color: #23c476;
+    &:hover .add-to-cart-btn__clothes-icon,
+    &:focus .add-to-cart-btn__clothes-icon {
+        animation: slide-in-top 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
 
-        .add-to-cart-btn__clothes-icon {
-            animation: slide-in-top 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    &.add-to-cart-btn--confirm {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #209978;
+        color: #fff;
+        overflow: hidden;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        .add-to-cart-btn--confirm__text {
+            transform: translateX(-20px);
+            color: #fff;
+            transition: all 0.3s;
+        }
+    
+        .add-to-cart-btn--confirm__icon {
+            position: absolute;
+            transform: translateX(102px);
+            height: 100%;
+            width: 39px;
+            background-color: #146c54;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        &:hover,
+        &:focus {
+            background: #17795E;
+
+            .add-to-cart-btn--confirm__text {
+                color: transparent;
+            }
+
+            .add-to-cart-btn--confirm__icon {
+                width: 100%;
+                transform: translateX(0);
+            }
+        }
+
+        &:active {
+            border: 1px solid #146c54;
+
+            .add-to-cart-btn--confirm__icon {
+                background-color: #146c54;
+            }
         }
     }
 
     @keyframes slide-in-top {
         0% {
-          transform: translateY(-30px);
+          transform: translateY(-20px);
           opacity: 1;
         }
       
@@ -55,18 +98,8 @@
           opacity: 1;
         }
     }
-
-    @media screen and (max-width: 1300px) {
-        font-size: 12.5px;
-    }
 }
 
 .out-stock-btn {
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    background-color: #b8b8b8;
-    width: 100%;
-    height: 40px;
-    margin: 0 auto;
+    @include M.ButtonTemplate(100%, #b8b8b8);
 }

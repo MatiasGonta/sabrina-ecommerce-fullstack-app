@@ -1,11 +1,11 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 //Sidebar
-@use '../../components/Sidebar';
+@use '../../components/_Sidebar';
 
 //Table
-@use '../../components/Table';
+@use '../../components/_Table';
 
 .productsboard__statistics {
     grid-row: span 2;
@@ -14,31 +14,28 @@
     padding: 25px;
     overflow: hidden;
 
-    & > div {
-        display: flex;
-        justify-content: space-between;
-
-        h2 {
-            margin-bottom: 25px;
-            font-size: 25px;
-        }
-
-        button {
-            @include M.Button(135px);
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            margin: 0;
-            
-            * {
-                color: V.$color-secondary;
-                font-weight: 700;
-            }
-        }
-    }
-
-    section {
+    &__wrapper {
         @include M.WrapperTemplate();
         overflow: hidden;
+    }
+}
+
+.productsboard__header {
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+        margin-bottom: 25px;
+        font-size: 25px;
+    }
+
+    &__link {
+        @include M.ButtonTemplate(135px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
+        padding-right: 5px;    
+
+        * {
+            color: V.$color-secondary;
+            font-weight: 700;
+        }
     }
 }

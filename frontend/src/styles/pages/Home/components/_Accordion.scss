@@ -1,4 +1,4 @@
-@use '../../../utilities/variables' as V;
+@use '../../../utilities/_variables' as V;
 
 .accordion {
     position: relative;
@@ -19,54 +19,54 @@
     &:hover {
         max-height: 1000px;
 
-        .accordion-header {
-            .accordion-header__number {
+        .accordion__header {
+            .accordion__header__number {
                 transform: scale(1.25);
             }
         }
 
-        .accordion-body {
+        .accordion__body {
             max-height: 1000px;
             opacity: 1;
             margin-top: 20px;
         }
     }
     
-    .accordion-header {
+    &__header {
         width: 100%;
         display: flex;
         flex-direction: row;
 
-        .accordion-header__number {
+        &__number {
             color: V.$color-tertiary;
             font-size: 60px;
             font-weight: 600;
             transition: transform 0.2s ease-out;
         }
 
-        .accordion-header__title {
+        &__title {
             display: inline;
             font-size: 30px;
             margin-left: 10px;
         }
     }
 
-    .accordion-body {
+    &__body {
         max-height: 0;
         margin-top: 0;
         overflow: hidden;
         opacity: 0;
         transition: all 0.2s ease-out;
 
-        .accordion-body__text {
+        &__text {
             font-size: 20px;
         }
 
-        .accordion-body__icon {
+        &__icon {
             position: relative;
             left: 175px;
 
-            * {
+            svg {
                 color: V.$color-tertiary;
             }
         }

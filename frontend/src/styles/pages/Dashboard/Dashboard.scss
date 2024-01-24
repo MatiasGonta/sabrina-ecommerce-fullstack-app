@@ -1,43 +1,46 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 //Sidebar
-@use '../../components/Sidebar';
+@use '../../components/_Sidebar';
 
 //Table
-@use '../../components/Table';
+@use '../../components/_Table';
 
 //Card
-@use '../../components/Card';
+@use '../../components/_Card';
 
-.dashboard__statistics {
-    h3 {
-        font-size: 20px;
-    }
+.dashboard__statistics__details__sales__title,
+.dashboard__statistics__details__categories__title,
+.dashboard__latest-orders__wrapper__title {
+    font-size: 20px;
 }
 
 .dashboard__statistics {
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 15px;
 
-    h2 {
-        margin-bottom: 25px;
+    &__title {
+        margin-bottom: 15px;
         font-size: 25px;
     }
 
-    .dashboard__statistics-info {
+    &__info {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
+        height: 340px;
     }
 
-    .dashboard__statistics-details {
-        margin-top: 25px;
+    &__details {
+        margin-top: 15px;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
 
-        .dashboard__statistics-details-sales,
-        .dashboard__statistics-details-categories {
+        &__sales,
+        &__categories {
             @include M.WrapperTemplate();
             position: relative;
 
@@ -51,20 +54,21 @@
             }
         }
 
-        .dashboard__statistics-details-sales {
-            width: 65%;
+        &__sales {
+            width: 100%;
 
-            .sales-line-chart-container {
-                width: 100%;
+            &__line-chart-wrapper {
+                width: 99.9%;
                 height: 375px;
             }
         }
 
-        .dashboard__statistics-details-categories {
-            width: 30%;
+        &__categories {
+            margin-top: 15px;
+            width: 100%;
 
-            .sales-categories-doughnut-chart-container {
-                width: 100%;
+            &__doughnut-chart-wrapper {
+                width: 99.9%;
                 height: 375px;
             }
         }
@@ -72,16 +76,16 @@
 }
 
 .dashboard__latest-orders {
-    padding: 0 25px 25px 25px;
+    padding: 0 15px 15px 15px;
     overflow: hidden;
 
-    section {
+    &__wrapper {
         @include M.WrapperTemplate();
         display: flex;
         flex-direction: column;
         overflow: hidden;
 
-        a {
+        &__link {
             margin-top: 15px;
             align-self: center;
             font-size: 17.5px;
@@ -91,61 +95,43 @@
     }
 }
 
-@media screen and (max-width: 1118px) {
+@media screen and (min-width: 992px) {
     .dashboard__statistics {
+        padding: 25px;
 
-        .dashboard__statistics-details {
-    
-            .dashboard__statistics-details-sales {
-                width: 66%;
-            }
-    
-            .dashboard__statistics-details-categories {
-                width: 32%;
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .dashboard__statistics {
-        padding: 15px;
-    
-        h2 {
-            margin-bottom: 15px;
+        &__title {
+            margin-bottom: 25px;
         }
 
-        .dashboard__statistics-info {
-            flex-direction: column;
-            height: 340px;
+        &__info {
+            flex-direction: row;
+            height: auto;
         }
 
-        .dashboard__statistics-details {
-            flex-direction: column;
-            margin-top: 15px;
+        &__details {
+            flex-direction: row;
+            margin-top: 25px;
                 
-            .dashboard__statistics-details-sales {
-                width: 100%;
+            &__sales {
+                width: 65%;
 
-                .sales-line-chart-container {
-                    width: 99.9%;
-                    height: 375px;
+                &__line-chart-wrapper {
+                    width: 100%;
                 }
             }
 
-            .dashboard__statistics-details-categories {
-                margin-top: 15px;
-                width: 100%;
+            &__categories {
+                margin-top: 0;
+                width: 30%;
 
-                .sales-categories-doughnut-chart-container {
-                    width: 99.9%;
-                    height: 375px;
+                &__doughnut-chart-wrapper {
+                    width: 100%;
                 }
             }
         }
     }
-        
+
     .dashboard__latest-orders {
-        padding: 0 15px 15px 15px;
+        padding: 0 25px 25px 25px;
     }
 }

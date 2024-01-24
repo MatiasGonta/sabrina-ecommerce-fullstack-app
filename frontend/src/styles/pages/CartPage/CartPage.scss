@@ -1,5 +1,5 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 //SubNavbar
 @use '../../components/SubNavbar';
@@ -10,113 +10,97 @@
 // Carousel
 @use '../../components/ProductsCarousel';
 
-.cart-main {
+.cart-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-    article:nth-child(1) {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+    &__products {
+        min-width: 95%;
+        width: 85%;
+        margin: 0 auto;
+    }
 
-        #cart-clear-section {
-            width: 100%;
-            min-height: 650px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-    
-            p {
-                font-size: 30px;
-            }
-    
-            a {
-                font-size: 25px;
-                color: V.$color-tertiary;
-                text-decoration: underline;
+    &__purchase-summary {
+        min-width: 95%;
+        width: auto;
+        height: fit-content;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px solid V.$color-primary-light;
+        position: sticky;
+        top: 30px;
+        bottom: 0;
+        margin: 0 auto;
+
+        &__head {
+            padding: 20px;
+            border-bottom: 1px solid V.$color-primary-light;
+
+            &__title {
+                font-size: 20px;
             }
         }
 
-        #cart-products-section {
+        &__body {
+            padding: 20px;
+
+            &__total {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            &__btn {
+                @include M.ButtonTemplate(100%, V.$btn-green-bg, V.$btn-green-bg-hover);
+            }
+        }
+    }
+}
+
+.cart-clear {
+    width: 100%;
+    min-height: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__text {
+        font-size: 30px;
+    }
+
+    &__link {
+        font-size: 25px;
+        color: V.$color-tertiary;
+        text-decoration: underline;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .cart-info__products {
+        min-width: 90%;
+    }
+        
+    .cart-info__purchase-summary {
+        min-width: 90%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .cart-info {
+        flex-wrap: nowrap;
+
+        &__products {
+            min-width: auto;
             width: 70%;
+            margin: 0;
         }
 
-        #cart-purchase-summary-section {
+        &__purchase-summary {
+            min-width: auto;
             width: 25%;
-            height: fit-content;
-            background-color: #fff;
-            border-radius: 10px;
-            border: 1px solid V.$color-primary-light;
-            position: sticky;
-            top: 30px;
-
-            & > div:nth-child(1) {
-                padding: 20px;
-                border-bottom: 1px solid V.$color-primary-light;
-
-                h3 {
-                    font-size: 20px;
-                }
-            }
-
-            & > div:nth-child(2) {
-                padding: 20px;
-
-                #purchase-summary-info {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 20px;
-
-                    span:nth-child(2) {
-                        font-weight: bold;
-                    }
-                }
-
-                button {
-                    @include M.Button(100%);
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 1300px) {
-    article:nth-child(1) {
-        #cart-products-section {
-            width: 85%;
-            margin: 0 auto;
-        }
-
-        #cart-purchase-summary-section {
-            min-width: 244px;
-        }
-    }
-}
-
-@media screen and (max-width: 1175px) {
-    article:nth-child(1) {
-        flex-wrap: wrap;
-
-        #cart-products-section {
-            min-width: 90%;
-        }
-        
-        #cart-purchase-summary-section {
-            min-width: 90%;
-            margin: 0 auto;
-            bottom: 0;
-        }
-    }
-}
-
-@media screen and (max-width: 800px) {
-    article:nth-child(1) {
-        #cart-products-section {
-            min-width: 95%;
-        }
-        
-        #cart-purchase-summary-section {
-            min-width: 95%;
-            margin: 0 auto;
-            bottom: 0;
+            margin: 0;
         }
     }
 }

@@ -2,35 +2,34 @@ import AddIcon from '@mui/icons-material/Add';
 import { Navbar, Sidebar, Footer } from "@/components"
 import { ProductTable } from "./components";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Routes } from '@/models';
 import '@/styles/pages/Productsboard/Productsboard.scss';
 
 interface ProductsboardInterface { }
 
 const Productsboard: React.FC<ProductsboardInterface> = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <Helmet>
         <title>Panel de Productos - SABRINA</title>
       </Helmet>
       <Navbar />
-      <main className="productsboard admin">
+      <main className="productsboard main--admin">
         <Sidebar page="productsboard" />
-        <article className="productsboard__statistics">
-          <div>
-            <h2>Productos</h2>
-            <button onClick={() => navigate(Routes.DASHBOARD_PRODUCTS_CREATE)}>
+        <section className="productsboard__statistics">
+          <div className="productsboard__header">
+            <h2 className="productsboard__header__title">Productos</h2>
+            <Link className="productsboard__header__link" to={Routes.DASHBOARD_PRODUCTS_CREATE}>
               <AddIcon sx={{ fontSize: 25 }} />
               <span>Crear producto</span>
-            </button>
+            </Link>
           </div>
-          <section>
+
+          <article className="productsboard__statistics__wrapper">
             <ProductTable />
-          </section>
-        </article>
+          </article>
+        </section>
       </main>
       <Footer />
     </>

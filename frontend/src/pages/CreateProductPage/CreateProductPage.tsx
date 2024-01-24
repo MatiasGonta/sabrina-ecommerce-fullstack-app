@@ -209,10 +209,10 @@ const CreateProductPage = () => {
             <title>Crear producto - SABRINA</title>
           </Helmet>
           <Navbar />
-          <main className="admin">
+          <main className="main--admin">
             <Sidebar page="productsboard" />
-            <article className="create-product-form">
-              <section>
+            <section className="create-product-form">
+              <article>
                 <div className="form-container">
                   <h3>Crear Producto</h3>
                   <form className="multi-column-form" onSubmit={submitHandler} encType="multipart/form-data">
@@ -437,8 +437,8 @@ const CreateProductPage = () => {
                     </div>
                   </form>
                 </div>
-              </section>
-            </article>
+              </article>
+            </section>
           </main>
           <Footer />
         </>

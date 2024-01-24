@@ -1,14 +1,14 @@
-@use '../utilities/variables' as V;
-@use '../utilities/mixins' as M;
+@use '../utilities/_variables' as V;
+@use '../utilities/_mixins' as M;
 
 .card {
     @include M.WrapperTemplate();
     display: flex;
     height: 100px;
     align-items: center;
-    width: 30%;
+    width: 100%;
 
-    .card-icon {
+    &__icon {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -20,32 +20,32 @@
         }
     }
 
-    .card-body {
+    &__body {
         display: flex;
         flex-direction: column;
         margin-left: 20px;
             
-        .card-body__title,
-        .card-body__text {
+        &__title,
+        &__text {
             font-size: 18px;
             font-weight: 600;
             color: V.$color-primary-semi-light;
         }
 
-        .card-body__text {
+        &__text {
             font-weight: 800;
         }
     }
 }
 
-@media screen and (max-width: 1118px) {
+@media screen and (min-width: 1118px) {
     .card {
-        width: 32%;
+        width: 30%;
     }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 992px) {
     .card {
-        width: 100%;
+        width: 32%;
     }
 }

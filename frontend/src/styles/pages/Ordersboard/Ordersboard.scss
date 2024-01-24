@@ -1,22 +1,22 @@
-@use '../../utilities/variables' as V;
-@use '../../utilities/mixins' as M;
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
 
 //Sidebar
-@use '../../components/Sidebar';
+@use '../../components/_Sidebar';
 
 //Table
-@use '../../components/Table';
+@use '../../components/_Table';
 
 .ordersboard__control-panel {
     grid-row: span 2;
     padding: 25px;
     overflow: hidden;
 
-    h2 {
+    &__title {
         margin-bottom: 25px;
     }
 
-    section {
+    &__orders {
         @include M.WrapperTemplate();
     }
 }

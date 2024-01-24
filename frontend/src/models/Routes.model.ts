@@ -5,19 +5,15 @@ export enum Routes {
     SIZES_GUIDE = '/sizes-guide',
     FAVORITES = '/favorites',
     CART = '/cart',
-    
     SIGNIN = '/signin',
     SIGNUP = '/signup',
-
     RESTORE_PASSWORD = '/restore-password',
     VERIFY = '/verify',
-
     SHIPPING = '/shipping',
     PAYMENT = '/payment',
     PLACEORDER = '/placeorder',
     ORDER = '/order',
     ORDER_HISTORY = '/orderhistory',
-
     DASHBOARD = '/dashboard',
     DASHBOARD_ORDERS = '/dashboard/orders',
     DASHBOARD_PRODUCTS = '/dashboard/products',

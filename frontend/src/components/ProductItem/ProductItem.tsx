@@ -93,25 +93,25 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
           className="product-item__image"
         />
       </Link>
-      <div>
-        <div className="product-item__colors">
+      <div className="product-item__body">
+        <div className="product-item__body__colors">
           <span>{product.colors.length} colores</span>
         </div>
         {
           addCartSettings
             ? (
-              <div className="product-item__settings">
+              <div className="product-item__body__settings">
                 <Tooltip title="Cerrar">
-                  <button className="product-item__setting-close" onClick={() => setAddCartSettings(false)}>
+                  <button className="product-item__body__settings__close" onClick={() => setAddCartSettings(false)}>
                     <CloseIcon sx={{ fontSize: 25 }} />
                   </button>
                 </Tooltip>
-                <ul className="product-item__settings-color">
+                <ul className="product-item__body__settings__color">
                   {
                     product.colors.slice(0, 6).map(color => (
                       <li
                         key={color}
-                        className={selectedColor === color ? "selected" : ""}
+                        className={`${selectedColor === color && "color--selected"}`}
                         onClick={() => setSelectedColor(color)}
                       >
                         <Tooltip title={color} >
@@ -130,10 +130,10 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                     )
                   }
                 </ul>
-                <ul className="product-item__settings-size">
+                <ul className="product-item__body__settings__size">
                   {
                     product.sizes.slice(0, 4).map(size => (
-                      <li key={size} className={selectedSize === size ? "selected" : ""} onClick={() => setSelectedSize(size)}>
+                      <li key={size} className={`${selectedSize === size && "size--selected"}`} onClick={() => setSelectedSize(size)}>
                         <span>{size}</span>
                       </li>
                     ))
@@ -148,12 +148,30 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                     )
                   }
                 </ul>
-                <button className="add-to-cart-btn" onClick={addToCartHandler} >AÑADIR</button>
+                <button className="add-to-cart-btn add-to-cart-btn--confirm" type="button" onClick={addToCartHandler}>
+                  <span className="add-to-cart-btn--confirm__text">AÑADIR</span>
+                  <span className="add-to-cart-btn--confirm__icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      stroke="#fff"
+                      fill="#fff"
+                    >
+                      <line y2="19" y1="5" x2="12" x1="12"></line>
+                      <line y2="12" y1="12" x2="19" x1="5"></line>
+                    </svg>
+                  </span>
+                </button>
               </div>
             ) : (
               <>
-                <Link to={`${Routes.PRODUCTS}/${product.slug}`} className="product-item__name">{product.name}</Link>
-                <span className="product-item__price">${product.price.toFixed(2)}</span>
+                <Link to={`${Routes.PRODUCTS}/${product.slug}`} className="product-item__body__name">{product.name}</Link>
+                <span className="product-item__body__price">${product.price.toFixed(2)}</span>
 
                 {
                   calculateTotalStock(product) === 0

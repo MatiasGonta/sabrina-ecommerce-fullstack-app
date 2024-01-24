@@ -12,14 +12,14 @@ const OrderHistoryPage = () => {
         </Helmet>
         <Navbar />
         <div className='sub-navbar'>
-            <h2><Link to={Routes.HOME}>Inicio</Link> / Compras</h2>
+            <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Compras</h2>
         </div>
-        <main className="order-history-main">
-            <article>
-                <section>
+        <main>
+            <section>
+                <article className="order-history-table">
                     <OrderTable itemsPerPage={10} type="default" user={true} />
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
         <Footer />
     </>

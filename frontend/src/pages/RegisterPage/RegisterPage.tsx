@@ -52,9 +52,9 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
     }
 
     return (
-        <main className="authenticated-main">
-            <article>
-                <section>
+        <main className="main--authenticated">
+            <section className="authenticated-wrapper">
+                <article>
                     <Helmet>
                         <title>Registro de usuario - SABRINA</title>
                     </Helmet>
@@ -136,8 +136,8 @@ const RegisterPage: React.FC<RegisterPageInterface> = () => {
                             </div>
                         </form>
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
     )
 }

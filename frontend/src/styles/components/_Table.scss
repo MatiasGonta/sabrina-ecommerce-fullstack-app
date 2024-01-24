@@ -1,5 +1,5 @@
-@use '../utilities/variables' as V;
-@use '../utilities/mixins' as M;
+@use '../utilities/_variables' as V;
+@use '../utilities/_mixins' as M;
 
 // Warning icon color
 $warning-icon-color: #f9bc82;
@@ -34,9 +34,7 @@ $odd-cell-color: #f8f8f8;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-  
     position: relative;
-      
     width: 24%;
     min-width: 200px;
     height: 35px;
@@ -345,7 +343,7 @@ $odd-cell-color: #f8f8f8;
                     }
 
                     .details-btn {
-                        @include M.Button(75px);
+                        @include M.ButtonTemplate(75px, V.$btn-green-bg, V.$btn-green-bg-hover);
                     }
 
                     .edit-btn,
@@ -715,7 +713,7 @@ $odd-cell-color: #f8f8f8;
         }
 
         button {
-            @include M.Button(200px);
+            @include M.ButtonTemplate(200px, V.$btn-green-bg, V.$btn-green-bg-hover);
         }
     }
 }

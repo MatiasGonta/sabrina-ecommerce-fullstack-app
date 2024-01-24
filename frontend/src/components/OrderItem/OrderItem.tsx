@@ -7,25 +7,25 @@ interface OrderItemInterface {
 const OrderItem: React.FC<OrderItemInterface> = ({ item }) => {
   return (
     <li className="order-item">
-        <div>
+        <div className="order-item__body">
             <img
                 src={item.image}
                 alt={item.name}
-                className="order-item__image"
+                className="order-item__body__image"
             />
-            <div className="order-item__details">
-                <span>{item.name}</span>
+            <div className="order-item__body__details">
+                <span className="order-item__body__details__name">{item.name}</span>
                 {
                     item.sizeSelected !== ''
-                        ? <span>Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
-                        : <span>Color: {item.colorSelected}</span>
+                        ? <span className="order-item__body__details__feature">Color: {item.colorSelected}, Talle: {item.sizeSelected}</span>
+                        : <span className="order-item__body__details__feature">Color: {item.colorSelected}</span>
                 }
             </div>
         </div>
         <div>
-            <span className="order-item__quantity">{item.quantity}</span>
+            <span>{item.quantity}</span>
         </div>
-        <strong className="order-item__price">${item.price.toFixed(2)}</strong>
+        <strong>${item.price.toFixed(2)}</strong>
     </li>
   )
 }

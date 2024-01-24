@@ -8,8 +8,8 @@ import { LoadingSpinnerType, Routes } from '@/models';
 export default function ProtectedRoute() {
     const userInfo = useSelector((store: AppStore) => store.userInfo);
 
-    const userId = userInfo?._id || '';
-    const userToken = userInfo?.token || '';
+    let userId = userInfo?._id || '';
+    let userToken = userInfo?.token || '';
 
     const { profileDetails, isLoading } = useGetProfileDetails(userToken, userId);
 

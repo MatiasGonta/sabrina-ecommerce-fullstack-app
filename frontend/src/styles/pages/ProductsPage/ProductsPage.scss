@@ -1,50 +1,48 @@
-@use '../../utilities/variables' as V;
+@use '../../utilities/_variables' as V;
 
 // SubNavbar
-@use '../../components/SubNavbar';
+@use '../../components/_SubNavbar';
 
 // Product Item
-@use '../../components/ProductItem';
+@use '../../components/_ProductItem';
 
 // Filters
-@use './components/FiltersBoard';
+@use './components/_FiltersBoard';
 
 // Products
-@use '../../components/ProductsCatalog';
+@use '../../components/_ProductsCatalog';
 
 // PurchaseInfoBanner
-@use '../../components/PurchaseInfoBanner';
+@use '../../components/_PurchaseInfoBanner';
 
-.products-page-main {
-    display: grid;
-    grid-template-columns: 25% 75%;
+.main--products-page {
     grid-row: repeat(2, auto);
-    flex-wrap: wrap;
-    justify-content: center;
-
-    .products-page__purchase-path {
-        grid-row: span 2;
-        grid-column: 1/-1;
-
-        section {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-@media screen and (max-width: 1300px) {
-    .products-page-main {
-        grid-template-columns: 20% 65%;
-    }
-}
+.products-page-purchase-path {
+    grid-row: span 2;
+    grid-column: 1/-1;
 
-@media screen and (max-width: 940px) {
-    .products-page-main {
+    article {
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (min-width: 940px) {
+    .main--products-page {
+        display: grid;
+        grid-template-columns: 30% 65%;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .main--products-page {
+        grid-template-columns: 25% 75%;
     }
 }

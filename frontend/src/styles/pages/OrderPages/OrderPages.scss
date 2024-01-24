@@ -1,0 +1,213 @@
+@use '../../utilities/_variables' as V;
+@use '../../utilities/_mixins' as M;
+
+// CheckoutSteps
+@use '../../components/CheckoutSteps';
+
+// OrderItem
+@use './components/_OrderItem';
+// MercadoPagoButton
+@use './components/_MercadoPagoButton';
+
+$action-no-check-color: #c9a509;
+$action-no-check-bg: #fef2c7;
+$action-check-color: #38594b;
+$action-check-bg: #c7dfd5;
+
+.order {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    &__header {
+        width: 95%;
+        margin: 0 auto;
+    
+        &__title {
+            font-size: 25px;
+            margin: 30px 0;
+        }
+    }
+}
+
+.order__info {
+    width: 95%;
+    height: fit-content;
+    margin: 0 auto;
+
+    &__shipping,
+    &__payment,
+    &__product {
+        @include M.WrapperTemplate();
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        &__title {
+            font-size: 25px;
+        }
+
+        &__link {
+            color: V.$color-tertiary;
+            text-decoration: underline;
+        }
+    }
+
+    &__shipping__not-check,
+    &__payment__not-check {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        padding-left: 15px;
+        background: $action-no-check-bg;
+        margin: 0 10px;
+
+        span {
+            font-size: 15px;
+            color: $action-no-check-color;
+        }
+    }
+
+    &__shipping__check,
+    &__payment__check {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        padding-left: 15px;
+        background: $action-check-bg;
+        margin: 0 10px;
+
+        span {
+            font-size: 15px;
+            color: $action-check-color;
+        }
+    }
+
+    &__product__list {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 25px;
+    }
+}
+
+.order__summary {
+    width: 100%;
+    height: fit-content;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid V.$color-primary-light;
+    position: sticky;
+    bottom: 0;
+
+    &__title {
+        font-size: 25px;
+    }
+
+    &__items-row,
+    &__shipping-row,
+    &__tax-row,
+    &__total-row {
+        width: 100%;
+        height: 30px;
+        margin: 10px 0;
+        border-bottom: 1px solid V.$color-primary-light;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__ordering-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 5px;
+        background-color: #17795e;
+        color: #fff;
+        font-size: 12.5px;
+        width: 100%;
+        height: 40px;
+        margin: 0 auto;
+        transition: background-color 0.3s;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            background-color: #146c54;
+        }
+    
+
+        &#mercadopago-btn {
+            background-color: #009ee3;
+
+            &:hover,
+            &:focus {
+                background-color: #25afeb;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .order__info,
+    .order__header {
+        width: 90%;
+
+        &__shipping__check,
+        &__shipping__not-check,
+        &__payment__check,
+        &__payment__not-check {
+            margin: 0;
+        }
+    }
+
+    .order__header__title {
+        font-size: 35px;
+    }
+}
+
+@media screen and (min-width: 850px) {
+    .order__info,
+    .order__header {
+        width: 90%;
+    }
+
+    .order__header {
+        width: 70%;
+    }
+}
+
+
+@media screen and (min-width: 1280px) {
+    .order__info,
+    .order__header {
+        margin: 0;
+    }
+
+    .order__info {
+        width: 70%;
+    }
+
+    .order__header {
+        width: 100%;
+    }
+
+    .order__summary {
+        position: static;
+        bottom: none;
+        width: 325px;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .order__summary__ordering-btn {
+        font-size: 14px;
+    }
+}

@@ -9,11 +9,11 @@ import 'swiper/swiper-bundle.css';
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 interface ProductsCarouselInterface {
-    title: string;
+    children: string;
     items: Product[];
 }
 
-const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ title, items }) => {
+const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ children, items }) => {
     const swiperParams = {
         slidesPerView: 5,
         slidesPerGroup: 5,
@@ -65,31 +65,29 @@ const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ title, items })
     };
 
     return (
-        <article className="products-carousel">
-            <section>
-                <h5>{title}</h5>
-                <Swiper {...swiperParams}>
-                    {items.map((item: Product) => (
-                        <SwiperSlide key={item._id} className="carousel-item">
-                            <Link to={`${Routes.PRODUCTS}/${item.slug}`}>
-                                <img
-                                    src={item.images[0]}
-                                    alt={item.name}
-                                    className="carousel-item__image"
-                                />
-                            </Link>
-                            <div>
-                                <div className="carousel-item__colors">
-                                    <span>{item.colors.length} colores</span>
-                                </div>
-                                <Link to={`${Routes.PRODUCTS}/${item.slug}`} className="carousel-item__name">{item.name}</Link>
-                                <span className="carousel-item__price">${item.price.toFixed(2)}</span>
+        <div className="products-carousel">
+            <h5 className="products-carousel__title">{children}</h5>
+            <Swiper {...swiperParams}>
+                {items.map((item: Product) => (
+                    <SwiperSlide key={item._id} className="carousel-item">
+                        <Link to={`${Routes.PRODUCTS}/${item.slug}`}>
+                            <img
+                                src={item.images[0]}
+                                alt={item.name}
+                                className="carousel-item__image"
+                            />
+                        </Link>
+                        <div>
+                            <div className="carousel-item__colors">
+                                <span>{item.colors.length} colores</span>
                             </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </section>
-        </article>
+                            <Link to={`${Routes.PRODUCTS}/${item.slug}`} className="carousel-item__name">{item.name}</Link>
+                            <span className="carousel-item__price">${item.price.toFixed(2)}</span>
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>
     );
 };
 

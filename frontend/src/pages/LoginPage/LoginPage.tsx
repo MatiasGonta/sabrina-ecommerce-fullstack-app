@@ -59,9 +59,9 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
     
 
     return (
-        <main className="authenticated-main">
-            <article>
-                <section>
+        <main className="main--authenticated">
+            <section className="authenticated-wrapper">
+                <article>
                     <Helmet>
                         <title>Iniciar Sesión - SABRINA</title>
                     </Helmet>
@@ -73,6 +73,7 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
                                     type="email"
                                     name="email"
                                     value={formData.email}
+                                    className={formData.email !== '' ? 'active' : ''}
                                     required
                                     onChange={(e) => handleFormInputChange(e, formData, setFormData)}
                                 />
@@ -116,8 +117,8 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
                             </div>
                         </form>
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
     )
 }

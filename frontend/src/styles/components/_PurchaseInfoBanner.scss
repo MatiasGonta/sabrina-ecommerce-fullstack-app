@@ -1,57 +1,58 @@
-@use '../utilities/variables' as V;
+@use '../utilities/_variables' as V;
 
 .purchase-info-banner {
     width: 80%;
+    height: 400px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     margin: auto;
 
     * {
         color: V.$color-primary-semi-light;
     }
 
-    .purchase-info-separator {
-        min-width: 1.5px;
-        min-height: 100%;
-        background-color: V.$color-primary-semi-light;
-        margin: 0 15px;
-    }
-
-    .purchase-info-banner__payment,
-    .purchase-info-banner__shipping,
-    .purchase-info-banner__security {
+    &__payment,
+    &__shipping,
+    &__security {
         width: 300px;
         display: flex;
         flex-direction: row;
 
-        div {
+        &__content {
             margin-left: 15px;
 
-            h2 {
+            &__title {
                 font-size: 20px;
             }
 
-            p {
+            &__text {
                 font-size: 15px;
             }
         }
     }
 }
 
-@media screen and (max-width: 1000px) {
-    .purchase-info-banner {
-        height: 400px;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
+.purchase-info-separator {
+    width: 30%;
+    height: 1px;
+    min-width: 1.5px;
+    max-width: 175px;
+    background-color: V.$color-primary-semi-light;
+    margin: 0 15px;
+}
 
-        .purchase-info-separator {
-            width: 30%;
-            max-width: 175px;
-            min-height: 1px;
-            background-color: V.$color-primary-semi-light;
-            margin: 0 15px;
-        }
+@media screen and (min-width: 1024px) {
+    .purchase-info-banner {
+        height: auto;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .purchase-info-separator {
+        width: 1.5px;
+        height: 80px;
+        align-self: center;
     }
 }

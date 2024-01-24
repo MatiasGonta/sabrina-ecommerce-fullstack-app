@@ -6,15 +6,20 @@ interface LoadingSpinnerInterface {
 
 const LoadingSpinner: React.FC<LoadingSpinnerInterface> = ({ type }) => {
   return (
-    <div className={type === LoadingSpinnerType.FLEX ? "loading-box flex" : "loading-box"}>
+    <div className={`loading-box ${type === LoadingSpinnerType.FLEX && "loading-box--flex"}`}>
       {
-        type === LoadingSpinnerType.NOFLEX && <img src="/src/assets/sabrina-icon.png" alt="sabrina-icon" />
+        type === LoadingSpinnerType.NOFLEX &&
+        <img
+          src="/src/assets/sabrina-icon.png"
+          alt="sabrina-icon"
+          className="loading-box__logo"
+        />
       }
-      <div className="spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div className="loading-box__spinner">
+        <div className="loading-box__spinner__circle"></div>
+        <div className="loading-box__spinner__circle"></div>
+        <div className="loading-box__spinner__circle"></div>
+        <div className="loading-box__spinner__circle"></div>
       </div>
     </div>
   )

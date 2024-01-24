@@ -8,7 +8,6 @@ import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from '@/hooks';
 import { getError } from '@/utilities';
 import { useNavigate } from 'react-router-dom';
 import { Accordion } from './components';
-import { AccordionInterface } from './models';
 import { Helmet } from 'react-helmet-async';
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -55,7 +54,7 @@ const Home: React.FC<HomeInterface> = () => {
         navigate(`${Routes.PRODUCTS}/?${queryParams}`)
     }
 
-    const accordions: AccordionInterface[] = [
+    const accordions = [
         {
             number: 1,
             title: 'Realiza tu Pedido',
@@ -91,71 +90,81 @@ const Home: React.FC<HomeInterface> = () => {
           <title>SABRINA</title>
         </Helmet>
         <Navbar />
-        <main className="home-main">
-            <article className="home__commerce-carrousel">
-                <section>
+        <main>
+            <section className="home__commerce">
+                <article className="home__commerce__carrousel">
                     <Swiper {...swiperParams}>
-                        <SwiperSlide  className="commerce-carrousel__item">
+                        <SwiperSlide  className="home__commerce__carrousel__item">
                             <img
+                                className="home__commerce__carrousel__item__img"
                                 src="/src/assets/sabrina-local-exterior.png"
                                 alt="sabrina-local-exterior"
                                 onClick={() => navigate(Routes.PRODUCTS)}
                             />
                         </SwiperSlide>
-                        <SwiperSlide  className="commerce-carrousel__item">
+                        <SwiperSlide  className="home__commerce__carrousel__item">
                             <img
+                                className="home__commerce__carrousel__item__img"
                                 src="/src/assets/sabrina-local-interior.jpg"
                                 alt="sabrina-local-interior"
                                 onClick={() => navigate(Routes.PRODUCTS)}
                             />
                         </SwiperSlide>
                     </Swiper>
-                </section>
-                <section>
+                </article>
+                <article className="home__commerce__category-prices">
                     {
                         getShuffledItems(categories, 4).map((category: FilterItem) => (
                             <div
                                 key={category._id}
-                                className="category-card"
+                                className="home__commerce__category-prices__card"
                                 onClick={() => handleCategoryNavigate(category._id)}
                             >
-                                <h2>{category._id.toLocaleUpperCase()}</h2>
-                                <span>Desde ${category.minPrice}</span>
+                                <h2 className="home__commerce__category-prices__card__title">{category._id.toLocaleUpperCase()}</h2>
+                                <span className="home__commerce__category-prices__card__text">Desde ${category.minPrice}</span>
                             </div>
                         ))
                     }
-                </section>
-            </article>
-            <article className="home__purchase-info">
-                <section>
+                </article>
+            </section>
+            <section className="home__purchase-info">
+                <article>
                     <PurchaseInfoBanner />
-                </section>
-            </article>
-            <article className="home__products-preview products-page__products-container">
-                <section>
-                    <ul>
-                        {
-                            products.splice(0,21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
-                        }
-                    </ul>
-                    <div id="more-products-btn">
-                        <button onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
-                    </div>
-                </section>
-            </article>
-            <article className="home__purchase-path">
-                <section>
+                </article>
+            </section>
+            <section className="home__products-preview products-catalog">
+                <article>
                     {
-                        accordions.map(accordion => <Accordion
-                                                        key={accordion.title}
-                                                        number={accordion.number}
-                                                        title={accordion.title}
-                                                        text={accordion.text}
-                                                        icon={accordion.icon}
-                                                    />)
+                        products.length > 0
+                            ? (
+                                <ul className="products-catalog__list">
+                                    {
+                                        products.splice(0,21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
+                                    }
+                                </ul>
+                            ) : <p className="products-catalog__empty-msg">No hay productos que cumplan con los requisitos</p>
                     }
-                </section>
-            </article>
+                    <div className="home__products-preview__more">
+                        <button className="home__products-preview__more__btn" onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
+                    </div>
+                </article>
+            </section>
+            <section className="home__purchase-path">
+                <article>
+                    {
+                        accordions.map(accordion => (
+                            <Accordion
+                                key={accordion.title}
+                                number={accordion.number}
+                                title={accordion.title}
+                                icon={accordion.icon}
+                            >
+                                {accordion.text}
+                            </Accordion>
+                        ))
+                    }
+                </article>
+            </section>
         </main>
         <Footer />
     </>

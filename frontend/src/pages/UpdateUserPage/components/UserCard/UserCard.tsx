@@ -22,7 +22,7 @@ const UserCard: React.FC<UserCardInterface> = ({ references, data }) => {
                 <AccountCircleOutlinedIcon sx={{ fontSize: 75 }} />
             </div>
             <div className="user-card__main-info">
-                <ul>
+                <ul className="user-card__main-info__list">
                     <li>
                         <span onClick={() => handleFocus('name')}>
                             <strong>Nombre: </strong>
@@ -50,7 +50,7 @@ const UserCard: React.FC<UserCardInterface> = ({ references, data }) => {
                 </ul>
             </div>
             <div className="user-card__details">
-                <ul>
+                <ul className="user-card__main-info__list">
                     <li>
                         <span>
                             <strong>Id: </strong>

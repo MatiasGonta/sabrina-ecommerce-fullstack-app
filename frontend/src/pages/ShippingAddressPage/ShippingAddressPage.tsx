@@ -40,11 +40,11 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
             <Helmet>
                 <title>Dirección de envío</title>
             </Helmet>
-            <article>
+            <section>
                 <CheckoutSteps step1 step2 />
-            </article>
-            <article>
-                <section>
+            </section>
+            <section>
+                <article>
                     <div className="form-container">
                     <h3>Dirección de envío</h3>
                     <form onSubmit={submitHandler}>
@@ -101,8 +101,8 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
                         </div>
                     </form>
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
         <Footer />
         </>

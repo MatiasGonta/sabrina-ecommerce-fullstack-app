@@ -72,6 +72,12 @@ export const deleteOrder = asyncHandler(
 );
 
 export const createOrder = asyncHandler(async (req: Request, res: Response) => {
+  console.log(req)
+  if (!req.user || !req.user._id) {
+    res.status(401).json({ message: 'Lo siento, parece que tu sesión ha expirado. Por favor, inicia sesión nuevamente para continuar.' });
+    return;
+  }
+
   if (req.body.orderItems.length === 0) {
     res.status(400).json({ message: 'No se puede crear la orden. El carrito está vacío' });
   } else {

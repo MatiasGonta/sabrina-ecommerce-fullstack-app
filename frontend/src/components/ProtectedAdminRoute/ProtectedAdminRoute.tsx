@@ -6,8 +6,8 @@ import { Navigate, Outlet } from "react-router-dom";
 export default function ProtectedAdminRoute() {
     const userInfo = useSelector((store: AppStore) => store.userInfo);
 
-    const userId = userInfo?._id || '';
-    const userToken = userInfo?.token || '';
+    let userId = userInfo?._id || '';
+    let userToken = userInfo?.token || '';
 
     const { profileDetails } = useGetProfileDetails(userToken, userId);
 

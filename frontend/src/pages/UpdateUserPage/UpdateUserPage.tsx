@@ -81,13 +81,13 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
             <title>Actualizar Usuario</title>
         </Helmet>
         <Navbar />
-        <main className="admin">
+        <main className="main--admin">
             <Sidebar page="usersboard" />
-            <article className="update-user">
-                <section className="update-user__card">
+            <section className="update-user">
+                <article className="update-user__card">
                     <UserCard references={userRefs} data={user} />
-                </section>
-                <section className="update-user__form">
+                </article>
+                <article className="update-user__form">
                     <Helmet>
                         <title>Actualizar Usuario - SABRINA</title>
                     </Helmet>
@@ -163,8 +163,8 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
                         </div>
                     </form>
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
         <Footer />
     </>

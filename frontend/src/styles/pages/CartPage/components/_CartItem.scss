@@ -1,9 +1,11 @@
-@use '../../../utilities/variables' as V;
+@use '../../../utilities/_variables' as V;
 
 .cart-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
+    min-width: 370px;
     height: fit-content;
     margin: 5px 0;
     padding: 20px;
@@ -11,39 +13,43 @@
     background-color: #fff;
     border: 1px solid V.$color-primary-light;
 
-    .cart-item__info {
+    &__info {
+        width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
 
-        img {
+        &__img {
             min-width: 125px;
             width: 125px;
             height: 100%;
             max-height: 125px;
         }
 
-        & > div {
+        &__body {
             display: flex;
             flex-direction: column;
-            min-width: 275px;
+            min-width: 225px;
             margin-left: 10px;
 
-            a {
+            &__link {
                 font-size: 20px;
                 font-weight: bold;
                 margin-bottom: 10px;
             }
 
-            div {
+            &__actions {
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
-                max-width: 120px;
+                gap: 20px;
                 margin-top: 25px;
                 position: relative;
 
-                span {
+                &__edit,
+                &__remove {
+                    border: none;
+                    background-color: transparent;
+                    font-size: 14px;
                     color: V.$color-tertiary;
                     text-decoration: underline;
                     cursor: pointer;
@@ -104,17 +110,17 @@
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (min-width: 800px) {
     .cart-item {
-        min-width: 370px;
-        flex-wrap: wrap;
+        min-width: auto;
+        flex-wrap: nowrap;
     
         .cart-item__info {
-            width: 100%;
-            justify-content: flex-start;
+            width: auto;
+            justify-content: space-between;
 
-            & > div {
-                min-width: 225px;
+            &__body {
+                min-width: 275px;
             }
         }
     }

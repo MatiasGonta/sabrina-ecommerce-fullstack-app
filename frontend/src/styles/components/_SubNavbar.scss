@@ -1,7 +1,7 @@
-@use '../utilities/variables' as V;
+@use '../utilities/_variables' as V;
 
 .sub-navbar {
-    width: 100%;
+    width: 85%;
     max-width: 1300px;
     height: 100px;
     display: flex;
@@ -10,22 +10,19 @@
     flex-wrap: wrap;
 
     // Search Input
-    .sub-navbar__search-box {
+    .sub-navbar__search-bar {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
-  
         position: relative;
-      
         width: 24%;
         min-width: 200px;
         height: 35px;
-    
         background: V.$color-secondary;
   
-        input {
+        &__input {
             width: 100%;
             height: 100%;
             color: V.$color-primary;
@@ -51,7 +48,7 @@
             }
         }
   
-        button{
+        &__btn {
             min-width: 15%;
             height: 100%;
             background: transparent;
@@ -64,8 +61,8 @@
         }
     }
 
-    &__button {
-        display: none;
+    &__filters-btn {
+        display: flex;
         justify-content: center;
         align-items: center;
         width: 77px;
@@ -77,26 +74,14 @@
     }
 }
 
-@media screen and (max-width: 1300px) {
-    .sub-navbar {
-        width: 85%;
+@media screen and (min-width: 940px) {
+    .sub-navbar__filters-btn {
+        display: none;
     }
 }
 
-@media screen and (max-width: 940px) {
+@media screen and (min-width: 1300px) {
     .sub-navbar {
-
-        &__button {
-            display: flex;
-        }
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .sub-navbar {
-
-        h2 {
-            width: 100%;
-        }
+        width: 100%;
     }
 }

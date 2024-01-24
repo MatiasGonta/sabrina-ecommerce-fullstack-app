@@ -1,24 +1,19 @@
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import AddIcon from '@mui/icons-material/Add';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import { Card, Footer, LoadingSpinner, Navbar, Sidebar } from "@/components";
 import { Helmet } from "react-helmet-async";
 import { BarChart, CreateUserModal, UserTable } from "./components";
-import { CardInterface } from "@/components/Card/Card";
 import { useGetUsersStatistics } from '@/hooks';
-import { useState } from 'react';
 import '@/styles/pages/Usersboard/Usersboard.scss';
 import { LoadingSpinnerType } from '@/models';
 
 interface UsersboardInterface {}
 
 const Usersboard: React.FC<UsersboardInterface> = () => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
-
   const { data, isLoading } = useGetUsersStatistics();
 
-  const cards: CardInterface[] = [
+  const cards = [
     {
       title: 'Usuarios totales',
       text: `${data?.totalUsers}`,
@@ -50,43 +45,48 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
       <Helmet>
         <title>Panel de Usuarios - SABRINA</title>
       </Helmet>
-      {openModal && <CreateUserModal modalStatusFunc={setOpenModal} />}
+
       <Navbar />
-      <main className="usersboard admin">
+
+      <main className="main--admin">
         <Sidebar page="usersboard" />
-        <article className="usersboard__users">
-          <div>
-            <h2>Usuarios</h2>
-            <button onClick={() => setOpenModal(true)}>
-              <AddIcon sx={{ fontSize: 25 }} />
-              <span>Crear usuario</span>
-            </button>
+        <section className="usersboard__users">
+          <div className="usersboard__users__header">
+            <h2 className="usersboard__users__header__title">Usuarios</h2>
+            <CreateUserModal />
           </div>
-          <section className="usersboard__users-card-info">
+
+          <article className="usersboard__users__cards">
             {
-              cards.map(card => <Card
-                                  key={card.title}
-                                  title={card.title}
-                                  text={card.text}
-                                  icon={card.icon}
-                                  iconBackground={card.iconBackground}
-                                  iconBoxShadow={card.iconBoxShadow}
-                                />)
+              cards.map(card => (
+                <Card
+                  key={card.title}
+                  title={card.title}
+                  icon={card.icon}
+                  iconBackground={card.iconBackground}
+                  iconBoxShadow={card.iconBoxShadow}
+                >
+                  {card.text}
+                </Card>
+              ))
             }
-          </section>
-          <section className="usersboard__users-statistics">
-            <h3>Nuevos usuarios en el último mes</h3>
-            <div className="users-bar-chart-container">
+          </article>
+
+          <article className="usersboard__users__statistics">
+            <h3 className="usersboard__users__statistics__title">Nuevos usuarios en el último mes</h3>
+            <div className="usersboard__users__statistics__bar-chart">
               <BarChart data={data!.newUsersPerDay} />
             </div>
-          </section>
-        </article>
-        <article className="usersboard__control-panel">
-          <section>
-            <h3>Panel de usuarios</h3>
+          </article>
+
+        </section>
+
+        <section className="usersboard__control-panel">
+          <article>
+            <h3 className="usersboard__control-panel__title">Panel de usuarios</h3>
             <UserTable itemsPerPage={10} />
-          </section>
-        </article>
+          </article>
+        </section>
       </main>
       <Footer />
     </>

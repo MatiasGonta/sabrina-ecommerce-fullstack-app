@@ -50,16 +50,18 @@ const RestorePassword: React.FC<RestorePasswordInterface> = () => {
     }
 
     return (
-        <main className="restore-password-main">
+        <main className="main--restore-password">
             <Helmet>
                 <title>Restablecer contraseña</title>
             </Helmet>
-            <article>
-                <section>
+            <section>
+                <article>
                     <div className="restore-password-md">
+                        <div className="restore-password-md__header">
+                            <h3 className="restore-password-md__header__title">Restablecer contraseña</h3>
+                            <p className="restore-password-md__header__text">Por favor, ingresa una nueva contraseña para completar el proceso de restablecimiento de contraseña.</p>
+                        </div>
                         <div className="form-container">
-                            <h3>Restablecer contraseña</h3>
-                            <p>Por favor, ingresa una nueva contraseña para completar el proceso de restablecimiento de contraseña.</p>
                             <form onSubmit={submitHandler}>
                                 <div className="group">
                                     <input
@@ -105,8 +107,8 @@ const RestorePassword: React.FC<RestorePasswordInterface> = () => {
                             </form>
                         </div>
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
     )
 }

@@ -39,16 +39,18 @@ const RecoverAccount: React.FC<RecoverAccountInterface> = () => {
     }
 
     return (
-        <main className="recover-account-main">
+        <main className="main--recover-account">
             <Helmet>
                 <title>Recupera tu cuenta</title>
             </Helmet>
-            <article>
-                <section>
-                    <div className="recover-account-md">
-                        <div className="form-container">
-                            <h3>Recupera tu cuenta</h3>
+            <section>
+                <article className="recover-account-wrapper">
+                    <div className="recover-account-form">
+                        <div className="recover-account-form__header">
+                            <h3 className="recover-account-form__header__title">Recupera tu cuenta</h3>
                             <p>Ingresa tu correo electrónico para buscar tu cuenta.</p>
+                        </div>
+                        <div className="form-container">
                             <form onSubmit={submitHandler}>
                                 <div className="group">
                                     <input
@@ -69,8 +71,8 @@ const RecoverAccount: React.FC<RecoverAccountInterface> = () => {
                             </form> 
                         </div>
                     </div>
-                </section>
-            </article>
+                </article>
+            </section>
         </main>
     )
 }

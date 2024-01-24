@@ -91,43 +91,51 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
         <Helmet>
           <title>{product!.name}</title>
         </Helmet>
+
         <Navbar />
+
         <div className='sub-navbar'>
-          <h2><Link to={Routes.HOME}>Inicio</Link> / <Link to={Routes.PRODUCTS}>Productos</Link> / {product!.name}</h2>
+          <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / <Link to={Routes.PRODUCTS}>Productos</Link> / {product!.name}</h2>
         </div>
-        <main className="product-page-main">
-          <article className='product'>
-            <section className="product-images">
-              <div className="second-images">
-                <ul>
+
+        <main className="main--product-page">
+          <section className="product">
+            <article className="product__images">
+              <div className="product__images__secondaries">
+                <ul className="product__images__secondaries__list">
                   {
                     product!.images.map((image, index) => (
-                      <li key={index} className={selectedImageIndex === index ? "main-img" : ""}>
-                        <img src={image} alt={product!.name} onClick={() => handleImageClick(index)} />
+                      <li key={index} className={`product__images__secondaries__list__li ${selectedImageIndex === index && "product__images__secondaries__list__li--selected"}`}>
+                        <img src={image} alt={product!.name} className="product__images__secondaries__list__li__img" onClick={() => handleImageClick(index)} />
                       </li>
                     ))
                   }
                 </ul>
               </div>
-              <div className="primary-image">
-                <img src={product!.images[selectedImageIndex]} alt={product!.name} />
+              <div className="product__images__primary">
+                <img
+                  src={product!.images[selectedImageIndex]}
+                  alt={product!.name}
+                  className="product__images__primary__img"
+                />
               </div>
-            </section>
-            <section className="product-details">
-              <div className="product-details__title">
-                <h1>{product!.name}</h1>
-                <span>${product!.price.toFixed(2)}</span>
+            </article>
+
+            <article className="product__details">
+              <div className="product__details__head">
+                <h1 className="product__details__head__title">{product!.name}</h1>
+                <span className="product__details__head__price">${product!.price.toFixed(2)}</span>
                 {
                   <Tooltip title={existFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
                     {
                       existFavorite
                         ? <FavoriteIcon
-                            className="favorite-icon"
+                            className="product__details__head__favorite-icon"
                             sx={{ fontSize: 25 }}
                             onClick={() => dispatch(removeProductFromFavorites(product!))}
                           />
                         : <FavoriteBorderOutlinedIcon
-                            className="favorite-icon"
+                            className="product__details__head__favorite-icon"
                             sx={{ fontSize: 25 }}
                             onClick={() => dispatch(addProductToFavorites(product!))}
                           />
@@ -135,15 +143,15 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                   </Tooltip>
                 }
               </div>
-              <div className="product-details__options">
-                <div className="product-details__options-colors">
-                  <h4>Color: <span>{selectedColor}</span></h4>
-                  <ul>
+              <div className="product__details__options">
+                <div className="product__details__options__colors">
+                  <h4 className="product__details__options__colors__title">Color: <span>{selectedColor}</span></h4>
+                  <ul className="product__details__options__colors__list">
                     {
                       product!.colors.map(color => (
                         <li 
                           key={color} 
-                          className={selectedColor === color ? "selected" : ""} 
+                          className={`product__details__options__colors__list__color ${selectedColor === color && "product__details__options__colors__list__color--selected"}`} 
                           onClick={() => setSelectedColor(color)}
                         >
                           <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
@@ -152,16 +160,16 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     }
                   </ul>
                 </div>
-                <div className="product-details__options-sizes">
+                <div className="product__details__options__sizes">
                   {product?.sizes.length !== 0 && (
                     <>
-                      <h4>Talle: <span>{selectedSize}</span></h4>
-                      <ul>
+                      <h4 className="product__details__options__sizes__title">Talle: <span>{selectedSize}</span></h4>
+                      <ul className="product__details__options__sizes__list">
                         {
                           product!.sizes.map(size => (
                             <li 
                               key={size} 
-                              className={selectedSize === size ? "selected" : ""} 
+                              className={`product__details__options__sizes__list__size ${selectedSize === size && "product__details__options__sizes__list__size--selected"}`} 
                               onClick={() => setSelectedSize(size)}
                             >
                               <span>{size}</span>
@@ -169,18 +177,18 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                           ))
                         }
                       </ul>
-                      <Link to={Routes.SIZES_GUIDE}>
-                        <StraightenOutlinedIcon sx={{ fontSize: '20px', position: 'relative', bottom: '1.5px' }} />
+                      <Link className="product__details__options__sizes__link" to={Routes.SIZES_GUIDE}>
+                        <StraightenOutlinedIcon sx={{ fontSize: 20, position: 'relative', bottom: '1.5px' }} />
                         <span>Guía de talles</span>
                       </Link>
                     </>
                   )}
                 </div>
-                <div className="product-details__options-brand">
-                  <h4>Marca: <span>{product!.brand}</span></h4>
+                <div className="product__details__options__brand">
+                  <h4 className="product__details__options__brand__title">Marca: <span>{product!.brand}</span></h4>
                 </div>
-                <div className="product-details__options-status">
-                  <h4>Estado: <span>{calculateTotalStock(product!) > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
+                <div className="product__details__options__status">
+                  <h4 className="product__details__options__status__title">Estado: <span>{calculateTotalStock(product!) > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
                 </div>
                 {
                   calculateTotalStock(product!) === 0
@@ -212,14 +220,15 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     </button>
                 }
               </div>
-            </section>
-          </article>
+            </article>
+          </section>
+
           {
-            relatedProducts && relatedProducts.length !== 0 &&
-            <ProductsCarousel
-              title="Productos relacionados"
-              items={relatedProducts}
-            />
+            relatedProducts && relatedProducts.length !== 0 && (
+              <ProductsCarousel items={relatedProducts}>
+                Productos relacionados
+              </ProductsCarousel>
+            )
           }
         </main>
         <Footer />
