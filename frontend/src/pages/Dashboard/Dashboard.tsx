@@ -64,7 +64,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
       </Helmet>
       <Navbar />
       <main className="main--admin">
-        <Sidebar page="dashboard" />
+        <Sidebar />
 
         <section className="dashboard__statistics">
           <h2 className="dashboard__statistics__title">Dashboard</h2>

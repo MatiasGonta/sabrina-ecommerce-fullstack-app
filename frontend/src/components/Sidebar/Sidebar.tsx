@@ -3,14 +3,15 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Routes } from '@/models';
 
-interface SidebarInterface {
-  page: 'dashboard' | 'productsboard' | 'ordersboard'| 'usersboard'
-}
+interface SidebarInterface {}
 
-const Sidebar: React.FC<SidebarInterface> = ({ page }) => {
+const Sidebar: React.FC<SidebarInterface> = () => {
+  let { pathname } = useLocation();
+  let currentPath = pathname.split("/")[2];
+
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -41,25 +42,25 @@ const Sidebar: React.FC<SidebarInterface> = ({ page }) => {
       <nav className="sidebar__navigate">
         <ul className="sidebar__navigate__list">
           <li className="sidebar__navigate__list__item">
-            <Link to={Routes.DASHBOARD} className={`sidebar__navigate__list__item__link ${page === 'dashboard' && "sidebar__navigate__list__item__link--active"}`}>
+            <Link to={Routes.DASHBOARD} className={`sidebar__navigate__list__item__link ${currentPath !== 'products'&& currentPath !== 'orders' && currentPath !== 'users' && "sidebar__navigate__list__item__link--active"}`}>
               <DashboardIcon sx={{ fontSize: 25 }} />
               <span>Dashboard</span>
             </Link>
           </li>
           <li className="sidebar__navigate__list__item">
-            <Link to={Routes.DASHBOARD_PRODUCTS} className={`sidebar__navigate__list__item__link ${page === 'productsboard' && "sidebar__navigate__list__item__link--active"}`}>
+            <Link to={Routes.DASHBOARD_PRODUCTS} className={`sidebar__navigate__list__item__link ${currentPath === 'products' && "sidebar__navigate__list__item__link--active"}`}>
               <InventoryIcon sx={{ fontSize: 25 }} />
               <span>Productos</span>
             </Link>
           </li>
           <li className="sidebar__navigate__list__item">
-            <Link to={Routes.DASHBOARD_ORDERS} className={`sidebar__navigate__list__item__link ${page === 'ordersboard' && "sidebar__navigate__list__item__link--active"}`}>
+            <Link to={Routes.DASHBOARD_ORDERS} className={`sidebar__navigate__list__item__link ${currentPath === 'orders' && "sidebar__navigate__list__item__link--active"}`}>
               <ShoppingCartIcon sx={{ fontSize: 25 }} />
               <span>Pedidos</span>
             </Link>
           </li>
           <li className="sidebar__navigate__list__item">
-            <Link to={Routes.DASHBOARD_USERS} className={`sidebar__navigate__list__item__link ${page === 'usersboard' && "sidebar__navigate__list__item__link--active"}`}>
+            <Link to={Routes.DASHBOARD_USERS} className={`sidebar__navigate__list__item__link ${currentPath === 'users' && "sidebar__navigate__list__item__link--active"}`}>
               <GroupIcon sx={{ fontSize: 25 }} />
               <span>Usuarios</span>
             </Link>

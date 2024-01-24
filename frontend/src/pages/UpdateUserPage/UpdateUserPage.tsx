@@ -83,7 +83,7 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
         </Helmet>
         <Navbar />
         <main className="main--admin">
-            <Sidebar page="usersboard" />
+            <Sidebar />
             <section className="update-user">
                 <article className="update-user__card">
                     <UserCard references={userRefs} data={user} />

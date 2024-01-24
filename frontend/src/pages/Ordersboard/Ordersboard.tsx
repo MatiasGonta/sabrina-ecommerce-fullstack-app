@@ -15,7 +15,7 @@ const Ordersboard: React.FC<OrdersboardInterface> = () => {
       <Navbar />
 
       <main className="main--admin">
-        <Sidebar page="ordersboard" />
+        <Sidebar />
 
         <section className="ordersboard__control-panel">
           <h2 className="ordersboard__control-panel__title">Pedidos</h2>

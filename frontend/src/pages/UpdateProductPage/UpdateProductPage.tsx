@@ -228,7 +228,7 @@ const CreateProductPage: React.FC<UpdateProductPageInterface> = () => {
             </Helmet>
             <Navbar />
             <main className="main--admin">
-              <Sidebar page="productsboard" />
+              <Sidebar />
               <article className="update-product-form">
                 <section>
                   <div className="form-container">

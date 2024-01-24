@@ -51,7 +51,7 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
       <Navbar />
 
       <main className="main--admin">
-        <Sidebar page="usersboard" />
+        <Sidebar />
         <section className="usersboard__users">
           <div className="usersboard__users__header">
             <h2 className="usersboard__users__header__title">Usuarios</h2>

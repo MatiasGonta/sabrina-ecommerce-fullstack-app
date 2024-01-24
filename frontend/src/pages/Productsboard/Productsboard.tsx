@@ -17,7 +17,7 @@ const Productsboard: React.FC<ProductsboardInterface> = () => {
       </Helmet>
       <Navbar />
       <main className="productsboard main--admin">
-        <Sidebar page="productsboard" />
+        <Sidebar />
         <section className="productsboard__statistics">
           <div className="productsboard__header">
             <h2 className="productsboard__header__title">Productos</h2>

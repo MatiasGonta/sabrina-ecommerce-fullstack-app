@@ -211,7 +211,7 @@ const CreateProductPage = () => {
           </Helmet>
           <Navbar />
           <main className="main--admin">
-            <Sidebar page="productsboard" />
+            <Sidebar />
             <section className="create-product-form">
               <article>
                 <div className="form-container">
