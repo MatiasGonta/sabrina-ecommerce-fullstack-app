@@ -1,7 +1,9 @@
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import { Card, Footer, LoadingSpinner, Navbar, Sidebar } from "@/components";
+import { Navbar, Sidebar } from "@/components";
+import { LoadingSpinner, Footer } from '@/components/ui';
+import { Card } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { BarChart, CreateUserModal, UserTable } from "./components";
 import { useGetUsersStatistics } from '@/hooks';

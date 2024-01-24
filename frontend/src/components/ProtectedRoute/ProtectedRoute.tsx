@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { useGetProfileDetails } from "@/hooks";
 import { Navigate, Outlet } from "react-router-dom";
-import { LoadingSpinner } from '@/components';
+import { LoadingSpinner } from '@/components/ui';
 import { LoadingSpinnerType, Routes } from '@/models';
 
 export default function ProtectedRoute() {

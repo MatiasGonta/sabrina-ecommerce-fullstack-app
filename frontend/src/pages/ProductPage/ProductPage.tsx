@@ -2,7 +2,8 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import StraightenOutlinedIcon from '@mui/icons-material/StraightenOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Tooltip from '@mui/material/Tooltip';
-import { Footer, LoadingSpinner, Navbar, ProductsCarousel } from '@/components';
+import { Navbar, ProductsCarousel } from '@/components';
+import { LoadingSpinner, Footer } from '@/components/ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { addItemToCart } from '@/redux/states/cart.state';

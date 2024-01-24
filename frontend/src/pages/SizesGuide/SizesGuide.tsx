@@ -1,4 +1,5 @@
-import { Footer, Navbar } from "@/components";
+import { Navbar } from "@/components";
+import { Footer } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import '@/styles/pages/SizesGuide/SizesGuide.scss';

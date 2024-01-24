@@ -1,6 +1,7 @@
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
-import { Footer, LoadingSpinner, Navbar, Sidebar } from "@/components";
+import { Navbar, Sidebar } from "@/components";
+import { LoadingSpinner, Footer } from '@/components/ui';
 import { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { UserCard } from './components';

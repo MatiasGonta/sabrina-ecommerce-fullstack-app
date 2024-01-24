@@ -1,7 +1,8 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { Footer, Navbar, Sidebar, OrderTable, LoadingSpinner, Card } from "@/components";
+import { Navbar, Sidebar, OrderTable } from "@/components";
+import { Card, LoadingSpinner, Footer } from '@/components/ui';
 import { FilterItem, Order, TypeWithKey, Routes, LoadingSpinnerType } from '@/models';
 import { Link } from 'react-router-dom';
 import { SalesCategoriesDoughnutChart, SalesLineChart } from './components';

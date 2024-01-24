@@ -1,7 +1,8 @@
 import StraightenOutlinedIcon from '@mui/icons-material/StraightenOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
-import { Navbar, Sidebar, Footer, LoadingSpinner } from '@/components';
+import { Navbar, Sidebar } from '@/components';
+import { LoadingSpinner, Footer } from '@/components/ui';
 import { useCreateProductMutation, useGetFilterCountsQuery } from '@/hooks';
 import { ApiError, FilterItem, TypeWithKey, LoadingSpinnerType, COLORS } from '@/models';
 import { getError, handleFormInputChange } from '@/utilities';

@@ -4,7 +4,8 @@ import { saveShippingAddress } from '@/redux/states/cart.state';
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
-import { CheckoutSteps, Footer, Navbar } from "@/components";
+import { Navbar } from "@/components";
+import { CheckoutSteps, Footer } from '@/components/ui';
 import { handleFormInputChange, setLocalStorage } from "@/utilities";
 import { Routes, ShippingAddress } from '@/models';
 import '@/styles/pages/ShippingAddressPage/ShippingAddressPage.scss';

@@ -1,4 +1,5 @@
-import { Footer, Navbar, OrderTable } from "@/components";
+import { Navbar, OrderTable } from "@/components";
+import { Footer } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Routes } from "@/models";

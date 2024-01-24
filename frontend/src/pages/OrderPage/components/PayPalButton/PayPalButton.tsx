@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "@/components";
+import { LoadingSpinner } from '@/components/ui';
 import { useGetPaypalClientIdQuery, useUpdateOrderMutation, useUpdateProductStock } from "@/hooks";
 import { ApiError, LoadingSpinnerType, Order } from "@/models";
 import { getError } from "@/utilities";

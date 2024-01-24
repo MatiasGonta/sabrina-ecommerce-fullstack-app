@@ -1,7 +1,8 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { Footer, LoadingSpinner, Navbar, ProductItem, PurchaseInfoBanner } from "@/components";
+import { Navbar, ProductItem } from "@/components";
+import { LoadingSpinner, Footer, PurchaseInfoBanner } from '@/components/ui';
 import { ProductSearchBar } from "./components";
 import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from "@/hooks";
 import { ApiError, FiltersInterface, FilterItem, Product, COLORS, Routes, LoadingSpinnerType } from "@/models";

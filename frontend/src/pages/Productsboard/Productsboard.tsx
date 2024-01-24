@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Navbar, Sidebar, Footer } from "@/components"
+import { Navbar, Sidebar } from "@/components"
+import { Footer } from '@/components/ui';
 import { ProductTable } from "./components";
 import { Helmet } from "react-helmet-async";
 import { Link } from 'react-router-dom';

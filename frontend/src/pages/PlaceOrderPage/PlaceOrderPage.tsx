@@ -1,4 +1,5 @@
-import { CheckoutSteps, Footer, LoadingSpinner, Navbar, OrderItem } from "@/components";
+import { Navbar } from "@/components";
+import { LoadingSpinner, CheckoutSteps, Footer, OrderItem } from '@/components/ui';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { useCreateOrderMutation, useGetCartItemsStockByIdQuery } from "@/hooks";

@@ -1,4 +1,5 @@
-import { Footer, LoadingSpinner, Navbar, OrderItem } from "@/components";
+import { Navbar } from "@/components";
+import { LoadingSpinner, Footer, OrderItem } from '@/components/ui';
 import {
     useDeleteOrderMutation,
     useGetCartItemsStockByIdQuery,

@@ -2,7 +2,8 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import { Footer, LoadingSpinner, Navbar, ProductItem, PurchaseInfoBanner } from "@/components";
+import { Navbar, ProductItem } from "@/components";
+import { LoadingSpinner, Footer, PurchaseInfoBanner } from '@/components/ui';
 import { ApiError, Product, FilterItem, LoadingSpinnerType, Routes } from '@/models';
 import { useGetFilterCountsQuery, useGetProductsCatalogQuery } from '@/hooks';
 import { getError } from '@/utilities';

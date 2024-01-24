@@ -1,4 +1,5 @@
-import { Navbar, Sidebar, Footer, OrderTable } from "@/components";
+import { Navbar, Sidebar, OrderTable } from "@/components";
+import { Footer } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import '@/styles/pages/Ordersboard/Ordersboard.scss';
 

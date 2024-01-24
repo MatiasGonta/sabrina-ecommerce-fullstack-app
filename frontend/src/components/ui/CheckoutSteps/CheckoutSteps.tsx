@@ -1,4 +1,3 @@
-
 interface CheckoutStepsInterface {
     step1?:boolean,
     step2?:boolean,

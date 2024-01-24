@@ -1,6 +1,7 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Footer, LoadingSpinner, Navbar, ProductItem } from '@/components';
+import { Navbar, ProductItem } from '@/components';
+import { LoadingSpinner, Footer } from '@/components/ui';
 import { ApiError, LoadingSpinnerType, Product, Routes } from '@/models';
 import { getError } from '@/utilities';
 import { Helmet } from 'react-helmet-async';

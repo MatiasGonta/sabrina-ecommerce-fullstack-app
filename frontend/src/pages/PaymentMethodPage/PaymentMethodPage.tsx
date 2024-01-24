@@ -1,4 +1,5 @@
-import { CheckoutSteps, Footer, Navbar } from "@/components";
+import { Navbar } from "@/components";
+import { CheckoutSteps, Footer } from '@/components/ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { savePaymentMethod } from "@/redux/states/cart.state";
