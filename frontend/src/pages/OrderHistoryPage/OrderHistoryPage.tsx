@@ -1,5 +1,5 @@
 import { Navbar, OrderTable } from "@/components";
-import { Footer } from '@/components/ui';
+import { Footer, SubNavbar } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Routes } from "@/models";
@@ -12,9 +12,13 @@ const OrderHistoryPage = () => {
             <title>Mis Compras - SABRINA</title>
         </Helmet>
         <Navbar />
-        <div className='sub-navbar'>
-            <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Compras</h2>
-        </div>
+
+        <SubNavbar>
+            <span>
+                <Link to={Routes.HOME}>Inicio</Link> / Compras
+            </span>
+        </SubNavbar>
+
         <main>
             <section>
                 <article className="order-history-table">

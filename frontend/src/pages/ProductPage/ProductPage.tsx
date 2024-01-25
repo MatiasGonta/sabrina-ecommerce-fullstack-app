@@ -3,7 +3,7 @@ import StraightenOutlinedIcon from '@mui/icons-material/StraightenOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Tooltip from '@mui/material/Tooltip';
 import { Navbar, ProductsCarousel } from '@/components';
-import { LoadingSpinner, Footer } from '@/components/ui';
+import { LoadingSpinner, Footer, SubNavbar } from '@/components/ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { addItemToCart } from '@/redux/states/cart.state';
@@ -95,9 +95,11 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
 
         <Navbar />
 
-        <div className='sub-navbar'>
-          <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / <Link to={Routes.PRODUCTS}>Productos</Link> / {product!.name}</h2>
-        </div>
+        <SubNavbar>
+          <span>
+            <Link to={Routes.HOME}>Inicio</Link> / <Link to={Routes.PRODUCTS}>Productos</Link> / {product!.name}
+          </span>
+        </SubNavbar>
 
         <main className="main--product-page">
           <section className="product">

@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { Navbar } from "@/components";
-import { Footer } from '@/components/ui';
+import { Footer, SubNavbar } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import '@/styles/pages/FavoritesPage/FavoritesPage.scss';
 import { Routes } from '@/models';
+import '@/styles/pages/FavoritesPage/FavoritesPage.scss';
 
 interface FavoritesPageInterface {}
 
@@ -23,9 +23,11 @@ const FavoritesPage: React.FC<FavoritesPageInterface> = () => {
         
         <Navbar />
 
-        <div className='sub-navbar'>
-          <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Favoritos</h2>
-        </div>
+        <SubNavbar>
+          <span>
+            <Link to={Routes.HOME}>Inicio</Link> / Favoritos
+          </span>
+        </SubNavbar>
         
         <main className="main--favorites">
           <section>

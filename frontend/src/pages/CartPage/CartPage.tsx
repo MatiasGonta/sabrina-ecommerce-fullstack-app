@@ -1,6 +1,6 @@
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import { Navbar, ProductsCarousel } from "@/components";
-import { Footer } from '@/components/ui';
+import { Footer, SubNavbar } from '@/components/ui';
 import { CartItem, Product, Routes } from "@/models";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
@@ -30,9 +30,11 @@ const CartPage: React.FC<CartPageInterface> = () => {
             </Helmet>
             <Navbar />
 
-            <div className='sub-navbar'>
-                <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Carrito de Compras</h2>
-            </div>
+            <SubNavbar>
+                <span>
+                    <Link to={Routes.HOME}>Inicio</Link> / Carrito de Compras
+                </span>
+            </SubNavbar>
 
             <main>
                 <section className="cart-info">

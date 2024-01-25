@@ -28,7 +28,6 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
     }
 
     return (
-        // <aside className={`filters-wrapper ${open && "sb-open"}`}>
         isLoading
             ? <LoadingSpinner type={LoadingSpinnerType.FLEX} /> : error
                 ? <h4>{getError(error as ApiError)}</h4> : (

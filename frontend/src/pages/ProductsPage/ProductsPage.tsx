@@ -1,5 +1,5 @@
 import { Navbar } from "@/components";
-import { Footer, PurchaseInfoBanner } from '@/components/ui';
+import { Footer, PurchaseInfoBanner, SubNavbar } from '@/components/ui';
 import { Catalog, Filtersboard, ProductSearchBar } from "./components";
 import { FiltersInterface, Routes } from "@/models";
 import { Helmet } from 'react-helmet-async';
@@ -30,10 +30,12 @@ const ProductsPage: React.FC<ProductsPageInterface> = () => {
         <title>Productos - SABRINA</title>
       </Helmet>
 
-      <div className='sub-navbar'>
-        <h2 className="sub-navbar__route-path"><Link to={Routes.HOME}>Inicio</Link> / Productos</h2>
+      <SubNavbar>
+        <span>
+          <Link to={Routes.HOME}>Inicio</Link> / Productos
+        </span>
         <ProductSearchBar />
-      </div>
+      </SubNavbar>
 
       <main className="main--products-page">
         <Filtersboard />
