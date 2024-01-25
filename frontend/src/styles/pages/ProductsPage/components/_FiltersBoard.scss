@@ -1,21 +1,39 @@
 @use '../../../utilities/_variables' as V;
 
+.filters-switch {
+    width: 85%;
+    max-width: 1300px;
+    align-self: center;
+
+    &__btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 77px;
+        height: 40px;
+        padding-left: 7.5px;
+        font-weight: bold;
+        border: 1px solid V.$color-primary;
+        cursor: pointer;
+    }
+}
+
 .filters-wrapper {
-    width: 100%;
-    min-height: 1300px;
+    width: 100vw;
+    height: 100vh;
     margin-top: 0;
     background-color: V.$color-secondary;
-    display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     transform: translate(100%);
-    z-index: 10;
+    transition: transform .3s ease-in-out;
+    overflow-y: auto;
+    z-index: 1000;
 
-    &.sb-open {
-        min-height: 1725px;
-        display: block;
-        animation: sb-slide 0.5s ease forwards;
+    &.filters-wrapper--open {
+        transform: translate(0);
+        padding-bottom: 30px;
     }
 
     &__head,
@@ -38,10 +56,6 @@
             span {
                 transition: color .15s ease-in-out;
                 cursor: pointer;
-
-                &:hover {
-                    color: V.$color-tertiary;
-                }
             }
         }
     }
@@ -52,6 +66,10 @@
     &__price,
     &__brand {
         padding: 20px 0;
+
+        & li span:hover {
+            color: V.$color-tertiary;
+        }
     }
 }
 
@@ -99,7 +117,7 @@
             align-items: center;
             background-color: #fff;
             font-size: 12.5px;
-            padding: 10px;
+            padding: 7.5px 10px;
             border-radius: 40px;
             cursor: pointer;
 
@@ -108,14 +126,16 @@
             }
 
             .color-selected {
-                width: 20px;
-                height: 20px;
+                width: 15px;
+                height: 15px;
                 border: 1px solid V.$color-primary-semi-light;
                 padding: 1px;
+                margin: 0;
 
                 div {
                     width: 100%;
                     height: 100%;
+                    margin: 0;
                 }
             }
 
@@ -123,9 +143,12 @@
             span {
                 border-left: 1px solid V.$color-primary;
                 margin-left: 5px;
+                font-size: 12.5px;
+                max-width: 25ch;
             }
 
             span {
+                word-wrap: break-word;
                 padding-left: 5px;
             }
         }
@@ -164,19 +187,13 @@
     }
 }
 
-.filters-wrapper__brand {
-    &__list {
-        transition: all 5s ease-in-out;
-    }
-
-    &__btn {
-        margin-top: 10px;
-        color: V.$color-tertiary;
-        text-decoration: underline;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
+.filters-wrapper__brand__btn {
+    margin-top: 10px;
+    color: V.$color-tertiary;
+    text-decoration: underline;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .filters-wrapper__price__form {
@@ -219,16 +236,16 @@
 }
 
 @media screen and (min-width: 940px) {
+    .filters-switch {
+        display: none;
+    }
+
     .filters-wrapper {
-        display: block;
+        width: 100%;
+        height: auto;
         margin-top: 15px;
         position: static;
         transform: translate(0);
-
-        &.sb-open {
-            min-height: auto;
-            animation: none;
-        }
     }
 
     .filters-wrapper__head {
@@ -271,20 +288,5 @@
         &__input-max {
             width: 35%;
         }
-    }
-}
-
-@keyframes sb-slide {
-    0% {
-      transform: translateX(500%);
-    }
-    40% {
-      transform: translateX(0%);
-    }
-    80% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(0%);
     }
 }

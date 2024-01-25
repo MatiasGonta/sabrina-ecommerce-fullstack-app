@@ -16,7 +16,6 @@ const clearCloudinaryStore = async () => {
   for (const image of resources) {
     if (image.public_id !== preservePublicId) {
       await cloudinary.uploader.destroy(image.public_id);
-      console.log(`Imagen eliminada: ${image.public_id}`);
     }
   }
 }

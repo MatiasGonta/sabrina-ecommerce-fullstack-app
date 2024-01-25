@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from "@/services";
-import { CartItem, FiltersInterface, Product, TypeWithKey } from '@/models';
+import { CartItem, FiltersInterface, Product, SearchProduct, TypeWithKey } from '@/models';
 
 export const useGetProductsCatalogQuery = (filters?: FiltersInterface) => {
   const fetchProducts = async ({ pageParam = 1 }) => {
@@ -18,14 +18,19 @@ export const useGetProductsCatalogQuery = (filters?: FiltersInterface) => {
     }
   });
 
-  const products: Product[] = result.data?.pages.flatMap((page) => page.docs).filter((product, index, self) => {
+  const productDocs = result.data?.pages.flatMap((page) => page.docs) || [];
+  
+  // Filter duplicate products by _id
+  const uniqueProducts = productDocs.filter((product, index, self) => {
     return index === self.findIndex((p) => p._id === product._id);
-  }) || [];
+  });
+
+  const products: Product[] = uniqueProducts || [];
   
   return {
     ...result,
     hasNextPage: result.hasNextPage ? result.hasNextPage : false,
-    products: products,
+    products,
     totalProducts: result.data?.pages[0].totalDocs
   };
 };
@@ -97,14 +102,24 @@ export const useSearchProductsQuery = (searchTerm: string) => {
     }
   });
 
-  const products: Product[] = result.data?.pages.flatMap((page) => page.docs).filter((product, index, self) => {
+  const searchDocs = result.data?.pages.flatMap((page) => page.docs) || [];
+
+  // Filter duplicate products by _id
+  const uniqueProducts = searchDocs.filter((product, index, self) => {
     return index === self.findIndex((p) => p._id === product._id);
-  }) || [];
+  });
+
+  // Format search products
+  const searchProducts: SearchProduct[] = uniqueProducts.map(({ name, images, slug }) => ({
+    name,
+    image: images[0],
+    slug
+  }));
 
   return {
     ...result,
     hasNextPage: result.hasNextPage ? result.hasNextPage : false,
-    searchProducts: products,
+    searchProducts,
     totalSearchProducts: result.data?.pages[0].totalDocs
   };
 };

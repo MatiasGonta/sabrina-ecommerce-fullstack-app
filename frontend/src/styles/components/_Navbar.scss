@@ -186,7 +186,7 @@ header {
   background-color: V.$color-primary;
   border: 1px solid V.$acc-menu-border-color;
   text-align: center;
-  z-index: 1000;
+  z-index: 999;
 
   &::before {
     content: '';

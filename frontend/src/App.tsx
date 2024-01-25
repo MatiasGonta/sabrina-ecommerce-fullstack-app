@@ -13,7 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Home = lazy(() => import('./pages/Home/Home'));
 const ProductsPage = lazy(() => import('./pages/ProductsPage/ProductsPage'));
-const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'));
 const Error = lazy(() => import('./pages/Error/Error'));
 const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
 const SizesGuide = lazy(() => import('./pages/SizesGuide/SizesGuide'));
@@ -46,10 +45,6 @@ const router = createBrowserRouter([
   {
     path: Routes.PRODUCTS,
     element: <ProductsPage />
-  },
-  {
-    path: Routes.SEARCH,
-    element: <SearchPage />
   },
   {
     path: `${Routes.PRODUCTS}/:slug`,

@@ -1,7 +1,6 @@
 export enum Routes {
     HOME = '/',
     PRODUCTS = '/products',
-    SEARCH = '/search',
     SIZES_GUIDE = '/sizes-guide',
     FAVORITES = '/favorites',
     CART = '/cart',

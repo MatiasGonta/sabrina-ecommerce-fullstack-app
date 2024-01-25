@@ -50,19 +50,16 @@ export const getProductsCatalog = asyncHandler(async (req, res) => {
             }
         }
 
-        if (q) {
-            filter.search = {
-                $or: [
-                    { name: regex },
-                    { brand: regex },
-                    { category: regex },
-                    { colors: regex },
-                    { sizes: regex }
-                ]
-            }
-        }
-
-        const products = await ProductModel.paginate(filter, options);
+        const products = await ProductModel.paginate({
+            ...filter,
+            $or: [
+                { name: regex },
+                { brand: regex },
+                { category: regex },
+                { colors: regex },
+                { sizes: regex }
+            ]
+        }, options);
 
         // Sort the sizes according to the sizesOrder
         const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
@@ -155,7 +152,7 @@ export const searchProducts = asyncHandler(async (req: Request, res: Response) =
 
     const options = {
         page: parseInt(page as string),
-        limit: 21
+        limit: 21,
     };
 
     // Search products with the expReg formed with the user's search
@@ -297,7 +294,6 @@ export const createProduct = asyncHandler(async (req: Request, res: Response) =>
                             if (error) {
                                 reject('Error al subir la imagen a Cloudinary');
                             } else {
-                                console.log(result!)
                                 resolve(result!.secure_url);
                             }
                         }
@@ -351,7 +347,6 @@ export const updateProduct = asyncHandler(async (req: Request, res: Response) =>
                                 if (error) {
                                     reject('Error al subir la imagen a Cloudinary');
                                 } else {
-                                    console.log(result!)
                                     resolve(result!.secure_url);
                                 }
                             }

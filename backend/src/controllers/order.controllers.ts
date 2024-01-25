@@ -72,7 +72,6 @@ export const deleteOrder = asyncHandler(
 );
 
 export const createOrder = asyncHandler(async (req: Request, res: Response) => {
-  console.log(req)
   if (!req.user || !req.user._id) {
     res.status(401).json({ message: 'Lo siento, parece que tu sesión ha expirado. Por favor, inicia sesión nuevamente para continuar.' });
     return;

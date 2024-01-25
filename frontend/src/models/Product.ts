@@ -14,3 +14,9 @@ export type Product = {
     createdAt: string;
     updatedAt: string;
 }
+
+export type SearchProduct = {
+    name: Product['name'];
+    slug: Product['slug'];
+    image: Product['images'][0];
+}

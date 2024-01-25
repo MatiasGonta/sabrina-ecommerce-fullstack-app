@@ -64,10 +64,8 @@ const PayPalButton: React.FC<PayPalButtonInterface> = ({ order, checkoutStock })
             }
         },
         onApprove(data, actions) {
-            console.log('data: ', data);
             return actions.order!.capture().then(async (details) => {
                 try {
-                    console.log('details', details);
                     const data = await updateOrder({
                         orderId: order._id,
                         delivered: false,

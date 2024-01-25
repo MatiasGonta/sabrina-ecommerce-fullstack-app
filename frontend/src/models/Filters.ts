@@ -5,4 +5,5 @@ export interface FiltersInterface {
     color: string[] | null;
     priceMin: string | null;
     priceMax: string | null;
+    q: string | null;
 }

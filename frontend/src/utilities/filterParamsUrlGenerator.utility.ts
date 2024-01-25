@@ -22,6 +22,10 @@ export function filterParamsUrlGenerator(filters: FiltersInterface) {
     if (filters.priceMax) {
       queryParams.append('priceMax', filters.priceMax);
     }
+
+    if (filters.q) {
+      queryParams.append('q', filters.q);
+    }
   
     return queryParams.toString();
 }
