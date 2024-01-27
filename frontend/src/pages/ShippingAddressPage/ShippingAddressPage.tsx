@@ -54,7 +54,7 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
                     <Form
                         formTitle="Dirección de envío"
                         buttonText="Continuar"
-                        buttonProps={{ disabled: isCompletedFormData }}
+                        buttonProps={{ disabled: !isCompletedFormData }}
                         onSubmit={submitHandler}
                     >
                         <FormField

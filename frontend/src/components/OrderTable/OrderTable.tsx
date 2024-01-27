@@ -1,31 +1,21 @@
-import ReplayIcon from '@mui/icons-material/Replay';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteOrderMutation, useGetAllOrdersHistoryQuery } from "@/hooks";
-import { ApiError, LoadingSpinnerType, Routes, monthNames } from "@/models";
-import { getError } from "@/utilities";
+import { ApiError, LoadingSpinnerType, Routes } from "@/models";
+import { dateFormat, getError } from "@/utilities";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteCell } from "..";
-import { LoadingSpinner } from '@/components/ui';
+import { LoadingSpinner, Table, TablePagination, TableRefreshButton, TableSearchBar, TableWrapper, Td } from '@/components/ui';
 import { useState } from "react";
-import { Tooltip } from '@mui/material';
 import { Order } from '@/models';
 import { UpdateOrderCell } from './UpdateOrderCell';
 
-type PageRange = {
-  min: number;
-  max: number;
-}
-
 interface OrderTableInterface {
   itemsPerPage: number;
-  type: 'short' | 'default' | 'admin';
+  template: 'short' | 'default' | 'admin';
   user?: boolean;
 }
 
-const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user }) => {
+const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, template, user }) => {
   const navigate = useNavigate();
 
   const initialPage: number = 1;
@@ -49,7 +39,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user })
     user
   );
 
-  const pageRange: PageRange = {
+  const pageRange = {
     min: currentPage === 1 ? 1 : itemsPerPage * (currentPage - 1),
     max: allOrders?.hasNextPage ? itemsPerPage * currentPage : allOrders?.totalDocs
   }
@@ -73,168 +63,145 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, type, user })
   }
 
   return (
-    <div className="table-container">
-      {type !== 'short' && (
-        <form className="table-search" onSubmit={(e) => handleOnSubmit(e)}>
-          <input type="text" placeholder="BUSCAR" onChange={(e) => setSearchInput(e.target.value)} />
-          <button type="submit">
-            <Tooltip title='Buscar'>
-              <SearchOutlinedIcon sx={{ fontSize: 20 }} />
-            </Tooltip>
-          </button>
-        </form>
-      )
-      }
-      {type !== 'short' && (
-        <Tooltip title='Refrescar'>
-          <button className="table-reload-btn">
-            <ReplayIcon
-              sx={{ fontSize: 30 }}
-              onClick={() => refetch()}
-            />
-          </button>
-        </Tooltip>
+    <TableWrapper>
+      {template !== 'short' && (
+        <TableSearchBar
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value)}
+          onSubmit={handleOnSubmit}
+        />
       )}
+
+      {template !== 'short' && <TableRefreshButton onClick={() => refetch()} />}
+
       {isLoading ? (
         <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
         <h4>{getError(error as ApiError)}</h4>
       ) : (
-        <div className="table">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                {type !== 'default' && <th>Email del Usuario</th>}
-                <th onClick={() => handleSort('createdAt')}>
-                  Fecha de creación
-                  {orderBy === 'createdAt' && (
-                    <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
-                  )}
-                </th>
-                <th onClick={() => handleSort('totalPrice')}>
-                  Total
-                  {orderBy === 'totalPrice' && (
-                    <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
-                  )}
-                </th>
-                <th>Metodo de Pago</th>
-                <th onClick={() => handleSort('paidAt')}>
-                  Pagado
-                  {orderBy === 'paidAt' && (
-                    <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
-                  )}
-                </th>
-                <th onClick={() => handleSort('deliveredAt')}>
-                  Entregado
-                  {orderBy === 'deliveredAt' && (
-                    <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
-                  )}
-                </th>
-                <th>Estado</th>
-                <th>Detalle</th>
-                {type !== 'default' && <th>Actualizar</th>}
-                <th>Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allOrders?.docs.length > 0 ? allOrders?.docs.map((order: Order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  {type !== 'default' && <td>{order.userEmail}</td>}
-                  <td>{`${order.createdAt.substring(8, 10)} ${monthNames[parseInt(order.createdAt.substring(5, 7)) - 1]} ${order.createdAt.substring(0, 4)}`}</td>
-                  <td className="price-cell">${order.totalPrice.toFixed(2)}</td>
-                  <td>{order.paymentMethod}</td>
-                  <td>
-                    {
-                      order.isPaid
-                        ? `${order.paidAt.substring(8, 10)} ${monthNames[parseInt(order.paidAt.substring(5, 7)) - 1]} ${order.paidAt.substring(0, 4)}`
-                        : 'No'
-                    }
-                  </td>
-                  <td>
-                    {
-                      order.isDelivered
-                        ? `${order.deliveredAt.substring(8, 10)} ${monthNames[parseInt(order.deliveredAt.substring(5, 7)) - 1]} ${order.deliveredAt.substring(0, 4)}`
-                        : 'No'
-                    }
-                  </td>
-                  <td>
-                    {order.isDelivered && order.isPaid ? (
-                      <span className="completed">Completado</span>
-                    ) : order.isCancelled ? (
-                      <span className="cancelled">Cancelado</span>
-                    ) : (
-                      <span className="pending">Pendiente</span>
-                    )}
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => navigate(`${Routes.ORDER}/${order._id}`)}
-                      className="details-btn"
-                    >Detalle</button>
-                  </td>
+        <Table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              {template !== 'default' && <th>Email del Usuario</th>}
+              <th onClick={() => handleSort('createdAt')}>
+                Fecha de creación
+                {orderBy === 'createdAt' && (
+                  <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
+                )}
+              </th>
+              <th onClick={() => handleSort('totalPrice')}>
+                Total
+                {orderBy === 'totalPrice' && (
+                  <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
+                )}
+              </th>
+              <th>Metodo de Pago</th>
+              <th onClick={() => handleSort('paidAt')}>
+                Pagado
+                {orderBy === 'paidAt' && (
+                  <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
+                )}
+              </th>
+              <th onClick={() => handleSort('deliveredAt')}>
+                Entregado
+                {orderBy === 'deliveredAt' && (
+                  <span>{orderDirection === 'asc' ? ' ↑' : ' ↓'}</span>
+                )}
+              </th>
+              <th>Estado</th>
+              <th>Detalle</th>
+              {template !== 'default' && <th>Actualizar</th>}
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allOrders?.docs.length > 0 ? allOrders?.docs.map((order: Order) => (
+              <tr key={order._id}>
+                <Td>{order._id}</Td>
+                {template !== 'default' &&
+                  <Td>
+                    {order.userEmail}
+                  </Td>
+                }
+                <Td>{dateFormat(order.createdAt)}</Td>
+                <Td textAlign='right'>${order.totalPrice.toFixed(2)}</Td>
+                <Td>{order.paymentMethod}</Td>
+                <Td>
                   {
-                    type !== 'default' &&
-                    <td>
-                      <UpdateOrderCell
-                        orderId={order._id}
-                        orderItems={order.orderItems}
-                        isDelivered={order.isDelivered}
-                        isPaid={order.isPaid}
-                        payMethod={order.paymentMethod}
-                      />
-                    </td>
+                    order.isPaid
+                      ? dateFormat(order.paidAt)
+                      : 'No'
                   }
-                  <td>
-                    {order.isPaid && type === 'default'
-                      ? (
-                        <button
-                          className="delete-btn disabled"
-                          type="button"
-                          disabled
-                        >
-                          <DeleteForeverOutlinedIcon sx={{ fontSize: 25 }} />
-                        </button>
-                      ) : (
-                        <DeleteCell id={order._id} deleteFunc={deleteOrder} loadingMsg="Eliminando orden..." />
-                      )
-                    }
-                  </td>
-                </tr>
-              )) : (
-                user
-                  ? <span className="table-empty-message">No hay pedidos para mostrar. <Link to={Routes.PRODUCTS}>¿Por qué no empiezas haciendo tu primer pedido?</Link></span>
-                  : <span className="table-empty-message">No hay pedidos disponibles en este momento...</span>
-              )
-              }
-            </tbody>
-          </table>
-        </div>
+                </Td>
+                <Td>
+                  {
+                    order.isDelivered
+                      ? dateFormat(order.deliveredAt)
+                      : 'No'
+                  }
+                </Td>
+                {order.isDelivered && order.isPaid ? (
+                  <Td status="complete">Completado</Td>
+                ) : order.isCancelled ? (
+                  <Td status="cancelled">Cancelado</Td>
+                ) : (
+                  <Td status="pending">Pendiente</Td>
+                )}
+                <Td>
+                  <button
+                    type="button"
+                    onClick={() => navigate(`${Routes.ORDER}/${order._id}`)}
+                    className="table-details-btn"
+                  >Detalle</button>
+                </Td>
+                {
+                  template !== 'default' &&
+                  <Td>
+                    <UpdateOrderCell
+                      orderId={order._id}
+                      orderItems={order.orderItems}
+                      isDelivered={order.isDelivered}
+                      isPaid={order.isPaid}
+                      payMethod={order.paymentMethod}
+                    />
+                  </Td>
+                }
+                <Td>
+                  {order.isPaid && template === 'default'
+                    ? (
+                      <button
+                        className="table-delete-btn table-disabled-btn"
+                        type="button"
+                        disabled
+                      >
+                        <DeleteForeverOutlinedIcon sx={{ fontSize: 65 }} />
+                      </button>
+                    ) : (
+                      <DeleteCell id={order._id} deleteFunc={deleteOrder} loadingMsg="Eliminando orden..." />
+                    )
+                  }
+                </Td>
+              </tr>
+            )) : (
+              user
+                ? <span className="table-empty-message">No hay pedidos para mostrar. <Link to={Routes.PRODUCTS}>¿Por qué no empiezas haciendo tu primer pedido?</Link></span>
+                : <span className="table-empty-message">No hay pedidos disponibles en este momento...</span>
+            )
+            }
+          </tbody>
+        </Table>
       )}
-      {type !== 'short' && (
-        <div className="table-pagination">
-          <span className="table-pagination__range">{pageRange.min}-{pageRange.max} de {allOrders?.totalDocs}</span>
-          <button
-            className={`table-pagination__back-btn ${currentPage === 1 && 'disabled'}`}
-            onClick={() => handlePaginate(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeftIcon sx={{ fontSize: 25 }} />
-          </button>
-          <span className="table-pagination__current-page">{currentPage}</span>
-          <button
-            className={`table-pagination__next-btn ${currentPage === allOrders?.totalPages && 'disabled'}`}
-            onClick={() => handlePaginate(currentPage + 1)}
-            disabled={currentPage === allOrders?.totalPages}
-          >
-            <ChevronRightIcon sx={{ fontSize: 25 }} />
-          </button>
-        </div>
-      )
+
+      {template !== 'short' &&
+        <TablePagination
+          currentPage={currentPage}
+          totalPages={allOrders?.totalPages}
+          totalItems={allOrders?.totalDocs}
+          pageRange={pageRange}
+          paginationHandler={handlePaginate}
+        />
       }
-    </div>
+    </TableWrapper>
   );
 }
 

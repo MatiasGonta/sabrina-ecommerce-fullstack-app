@@ -22,7 +22,7 @@ const OrderHistoryPage = () => {
         <main>
             <section>
                 <article className="order-history-table">
-                    <OrderTable itemsPerPage={10} type="default" user={true} />
+                    <OrderTable itemsPerPage={10} template="default" user={true} />
                 </article>
             </section>
         </main>

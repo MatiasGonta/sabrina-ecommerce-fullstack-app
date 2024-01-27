@@ -156,9 +156,9 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
                       stroke="#fff"
                       fill="#fff"
                     >

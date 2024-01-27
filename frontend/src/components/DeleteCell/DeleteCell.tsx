@@ -39,9 +39,9 @@ const DeleteCell: React.FC<DeleteCellInterface> = ({ id, deleteFunc, loadingMsg 
   };
 
   return (
-    <div>
+    <>
       <Tooltip title='Eliminar'>
-        <button className="delete-btn">
+        <button className="table-delete-btn">
           <DeleteForeverOutlinedIcon
             sx={{ fontSize: 25, cursor: 'pointer' }}
             type="button"
@@ -63,15 +63,15 @@ const DeleteCell: React.FC<DeleteCellInterface> = ({ id, deleteFunc, loadingMsg 
         <Fade in={open}>
           <div className="delete-modal">
             <ErrorOutlineOutlinedIcon className="delete-modal__icon" sx={{ fontSize: 75 }} />
-            <span>¿Estas seguro?</span>
-            <div>
-              <button onClick={handleDeleteOrder}>Eliminar</button>
-              <button onClick={handleClose}>Cancelar</button>
+            <span className="delete-modal__msg">¿Estas seguro?</span>
+            <div className="delete-modal__buttons">
+              <button className="delete-modal__buttons-delete" onClick={handleDeleteOrder}>Eliminar</button>
+              <button className="delete-modal__buttons-cancel" onClick={handleClose}>Cancelar</button>
             </div>
           </div>
         </Fade>
       </Modal>
-    </div>
+    </>
   )
 }
 

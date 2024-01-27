@@ -1,22 +1,13 @@
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import ReplayIcon from '@mui/icons-material/Replay';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteProductMutation, useGetProductsQuery } from "@/hooks";
-import { ApiError, COLORS, LoadingSpinnerType, Product, Routes, monthNames } from "@/models";
-import { getError } from "@/utilities";
+import { ApiError, COLORS, LoadingSpinnerType, Product, Routes } from "@/models";
+import { dateFormat, getError } from "@/utilities";
 import { DeleteCell } from "@/components";
-import { LoadingSpinner } from '@/components/ui';
+import { LoadingSpinner, TablePagination, TableRefreshButton, TableSearchBar, TableWrapper, Td } from '@/components/ui';
 import { useState } from "react";
 import { Tooltip } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { ProductStock } from './ProductStock';
-
-type PageRange = {
-  min: number;
-  max: number;
-}
 
 interface ProductTableInterface { }
 
@@ -44,7 +35,7 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
     orderDirection
   );
 
-  const pageRange: PageRange = {
+  const pageRange = {
     min: currentPage === 1 ? 1 : itemsPerPage * (currentPage - 1),
     max: allProducts?.hasNextPage ? itemsPerPage * currentPage : allProducts?.totalDocs
   }
@@ -66,23 +57,13 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
   }
 
   return (
-    <div className="table-container">
-      <form className="table-search" onSubmit={(e) => handleOnSubmit(e)}>
-        <input type="text" placeholder="BUSCAR" onChange={(e) => setSearchInput(e.target.value)} />
-        <button type="submit">
-          <Tooltip title='Buscar'>
-            <SearchOutlinedIcon sx={{ fontSize: 20 }} />
-          </Tooltip>
-        </button>
-      </form>
-      <Tooltip title='Refrescar'>
-        <button className="table-reload-btn">
-          <ReplayIcon
-            sx={{ fontSize: 30 }}
-            onClick={() => refetch()}
-          />
-        </button>
-      </Tooltip>
+    <TableWrapper>
+      <TableSearchBar
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value)}
+        onSubmit={handleOnSubmit}
+      />
+      <TableRefreshButton onClick={() => refetch()} />
+
       {isLoading ? (
         <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
@@ -126,79 +107,80 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
             <tbody>
               {allProducts?.docs.length > 0 ? allProducts?.docs.map((product: Product) => (
                 <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td className="name-cell">
+                  <Td>{product._id}</Td>
+                  <Td textWeight='bold'>
                     <Link to={`${Routes.PRODUCTS}/${product.slug}`}>{product.name}</Link>
-                  </td>
-                  <td className="img-cell__main">
-                    <img src={product.images[0]} alt={product.slug} />
-                  </td>
-                  <td className="img-cell__secondary">
-                    <ul>
-                      {
-                        product.images.slice(1).length > 0
-                          ? product.images.slice(1).map(img => (
-                            <li key={img}>
-                              <img src={img} alt={product.slug} />
+                  </Td>
+                  <Td>
+                    <img className="product-image" src={product.images[0]} alt={product.slug + 'main-image'} />
+                  </Td>
+                  {
+                    product.images && product.images.slice(1).length > 0 ? (
+                      <Td>
+                        <ul className="product-image-list">
+                          {product.images.slice(1).map((src, index) => (
+                            <li key={index}>
+                              <img src={src} alt={product.slug} />
                             </li>
-                          ))
-                          : <span className="bar">-</span>
-                      }
-                    </ul>
-                  </td>
-                  <td>{product.category}</td>
-                  <td>
-                    {
-                      product.brand !== ''
-                        ? <span>{product.brand}</span>
-                        : <span className="bar">-</span>
-                    }
-                  </td>
-                  <td className="price-cell">${product.price.toFixed(2)}</td>
-                  <td className="colors-cell">
-                    <ul>
-                      {
-                        product.colors.map(color => (
-                          <li key={color}>
-                            <Tooltip title={color} >
-                              <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
-                            </Tooltip>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </td>
-                  <td className="sizes-cell">
-                    <ul>
-                      {
-                        product.sizes.length > 0
-                          ? product.sizes.map(size => (
-                            <li key={size}>
-                              <span>{size}</span>
+                          ))}
+                        </ul>
+                      </Td>
+                    ) : (<Td />)
+                  }
+                  <Td>{product.category}</Td>
+                  {
+                    product.brand !== ''
+                      ? <Td>{product.brand}</Td>
+                      : <Td />
+                  }
+                  <Td textAlign='right'>${product.price.toFixed(2)}</Td>
+                  {
+                    product.colors ? (
+                      <Td>
+                        <ul className="product-colors">
+                          {product.colors.map(color => (
+                            <li key={color}>
+                              <Tooltip title={color} >
+                                <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
+                              </Tooltip>
                             </li>
-                          ))
-                          : <span className="bar">-</span>
-                      }
-                    </ul>
-                  </td>
-                  <td className="stock-cell">
+                          ))}
+                        </ul>
+                      </Td>
+                    ) : (<Td />)
+                  }
+                  {
+                    product.sizes && product.sizes.length > 0
+                      ? (
+                        <Td>
+                          <ul className="product-sizes">
+                            {product.sizes.map(size => (
+                              <li key={size}>
+                                <span>{size}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </Td>
+                      ) : (<Td />)
+                  }
+                  <Td>
                     <ProductStock product={product} />
-                  </td>
-                  <td className="date-cell">{`${product.createdAt.substring(8, 10)} ${monthNames[parseInt(product.createdAt.substring(5, 7)) - 1]} ${product.createdAt.substring(0, 4)}`}</td>
-                  <td className="date-cell">{`${product.updatedAt.substring(8, 10)} ${monthNames[parseInt(product.updatedAt.substring(5, 7)) - 1]} ${product.updatedAt.substring(0, 4)}`}</td>
-                  <td>
+                  </Td>
+                  <Td>{dateFormat(product.createdAt)}</Td>
+                  <Td>{dateFormat(product.updatedAt)}</Td>
+                  <Td>
                     <Tooltip title='Actualizar'>
-                      <button className="edit-btn">
+                      <button className="table-edit-btn">
                         <EditOutlinedIcon
                           sx={{ fontSize: 25, cursor: 'pointer' }}
                           onClick={() => navigate(`${Routes.DASHBOARD_PRODUCTS_UPDATE}/${product.slug}`)}
                         />
                       </button>
                     </Tooltip>
-                  </td>
-                  <td>
+                  </Td>
+                  <Td>
                     <DeleteCell id={product._id!} deleteFunc={deleteProduct} loadingMsg='Eliminando producto...' />
-                  </td>
+                  </Td>
                 </tr>
               )) : <span className="table-empty-message">No hay productos en este momento...</span>
               }
@@ -206,25 +188,15 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
           </table>
         </div>
       )}
-      <div className="table-pagination">
-        <span className="table-pagination__range">{pageRange.min}-{pageRange.max} de {allProducts?.totalDocs}</span>
-        <button
-          className={`table-pagination__back-btn ${currentPage === 1 && 'disabled'}`}
-          onClick={() => handlePaginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          <ChevronLeftIcon sx={{ fontSize: 25 }} />
-        </button>
-        <span className="table-pagination__current-page">{currentPage}</span>
-        <button
-          className={`table-pagination__next-btn ${currentPage === allProducts?.totalPages && 'disabled'}`}
-          onClick={() => handlePaginate(currentPage + 1)}
-          disabled={currentPage === allProducts?.totalPages}
-        >
-          <ChevronRightIcon sx={{ fontSize: 25 }} />
-        </button>
-      </div>
-    </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={allProducts?.totalPages}
+        totalItems={allProducts?.totalDocs}
+        pageRange={pageRange}
+        paginationHandler={handlePaginate}
+      />
+    </TableWrapper>
   );
 }
 

@@ -1,5 +1,5 @@
 import { Navbar } from "@/components";
-import { Footer, SubNavbar } from '@/components/ui';
+import { Footer, SubNavbar, Td } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Routes } from "@/models";
@@ -134,7 +134,7 @@ const SizesGuide: React.FC<SizesGuideInterface> = () => {
                                                     <tr key={index} className="guide__body__table__body__table-row">
                                                         {
                                                             tr.map((td, index) => (
-                                                                <td key={index} className="guide__body__table__body__table-row__td">{td}</td>
+                                                                <Td key={index} className="guide__body__table__body__table-row__td">{td}</Td>
                                                             ))
                                                         }
                                                     </tr>

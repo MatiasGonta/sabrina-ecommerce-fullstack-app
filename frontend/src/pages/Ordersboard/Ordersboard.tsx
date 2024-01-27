@@ -20,7 +20,7 @@ const Ordersboard: React.FC<OrdersboardInterface> = () => {
         <section className="ordersboard__control-panel">
           <h2 className="ordersboard__control-panel__title">Pedidos</h2>
           <article className="ordersboard__control-panel__orders">
-            <OrderTable itemsPerPage={10} type="admin" />
+            <OrderTable itemsPerPage={10} template="admin" />
           </article>
         </section>
       </main>

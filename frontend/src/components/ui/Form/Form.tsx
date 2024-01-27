@@ -82,7 +82,7 @@ export const FieldRecommendations: React.FC<FieldRecommendationsInterface> = ({ 
 
 interface CheckboxFormFieldInterface {
     title?: string;
-    children: React.ReactElement<HTMLLIElement> | React.ReactElement<HTMLLIElement>[];
+    children: React.ReactElement<CheckboxInterface> | React.ReactElement<CheckboxInterface>[];
 }
 
 export const CheckboxFormField: React.FC<CheckboxFormFieldInterface> = ({ title, children }) => {

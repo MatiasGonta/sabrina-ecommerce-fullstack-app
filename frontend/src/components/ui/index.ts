@@ -7,3 +7,4 @@ export * from './OrderItem';
 export * from './ProductsListWrapper';
 export * from './PurchaseInfoBanner';
 export * from './SubNavbar';
+export * from './Table';

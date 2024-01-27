@@ -41,11 +41,11 @@ const UpdateCell: React.FC<UpdateCellInterface> = ({ orderId, orderItems, isDeli
 
             const { delivered, paid, paymentMethod } = formData;
 
-            // if (paid && paid !== isPaid) {
-            //     await updateStock({ orderItems: orderItems, action: 'discount' });
-            // } else if (!paid && paid !== isPaid) {
-            //     await updateStock({ orderItems: orderItems, action: 'restore' });
-            // }
+            if (paid && paid !== isPaid) {
+                await updateStock({ orderItems: orderItems, action: 'discount' });
+            } else if (!paid && paid !== isPaid) {
+                await updateStock({ orderItems: orderItems, action: 'restore' });
+            }
 
             await toast.promise(updateOrder({ orderId, delivered, paid, paymentMethod }), {
                 pending: {
@@ -69,7 +69,7 @@ const UpdateCell: React.FC<UpdateCellInterface> = ({ orderId, orderItems, isDeli
     return (
         <div>
             <Tooltip title='Actualizar'>
-                <button className="edit-btn">
+                <button className="table-edit-btn">
                     <EditOutlinedIcon
                         sx={{ fontSize: 25, cursor: 'pointer' }}
                         type="button"
@@ -91,16 +91,16 @@ const UpdateCell: React.FC<UpdateCellInterface> = ({ orderId, orderItems, isDeli
                 <Fade in={open}>
                     <div className="update-modal">
                         <EditOutlinedIcon className="update-modal__icon" sx={{ fontSize: 90 }} />
-                        <span>Actualizar orden</span>
-                        <form onSubmit={handleUpdateOrderSubmit} >
+                        <span className="update-modal__msg">Actualizar orden</span>
+                        <form className="update-modal__form" onSubmit={handleUpdateOrderSubmit} >
                             <Tooltip title="Cerrar">
                                 <CloseIcon
                                     sx={{ fontSize: 25 }}
-                                    className="update-modal__close"
+                                    className="update-modal__form__close"
                                     onClick={handleClose}
                                 />
                             </Tooltip>
-                            <div className="update-modal__option">
+                            <div className="update-modal__form__option">
                                 <input
                                     type="checkbox"
                                     name="delivered"
@@ -114,7 +114,7 @@ const UpdateCell: React.FC<UpdateCellInterface> = ({ orderId, orderItems, isDeli
                                     <polyline className="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
                                 </svg>
                             </div>
-                            <div className="update-modal__option">
+                            <div className="update-modal__form__option">
                                 <input
                                     type="checkbox"
                                     name="paid"
@@ -128,7 +128,7 @@ const UpdateCell: React.FC<UpdateCellInterface> = ({ orderId, orderItems, isDeli
                                     <polyline className="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
                                 </svg>
                             </div>
-                            <div className="update-modal__option">
+                            <div className="update-modal__form__option">
                                 <select
                                     id="paymentMethod"
                                     name="paymentMethod"

@@ -27,13 +27,20 @@ const ProductStock: React.FC<ProductStockInterface> = ({ product }) => {
         return 0;
     });
 
+    console.log(stock.length * 35 > 165);
+
     return (
-        <div onMouseEnter={handleOpen} onMouseLeave={handleClose}>
-            <span>{totalStock}</span>
+        <div className="product-stock" onMouseEnter={handleOpen} onMouseLeave={handleClose}>
+            <span className="product-stock__total">{totalStock}</span>
             {
                 isOpen && totalStock > 0 &&
-                <div className={isOpen ? "stock-md open" : 'stock-md'} onMouseEnter={handleOpen} onMouseLeave={handleClose}>
-                    <ul>
+                <div 
+                    className={`product-stock__modal ${isOpen ? "product-stock__modal--open" : ''}`}
+                    onMouseEnter={handleOpen}
+                    onMouseLeave={handleClose}
+                    style={{ height: `${stock.length * 35}px` }}
+                >
+                    <ul className="product-stock__modal__list">
                         {
                             stock.map(([variant, amount], index) => (
                                 <li key={index}>

@@ -1,0 +1,32 @@
+@use '../utilities/_variables' as V;
+@use '../utilities/_mixins' as M;
+
+.table-reload-btn {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 2.5px;
+    right: 0;
+    cursor: pointer;
+}
+
+.table-details-btn {
+    @include M.ButtonTemplate(75px, V.$btn-green-bg, V.$btn-green-bg-hover);
+}
+
+.table-edit-btn,
+.table-delete-btn {
+    border: none;
+    background-color: transparent;
+
+    & svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    &.table-disabled-btn {
+        color: V.$color-primary-light;
+    }
+}

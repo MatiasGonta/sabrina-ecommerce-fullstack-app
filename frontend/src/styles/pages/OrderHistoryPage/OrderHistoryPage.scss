@@ -1,11 +1,22 @@
-@use '../../utilities/_variables' as V;
 @use '../../utilities/_mixins' as M;
 
-//SubNavbar
+// SubNavbar
 @use '../../components/_SubNavbar';
 
-//Table
+// Table
 @use '../../components/_Table';
+
+// TableSearchBar
+@use '../../components/_TableSearchBar';
+
+// TablePagination
+@use '../../components/_TablePagination';
+
+// TableTd
+@use '../../components/_TableTd';
+
+// TableButtons
+@use '../../components/_TableButtons';
 
 .order-history-table {
     @include M.WrapperTemplate();

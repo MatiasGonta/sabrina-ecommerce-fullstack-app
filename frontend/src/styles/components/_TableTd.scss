@@ -1,0 +1,52 @@
+@use '../utilities/_variables' as V;
+
+// Status colors
+$complete-color: #74c67e;
+$complete-bg-color: #dcf8e2;
+
+$pending-color: #e6c088;
+$pending-bg-color: #fff0e3;
+
+$cancelled-color: #db9794;
+$cancelled-bg-color: #f2d5d6;
+
+.table-td {
+    padding: 10px 5px;
+    border-bottom: 1px solid V.$color-primary-light;
+    max-width: 27ch;
+    max-height: 74px;
+    word-wrap: break-word;
+    font-size: 15px;
+
+    * {
+        font-size: 15px;
+    }
+
+    span.table-td--complete,
+    span.table-td--pending,
+    span.table-td--cancelled {
+        border: none;
+        border-radius: 20px;
+        padding: 5px 7.5px;
+    }
+
+    span.table-td--complete {
+        color: $complete-color;
+        background-color: $complete-bg-color;
+    }
+
+    span.table-td--pending {
+        color: $pending-color;
+        background-color: $pending-bg-color;
+    }
+
+    span.table-td--cancelled {
+        color: $cancelled-color;
+        background-color: $cancelled-bg-color;
+    }
+
+    &__empty-bar {
+        font-size: 20px;
+        margin: 0 auto;
+    }
+}

@@ -1,13 +1,9 @@
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import ReplayIcon from '@mui/icons-material/Replay';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDeleteUserMutation, useGetAllUsers } from "@/hooks";
-import { ApiError, LoadingSpinnerType, Routes, monthNames } from "@/models";
-import { getError } from "@/utilities";
+import { ApiError, LoadingSpinnerType, Routes } from "@/models";
+import { dateFormat, getError } from "@/utilities";
 import { DeleteCell } from "@/components";
-import { LoadingSpinner } from '@/components/ui';
+import { LoadingSpinner, TableRefreshButton, TableSearchBar, TableWrapper, TablePagination, Td } from '@/components/ui';
 import { useState } from "react";
 import { Tooltip } from '@mui/material';
 import { User } from '@/models';
@@ -67,23 +63,12 @@ const UserTable: React.FC<UserTableInterface> = ({ itemsPerPage }) => {
   }
 
   return (
-    <div className="table-container">
-      <form className="table-search" onSubmit={(e) => handleOnSubmit(e)}>
-        <input type="text" placeholder="BUSCAR" onChange={(e) => setSearchInput(e.target.value)} />
-        <button type="submit">
-          <Tooltip title='Buscar'>
-            <SearchOutlinedIcon sx={{ fontSize: 20 }} />
-          </Tooltip>
-        </button>
-      </form>
-      <Tooltip title='Refrescar'>
-        <button className="table-reload-btn">
-          <ReplayIcon
-            sx={{ fontSize: 30 }}
-            onClick={() => refetch()}
-          />
-        </button>
-      </Tooltip>
+    <TableWrapper>
+      <TableSearchBar
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value)}
+        onSubmit={handleOnSubmit}
+      />
+      <TableRefreshButton onClick={() => refetch()} />
       {isLoading ? (
         <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
@@ -127,38 +112,34 @@ const UserTable: React.FC<UserTableInterface> = ({ itemsPerPage }) => {
             <tbody>
               {allUsers?.docs.length > 0 ? allUsers?.docs.map((user: User) => (
                 <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td className="name-cell">{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    {
-                      user.isAdmin
-                        ? <span className="completed">Si</span>
-                        : <span className="cancelled">No</span>
-                    }
-                  </td>
-                  <td>
-                    {
-                      user.verify
-                        ? <span className="completed">Verificado</span>
-                        : <span className="cancelled">No verificado</span>
-                    }
-                  </td>
-                  <td className="date-cell">{`${user.createdAt.substring(8, 10)} ${monthNames[parseInt(user.createdAt.substring(5, 7)) - 1]} ${user.createdAt.substring(0, 4)}`}</td>
-                  <td className="date-cell">{`${user.updatedAt.substring(8, 10)} ${monthNames[parseInt(user.updatedAt.substring(5, 7)) - 1]} ${user.updatedAt.substring(0, 4)}`}</td>
-                  <td>
+                  <Td>{user._id}</Td>
+                  <Td>{user.name}</Td>
+                  <Td>{user.email}</Td>
+                  {
+                    user.isAdmin
+                      ? <Td status="complete">Si</Td>
+                      : <Td status="cancelled">No</Td>
+                  }
+                  {
+                    user.verify
+                      ? <Td status="complete">Verificado</Td>
+                      : <Td status="cancelled">No verificado</Td>
+                  }
+                  <Td>{dateFormat(user.createdAt)}</Td>
+                  <Td>{dateFormat(user.updatedAt)}</Td>
+                  <Td>
                     <Tooltip title='Actualizar'>
-                      <button className="edit-btn">
+                      <button className="table-edit-btn">
                         <EditOutlinedIcon
                           sx={{ fontSize: 25, cursor: 'pointer' }}
                           onClick={() => navigate(`${Routes.DASHBOARD_USERS_UPDATE}/${user._id}`)}
                         />
                       </button>
                     </Tooltip>
-                  </td>
-                  <td>
+                  </Td>
+                  <Td>
                     <DeleteCell id={user._id} deleteFunc={deleteUser} loadingMsg='Eliminando usuario...' />
-                  </td>
+                  </Td>
                 </tr>
               )) : <span className="table-empty-message">No hay usuarios en este momento...</span>
               }
@@ -166,25 +147,15 @@ const UserTable: React.FC<UserTableInterface> = ({ itemsPerPage }) => {
           </table>
         </div>
       )}
-      <div className="table-pagination">
-        <span className="table-pagination__range">{pageRange.min}-{pageRange.max} de {allUsers?.totalDocs}</span>
-        <button
-          className={`table-pagination__back-btn ${currentPage === 1 && 'disabled'}`}
-          onClick={() => handlePaginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          <ChevronLeftIcon sx={{ fontSize: 25 }} />
-        </button>
-        <span className="table-pagination__current-page">{currentPage}</span>
-        <button
-          className={`table-pagination__next-btn ${currentPage === allUsers?.totalPages && 'disabled'}`}
-          onClick={() => handlePaginate(currentPage + 1)}
-          disabled={currentPage === allUsers?.totalPages}
-        >
-          <ChevronRightIcon sx={{ fontSize: 25 }} />
-        </button>
-      </div>
-    </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={allUsers?.totalPages}
+        totalItems={allUsers?.totalDocs}
+        pageRange={pageRange}
+        paginationHandler={handlePaginate}
+      />
+    </TableWrapper>
   );
 }
 

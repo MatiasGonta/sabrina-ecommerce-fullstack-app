@@ -1,0 +1,46 @@
+@use '../utilities/_variables' as V;
+
+.table-search-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 24%;
+  min-width: 244px;
+  height: 35px;
+  margin-bottom: 25px;
+
+  &__input {
+    width: calc(100% - 37px);
+    height: 100%;
+    color: V.$color-primary;
+    position: absolute;
+    background-color: transparent;
+    padding-left: 15px;
+    border: none;
+    border-bottom: 1px solid V.$color-primary;
+    font-size: 15px;
+    
+    &::placeholder {
+      color: V.$color-primary;
+    }
+  
+    &:focus {
+      box-shadow: -3px -2px 94px -23px V.$color-primary;
+    }
+  }
+
+  &__submit-btn {
+    min-width: 15%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    right: 0;
+    border: none;
+    color: V.$color-secondary;
+    border-bottom: 1px solid V.$color-primary;
+    cursor: pointer;
+  }
+}

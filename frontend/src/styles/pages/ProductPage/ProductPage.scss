@@ -90,7 +90,7 @@
 .product__details {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 25px;
     width: 100%;
     height: 550px;
 
@@ -121,12 +121,18 @@
     }
 
     &__options {
+        position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        gap: 15px;
         width: 100%;
         height: 100%;
-        margin-top: 25px;
+
+        &__button {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
 
         &__colors__title,
         &__sizes__title {

@@ -1,13 +1,25 @@
 @use '../../utilities/_variables' as V;
 @use '../../utilities/_mixins' as M;
 
-//Sidebar
+// Sidebar
 @use '../../components/_Sidebar';
 
-//Table
+// Table
 @use '../../components/_Table';
 
-//Card
+// TableSearchBar
+@use '../../components/_TableSearchBar';
+
+// TablePagination
+@use '../../components/_TablePagination';
+
+// TableTd
+@use '../../components/_TableTd';
+
+// TableButtons
+@use '../../components/_TableButtons';
+
+// Card
 @use '../../components/_Card';
 
 .dashboard__statistics__details__sales__title,
