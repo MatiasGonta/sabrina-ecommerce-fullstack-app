@@ -1,17 +1,23 @@
 @use '../../utilities/_variables' as V;
 @use '../../utilities/_mixins' as M;
 
-//Sidebar
+// Sidebar
 @use '../../components/_Sidebar';
 
-//Table
+// Table
 @use '../../components/_Table';
 
-//Card
+// Card
 @use '../../components/_Card';
 
-//Form
+// Form
 @use '../../components/_Form';
+
+// Form Field
+@use '../../components/FormField';
+
+// Checkbox Form Field
+@use '../../components/_CheckboxFormField';
 
 .create-user-close-modal {
     position: fixed;

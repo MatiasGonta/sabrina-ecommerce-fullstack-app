@@ -1,16 +1,20 @@
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { userSignin } from '@/redux/states/userInfo.state';
 import { useSigninMutation } from "@/hooks";
-import { ApiError, Routes, TypeWithKey } from "@/models";
-import { getError, handleFormInputChange, setLocalStorage } from "@/utilities";
+import { ApiError, Routes } from "@/models";
+import { getError, setLocalStorage } from "@/utilities";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { Form, FormField } from '@/components/ui';
 import '@/styles/pages/AuthenticatedPages/AuthenticatedPages.scss';
+
+type LoginData = {
+    email: string,
+    password: string
+}
 
 interface LoginPageInterface {}
 
@@ -24,9 +28,14 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
     const redirect = redirectInUrl ? redirectInUrl : Routes.HOME;
 
     //Form inputs values
-    const [formData, setFormData] = useState<TypeWithKey<string>>({ email: '', password: '' });
+    const [formData, setFormData] = useState<LoginData>({ email: '', password: '' });
 
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const handleLoginFormData = (key: keyof LoginData, value: string) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [key]: value
+        }));
+    }
 
     const { mutateAsync: signin, isLoading } = useSigninMutation();
 
@@ -65,58 +74,40 @@ const LoginPage: React.FC<LoginPageInterface> = () => {
                     <Helmet>
                         <title>Iniciar Sesión - SABRINA</title>
                     </Helmet>
-                    <div className="form-container">
-                        <h3>Iniciar Sesión</h3>
-                        <form onSubmit={submitHandler}>
-                            <div className="group">      
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    className={formData.email !== '' ? 'active' : ''}
-                                    required
-                                    onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                                />
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label htmlFor="email">Correo electrónico</label>
+                        <Form
+                            formTitle="Iniciar Sesión"
+                            buttonText="Iniciar sesión"
+                            buttonProps={{ disabled: isLoading }}
+                            onSubmit={submitHandler}
+                        >
+                            <FormField
+                                label="Correo electrónico"
+                                type="email"
+                                name="email"
+                                defaultValue={formData.email}
+                                customClass={formData.email !== '' ? 'form-field__input--active' : ''}
+                                required
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleLoginFormData('email', e.target.value)}
+                            />
+                            <FormField
+                                label="Contraseña"
+                                type="password"
+                                name="password"
+                                defaultValue={formData.password}
+                                required
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleLoginFormData('password', e.target.value)}
+                            />
+                        </Form>
+
+                        <nav className="authenticated-wrapper__navigation">
+                            <div>
+                                <Link to={Routes.RESTORE_PASSWORD}>¿Olvidaste tu contraseña?</Link>
                             </div>
-                            <div className="group">      
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    value={formData.password}
-                                    required
-                                    onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                                />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)}>
-                                    {
-                                        showPassword
-                                        ? <VisibilityIcon sx={{ fontSize: 25 }} />
-                                        : <VisibilityOffIcon sx={{ fontSize: 25 }} />
-                                    }
-                                </button>
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label htmlFor="password">Contraseña</label>
+                            <div>
+                                <span>¿No tenés cuenta?</span>{' '}
+                                <Link to={Routes.SIGNUP}>Crear cuenta</Link>
                             </div>
-                            <div className="form-submit">
-                                <button
-                                    type="submit"
-                                    disabled={isLoading}
-                                >
-                                    Iniciar sesión
-                                </button>
-                                <div>
-                                    <Link to={Routes.RESTORE_PASSWORD}>¿Olvidaste tu contraseña?</Link>
-                                </div>
-                                <div>
-                                    <span>¿No tenés cuenta?</span>{' '}
-                                    <Link to={Routes.SIGNUP}>Crear cuenta</Link>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </nav>
                 </article>
             </section>
         </main>

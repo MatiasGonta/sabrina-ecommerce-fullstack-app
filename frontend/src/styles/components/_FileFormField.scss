@@ -1,0 +1,108 @@
+@use '../utilities/_variables' as V;
+
+// File styles
+.file-field {
+    grid-column: 1/-1;
+    position: relative;
+    margin-bottom: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 50px;
+    min-height: 135px;
+    height: auto;
+    border: 2px dashed V.$color-primary-semi-light;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: background-color .2s ease-in-out;
+  
+    &:hover {
+      background-color: V.$color-primary-light;
+    }
+  
+    &__input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      opacity: 0;
+      cursor: pointer;
+  
+      /* active state */
+      & ~ .file__label,
+      &:focus ~ .file__label {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        font-size: 18px;
+        color: V.$color-primary-semi-light;
+  
+        @media screen and (min-width: 730px) {
+          top: -30px;
+        }
+      }
+    }
+  
+    &__selected-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__label {
+      position: absolute;
+      top: -50px;
+      left: 0;
+    }
+  }
+  
+  .selected-image {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: 0 10px 10px 10px;
+  
+    &__img,
+    img {
+      width: 100%;
+      height: 100%;
+  
+      &.selected-image__img--selected {
+        border: 3px solid V.$color-tertiary;
+        box-shadow: 0px 0px 2px V.$color-tertiary-light, 0px 2px 6px V.$color-tertiary-light, 0px 10px 20px V.$color-tertiary-light;
+      }
+    }
+  
+    &__close {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      background-color: V.$color-primary-semi-light;
+      border-radius: 50%;
+      position: absolute;
+      top: -12.5px;
+      right: -12.5px;
+      transition: background-color .3s ease-in-out;
+      cursor: pointer;
+  
+      * {
+        color: V.$color-secondary;
+      }
+  
+      &:hover {
+        background-color: rgba(185, 17, 17, 0.856);
+      }
+    }
+  }
+
+@media screen and (min-width: 711px) {
+  .file-field {
+    margin-top: 30px;
+
+    &__label {
+      top: -30px;
+    }
+  }
+}

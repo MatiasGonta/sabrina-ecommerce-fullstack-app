@@ -1,0 +1,170 @@
+@use '../utilities/_variables' as V;
+
+// Form Field styles
+.form-field {
+    position: relative; 
+    margin-bottom: 45px;
+  
+    &__input {
+      font-size: 16px;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid V.$color-primary-semi-light;
+  
+      &:focus {
+        outline: none;
+      }
+  
+      &:focus ~ .form-field__bar:before,
+      &:focus ~ .form-field__bar:after {
+        width:50%;
+      }
+  
+      /* active state */
+      &.form-field__input--active ~ .form-field__label,
+      &:focus ~ .form-field__label,
+      &:valid ~ .form-field__label {
+        top: -20px;
+        font-size: 14px;
+        color: V.$color-tertiary;
+      }
+  
+      &:focus ~ .form-field__highlight {
+        -webkit-animation: inputHighlighter 0.3s ease;
+        -moz-animation: inputHighlighter 0.3s ease;
+        animation: inputHighlighter 0.3s ease;
+      }
+    }
+  
+    &__label {
+      user-select: none;
+      color: V.$color-primary-semi-light; 
+      font-size: 18px;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: 5px;
+      top: 10px;
+      transition: 0.2s ease all; 
+      -moz-transition: 0.2s ease all; 
+      -webkit-transition: 0.2s ease all;
+    }
+  
+    &__bar {
+      position: relative;
+      display: block;
+      width: 100%;
+  
+      &:before,
+      &:after   {
+        content: '';
+        height: 2px; 
+        width: 0;
+        bottom: 1px; 
+        position: absolute;
+        background: V.$color-tertiary; 
+        transition: 0.2s ease all; 
+        -moz-transition: 0.2s ease all; 
+        -webkit-transition: 0.2s ease all;
+      }
+          
+      &:before {
+        left: 50%;
+      }
+          
+      &:after {
+        right: 50%; 
+      }
+    }
+  
+    &__highlight {
+      position: absolute;
+      height: 60%; 
+      width: 100px;
+      max-height: 0px;
+      top: 25%; 
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  
+    &__show-btn {
+      background-color: transparent;
+      border: none;
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+  
+  // Field recommendations styles
+  .field-recommendations {
+    position: relative;
+    display: flex;
+  
+    &__title {
+      display: inline;
+      margin-top: 2.5px;
+    }
+  
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+  
+      li {
+        display: inherit;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        background-color: V.$color-primary-light;
+        padding: 1px 5px;
+        margin: 2.5px;
+        cursor: pointer;
+
+        * {
+          font-size: 12px;
+        }
+  
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.17);
+        }
+      }
+    }
+  }
+
+  @-webkit-keyframes inputHighlighter {
+    from {
+      background: V.$color-tertiary;
+    }
+  
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
+  
+  @-moz-keyframes inputHighlighter {
+    from {
+      background: V.$color-tertiary;
+    }
+  
+    to  {
+      width: 0;
+      background: transparent;
+    }
+  }
+  
+  @keyframes inputHighlighter {
+    from {
+      background: V.$color-tertiary;
+    }
+  
+    to  {
+      width: 0;
+      background: transparent;
+    }
+  }

@@ -1,10 +1,16 @@
 @use '../../utilities/_variables' as V;
 
-//Sidebar
+// Sidebar
 @use '../../components/_Sidebar';
 
-//Form
+// Form
 @use '../../components/_Form';
+
+// Form Field
+@use '../../components/FormField';
+
+// Checkbox Form Field
+@use '../../components/CheckboxFormField';
 
 .update-user {
     grid-row: span 2;

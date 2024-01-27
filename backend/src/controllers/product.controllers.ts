@@ -276,6 +276,12 @@ export const createProduct = asyncHandler(async (req: Request, res: Response) =>
             return;
         }
 
+        // Check if the new product price is defined and is greater than 0
+        if (!price && price === 0) {
+            res.status(404).json({ message: 'No se ha proporcionado un precio valido' });
+            return;
+        }
+
         // Check if req.files is defined and is an array
         if (!req.files || req.files.length === 0 || !Array.isArray(req.files)) {
             res.status(404).json({ message: 'No se han proporcionado imágenes' });
@@ -331,6 +337,12 @@ export const productWithUpload = upload.array('images', 7);
 export const updateProduct = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { id, name, brand, price, category, countInStockByVariant, sizes, colors, oldImages, deletedImages, selectedImageIndex } = req.body;
+
+        // Check if the update product price is greater than 0
+        if (price === 0) {
+            res.status(404).json({ message: 'No se ha proporcionado un precio valido' });
+            return;
+        }
 
         let cloudinaryImages: string[] = [];
 

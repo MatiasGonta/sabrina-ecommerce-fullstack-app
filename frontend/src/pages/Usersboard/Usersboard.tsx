@@ -7,8 +7,8 @@ import { Card } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { BarChart, CreateUserModal, UserTable } from "./components";
 import { useGetUsersStatistics } from '@/hooks';
-import '@/styles/pages/Usersboard/Usersboard.scss';
 import { LoadingSpinnerType } from '@/models';
+import '@/styles/pages/Usersboard/Usersboard.scss';
 
 interface UsersboardInterface {}
 

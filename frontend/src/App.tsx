@@ -33,8 +33,7 @@ const Ordersboard = lazy(() => import('./pages/Ordersboard/Ordersboard'));
 const Productsboard = lazy(() => import('./pages/Productsboard/Productsboard'));
 const Usersboard = lazy(() => import('./pages/Usersboard/Usersboard'));
 const UpdateUserPage = lazy(() => import('./pages/UpdateUserPage/UpdateUserPage'));
-const UpdateProductPage = lazy(() => import('./pages/UpdateProductPage/UpdateProductPage'));
-const CreateProductPage = lazy(() => import('./pages/CreateProductPage/CreateProductPage'));
+const WorkspaceProductPage = lazy(() => import('./pages/WorkspaceProductPage/WorkspaceProductPage'));
 
 const router = createBrowserRouter([
   {
@@ -124,11 +123,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'products/create-product',
-            element: <CreateProductPage />
+            element: <WorkspaceProductPage />
           },
           {
             path: 'products/update-product/:slug',
-            element: <UpdateProductPage />
+            element: <WorkspaceProductPage />
           },
           {
             path: 'users',

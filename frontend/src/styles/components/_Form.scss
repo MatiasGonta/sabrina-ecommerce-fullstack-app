@@ -1,27 +1,31 @@
 @use '../utilities/_variables' as V;
 @use '../utilities/_mixins' as M;
 
-.form-container {
+// Form styles
+.form-wrapper {
   position: relative;
   grid-row: span 2;
   width: 80%;
   max-width: 700px;
   margin: 0 auto;
 
-  h3 {
+  &__title {
     font-size: 35px;
     margin: 30px 0;
   }
 
-  form {
+  &__subtitle {
+    margin-bottom: 30px;
+  }
 
-    &.multi-column-form {
+  &__form {
+    &.form-wrapper__form--multi-column {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       grid-gap: 10px;
       grid-auto-rows: minmax(100px, auto);
 
-      .form-submit {
+      .form-wrapper__form__submit-btn {
         grid-column: 1 / -1;
       }
     }
@@ -38,516 +42,592 @@
       text-decoration: underline;
       color: V.$color-tertiary
     }
-  }
-}
 
-.group {
-  position: relative; 
-  margin-bottom: 45px;
+    &__submit-btn {
+      margin-bottom: 20px;
 
-  input {
-    font-size: 16px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid V.$color-primary-semi-light;
-
-    &:focus {
-      outline: none;
-    }
-  }
-      
-  label {
-    user-select: none;
-    color: V.$color-primary-semi-light; 
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all; 
-    -moz-transition: 0.2s ease all; 
-    -webkit-transition: 0.2s ease all;
-  }
-                
-  /* active state */
-  input.active ~ label,
-  input:focus ~ label,
-  input:valid ~ label {
-    top: -20px;
-    font-size: 14px;
-    color: V.$color-tertiary;
-  }
-                
-  .bar {
-    position: relative;
-    display: block;
-    width: 100%;
-
-    &:before,
-    &:after   {
-      content: '';
-      height: 2px; 
-      width: 0;
-      bottom: 1px; 
-      position: absolute;
-      background: V.$color-tertiary; 
-      transition: 0.2s ease all; 
-      -moz-transition: 0.2s ease all; 
-      -webkit-transition: 0.2s ease all;
-    }
-        
-    &:before {
-      left: 50%;
-    }
-        
-    &:after {
-      right: 50%; 
-    }
-  }
-              
-  input:focus ~ .bar:before,
-  input:focus ~ .bar:after {
-    width:50%;
-  }
-                
-  .highlight {
-    position: absolute;
-    height: 60%; 
-    width: 100px; 
-    top: 25%; 
-    left: 0;
-    pointer-events: none;
-    opacity: 0.5;
-  }
-              
-  input:focus ~ .highlight {
-    -webkit-animation: inputHighlighter 0.3s ease;
-    -moz-animation: inputHighlighter 0.3s ease;
-    animation: inputHighlighter 0.3s ease;
-  }
-
-  .group__existing-recommendations {
-    position: relative;
-    display: flex;
-
-    h5 {
-      display: inline;
-      margin-top: 2.5px;
-    }
-
-    span, h5 {
-      font-size: 11px;
-    }
-
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-
-      li {
-        display: inherit;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        background-color: V.$color-primary-light;
-        padding: 1px 3px;
-        margin: 2.5px;
-        cursor: pointer;
-
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.17);
-        }
+      button {
+        @include M.ButtonTemplate(200px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
       }
-    }
-  }
-
-  button {
-    background-color: transparent;
-    border: none;
-    position: absolute;
-    top: 7px;
-    right: 10px;
-    cursor: pointer;
-  }
-
-  h4 {
-    font-size: 18px;
-    font-weight: lighter;
-    margin-bottom: 10px;
-  }
-
-  .switch input {
-    opacity: 0;
-    position: absolute;
-    width: 70px;
-    height: 28px;
-    cursor: pointer;
-
-    & + label {
-      top: 0;
-      outline: 0;
-      display: block;
-      width: 4em;
-      height: 2em;
-      position: relative;
-      user-select: none;
-      overflow: hidden;
-      transform: skew(-10deg);
-      transition: all 0.2s ease;
-      font-family: sans-serif;
-      background: V.$color-primary-semi-light;
-    }
-
-    & + label:after,
-    & + label:before {
-      transform: skew(10deg);
-      display: inline-block;
-      transition: all 0.2s ease;
-      width: 100%;
-      text-align: center;
-      position: absolute;
-      line-height: 2em;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 0 1px 0 V.$color-primary-semi-light;
-    }
-
-    & + label:after {
-      left: 100%;
-      content: 'Si';
-    }
-
-    & + label:before {
-      left: 0;
-      content: 'No';
-    }
-
-    &:checked + label {
-      background: V.$color-tertiary;
-    }
-
-    &:checked + label:before {
-      left: -100%;
-    }
-
-    &:checked + label:after {
-      left: 0;
-    }
-  }
-}
-
-.checkbox-container {
-  display: flex;
-  flex-wrap: wrap;
-
-  .checkbox {
-    width: 100px;
-    margin-right: 20px;
-    margin-bottom: 45px;
-
-    .checkbox-input {
-      height: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
     
-      &:focus + .checkbox-tile {
-        border: 2px solid V.$color-tertiary;
-        box-shadow: 0 5px 10px rgba(V.$color-primary, 0.1), 0 0 0 4px V.$color-tertiary-light;
-
-        &:before {
-          transform: scale(1);
-          opacity: 1;
-        }
+      div {
+        margin-top: 20px;
       }
-    }
-  
-    .checkbox-tile {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100px;
-      min-height: 100px;
-      border-radius: 10px;
-      border: 2px solid V.$color-primary-semi-light;
-      background-color: #fff;
-      box-shadow: 0 5px 10px rgba(V.$color-primary, 0.1);
-      transition: 0.15s ease;
-      cursor: pointer;
-
-      &.checked {
-        border-color: V.$color-tertiary;
-        box-shadow: 0 5px 10px rgba(V.$color-primary, 0.1);
-        color: V.$color-tertiary;
-
-        &:before {
-          transform: scale(1);
-          opacity: 1;
-          background-color: V.$color-tertiary;
-          border: 2px solid V.$color-tertiary;
-        }
-      
-        .checkbox-icon, .checkbox-label {
-          color: V.$color-tertiary;
-
-          * {
-            color: V.$color-tertiary;
-          }
-        }
-      }
-  
-      &:before {
-        content: "✓";
-        position: absolute;
-        display: block;
-        width: 20px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        color: #fff;
-        border: 2px solid V.$color-primary-semi-light;
-        background-color: #fff;
-        border-radius: 50%;
-        top: 4px;
-        left: 4px;
-        opacity: 0;
-        transform: scale(0);
-        transition: 0.25s ease;
-      }
-  
-      &:hover {
-        border: 2px solid V.$color-tertiary;
-
-        &:before {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-    }
-  
-    .checkbox-icon {
-      transition: .4s ease;
-      color: V.$color-primary-semi-light;
-
-      svg {
-        width: 48px;
-        height: 48px;
-      }
-    }
-  
-    .checkbox-label {
-      color: V.$color-primary-semi-light;
-      font-weight: bold;
-      transition: .4s ease;
-      text-align: center;
     }
   }
 }
 
-.colors,
-.sizes {
-  grid-column: 1/-1;
-  margin-bottom: 45px;
 
-  h5 {
-    font-size: 18px;
-    font-weight: lighter;
-    margin-bottom: 2.5px;
-  }
 
-  .checkbox-container {
 
-    .checkbox {
-      margin: 5px;
-      width: 75px;
-      height: 75px;
-      
-      .checkbox-input {
-        height: 75px;
-        width: 75px;
-        opacity: 0;
-        z-index: 5;
-      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .form-container {
+//   position: relative;
+//   grid-row: span 2;
+//   width: 80%;
+//   max-width: 700px;
+//   margin: 0 auto;
+
+//   h3 {
+//     font-size: 35px;
+//     margin: 30px 0;
+//   }
+
+//   form {
+
+//     &.multi-column-form {
+//       display: grid;
+//       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+//       grid-gap: 10px;
+//       grid-auto-rows: minmax(100px, auto);
+
+//       .form-submit {
+//         grid-column: 1 / -1;
+//       }
+//     }
+
+//     * {
+//       color: V.$color-primary-semi-light; 
+//     }
+
+//     span, a {
+//       font-size: 15px;
+//     }
         
-      .checkbox-tile {
-        width: 75px;
-        min-height: 75px;
+//     a {
+//       text-decoration: underline;
+//       color: V.$color-tertiary
+//     }
+//   }
+// }
+
+// .group {
+//   position: relative; 
+//   margin-bottom: 45px;
+
+//   input {
+//     font-size: 16px;
+//     padding: 10px 10px 10px 5px;
+//     display: block;
+//     width: 100%;
+//     background-color: transparent;
+//     border: none;
+//     border-bottom: 1px solid V.$color-primary-semi-light;
+
+//     &:focus {
+//       outline: none;
+//     }
+//   }
+      
+//   label {
+//     user-select: none;
+//     color: V.$color-primary-semi-light; 
+//     font-size: 18px;
+//     font-weight: normal;
+//     position: absolute;
+//     pointer-events: none;
+//     left: 5px;
+//     top: 10px;
+//     transition: 0.2s ease all; 
+//     -moz-transition: 0.2s ease all; 
+//     -webkit-transition: 0.2s ease all;
+//   }
+                
+//   /* active state */
+//   input.active ~ label,
+//   input:focus ~ label,
+//   input:valid ~ label {
+//     top: -20px;
+//     font-size: 14px;
+//     color: V.$color-tertiary;
+//   }
+                
+//   .bar {
+//     position: relative;
+//     display: block;
+//     width: 100%;
+
+//     &:before,
+//     &:after   {
+//       content: '';
+//       height: 2px; 
+//       width: 0;
+//       bottom: 1px; 
+//       position: absolute;
+//       background: V.$color-tertiary; 
+//       transition: 0.2s ease all; 
+//       -moz-transition: 0.2s ease all; 
+//       -webkit-transition: 0.2s ease all;
+//     }
         
-        &:before {
-          width: 15px;
-          height: 15px;
-          font-size: 10px;
-        }
-      }
-    }
-  }
-}
+//     &:before {
+//       left: 50%;
+//     }
+        
+//     &:after {
+//       right: 50%; 
+//     }
+//   }
+              
+//   input:focus ~ .bar:before,
+//   input:focus ~ .bar:after {
+//     width:50%;
+//   }
+                
+//   .highlight {
+//     position: absolute;
+//     height: 60%; 
+//     width: 100px; 
+//     top: 25%; 
+//     left: 0;
+//     pointer-events: none;
+//     opacity: 0.5;
+//   }
+              
+//   input:focus ~ .highlight {
+//     -webkit-animation: inputHighlighter 0.3s ease;
+//     -moz-animation: inputHighlighter 0.3s ease;
+//     animation: inputHighlighter 0.3s ease;
+//   }
 
-.colors {
-  .checkbox-icon {
-    padding: 1px;
-    width: 20px;
-    height: 20px;
-    border: 1px solid V.$color-primary-semi-light;
+//   .group__existing-recommendations {
+//     position: relative;
+//     display: flex;
+
+//     h5 {
+//       display: inline;
+//       margin-top: 2.5px;
+//     }
+
+//     span, h5 {
+//       font-size: 11px;
+//     }
+
+//     ul {
+//       margin-top: 5px;
+//       margin-left: 5px;
+//       display: flex;
+//       flex-wrap: wrap;
+//       gap: 5px;
+
+//       li {
+//         display: inherit;
+//         justify-content: center;
+//         align-items: center;
+//         border-radius: 10px;
+//         background-color: V.$color-primary-light;
+//         padding: 1px 3px;
+//         cursor: pointer;
+
+//         &:hover {
+//           background-color: rgba(0, 0, 0, 0.17);
+//         }
+//       }
+//     }
+//   }
+
+//   button {
+//     background-color: transparent;
+//     border: none;
+//     position: absolute;
+//     top: 7px;
+//     right: 10px;
+//     cursor: pointer;
+//   }
+
+//   h4 {
+//     font-size: 18px;
+//     font-weight: lighter;
+//     margin-bottom: 10px;
+//   }
+
+//   .switch input {
+//     opacity: 0;
+//     position: absolute;
+//     width: 70px;
+//     height: 28px;
+//     cursor: pointer;
+
+//     & + label {
+//       top: 0;
+//       outline: 0;
+//       display: block;
+//       width: 4em;
+//       height: 2em;
+//       position: relative;
+//       user-select: none;
+//       overflow: hidden;
+//       transform: skew(-10deg);
+//       transition: all 0.2s ease;
+//       font-family: sans-serif;
+//       background: V.$color-primary-semi-light;
+//     }
+
+//     & + label:after,
+//     & + label:before {
+//       transform: skew(10deg);
+//       display: inline-block;
+//       transition: all 0.2s ease;
+//       width: 100%;
+//       text-align: center;
+//       position: absolute;
+//       line-height: 2em;
+//       font-weight: bold;
+//       color: #fff;
+//       text-shadow: 0 1px 0 V.$color-primary-semi-light;
+//     }
+
+//     & + label:after {
+//       left: 100%;
+//       content: 'Si';
+//     }
+
+//     & + label:before {
+//       left: 0;
+//       content: 'No';
+//     }
+
+//     &:checked + label {
+//       background: V.$color-tertiary;
+//     }
+
+//     &:checked + label:before {
+//       left: -100%;
+//     }
+
+//     &:checked + label:after {
+//       left: 0;
+//     }
+//   }
+// }
+
+// .checkbox-container {
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 5px;
+
+//   .checkbox {
+//     width: 100px;
+//     margin-right: 20px;
+//     margin-bottom: 45px;
+
+//     .checkbox-input {
+//       height: 1px;
+//       overflow: hidden;
+//       position: absolute;
+//       white-space: nowrap;
+//       width: 1px;
+    
+//       &:focus + .checkbox-tile {
+//         border: 2px solid V.$color-tertiary;
+//         box-shadow: 0 5px 10px rgba(V.$color-primary, 0.1), 0 0 0 4px V.$color-tertiary-light;
+
+//         &:before {
+//           transform: scale(1);
+//           opacity: 1;
+//         }
+//       }
+//     }
+  
+//     .checkbox-tile {
+//       position: relative;
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       justify-content: center;
+//       width: 100px;
+//       min-height: 100px;
+//       border-radius: 10px;
+//       border: 2px solid V.$color-primary-semi-light;
+//       background-color: #fff;
+//       box-shadow: 0 5px 10px rgba(V.$color-primary, 0.1);
+//       transition: 0.15s ease;
+//       cursor: pointer;
+
+//       &.checked {
+//         border-color: V.$color-tertiary;
+//         box-shadow: 0 5px 10px rgba(V.$color-primary, 0.1);
+//         color: V.$color-tertiary;
+
+//         &:before {
+//           transform: scale(1);
+//           opacity: 1;
+//           background-color: V.$color-tertiary;
+//           border: 2px solid V.$color-tertiary;
+//         }
       
-    div {
-      width: 100%;
-      height: 100%;
-    }
-  }
+//         .checkbox-icon, .checkbox-label {
+//           color: V.$color-tertiary;
+
+//           * {
+//             color: V.$color-tertiary;
+//           }
+//         }
+//       }
+  
+//       &:before {
+//         content: "✓";
+//         position: absolute;
+//         display: block;
+//         width: 20px;
+//         height: 20px;
+//         display: flex;
+//         justify-content: center;
+//         color: #fff;
+//         border: 2px solid V.$color-primary-semi-light;
+//         background-color: #fff;
+//         border-radius: 50%;
+//         top: 4px;
+//         left: 4px;
+//         opacity: 0;
+//         transform: scale(0);
+//         transition: 0.25s ease;
+//       }
+  
+//       &:hover {
+//         border: 2px solid V.$color-tertiary;
+
+//         &:before {
+//           transform: scale(1);
+//           opacity: 1;
+//         }
+//       }
+//     }
+  
+//     .checkbox-icon {
+//       transition: .4s ease;
+//       color: V.$color-primary-semi-light;
+//     }
+  
+//     .checkbox-label {
+//       color: V.$color-primary-semi-light;
+//       font-weight: bold;
+//       transition: .4s ease;
+//       text-align: center;
+//     }
+//   }
+// }
+
+// .colors,
+// .sizes {
+//   grid-column: 1/-1;
+//   margin-bottom: 45px;
+
+//   h5 {
+//     font-size: 18px;
+//     font-weight: lighter;
+//     margin-bottom: 2.5px;
+//   }
+
+//   .checkbox-container {
+
+//     .checkbox {
+//       margin: 0px;
+//       width: 75px;
+//       height: 75px;
       
-  .checkbox-label {
-    margin-top: 5px;
-    font-size: 12.5px;
-  }
-}
+//       .checkbox-input {
+//         height: 75px;
+//         width: 75px;
+//         opacity: 0;
+//         z-index: 5;
+//       }
+        
+//       .checkbox-tile {
+//         width: 75px;
+//         min-height: 75px;
+        
+//         &:before {
+//           width: 15px;
+//           height: 15px;
+//           font-size: 10px;
+//         }
+//       }
+//     }
+//   }
+// }
 
-.sizes {
-  svg {
-    max-width: 32px;
-    max-height: 32px;
-  }
+// .colors {
+//   .checkbox-icon {
+//     padding: 1px;
+//     width: 20px;
+//     height: 20px;
+//     border: 1px solid V.$color-primary-semi-light;
       
-  .checkbox-label {
-    font-size: 12.5px;
-  }
-}
+//     div {
+//       width: 100%;
+//       height: 100%;
+//     }
+//   }
+      
+//   .checkbox-label {
+//     margin-top: 5px;
+//     font-size: 12.5px;
+//   }
+// }
 
-.file {
-  grid-column: 1/-1;
-  position: relative;
-  margin-bottom: 45px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  min-height: 135px;
-  height: auto;
-  border: 2px dashed V.$color-primary-semi-light;
-  border-radius: 10px;
-  background-color: transparent;
-  transition: background-color .2s ease-in-out;
+// .sizes {
+//   svg {
+//     max-width: 32px;
+//     max-height: 32px;
+//   }
+      
+//   .checkbox-label {
+//     font-size: 12.5px;
+//   }
+// }
 
-  &:hover {
-    background-color: V.$color-primary-light;
-  }
+// .file {
+//   grid-column: 1/-1;
+//   position: relative;
+//   margin-bottom: 45px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-evenly;
+//   align-items: center;
+//   min-height: 135px;
+//   height: auto;
+//   border: 2px dashed V.$color-primary-semi-light;
+//   border-radius: 10px;
+//   background-color: transparent;
+//   transition: background-color .2s ease-in-out;
 
-  input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    opacity: 0;
-    cursor: pointer;
+//   &:hover {
+//     background-color: V.$color-primary-light;
+//   }
 
-    /* active state */
-    & ~ label,
-    &:focus ~ label {
-      position: absolute;
-      top: -50px;
-      left: 0;
-      font-size: 18px;
-      color: V.$color-primary-semi-light;
+//   input {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     padding: 0;
+//     opacity: 0;
+//     cursor: pointer;
 
-      @media screen and (min-width: 730px) {
-        top: -30px;
-      }
-    }
-  }
+//     /* active state */
+//     & ~ label,
+//     &:focus ~ label {
+//       position: absolute;
+//       top: -50px;
+//       left: 0;
+//       font-size: 18px;
+//       color: V.$color-primary-semi-light;
 
-  .selected-images {
-    display: flex;
-    flex-wrap: wrap;
+//       @media screen and (min-width: 730px) {
+//         top: -30px;
+//       }
+//     }
+//   }
 
-    .selected-images__item {
-      position: relative;
-      width: 50px;
-      height: 50px;
-      margin: 0 10px 10px 10px;
+//   .selected-images {
+//     display: flex;
+//     flex-wrap: wrap;
 
-      div, img {
-        width: 100%;
-        height: 100%;
+//     .selected-images__item {
+//       position: relative;
+//       width: 50px;
+//       height: 50px;
+//       margin: 0 10px 10px 10px;
 
-        &.selected {
-          border: 3px solid V.$color-tertiary;
-          box-shadow: 0px 0px 2px V.$color-tertiary-light, 0px 2px 6px V.$color-tertiary-light, 0px 10px 20px V.$color-tertiary-light;
-        }
-      }
+//       div, img {
+//         width: 100%;
+//         height: 100%;
 
-      .selected-images__item-close {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 25px;
-        height: 25px;
-        background-color: V.$color-primary-semi-light;
-        border-radius: 50%;
-        position: absolute;
-        top: -12.5px;
-        right: -12.5px;
-        transition: background-color .3s ease-in-out;
-        cursor: pointer;
+//         &.selected {
+//           border: 3px solid V.$color-tertiary;
+//           box-shadow: 0px 0px 2px V.$color-tertiary-light, 0px 2px 6px V.$color-tertiary-light, 0px 10px 20px V.$color-tertiary-light;
+//         }
+//       }
 
-        * {
-          color: V.$color-secondary;
-        }
+//       .selected-images__item-close {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         width: 25px;
+//         height: 25px;
+//         background-color: V.$color-primary-semi-light;
+//         border-radius: 50%;
+//         position: absolute;
+//         top: -12.5px;
+//         right: -12.5px;
+//         transition: background-color .3s ease-in-out;
+//         cursor: pointer;
 
-        &:hover {
-          background-color: rgba(185, 17, 17, 0.856);
-        }
-      }
-    }
-  }
-}
+//         * {
+//           color: V.$color-secondary;
+//         }
 
-.form-submit {
-  margin-bottom: 20px;
+//         &:hover {
+//           background-color: rgba(185, 17, 17, 0.856);
+//         }
+//       }
+//     }
+//   }
+// }
 
-  button {
-    @include M.ButtonTemplate(200px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
-  }
+// .form-submit {
+//   margin-bottom: 20px;
 
-  div {
-    margin-top: 20px;
-  }
-}
+//   button {
+//     @include M.ButtonTemplate(200px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
+//   }
 
-  @-webkit-keyframes inputHighlighter {
-    from {
-      background: V.$color-tertiary;
-    }
+//   div {
+//     margin-top: 20px;
+//   }
+// }
+
+  // @-webkit-keyframes inputHighlighter {
+  //   from {
+  //     background: V.$color-tertiary;
+  //   }
   
-    to {
-      width: 0;
-      background: transparent;
-    }
-  }
+  //   to {
+  //     width: 0;
+  //     background: transparent;
+  //   }
+  // }
   
-  @-moz-keyframes inputHighlighter {
-    from {
-      background: V.$color-tertiary;
-    }
+  // @-moz-keyframes inputHighlighter {
+  //   from {
+  //     background: V.$color-tertiary;
+  //   }
   
-    to  {
-      width: 0;
-      background: transparent;
-    }
-  }
+  //   to  {
+  //     width: 0;
+  //     background: transparent;
+  //   }
+  // }
   
-  @keyframes inputHighlighter {
-    from {
-      background: V.$color-tertiary;
-    }
+  // @keyframes inputHighlighter {
+  //   from {
+  //     background: V.$color-tertiary;
+  //   }
   
-    to  {
-      width: 0;
-      background: transparent;
-    }
-  }
+  //   to  {
+  //     width: 0;
+  //     background: transparent;
+  //   }
+  // }

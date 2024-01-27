@@ -1,13 +1,17 @@
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { ApiError, Routes, TypeWithKey } from "@/models";
-import { getError, handleFormInputChange } from "@/utilities";
+import { ApiError, Routes } from "@/models";
+import { getError } from "@/utilities";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useRestorePasswordMutation } from "@/hooks";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { Form, FormField } from '@/components/ui';
 import '@/styles/pages/RestorePassword/RestorePassword.scss';
+
+type RestoreData = {
+    newPassword: string,
+    confirmNewPassword: string
+}
 
 interface RestorePasswordInterface { }
 
@@ -18,11 +22,11 @@ const RestorePassword: React.FC<RestorePasswordInterface> = () => {
 
     const emailToken = queryParams.get('emailToken');
 
-    const { mutateAsync: restorePassword } = useRestorePasswordMutation();
+    const { mutateAsync: restorePassword, isLoading } = useRestorePasswordMutation();
 
-    const [formData, setFormData] = useState<TypeWithKey<string>>({ newPassword: '', confirmNewPassword: '' });
+    const [formData, setFormData] = useState<RestoreData>({ newPassword: '', confirmNewPassword: '' });
 
-    const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
+    const handleFormData = (key: keyof RestoreData, value: string) => setFormData((prevFormData) => ({ ...prevFormData, [key]: value }));
 
     const submitHandler = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -56,56 +60,32 @@ const RestorePassword: React.FC<RestorePasswordInterface> = () => {
             </Helmet>
             <section>
                 <article>
-                    <div className="restore-password-md">
-                        <div className="restore-password-md__header">
-                            <h3 className="restore-password-md__header__title">Restablecer contraseña</h3>
-                            <p className="restore-password-md__header__text">Por favor, ingresa una nueva contraseña para completar el proceso de restablecimiento de contraseña.</p>
-                        </div>
-                        <div className="form-container">
-                            <form onSubmit={submitHandler}>
-                                <div className="group">
-                                    <input
-                                        type={showNewPassword ? "text" : "password"}
-                                        name="newPassword"
-                                        value={formData.newPassword}
-                                        required
-                                        onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                                    />
-                                    <button type="button" onClick={() => setShowNewPassword(!showNewPassword)}>
-                                        {
-                                            showNewPassword
-                                                ? <VisibilityIcon sx={{ fontSize: 25 }} />
-                                                : <VisibilityOffIcon sx={{ fontSize: 25 }} />
-                                        }
-                                    </button>
-                                    <span className="highlight"></span>
-                                    <span className="bar"></span>
-                                    <label htmlFor="newPassword">Nueva Contraseña</label>
-                                </div>
-                                <div className="group">
-                                    <input
-                                        type={showNewPassword ? "text" : "password"}
-                                        name="confirmNewPassword"
-                                        value={formData.confirmNewPassword}
-                                        required
-                                        onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                                    />
-                                    <button type="button" onClick={() => setShowNewPassword(!showNewPassword)}>
-                                        {
-                                            showNewPassword
-                                                ? <VisibilityIcon sx={{ fontSize: 25 }} />
-                                                : <VisibilityOffIcon sx={{ fontSize: 25 }} />
-                                        }
-                                    </button>
-                                    <span className="highlight"></span>
-                                    <span className="bar"></span>
-                                    <label htmlFor="confirmNewPassword">Confirmar Nueva Contraseña</label>
-                                </div>
-                                <div className="form-submit">
-                                    <button type="submit">Restablecer</button>
-                                </div>
-                            </form>
-                        </div>
+                    <div className="restore-password-form">
+                        <Form
+                            formTitle="Restablecer contraseña"
+                            formSubtitle="Por favor, ingresa una nueva contraseña para completar el proceso de restablecimiento de contraseña."
+                            buttonText="Restablecer"
+                            buttonProps={{ disabled: isLoading }}
+                            onSubmit={submitHandler}
+                        >
+                            <FormField
+                                label="Nueva Contraseña"
+                                type="password"
+                                name="newPassword"
+                                defaultValue={formData.newPassword}
+                                required
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData('newPassword', e.target.value)}
+                            />
+
+                            <FormField
+                                label="Confirmar Nueva Contraseña"
+                                type="password"
+                                name="confirmNewPassword"
+                                defaultValue={formData.confirmNewPassword}
+                                required
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData('confirmNewPassword', e.target.value)}
+                            />
+                        </Form>
                     </div>
                 </article>
             </section>

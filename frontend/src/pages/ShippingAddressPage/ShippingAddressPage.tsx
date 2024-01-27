@@ -5,8 +5,8 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
 import { Navbar } from "@/components";
-import { CheckoutSteps, Footer } from '@/components/ui';
-import { handleFormInputChange, setLocalStorage } from "@/utilities";
+import { CheckoutSteps, Footer, Form, FormField } from '@/components/ui';
+import { setLocalStorage } from "@/utilities";
 import { Routes, ShippingAddress } from '@/models';
 import '@/styles/pages/ShippingAddressPage/ShippingAddressPage.scss';
 
@@ -24,6 +24,10 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
         city: shippingAddress.city || '',
         postalCode: shippingAddress.postalCode || ''
     });
+
+    const isCompletedFormData = formData.fullName !== '' || formData.address !== '' || formData.city !== '' || formData.postalCode !== '';
+
+    const handleFormData = (key: keyof ShippingAddress, value: string) => setFormData((prevFormData) => ({ ...prevFormData, [key]: value }));
     
     const submitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -37,6 +41,7 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
     return (
         <>
         <Navbar />
+        
         <main className="shipping-main">
             <Helmet>
                 <title>Dirección de envío</title>
@@ -46,62 +51,48 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
             </section>
             <section>
                 <article>
-                    <div className="form-container">
-                    <h3>Dirección de envío</h3>
-                    <form onSubmit={submitHandler}>
-                        <div className="group">      
-                            <input
-                                type="text"
-                                name="fullName"
-                                value={formData.fullName}
-                                required
-                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="fullName">Nombre Completo</label>
-                        </div>
-                        <div className="group">      
-                            <input
-                                type="text"
-                                name="city"
-                                value={formData.city}
-                                required
-                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="city">Ciudad</label>
-                        </div>
-                        <div className="group">      
-                            <input
-                                type="text"
-                                name="address"
-                                value={formData.address}
-                                required
-                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="address">Domicilio</label>
-                        </div>
-                        <div className="group">      
-                            <input
-                                type="number"
-                                name="postalCode"
-                                value={formData.postalCode}
-                                required
-                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="postalCode">Código Postal</label>
-                        </div>
-                        <div className="form-submit">
-                            <button type="submit">Continuar</button>
-                        </div>
-                    </form>
-                    </div>
+                    <Form
+                        formTitle="Dirección de envío"
+                        buttonText="Continuar"
+                        buttonProps={{ disabled: isCompletedFormData }}
+                        onSubmit={submitHandler}
+                    >
+                        <FormField
+                            label="Nombre Completo"
+                            type="text"
+                            name="fullName"
+                            defaultValue={formData.fullName}
+                            required
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData('fullName', e.target.value)}
+                        />
+
+                        <FormField
+                            label="Ciudad"
+                            type="text"
+                            name="city"
+                            defaultValue={formData.city}
+                            required
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData('city', e.target.value)}
+                        />
+
+                        <FormField
+                            label="Domicilio"
+                            type="text"
+                            name="address"
+                            defaultValue={formData.address}
+                            required
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData('address', e.target.value)}
+                        />
+
+                        <FormField
+                            label="Código Postal"
+                            type="number"
+                            name="postalCode"
+                            defaultValue={formData.postalCode}
+                            required
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData('postalCode', e.target.value)}
+                        />
+                    </Form>
                 </article>
             </section>
         </main>

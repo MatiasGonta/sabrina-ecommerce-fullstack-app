@@ -1,16 +1,23 @@
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import { Navbar, Sidebar } from "@/components";
-import { LoadingSpinner, Footer } from '@/components/ui';
+import { LoadingSpinner, Footer, Form, FormField, CheckboxFormField, Checkbox } from '@/components/ui';
 import { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { UserCard } from './components';
 import { ApiError, LoadingSpinnerType, TypeWithKey } from '@/models';
 import { useParams } from 'react-router-dom';
 import { useGetUser, useUpdateUserMutation } from '@/hooks';
-import { getError, handleFormInputChange } from '@/utilities';
+import { getError } from '@/utilities';
 import { toast } from 'react-toastify';
 import '@/styles/pages/UpdateUserPage/UpdateUserPage.scss';
+
+type UpdateUserData = {
+    name: string,
+    email: string,
+    isAdmin: boolean | undefined,
+    verify: boolean | undefined
+}
 
 interface UpdateUserPageInterface {}
 
@@ -18,17 +25,12 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
     const params = useParams();
     const { id: userId } = params;
 
-    const { data: user, isLoading, error, refetch } = useGetUser(userId!);
+    const { data: user, isLoading: isLoadingUser, error, refetch } = useGetUser(userId!);
 
-    const { mutateAsync: updateUser } = useUpdateUserMutation(userId!);
+    const { mutateAsync: updateUser, isLoading: isLoadingUpdate } = useUpdateUserMutation(userId!);
 
     //Form inputs values
-    const [formData, setFormData] = useState<{
-        name: string,
-        email: string,
-        isAdmin: boolean | undefined,
-        verify: boolean | undefined
-    }>({ name: '', email: '', isAdmin: undefined, verify: undefined });
+    const [formData, setFormData] = useState<UpdateUserData>({ name: '', email: '', isAdmin: undefined, verify: undefined });
 
     // Form inputs refs
     const nameRef = useRef<HTMLInputElement>(null);
@@ -42,6 +44,8 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
         admin: adminRef,
         verify: verifyRef
     }
+
+    const handleUpdateUserData = (key: keyof UpdateUserData, value: string) => setFormData((prevFormData) => ({ ...prevFormData, [key]: value }));
 
     const submitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -73,7 +77,7 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
     }
 
   return (
-    isLoading
+    isLoadingUser
     ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : error
     ? <h4>{getError(error as ApiError)}</h4>
     : (
@@ -81,89 +85,75 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
         <Helmet>
             <title>Actualizar Usuario</title>
         </Helmet>
+
         <Navbar />
+
         <main className="main--admin">
             <Sidebar />
+
             <section className="update-user">
-                <article className="update-user__card">
+                <article>
                     <UserCard references={userRefs} data={user} />
                 </article>
+
                 <article className="update-user__form">
                     <Helmet>
                         <title>Actualizar Usuario - SABRINA</title>
                     </Helmet>
-                    <div className="form-container">
-                    <h3>Actualizar usuario</h3>
-                    <form onSubmit={(e) => submitHandler(e)}>
-                        <div className="group">
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                ref={nameRef}
-                                pattern=".{4,25}"
-                                title="El nombre debe tener entre 4 y 25 caracteres"
-                                className={formData.name !== '' ? 'active' : ''}
-                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="name">Name</label>
-                        </div>
-                        <div className="group">
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                ref={emailRef}
-                                className={formData.email !== '' ? 'active' : ''}
-                                onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label htmlFor="email">Correo electrónico</label>
-                        </div>
-                        <div className="checkbox-container">
-                            <div className="checkbox">
-		                        <label className="checkbox-wrapper">
-		                        	<input
-                                        type="checkbox"
-                                        name="isAdmin"
-                                        className="checkbox-input"
-                                        ref={adminRef}
-                                        onChange={(e) => setFormData({ ...formData, isAdmin: e.target.checked })}
-                                    />
-		                        	<span className={formData.isAdmin ? "checkbox-tile checked" : "checkbox-tile"}>
-		                        		<span className="checkbox-icon">
-                                            <AdminPanelSettingsOutlinedIcon sx={{ fontSize: 25 }} />
-		                        		</span>
-		                        		<span className="checkbox-label">Admin</span>
-		                        	</span>
-		                        </label>
-	                        </div>
-                            <div className="checkbox">
-		                        <label className="checkbox-wrapper">
-		                        	<input
-                                        type="checkbox"
-                                        name="verify"
-                                        className="checkbox-input"
-                                        ref={verifyRef}
-                                        onChange={(e) => setFormData({ ...formData, verify: e.target.checked })}
-                                    />
-		                        	<span className={formData.verify ? "checkbox-tile checked" : "checkbox-tile"}>
-		                        		<span className="checkbox-icon">
-                                            <BadgeOutlinedIcon sx={{ fontSize: 25 }} />
-		                        		</span>
-		                        		<span className="checkbox-label">Verificado</span>
-		                        	</span>
-		                        </label>
-	                        </div>
-                        </div>
-                        <div className="form-submit">
-                            <button type="submit">Actualizar Usuario</button>
-                        </div>
-                    </form>
-                    </div>
+
+                    <Form
+                        formTitle="Actualizar Usuario"
+                        buttonText="Actualizar usuario"
+                        buttonProps={{ disabled: isLoadingUser || isLoadingUpdate }}
+                        onSubmit={submitHandler}
+                    >
+                        <FormField
+                            label="Nombre"
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            ref={nameRef}
+                            required
+                            pattern=".{4,25}"
+                            title="El nombre debe tener entre 4 y 25 caracteres"
+                            customClass={formData.name !== '' ? 'form-field__input--active' : ''}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpdateUserData('name', e.target.value)}
+                        />
+                        
+                        <FormField
+                            label="Correo electrónico"
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            ref={emailRef}
+                            required
+                            customClass={formData.email !== '' ? 'form-field__input--active' : ''}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpdateUserData('email', e.target.value)}
+                        />
+
+                        <CheckboxFormField>
+                            <Checkbox
+                                label="Admin"
+                                template="default"
+                                checkCondition={formData.isAdmin !== undefined && formData.isAdmin}
+                                name="isAdmin"
+                                ref={adminRef}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpdateUserData('isAdmin', e.target.value)}
+                            >
+                                <AdminPanelSettingsOutlinedIcon sx={{ fontSize: 48 }} />
+                            </Checkbox>
+                            <Checkbox
+                                label="Verificado"
+                                template="default"
+                                checkCondition={formData.verify !== undefined && formData.verify}
+                                name="verify"
+                                ref={verifyRef}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpdateUserData('verify', e.target.value)}
+                            >
+                                <BadgeOutlinedIcon sx={{ fontSize: 48 }} />
+                            </Checkbox>
+                        </CheckboxFormField>
+                    </Form>
                 </article>
             </section>
         </main>

@@ -1,6 +1,7 @@
 export * from './Card';
 export * from './CheckoutSteps';
 export * from './Footer';
+export * from './Form';
 export * from './LoadingSpinner';
 export * from './OrderItem';
 export * from './ProductsListWrapper';

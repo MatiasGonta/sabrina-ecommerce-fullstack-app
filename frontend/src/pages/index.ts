@@ -1,5 +1,5 @@
 export * from './CartPage';
-export * from './CreateProductPage';
+export * from './WorkspaceProductPage';
 export * from './Dashboard';
 export * from './Error';
 export * from './FavoritesPage';
@@ -14,7 +14,6 @@ export * from './ProductPage';
 export * from './ProductsPage';
 export * from './Productsboard';
 export * from './RegisterPage';
-export * from './SearchPage';
 export * from './ShippingAddressPage';
 export * from './UpdateProductPage';
 export * from './UpdateUserPage';

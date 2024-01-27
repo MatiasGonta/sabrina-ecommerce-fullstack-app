@@ -1,0 +1,25 @@
+// Sidebar
+@use '../../components/_Sidebar';
+
+// Form
+@use '../../components/_Form';
+
+// FormField
+@use '../../components/FormField';
+
+// CheckboxFormField
+@use '../../components/CheckboxFormField';
+
+// SwitchFormField
+@use '../../components/SwitchFormField';
+
+// FileFormField
+@use '../../components/FileFormField';
+
+.workspace-product {
+  width: 100%;
+
+  &__form-wrapper {
+    width: 100%;
+  }
+}

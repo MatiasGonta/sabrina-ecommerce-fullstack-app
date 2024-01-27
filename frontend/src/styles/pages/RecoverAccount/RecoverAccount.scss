@@ -4,6 +4,9 @@
 // Form
 @use '../../components/_Form';
 
+// Form Field
+@use '../../components/FormField';
+
 .main--recover-account {
     min-height: auto;
     margin-bottom: 0;
@@ -18,6 +21,7 @@
 }
 
 .recover-account-form {
+    @include M.WrapperTemplate();
     position: relative;
     display: flex;
     flex-direction: column;
@@ -25,19 +29,7 @@
     justify-content: center;
     align-items: center;
     width: 350px;
-    height: 350px;
-    @include M.WrapperTemplate();
-
-    &__header {
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-
-        &__title {
-            font-size: 35px;
-        }
-    }
+    padding-bottom: 30px;
 }
 
 

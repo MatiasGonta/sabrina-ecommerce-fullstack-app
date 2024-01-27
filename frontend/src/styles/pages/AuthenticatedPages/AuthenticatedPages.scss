@@ -1,8 +1,11 @@
 @use '../../utilities/_variables' as V;
 @use '../../utilities/_mixins' as M;
 
-//Form
+// Form
 @use '../../components/_Form';
+
+// Form Field
+@use '../../components/_FormField';
 
 .main--authenticated {
     display: flex;
@@ -18,4 +21,27 @@
     min-width: 300px;
     width: 40%;
     height: fit-content;
+
+    &__navigation {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        width: 100%;
+        max-width: 80%;
+
+        * {
+            color: V.$color-primary-semi-light;
+        }
+
+        span, a {
+            font-size: 15px;
+        }
+              
+        a {
+            text-decoration: underline;
+            color: V.$color-tertiary
+        }
+    }
 }

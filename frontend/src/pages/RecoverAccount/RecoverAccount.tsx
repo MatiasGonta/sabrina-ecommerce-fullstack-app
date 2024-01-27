@@ -1,17 +1,20 @@
 import { ApiError, TypeWithKey } from "@/models";
-import { getError, handleFormInputChange } from "@/utilities";
+import { getError } from "@/utilities";
 import { useSendRestorePasswordEmail } from "@/hooks";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { Form, FormField } from "@/components/ui";
 import '@/styles/pages/RecoverAccount/RecoverAccount.scss';
 
 interface RecoverAccountInterface { }
 
 const RecoverAccount: React.FC<RecoverAccountInterface> = () => {
-    const { mutateAsync: sendRestorePasswordEmail } = useSendRestorePasswordEmail();
+    const { mutateAsync: sendRestorePasswordEmail, isLoading } = useSendRestorePasswordEmail();
 
     const [formData, setFormData] = useState<TypeWithKey<string>>({ email: '' });
+
+    const handleFormData = (value: string) => setFormData({ email: value });
 
     const submitHandler = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -46,30 +49,23 @@ const RecoverAccount: React.FC<RecoverAccountInterface> = () => {
             <section>
                 <article className="recover-account-wrapper">
                     <div className="recover-account-form">
-                        <div className="recover-account-form__header">
-                            <h3 className="recover-account-form__header__title">Recupera tu cuenta</h3>
-                            <p>Ingresa tu correo electrónico para buscar tu cuenta.</p>
-                        </div>
-                        <div className="form-container">
-                            <form onSubmit={submitHandler}>
-                                <div className="group">
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        className={formData.email !== '' ? 'active' : ''}
-                                        required
-                                        onChange={(e) => handleFormInputChange(e, formData, setFormData)}
-                                    />
-                                    <span className="highlight"></span>
-                                    <span className="bar"></span>
-                                    <label htmlFor="name">Correo electrónico</label>
-                                </div>
-                                <div className="form-submit">
-                                    <button type="submit">Buscar</button>
-                                </div>
-                            </form> 
-                        </div>
+                        <Form
+                            formTitle="Recupera tu cuenta"
+                            formSubtitle="Ingresa tu correo electrónico para buscar tu cuenta."
+                            buttonText="Buscar"
+                            buttonProps={{ disabled: isLoading }}
+                            onSubmit={submitHandler}
+                        >
+                            <FormField
+                                label="Correo electrónico"
+                                type="email"
+                                name="email"
+                                defaultValue={formData.email}
+                                customClass={formData.email !== '' ? 'form-field__input--active' : ''}
+                                required
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFormData(e.target.value)}
+                            />
+                        </Form>
                     </div>
                 </article>
             </section>

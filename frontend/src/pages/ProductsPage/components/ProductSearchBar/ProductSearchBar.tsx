@@ -53,7 +53,6 @@ const ProductSearchBar: React.FC<ProductSearchBarInterface> = () => {
         className="sub-navbar__search-bar__input"
         type="text"
         placeholder="BUSCAR"
-        value={searchTerm}
         defaultValue={searchTerm}
         onChange={(e) => handleSearchOnChange(e)}
       />
