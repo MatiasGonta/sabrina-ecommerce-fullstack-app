@@ -1,4 +1,4 @@
-import { CartItem, COLORS, Product, Routes } from "@/models"
+import { CartItem, Product, Routes } from "@/models"
 import { Link, useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,6 +11,7 @@ import { addItemToCart } from '@/redux/states/cart.state';
 import { calculateTotalStock, convertProductToCartItem } from "@/utilities";
 import { toast } from 'react-toastify';
 import { useState } from "react";
+import { ColorBadge } from "../ui";
 
 interface ProductItemInterface {
   product: Product;
@@ -109,14 +110,8 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                 <ul className="product-item__body__settings__color">
                   {
                     product.colors.slice(0, 6).map(color => (
-                      <li
-                        key={color}
-                        className={`${selectedColor === color && "color--selected"}`}
-                        onClick={() => setSelectedColor(color)}
-                      >
-                        <Tooltip title={color} >
-                          <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
-                        </Tooltip>
+                      <li key={color} onClick={() => setSelectedColor(color)}>
+                        <ColorBadge color={color} size="medium" active={selectedColor === color} />
                       </li>
                     ))
                   }
@@ -183,9 +178,9 @@ const ProductItem: React.FC<ProductItemInterface> = ({ product }) => {
                       <div>
                         <svg
                           className="add-to-cart-btn__cart-icon"
-                          fill="#fff" 
-                          viewBox="0 0 576 512" 
-                          height="1em" 
+                          fill="#fff"
+                          viewBox="0 0 576 512"
+                          height="1em"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path>

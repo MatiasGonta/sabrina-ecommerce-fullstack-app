@@ -1,5 +1,6 @@
 export * from './Card';
 export * from './CheckoutSteps';
+export * from './ColorBadge';
 export * from './Footer';
 export * from './Form';
 export * from './LoadingSpinner';

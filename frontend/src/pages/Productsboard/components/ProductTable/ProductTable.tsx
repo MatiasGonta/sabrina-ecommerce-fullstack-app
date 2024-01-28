@@ -1,9 +1,9 @@
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useDeleteProductMutation, useGetProductsQuery } from "@/hooks";
-import { ApiError, COLORS, LoadingSpinnerType, Product, Routes } from "@/models";
+import { ApiError, LoadingSpinnerType, Product, Routes } from "@/models";
 import { dateFormat, getError } from "@/utilities";
 import { DeleteCell } from "@/components";
-import { LoadingSpinner, TablePagination, TableRefreshButton, TableSearchBar, TableWrapper, Td } from '@/components/ui';
+import { ColorBadge, LoadingSpinner, TablePagination, TableRefreshButton, TableSearchBar, TableWrapper, Td } from '@/components/ui';
 import { useState } from "react";
 import { Tooltip } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
@@ -140,9 +140,7 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
                         <ul className="product-colors">
                           {product.colors.map(color => (
                             <li key={color}>
-                              <Tooltip title={color} >
-                                <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
-                              </Tooltip>
+                              <ColorBadge color={color} size="small" />
                             </li>
                           ))}
                         </ul>

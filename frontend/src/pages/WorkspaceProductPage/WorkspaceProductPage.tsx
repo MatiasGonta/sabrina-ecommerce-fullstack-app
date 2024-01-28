@@ -1,6 +1,6 @@
 import StraightenOutlinedIcon from '@mui/icons-material/StraightenOutlined';
 import { Navbar, Sidebar } from '@/components';
-import { LoadingSpinner, Footer, Form, FormField, FieldRecommendations, SwitchFormField, CheckboxFormField, Checkbox, FileFormField } from '@/components/ui';
+import { LoadingSpinner, Footer, Form, FormField, FieldRecommendations, SwitchFormField, CheckboxFormField, Checkbox, FileFormField, ColorBadge } from '@/components/ui';
 import { useCreateProductMutation, useGetFilterCountsQuery, useGetProductDetailsBySlugQuery, useUpdateProductMutation } from '@/hooks';
 import { ApiError, FilterItem, TypeWithKey, LoadingSpinnerType, COLORS, Routes } from '@/models';
 import { useWorkspace } from './hooks';
@@ -160,8 +160,10 @@ const WorkspaceProductPage: React.FC<WorkspaceProductPageInterface> = () => {
 
   const categoriesArray: string[] = categories?.map((category: FilterItem) => category._id);
   const brandsArray: string[] = brands?.map((brand: FilterItem) => brand._id);
-  const colorsArray: [string, string][] = Object.entries(COLORS);
+  const colorsArray: string[] = Object.keys(COLORS);
   const sizesArray: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+
+  console.log(colorsArray);
 
   return (
     isLoading || filterCountsLoading || WORKSPACE_ACTION === WorkspaceAction.UPDATE  && isLoadingInitialFormData
@@ -255,7 +257,7 @@ const WorkspaceProductPage: React.FC<WorkspaceProductPageInterface> = () => {
                   />
 
                   <CheckboxFormField title={`Selecciona los colores ${formData.colors && formData.colors.length > 0 ? `(${formData.colors.join(' - ')})` : ''}`}>
-                    {colorsArray.map(([name, value], index) => (
+                    {colorsArray.map((name, index) => (
                       <Checkbox
                         key={index}
                         label={name}
@@ -264,9 +266,7 @@ const WorkspaceProductPage: React.FC<WorkspaceProductPageInterface> = () => {
                         name={name}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxWorkspaceProductData(e, { name: 'colors', value: formData.colors })}
                       >
-                        <div style={{ padding: '1px', width: '20px', height: '20px', border: '1px solid rgba(0,0,0,0.473)' }}>
-                          <div style={{ backgroundColor: value, width: '100%', height: '100%' }}></div>
-                        </div>
+                        <ColorBadge color={name} size="large" />
                       </Checkbox>
                     ))}
                   </CheckboxFormField>

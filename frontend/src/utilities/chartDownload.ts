@@ -1,7 +1,8 @@
-import { monthNames } from "@/models";
 import { Chart } from "chart.js";
 
 export const chartDownload = (chartRef: React.RefObject<Chart>, title: string) => {
+    const monthNames: string[] = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
     if (!chartRef.current) return;
 
     const chart = chartRef.current;

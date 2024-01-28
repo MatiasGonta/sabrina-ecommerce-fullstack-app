@@ -5,8 +5,8 @@ import {
     useGetCartItemsStockByIdQuery,
     useGetOrderDetailsQuery
 } from "@/hooks";
-import { ApiError, Routes, monthNames, LoadingSpinnerType } from "@/models";
-import { getError } from "@/utilities";
+import { ApiError, Routes, LoadingSpinnerType } from "@/models";
+import { dateFormat, getError } from "@/utilities";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { toast } from 'react-toastify';
@@ -95,7 +95,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                             order.isDelivered
                                                 ? (
                                                     <div className="order__info__shipping__check">
-                                                        <span>Entregado el {`${order.deliveredAt.substring(8, 10)} ${monthNames[parseInt(order.deliveredAt.substring(5, 7)) - 1]} ${order.deliveredAt.substring(0, 4)}`}</span>
+                                                        <span>Entregado el {dateFormat(order.deliveredAt)}</span>
                                                     </div>
                                                 ) : (
                                                     <div className="order__info__shipping__not-check">
@@ -113,7 +113,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                             order.isPaid
                                                 ? (
                                                     <div className="order__info__payment__check">
-                                                        <span>Pagado el {`${order.paidAt.substring(8, 10)} ${monthNames[parseInt(order.paidAt.substring(5, 7)) - 1]} ${order.paidAt.substring(0, 4)}`}</span>
+                                                        <span>Pagado el {dateFormat(order.paidAt)}</span>
                                                     </div>
                                                 ) : (
                                                     <div className="order__info__payment__not-check">

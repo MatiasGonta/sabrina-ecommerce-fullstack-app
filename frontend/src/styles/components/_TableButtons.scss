@@ -9,7 +9,12 @@
     height: 25px;
     top: 2.5px;
     right: 0;
+    transition: transform .3s linear;
     cursor: pointer;
+
+    &:active {
+        transform: scale(0.85);
+    }
 }
 
 .table-details-btn {

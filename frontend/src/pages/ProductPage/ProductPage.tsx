@@ -3,13 +3,13 @@ import StraightenOutlinedIcon from '@mui/icons-material/StraightenOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Tooltip from '@mui/material/Tooltip';
 import { Navbar, ProductsCarousel } from '@/components';
-import { LoadingSpinner, Footer, SubNavbar } from '@/components/ui';
+import { LoadingSpinner, Footer, SubNavbar, ColorBadge } from '@/components/ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { addItemToCart } from '@/redux/states/cart.state';
 import { addProductToFavorites, removeProductFromFavorites } from '@/redux/states/favorites.state';
 import { useGetProductDetailsBySlugQuery } from '@/hooks';
-import { ApiError, CartItem, COLORS, LoadingSpinnerType, Product, Routes } from '@/models';
+import { ApiError, CartItem, LoadingSpinnerType, Product, Routes } from '@/models';
 import { calculateTotalStock, convertProductToCartItem, getError } from '@/utilities';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -154,10 +154,10 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                     product!.colors.map(color => (
                       <li
                         key={color}
-                        className={`product__details__options__colors__list__color ${selectedColor === color && "product__details__options__colors__list__color--selected"}`}
+                        className="product__details__options__colors__list__color"
                         onClick={() => setSelectedColor(color)}
                       >
-                        <div style={{ backgroundColor: COLORS[color as keyof typeof COLORS] }}></div>
+                        <ColorBadge color={color} size="extraLarge" active={selectedColor === color} />
                       </li>
                     ))
                   }

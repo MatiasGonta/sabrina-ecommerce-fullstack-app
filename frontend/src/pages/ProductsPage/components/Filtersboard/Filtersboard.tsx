@@ -1,13 +1,12 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { ApiError, COLORS, FilterItem, LoadingSpinnerType } from '@/models';
+import { ApiError, FilterItem, LoadingSpinnerType } from '@/models';
 import { useContext, useState } from 'react';
 import { FiltersContext } from '../../context';
-import { Tooltip } from '@mui/material';
 import { useGetFilterCountsQuery } from '@/hooks';
 import { getError } from '@/utilities';
-import { LoadingSpinner } from '@/components/ui';
+import { ColorBadge, LoadingSpinner } from '@/components/ui';
 import { PriceRangeFilter } from './PriceRangeFilter';
 import { BrandFilter } from './BrandFilter';
 
@@ -74,9 +73,9 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                                 {filters.color && filters.color.map((c) => (
                                     <li className="filters-wrapper__head__list__selected-filter" key={c} onClick={() => removeFilter('color', c)}>
                                         <HighlightOffIcon sx={{ fontSize: 15 }} />
-                                        <div className="color-selected">
-                                            <div style={{ backgroundColor: COLORS[c as keyof typeof COLORS] }}></div>
-                                        </div>
+                                        <span>
+                                            <ColorBadge color={c} size="medium" />
+                                        </span>
                                     </li>
                                 ))}
                                 {filters.priceMin && filters.priceMax && (
@@ -136,12 +135,7 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                                             className="filters-wrapper__color__list__color-filter"
                                             onClick={() => addFilter('color', color._id)}
                                         >
-                                            <Tooltip title={color._id}>
-                                                <div
-                                                    className="filters-wrapper__color__list__color-filter__square"
-                                                    style={{ backgroundColor: COLORS[color._id as keyof typeof COLORS] }}
-                                                ></div>
-                                            </Tooltip>
+                                            <ColorBadge color={color._id} size="large" />
                                         </li>
                                     ))
                                 }
