@@ -31,7 +31,11 @@ const Catalog: React.FC<CatalogInterface> = () => {
 
     return (
         isLoading
-            ? <LoadingSpinner type={LoadingSpinnerType.FLEX} /> : error
+            ? (
+                <div className="loader-wrapper">
+                    <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
+                </div>
+            ) : error
                 ? <h4>{getError(error as ApiError)}</h4> : (
                     <section className="products-catalog">
                         <InfiniteScroll
