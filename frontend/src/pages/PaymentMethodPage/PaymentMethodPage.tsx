@@ -39,7 +39,7 @@ const PaymentMethodPage: React.FC<PaymentMethodPageInterface> = () => {
             <Navbar />
             <main>
                 <section>
-                    <CheckoutSteps step1 step2 step3 />
+                    <CheckoutSteps />
                 </section>
                 <section>
                     <article className="payment-method-wrapper">

@@ -47,7 +47,7 @@ const ShippingAddressPage: React.FC<ShippingAddressPageInterface> = () => {
                 <title>Dirección de envío</title>
             </Helmet>
             <section>
-                <CheckoutSteps step1 step2 />
+                <CheckoutSteps />
             </section>
             <section>
                 <article>

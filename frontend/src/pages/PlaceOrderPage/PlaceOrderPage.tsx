@@ -115,7 +115,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageInterface> = () => {
                             </Helmet>
                             <section>
                                 <article>
-                                    <CheckoutSteps step1 step2 step3 step4 />
+                                    <CheckoutSteps />
                                 </article>
                             </section>
                             <section className="order">
