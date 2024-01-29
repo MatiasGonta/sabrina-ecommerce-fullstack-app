@@ -17,7 +17,7 @@ interface FormInterface extends HTMLProps<HTMLFormElement> {
 export const Form: React.FC<FormInterface> = ({ formTitle, formSubtitle, buttonText, children, columns = 1, buttonProps, ...rest }) => {
     return (
         <div className="form-wrapper">
-            <Typography fontSize={35} fontWeight="bold" mt="30px" mb="30px" component="h3" noWrap={false}>
+            <Typography fontSize={35} fontWeight="bold" lineHeight={1.2} mt="30px" mb="30px" component="h3" noWrap={false}>
                 {formTitle}
             </Typography>
             {formSubtitle && <p className="form-wrapper__subtitle">{formSubtitle}</p>}

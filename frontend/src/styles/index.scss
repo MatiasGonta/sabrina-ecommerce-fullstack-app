@@ -1,13 +1,13 @@
 @use './utilities/_variables' as V;
 
 //Loading Spinner
-@use './components/LoadingSpinner';
+@use './components/_LoadingSpinner';
 
 //Navbar
-@use './components/Navbar.scss';
+@use './components/_Navbar';
 
 //Footer
-@use './components/Footer.scss';
+@use './components/_Footer';
 
 * {
   margin: 0;
