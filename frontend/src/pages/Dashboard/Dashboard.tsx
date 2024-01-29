@@ -105,7 +105,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
             <h3 className="dashboard__latest-orders__wrapper__title">
               Últimos pedidos
             </h3>
-            <OrderTable itemsPerPage={6} type="short" />
+            <OrderTable itemsPerPage={6} template="short" />
             <Link to={Routes.DASHBOARD_ORDERS} className="dashboard__latest-orders__wrapper__link">Más pedidos</Link>
           </article>
         </section>

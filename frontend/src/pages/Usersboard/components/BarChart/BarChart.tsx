@@ -1,22 +1,24 @@
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { TypeWithKey } from '@/models';
+import { LoadingSpinnerType } from '@/models';
 import { chartDownload } from '@/utilities';
 import { BarElement, Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip as Tool, Legend, Filler, Title } from 'chart.js';
 import { useRef } from 'react';
 import { Tooltip } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
+import { useGetUsersStatistics } from '@/hooks';
+import { LoadingSpinner } from '@/components/ui';
 
-interface BarChartInterface {
-  data: TypeWithKey<number>;
-}
+interface BarChartInterface {}
 
-const BarChart: React.FC<BarChartInterface> = ({ data }) => {
+const BarChart: React.FC<BarChartInterface> = () => {
   ChartJS.register(BarElement, LineElement, CategoryScale, LinearScale, PointElement, Tool, Legend, Filler, Title);
+
+  const { data, isLoading } = useGetUsersStatistics();
 
   const barChart = useRef(null);
 
-  const labels: string[] = Object.keys(data);
-  const values: number[] = Object.values(data);
+  const labels: string[] = Object.keys(data?.newUsersPerDay || {});
+  const values: number[] = Object.values(data?.newUsersPerDay || {});
 
   const chartData = {
     labels: labels,
@@ -31,7 +33,7 @@ const BarChart: React.FC<BarChartInterface> = ({ data }) => {
     ],
   };
 
-  return (
+  return isLoading ? <LoadingSpinner type={LoadingSpinnerType.FLEX}/> : (
     <>
       <Bar
         data={chartData}

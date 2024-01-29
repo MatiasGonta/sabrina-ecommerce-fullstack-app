@@ -58,9 +58,9 @@ const ProductStock: React.FC<ProductStockInterface> = ({ product }) => {
         //     }
         // </div>
         <div className="product-stock">
-            <span className="product-stock__total" onClick={handleOpen}>
-                {totalStock}
-            </span>
+            <div className="product-stock__total" onClick={handleOpen}>
+                <span>{totalStock}</span>
+            </div>
 
             <Modal
                 open={isOpen}

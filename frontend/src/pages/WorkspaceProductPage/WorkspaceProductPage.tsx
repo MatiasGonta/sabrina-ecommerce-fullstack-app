@@ -163,8 +163,6 @@ const WorkspaceProductPage: React.FC<WorkspaceProductPageInterface> = () => {
   const colorsArray: string[] = Object.keys(COLORS);
   const sizesArray: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
-  console.log(colorsArray);
-
   return (
     isLoading || filterCountsLoading || WORKSPACE_ACTION === WorkspaceAction.UPDATE  && isLoadingInitialFormData
       ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} /> : filterCountsError

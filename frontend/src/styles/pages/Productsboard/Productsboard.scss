@@ -122,9 +122,11 @@
 .product-stock {
     &__total {
         width: 27px;
+        height: 27px;
         background-color: V.$color-primary-light;
         padding: 5px;
         border-radius: 50%;
+        margin: 0 auto;
         cursor: default;
     }
 
