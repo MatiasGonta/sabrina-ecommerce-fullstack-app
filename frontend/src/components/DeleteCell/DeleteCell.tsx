@@ -13,9 +13,9 @@ interface DeleteCellInterface {
 }
 
 const DeleteCell: React.FC<DeleteCellInterface> = ({ id, deleteFunc, loadingMsg }) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   const handleDeleteOrder = async () => {
     try {
@@ -50,7 +50,7 @@ const DeleteCell: React.FC<DeleteCellInterface> = ({ id, deleteFunc, loadingMsg 
         </button>
       </Tooltip>
       <Modal
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
@@ -60,7 +60,7 @@ const DeleteCell: React.FC<DeleteCellInterface> = ({ id, deleteFunc, loadingMsg 
           },
         }}
       >
-        <Fade in={open}>
+        <Fade in={isOpen}>
           <div className="delete-modal">
             <ErrorOutlineOutlinedIcon className="delete-modal__icon" sx={{ fontSize: 75 }} />
             <span className="delete-modal__msg">¿Estas seguro?</span>
