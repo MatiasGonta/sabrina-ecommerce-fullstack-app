@@ -5,7 +5,7 @@ import { dateFormat, getError } from "@/utilities";
 import { DeleteCell } from "@/components";
 import { ColorBadge, LoadingSpinner, TablePagination, TableRefreshButton, TableSearchBar, TableWrapper, Td } from '@/components/ui';
 import { useState } from "react";
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { ProductStock } from './ProductStock';
 
@@ -67,7 +67,7 @@ const ProductTable: React.FC<ProductTableInterface> = () => {
       {isLoading ? (
         <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
-        <h4>{getError(error as ApiError)}</h4>
+        <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography>
       ) : (
         <div className="table">
           <table>

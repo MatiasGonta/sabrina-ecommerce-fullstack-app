@@ -2,9 +2,10 @@ import { Navbar, Sidebar } from "@/components";
 import { Footer } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import { BarChart, CreateUserModal, Header, UserTable } from "./components";
+import { Typography } from "@mui/material";
 import '@/styles/pages/Usersboard/Usersboard.scss';
 
-interface UsersboardInterface {}
+interface UsersboardInterface { }
 
 const Usersboard: React.FC<UsersboardInterface> = () => {
   return (
@@ -17,10 +18,12 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
 
       <main className="main--admin">
         <Sidebar />
-        
+
         <section className="usersboard__users">
           <div className="usersboard__users__header">
-            <h2 className="usersboard__users__header__title">Usuarios</h2>
+            <Typography fontSize={24} mt="10px" mb="25px" fontWeight="bold" component="h2" noWrap={false}>
+              Usuarios
+            </Typography>
             <CreateUserModal />
           </div>
 
@@ -29,7 +32,9 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
           </article>
 
           <article className="usersboard__users__statistics">
-            <h3 className="usersboard__users__statistics__title">Nuevos usuarios en el último mes</h3>
+            <Typography fontSize={20} fontWeight="bold" mt="30px" mb="30px" component="h3" noWrap={false}>
+              Nuevos usuarios en el último mes
+            </Typography>
             <div className="usersboard__users__statistics__bar-chart">
               <BarChart />
             </div>
@@ -39,7 +44,9 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
 
         <section className="usersboard__control-panel">
           <article>
-            <h3 className="usersboard__control-panel__title">Panel de usuarios</h3>
+            <Typography fontSize={20} fontWeight="bold" mt="30px" mb="30px" component="h3" noWrap={false}>
+              Panel de usuarios
+            </Typography>
             <UserTable itemsPerPage={10} />
           </article>
         </section>

@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { ReactNode } from "react";
 
 export interface AccordionInterface {
@@ -12,7 +13,9 @@ const Accordion: React.FC<AccordionInterface> = ({ number, title, children, icon
     <div className="accordion">
       <div className="accordion__header">
         <span className="accordion__header__number">{number}</span>
-        <h3 className="accordion__header__title">{title}</h3>
+        <Typography fontSize={30} lineHeight={1.1} fontWeight="bold" display="inline" ml="10px" component="h3" noWrap={false}>
+          {title}
+        </Typography>
       </div>
       <div className="accordion__body">
         <p className="accordion__body__text">{children}</p>

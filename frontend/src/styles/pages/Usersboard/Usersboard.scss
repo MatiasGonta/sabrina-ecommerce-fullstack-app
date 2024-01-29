@@ -79,11 +79,6 @@
         display: flex;
         justify-content: space-between;
 
-        &__title {
-            margin-bottom: 15px;
-            font-size: 25px;
-        }
-
         &__btn {
             @include M.ButtonTemplate(135px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
             gap: 10px;
@@ -110,10 +105,6 @@
         width: 100%;
         height: 500px;
 
-        &__title {
-            font-size: 20px;
-        }
-
         &__bar-chart {
             width: 100%;
             height: 437px;
@@ -139,10 +130,6 @@
         @include M.WrapperTemplate();
         overflow: hidden;
     }
-
-    &__title {
-        font-size: 20px;
-    }
 }
 
 @media screen and (min-width: 500px) {
@@ -153,10 +140,6 @@
 @media screen and (min-width: 992px) {
     .usersboard__users {
         padding: 15px;
-    
-        &__header__title {
-            margin-bottom: 25px;
-        }
 
         .usersboard__users__cards {
             flex-direction: row;

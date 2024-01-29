@@ -1,0 +1,159 @@
+@use '../../../utilities/_variables' as V;
+
+.sub-navbar__search-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 24%;
+    min-width: 200px;
+    height: 35px;
+    background: V.$color-secondary;
+
+    &.sub-navbar__search-bar--active {
+        margin-left: 25px;
+    }
+  
+    &__clear {
+        position: relative;
+        left: -25px;
+        padding-top: 3px;
+        height: 100%;
+        border-bottom: 1px solid V.$color-primary;
+        cursor: pointer;
+    }
+
+    &__input {
+        width: calc(100% - 30px);
+        height: 100%;
+        color: V.$color-primary;
+        position: absolute;
+        background-color: transparent;
+        padding-left: 15px;
+        border: none;
+        border-bottom: 1px solid V.$color-primary;
+        font-size: 15px;
+        
+        &::placeholder {
+          color: V.$color-primary;
+        }
+            
+        &::-webkit-calendar-picker-indicator,
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          opacity: 0;
+        }
+      
+        &:focus {
+            box-shadow: -3px -2px 94px -23px V.$color-primary;
+
+            + .sub-navbar__search-bar__input__autocomplete {
+                display: block;
+            }
+        }
+
+        &__autocomplete {
+            display: none;
+            background-color: #fff;
+            padding: 10px;
+            width: 200px;
+            max-height: 300px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            overflow-y: scroll;
+            z-index: 500;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+
+            @media screen and (min-width: 1300px) {
+                width: 275px;
+            }
+
+            &::-webkit-scrollbar-track {
+                border: 5px solid transparent;
+            }
+                  
+            &::-webkit-scrollbar {
+                background-color: V.$color-primary-light;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+                  
+            &::-webkit-scrollbar-thumb {
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+                background-color: V.$color-primary;
+                border: 2px solid #303030;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            &:hover {
+                display: block;
+            }
+            
+            &__list {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                width: 100%;
+                color: #fff;
+                border-radius: 5px;
+            }
+        }
+    }
+  
+    &__btn {
+        min-width: 15%;
+        height: 100%;
+        background: transparent;
+        position: absolute;
+        right: 0;
+        border: none;
+        color: V.$color-secondary;
+        border-bottom: 1px solid V.$color-primary;
+        cursor: pointer;
+    }
+}
+
+.autocomplete-item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+
+    &__img-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 30px;
+        width: 30px;
+        height: 30px;
+
+        img {
+            width: auto;
+            height: 100%;
+        }
+    }
+
+    &__name {
+        max-height: 32px;
+        max-width: 34ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    &:hover {
+        background-color: V.$color-secondary;
+    }
+}

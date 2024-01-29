@@ -27,11 +27,7 @@ footer {
     width: 70%;
     height: auto;
     margin: 0 auto;
-
-    &__title {
-      color: V.$color-secondary;
-      margin-bottom: 15px;
-    }
+    color: V.$color-secondary;
   }
 
   &__navigation ul,

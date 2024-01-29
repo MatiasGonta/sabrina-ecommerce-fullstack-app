@@ -13,13 +13,14 @@ import { Helmet } from 'react-helmet-async';
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { ProductsListWrapper } from '@/components/ui';
+import { Typography } from '@mui/material';
 import 'swiper/swiper-bundle.css';
 import '@/styles/pages/Home/Home.scss';
-import { ProductsListWrapper } from '@/components/ui';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-interface HomeInterface {}
+interface HomeInterface { }
 
 const Home: React.FC<HomeInterface> = () => {
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Home: React.FC<HomeInterface> = () => {
     // Getting filters
     const { categories, isLoading: filterCountsLoading, error: filterCountsError } = useGetFilterCountsQuery();
 
-    const getShuffledItems = (items: any[] , count: number) => {
+    const getShuffledItems = (items: any[], count: number) => {
         const shuffledItems = items.sort(() => 0.5 - Math.random());
         return shuffledItems.slice(0, count);
     }
@@ -79,94 +80,96 @@ const Home: React.FC<HomeInterface> = () => {
             number: 4,
             title: 'Envío/entrega de tu pedido',
             text: 'Realizamos envíos de lunes a viernes a cualquier parte del país a través de Correo Argentino y diversas empresas de transporte. También ofrecemos la opción de retiro en nuestro local durante los horarios especificados.',
-            icon: <LocalShippingOutlinedIcon  sx={{ fontSize: 50 }} />
+            icon: <LocalShippingOutlinedIcon sx={{ fontSize: 50 }} />
         },
     ]
 
-  return (
-    isLoading || filterCountsLoading 
-    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : error || filterCountsError
-    ? <h4>{getError(error as ApiError)}</h4> : (
-    <>
-        <Helmet>
-          <title>SABRINA</title>
-        </Helmet>
-        <Navbar />
-        <main>
-            <section className="home__commerce">
-                <article className="home__commerce__carrousel">
-                    <Swiper {...swiperParams}>
-                        <SwiperSlide  className="home__commerce__carrousel__item">
-                            <img
-                                className="home__commerce__carrousel__item__img"
-                                src="/src/assets/sabrina-local-exterior.png"
-                                alt="sabrina-local-exterior"
-                                onClick={() => navigate(Routes.PRODUCTS)}
-                            />
-                        </SwiperSlide>
-                        <SwiperSlide  className="home__commerce__carrousel__item">
-                            <img
-                                className="home__commerce__carrousel__item__img"
-                                src="/src/assets/sabrina-local-interior.jpg"
-                                alt="sabrina-local-interior"
-                                onClick={() => navigate(Routes.PRODUCTS)}
-                            />
-                        </SwiperSlide>
-                    </Swiper>
-                </article>
-                <article className="home__commerce__category-prices">
-                    {
-                        getShuffledItems(categories, 4).map((category: FilterItem) => (
-                            <div
-                                key={category._id}
-                                className="home__commerce__category-prices__card"
-                                onClick={() => handleCategoryNavigate(category._id)}
-                            >
-                                <h2 className="home__commerce__category-prices__card__title">{category._id.toLocaleUpperCase()}</h2>
-                                <span className="home__commerce__category-prices__card__text">Desde ${category.minPrice}</span>
-                            </div>
-                        ))
-                    }
-                </article>
-            </section>
-            <section className="home__purchase-info">
-                <article>
-                    <PurchaseInfoBanner />
-                </article>
-            </section>
-            <section className="home__products-preview products-catalog">
-                <article>
-                    <ProductsListWrapper isEmpty={products.length > 0}>
-                        {
-                            products.splice(0,21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
-                        }
-                    </ProductsListWrapper>
-                    <div className="home__products-preview__more">
-                        <button className="home__products-preview__more__btn" onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
-                    </div>
-                </article>
-            </section>
-            <section className="home__purchase-path">
-                <article>
-                    {
-                        accordions.map(accordion => (
-                            <Accordion
-                                key={accordion.title}
-                                number={accordion.number}
-                                title={accordion.title}
-                                icon={accordion.icon}
-                            >
-                                {accordion.text}
-                            </Accordion>
-                        ))
-                    }
-                </article>
-            </section>
-        </main>
-        <Footer />
-    </>
+    return (
+        isLoading || filterCountsLoading
+            ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} /> : error || filterCountsError
+                ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography> : (
+                    <>
+                        <Helmet>
+                            <title>SABRINA</title>
+                        </Helmet>
+                        <Navbar />
+                        <main>
+                            <section className="home__commerce">
+                                <article className="home__commerce__carrousel">
+                                    <Swiper {...swiperParams}>
+                                        <SwiperSlide className="home__commerce__carrousel__item">
+                                            <img
+                                                className="home__commerce__carrousel__item__img"
+                                                src="/src/assets/sabrina-local-exterior.png"
+                                                alt="sabrina-local-exterior"
+                                                onClick={() => navigate(Routes.PRODUCTS)}
+                                            />
+                                        </SwiperSlide>
+                                        <SwiperSlide className="home__commerce__carrousel__item">
+                                            <img
+                                                className="home__commerce__carrousel__item__img"
+                                                src="/src/assets/sabrina-local-interior.jpg"
+                                                alt="sabrina-local-interior"
+                                                onClick={() => navigate(Routes.PRODUCTS)}
+                                            />
+                                        </SwiperSlide>
+                                    </Swiper>
+                                </article>
+                                <article className="home__commerce__category-prices">
+                                    {
+                                        getShuffledItems(categories, 4).map((category: FilterItem) => (
+                                            <div
+                                                key={category._id}
+                                                className="home__commerce__category-prices__card"
+                                                onClick={() => handleCategoryNavigate(category._id)}
+                                            >
+                                                <Typography fontSize={{ xs: 17.5, sm: 20 }} color="inherit" fontWeight="bold" component="h2" noWrap={false}>
+                                                    {category._id.toLocaleUpperCase()}
+                                                </Typography>
+                                                <span className="home__commerce__category-prices__card__text">Desde ${category.minPrice}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </article>
+                            </section>
+                            <section className="home__purchase-info">
+                                <article>
+                                    <PurchaseInfoBanner />
+                                </article>
+                            </section>
+                            <section className="home__products-preview products-catalog">
+                                <article>
+                                    <ProductsListWrapper isEmpty={products.length > 0}>
+                                        {
+                                            products.splice(0, 21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
+                                        }
+                                    </ProductsListWrapper>
+                                    <div className="home__products-preview__more">
+                                        <button className="home__products-preview__more__btn" onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
+                                    </div>
+                                </article>
+                            </section>
+                            <section className="home__purchase-path">
+                                <article>
+                                    {
+                                        accordions.map(accordion => (
+                                            <Accordion
+                                                key={accordion.title}
+                                                number={accordion.number}
+                                                title={accordion.title}
+                                                icon={accordion.icon}
+                                            >
+                                                {accordion.text}
+                                            </Accordion>
+                                        ))
+                                    }
+                                </article>
+                            </section>
+                        </main>
+                        <Footer />
+                    </>
+                )
     )
-  )
 }
 
 export default Home

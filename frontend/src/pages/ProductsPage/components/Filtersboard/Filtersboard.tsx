@@ -9,6 +9,7 @@ import { getError } from '@/utilities';
 import { ColorBadge, LoadingSpinner } from '@/components/ui';
 import { PriceRangeFilter } from './PriceRangeFilter';
 import { BrandFilter } from './BrandFilter';
+import { Typography } from '@mui/material';
 
 interface FiltersboardInterface { }
 
@@ -33,7 +34,7 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                     <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
                 </div>
             ) : error
-                ? <h4>{getError(error as ApiError)}</h4> : (
+                ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography> : (
                     <>
                         <div className="filters-switch">
                             <div className="filters-switch__btn" onClick={() => handleIsOpen(true)}>
@@ -45,7 +46,9 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                             <article className="filters-wrapper__head">
                                 <div onClick={() => handleIsOpen(false)}>
                                     <ArrowBackIosNewIcon sx={{ fontSize: 32.5 }} />
-                                    <h2>Filtros</h2>
+                                    <Typography fontSize={35} display="inline" fontWeight="bold" component="h2" noWrap={false}>
+                                        Filtros
+                                    </Typography>
                                 </div>
                                 <span>{filteredProductsFounded} resultados</span>
 
@@ -106,7 +109,9 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                                 </ul>
                             </article>
                             <article className="filters-wrapper__category">
-                                <h4 className="filters-wrapper__category__title">Categoría</h4>
+                                <Typography fontSize={20} fontWeight="bold" component="h4" mb="10px" noWrap={false}>
+                                    Categoría
+                                </Typography>
                                 <ul className="filters-wrapper__category__list">
                                     {
                                         categories.map((category: FilterItem) => (
@@ -118,7 +123,9 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                                 </ul>
                             </article>
                             <article className="filters-wrapper__size">
-                                <h4 className="filters-wrapper__size__title">Talle</h4>
+                                <Typography fontSize={20} fontWeight="bold" component="h4" mb="10px" noWrap={false}>
+                                    Talle
+                                </Typography>
                                 <ul className="filters-wrapper__size__list">
                                     {
                                         sizes.map((size: FilterItem) => (
@@ -130,7 +137,9 @@ const Filtersboard: React.FC<FiltersboardInterface> = () => {
                                 </ul>
                             </article>
                             <article className="filters-wrapper__color">
-                                <h4 className="filters-wrapper__color__title">Color</h4>
+                                <Typography fontSize={20} fontWeight="bold" component="h4" mb="10px" noWrap={false}>
+                                    Color
+                                </Typography>
                                 <ul className="filters-wrapper__color__list">
                                     {
                                         colors.map((color: FilterItem) => (

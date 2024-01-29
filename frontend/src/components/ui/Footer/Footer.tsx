@@ -7,8 +7,9 @@ import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Routes } from '@/models';
+import { Typography } from '@mui/material';
 
-interface FooterInterface {}
+interface FooterInterface { }
 
 const Footer: React.FC<FooterInterface> = () => {
     const handlePracticeCommerce = () => {
@@ -22,7 +23,7 @@ const Footer: React.FC<FooterInterface> = () => {
             <div className="footer-wrapper">
                 <div className="footer-info">
                     <nav className="footer-info__navigation">
-                        <h5 className="footer-info__navigation__title">NAVEGACIÓN</h5>
+                        <Typography fontSize={25} color="inherit" fontWeight="bold" component="h5" mb="10px" noWrap={false}>NAVEGACIÓN</Typography>
                         <ul>
                             <li><Link to={Routes.HOME}>Inicio</Link></li>
                             <li><Link to={Routes.PRODUCTS}>Productos</Link></li>
@@ -32,7 +33,7 @@ const Footer: React.FC<FooterInterface> = () => {
                         </ul>
                     </nav>
                     <div className="footer-info__contact">
-                        <h5 className="footer-info__contact__title">CONTACTO</h5>
+                        <Typography fontSize={25} color="inherit" fontWeight="bold" component="h5" mb="10px" noWrap={false}>CONTACTO</Typography>
                         <ul>
                             <li>
                                 <PhoneEnabledOutlinedIcon sx={{ fontSize: 15 }} />
@@ -49,7 +50,7 @@ const Footer: React.FC<FooterInterface> = () => {
                         </ul>
                     </div>
                     <div className="footer-info__social-networks">
-                        <h5 className="footer-info__social-networks__title">REDES SOCIALES</h5>
+                        <Typography fontSize={25} color="inherit" fontWeight="bold" component="h5" mb="10px" noWrap={false}>REDES SOCIALES</Typography>
                         <ul>
                             <li onClick={handlePracticeCommerce}>
                                 <Tooltip title="Instagram">

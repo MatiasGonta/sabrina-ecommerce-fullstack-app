@@ -3,7 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import CloseIcon from '@mui/icons-material/Close';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 
 interface FormInterface extends HTMLProps<HTMLFormElement> {
     formTitle: string;
@@ -17,7 +17,9 @@ interface FormInterface extends HTMLProps<HTMLFormElement> {
 export const Form: React.FC<FormInterface> = ({ formTitle, formSubtitle, buttonText, children, columns = 1, buttonProps, ...rest }) => {
     return (
         <div className="form-wrapper">
-            <h3 className="form-wrapper__title">{formTitle}</h3>
+            <Typography fontSize={35} fontWeight="bold" mt="30px" mb="30px" component="h3" noWrap={false}>
+                {formTitle}
+            </Typography>
             {formSubtitle && <p className="form-wrapper__subtitle">{formSubtitle}</p>}
             <form className={`form-wrapper__form ${columns === 2 && "form-wrapper__form--multi-column"}`} {...rest}>
                 {children}
@@ -72,7 +74,7 @@ interface FieldRecommendationsInterface {
 export const FieldRecommendations: React.FC<FieldRecommendationsInterface> = ({ children }) => {
     return (
         <div className="field-recommendations">
-            <h5 className="field-recommendations__title">Existentes:</h5>
+            <Typography fontSize={11.5} fontWeight="bold" display="inline" component="h5" mt="2.5px" noWrap={false}>Existentes:</Typography>
             <ul className="field-recommendations__list">
                 {children}
             </ul>
@@ -88,7 +90,7 @@ interface CheckboxFormFieldInterface {
 export const CheckboxFormField: React.FC<CheckboxFormFieldInterface> = ({ title, children }) => {
     return (
         <div className="checkbox-field">
-            {title && <h5 className="checkbox-field__title">{title}</h5>}
+            {title && <Typography fontSize={18} fontWeight="lighter" component="h5" mb="10px" noWrap={false}>{title}</Typography>}
             <ul className="checkbox-field__list">
                 {children}
             </ul>
@@ -188,7 +190,7 @@ interface SwitchFormFieldInterface extends HTMLProps<HTMLInputElement> {
 export const SwitchFormField: React.FC<SwitchFormFieldInterface> = ({ switchTitle, ...rest }) => {
     return (
         <div className="switch-field">
-            <h5 className="switch-field__title">{switchTitle}</h5>
+            <Typography fontSize={18} fontWeight="lighter" component="h5" mb="10px" noWrap={false}>{switchTitle}</Typography>
             <div className="switch">
                 <input
                     name="switch"

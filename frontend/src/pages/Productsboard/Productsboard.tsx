@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Routes } from '@/models';
 import { ProductTable } from './components';
 import '@/styles/pages/Productsboard/Productsboard.scss';
+import { Typography } from '@mui/material';
 
 interface ProductsboardInterface { }
 
@@ -24,7 +25,9 @@ const Productsboard: React.FC<ProductsboardInterface> = () => {
 
         <section className="productsboard__statistics">
           <div className="productsboard__header">
-            <h2 className="productsboard__header__title">Productos</h2>
+            <Typography fontSize={24} mb="25px" fontWeight="bold" component="h2" noWrap={false}>
+              Productos
+            </Typography>
             <Link className="productsboard__header__link" to={Routes.DASHBOARD_PRODUCTS_CREATE}>
               <AddIcon sx={{ fontSize: 25 }} />
               <span>Crear producto</span>

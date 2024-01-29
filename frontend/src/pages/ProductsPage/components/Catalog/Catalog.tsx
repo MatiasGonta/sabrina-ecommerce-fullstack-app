@@ -7,6 +7,7 @@ import { useGetProductsCatalogQuery } from "@/hooks";
 import { LoadingSpinner, ProductsListWrapper } from "@/components/ui";
 import { ProductItem } from "@/components";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Typography } from "@mui/material";
 
 interface CatalogInterface { }
 
@@ -36,7 +37,7 @@ const Catalog: React.FC<CatalogInterface> = () => {
                     <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
                 </div>
             ) : error
-                ? <h4>{getError(error as ApiError)}</h4> : (
+                ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography> : (
                     <section className="products-catalog">
                         <InfiniteScroll
                             dataLength={products.length}

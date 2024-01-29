@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { FiltersContext } from "../../../context";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 
 interface PriceRangeFilterInterface { }
 
@@ -25,10 +25,12 @@ const PriceRangeFilter: React.FC<PriceRangeFilterInterface> = () => {
         addFilter('priceMin', priceRange.minPrice);
         addFilter('priceMax', priceRange.maxPrice);
     }
-    
+
     return (
         <article className="filters-wrapper__price">
-            <h4 className="filters-wrapper__price__title">Precio</h4>
+            <Typography fontSize={20} fontWeight="bold" component="h4" mb="10px" noWrap={false}>
+                Precio
+            </Typography>
             <form className="filters-wrapper__price__form" onSubmit={(e) => handlePriceRangeSubmit(e)}>
                 <input
                     className="filters-wrapper__price__form__input-min"

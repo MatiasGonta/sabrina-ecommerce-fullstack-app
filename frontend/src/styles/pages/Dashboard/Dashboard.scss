@@ -22,21 +22,10 @@
 // Card
 @use '../../components/_Card';
 
-.dashboard__statistics__details__sales__title,
-.dashboard__statistics__details__categories__title,
-.dashboard__latest-orders__wrapper__title {
-    font-size: 20px;
-}
-
 .dashboard__statistics {
     display: flex;
     flex-direction: column;
     padding: 15px;
-
-    &__title {
-        margin-bottom: 15px;
-        font-size: 25px;
-    }
 
     &__info {
         display: flex;
@@ -110,10 +99,6 @@
 @media screen and (min-width: 992px) {
     .dashboard__statistics {
         padding: 25px;
-
-        &__title {
-            margin-bottom: 25px;
-        }
 
         &__info {
             flex-direction: row;

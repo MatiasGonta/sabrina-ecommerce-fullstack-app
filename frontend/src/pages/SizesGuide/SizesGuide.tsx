@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Routes } from "@/models";
 import '@/styles/pages/SizesGuide/SizesGuide.scss';
+import { Typography } from "@mui/material";
 
 interface SizesGuideInterface { }
 
@@ -113,7 +114,9 @@ const SizesGuide: React.FC<SizesGuideInterface> = () => {
                     {
                         guides.map((guide, index) => (
                             <article key={index} className="guide">
-                                <h3 className="guide__title">{guide.sectionTitle}</h3>
+                                <Typography fontSize={18} fontWeight="bold" mt="15px" mb="15px" display="inline" component="h3" noWrap={false}>
+                                    {guide.sectionTitle}
+                                </Typography>
                                 <div className="guide__body">
                                     <table className="guide__body__table">
                                         <thead className="guide__body__table__head">

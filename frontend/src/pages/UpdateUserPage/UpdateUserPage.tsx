@@ -11,6 +11,7 @@ import { useGetUser, useUpdateUserMutation } from '@/hooks';
 import { getError } from '@/utilities';
 import { toast } from 'react-toastify';
 import '@/styles/pages/UpdateUserPage/UpdateUserPage.scss';
+import { Typography } from '@mui/material';
 
 type UpdateUserData = {
     name: string,
@@ -79,7 +80,7 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
   return (
     isLoadingUser
     ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : error
-    ? <h4>{getError(error as ApiError)}</h4>
+    ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography>
     : (
     <>
         <Helmet>

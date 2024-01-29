@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '@/styles/pages/ProductPage/ProductPage.scss';
+import { Typography } from '@mui/material';
 
 interface ProductPageInterface { }
 
@@ -84,9 +85,9 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
   return isLoading ? (
     <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
   ) : error ? (
-    <h4>{getError(error as ApiError)}</h4>
+    <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography>
   ) : !product && !relatedProducts ? (
-    <h4>Product Not Found</h4>
+    <Typography fontSize={20} fontWeight="bold" component="h4" noWrap={false}>Product Not Found</Typography>
   ) : (
     <>
       <Helmet>
@@ -126,7 +127,9 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
 
           <article className="product__details">
             <div className="product__details__head">
-              <h1 className="product__details__head__title">{product!.name}</h1>
+              <Typography fontSize={{ xs: 30, sm: 35, md: 40 }} maxWidth="90%" mb="5px" lineHeight={1} component="h1" noWrap={false}>
+                {product!.name}
+              </Typography>
               <span className="product__details__head__price">${product!.price.toFixed(2)}</span>
               {
                 <Tooltip title={existFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
@@ -148,7 +151,9 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
             </div>
             <div className="product__details__options">
               <div className="product__details__options__colors">
-                <h4 className="product__details__options__colors__title">Color: <span>{selectedColor}</span></h4>
+                <Typography fontSize={{ xs: 20, md: 25 }} fontWeight="lighter" component="h4" noWrap={false}>
+                  Color: <span className="product__details__options__colors__span">{selectedColor}</span>
+                </Typography>
                 <ul className="product__details__options__colors__list">
                   {
                     product!.colors.map(color => (
@@ -166,7 +171,9 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
               <div className="product__details__options__sizes">
                 {product?.sizes.length !== 0 && (
                   <>
-                    <h4 className="product__details__options__sizes__title">Talle: <span>{selectedSize}</span></h4>
+                    <Typography fontSize={{ xs: 20, md: 25 }} fontWeight="lighter" component="h4" noWrap={false}>
+                      Talle: <span className="product__details__options__sizes__span">{selectedSize}</span>
+                    </Typography>
                     <ul className="product__details__options__sizes__list">
                       {
                         product!.sizes.map(size => (
@@ -188,10 +195,14 @@ const ProductPage: React.FC<ProductPageInterface> = () => {
                 )}
               </div>
               <div className="product__details__options__brand">
-                <h4 className="product__details__options__brand__title">Marca: <span>{product!.brand}</span></h4>
+                <Typography fontSize={{ xs: 20, md: 25 }} fontWeight="lighter" component="h4" noWrap={false}>
+                  Marca: <span className="product__details__options__brand__span">{product!.brand}</span>
+                </Typography>
               </div>
               <div className="product__details__options__status">
-                <h4 className="product__details__options__status__title">Estado: <span>{calculateTotalStock(product!) > 0 ? 'En Stock' : 'Sin Stock'}</span></h4>
+                <Typography fontSize={{ xs: 20, md: 25 }} fontWeight="lighter" component="h4" noWrap={false}>
+                  Estado: <span className="product__details__options__status__span">{calculateTotalStock(product!) > 0 ? 'En Stock' : 'Sin Stock'}</span>
+                </Typography>
               </div>
               <div className="product__details__options__button">
                 {

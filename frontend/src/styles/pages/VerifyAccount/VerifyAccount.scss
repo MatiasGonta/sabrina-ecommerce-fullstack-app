@@ -20,13 +20,6 @@
     height: 250px;
     @include M.WrapperTemplate();
 
-    h2 {
-        text-align: center;
-        width: 300px;
-        display: inline;
-        font-size: 25px;
-    }
-
     span {
         width: 170px;
         margin-top: 10px;

@@ -5,6 +5,7 @@ import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import { Typography } from '@mui/material';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -66,7 +67,9 @@ const ProductsCarousel: React.FC<ProductsCarouselInterface> = ({ children, items
 
     return (
         <div className="products-carousel">
-            <h5 className="products-carousel__title">{children}</h5>
+            <Typography fontSize={30} fontWeight="bold" component="h5" ml="15px" mr="15px" mb="15px" mt="15px" noWrap={false}>
+                {children}
+            </Typography>
             <Swiper {...swiperParams}>
                 {items.map((item: Product) => (
                     <SwiperSlide key={item._id} className="carousel-item">

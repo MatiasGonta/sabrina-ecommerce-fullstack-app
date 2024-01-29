@@ -203,7 +203,7 @@ export const getCartItemsStock = asyncHandler(async (req: Request, res: Response
         const products = await ProductModel.find({ _id: { $in: itemsId } });
         if (products && products.length !== 0) {
             // Create a mapping object from _id to countInStock
-            const stockMap: {
+            let stockMap: {
                 [id: string]: {
                     [variant: string]: number;
                 }

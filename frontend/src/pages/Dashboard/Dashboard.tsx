@@ -9,8 +9,9 @@ import { SalesCategoriesDoughnutChart, SalesLineChart } from './components';
 import { useGetAllOrdersHistoryQuery, useGetFilterCountsQuery, useGetSales } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import '@/styles/pages/Dashboard/Dashboard.scss';
+import { Typography } from '@mui/material';
 
-interface DashboardInterface {}
+interface DashboardInterface { }
 
 const Dashboard: React.FC<DashboardInterface> = () => {
   const { data: allOrders, isLoading: isLoadingOrders } = useGetAllOrdersHistoryQuery(1);
@@ -45,7 +46,7 @@ const Dashboard: React.FC<DashboardInterface> = () => {
     }
   ];
 
-  const categoryColors: TypeWithKey<{default: string, hover: string}> = Object.keys(data?.salesByCategory || {}).reduce((colors, category, index) => {
+  const categoryColors: TypeWithKey<{ default: string, hover: string }> = Object.keys(data?.salesByCategory || {}).reduce((colors, category, index) => {
     return {
       ...colors,
       [category]: {
@@ -57,63 +58,69 @@ const Dashboard: React.FC<DashboardInterface> = () => {
 
   return (
     isLoadingOrders || filterCountsLoading || isLoadingSales
-    ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX}/> : (
-    <>
-      <Helmet>
-        <title>Dashboard - SABRINA</title>
-      </Helmet>
-      <Navbar />
-      <main className="main--admin">
-        <Sidebar />
+      ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} /> : (
+        <>
+          <Helmet>
+            <title>Dashboard - SABRINA</title>
+          </Helmet>
+          <Navbar />
+          <main className="main--admin">
+            <Sidebar />
 
-        <section className="dashboard__statistics">
-          <h2 className="dashboard__statistics__title">Dashboard</h2>
-          <article className="dashboard__statistics__info">
-            {
-              cards.map(card => (
-                <Card
-                  key={card.title}
-                  title={card.title}
-                  icon={card.icon}
-                  iconBackground={card.iconBackground}
-                  iconBoxShadow={card.iconBoxShadow}
-                >
-                  {card.text}
-                </Card>
-              ))
-            }
-          </article> 
+            <section className="dashboard__statistics">
+              <Typography fontSize={25} fontWeight="bold" mb="25px" component="h2" noWrap={false}>
+                Dashboard
+              </Typography>
+              <article className="dashboard__statistics__info">
+                {
+                  cards.map(card => (
+                    <Card
+                      key={card.title}
+                      title={card.title}
+                      icon={card.icon}
+                      iconBackground={card.iconBackground}
+                      iconBoxShadow={card.iconBoxShadow}
+                    >
+                      {card.text}
+                    </Card>
+                  ))
+                }
+              </article>
 
-          <article className="dashboard__statistics__details">
-            <div className="dashboard__statistics__details__sales">
-              <h3 className="dashboard__statistics__details__sales__title">Ventas por mes</h3>
-              <div className="dashboard__statistics__details__sales__line-chart-wrapper">
-                <SalesLineChart monthlySales={data!.monthlySales} categoryColors={categoryColors} />
-              </div>
-            </div>
-            <div className="dashboard__statistics__details__categories">
-              <h3 className="dashboard__statistics__details__categories__title">Ventas por categoria</h3>
-              <div className="dashboard__statistics__details__categories__doughnut-chart-wrapper">
-                <SalesCategoriesDoughnutChart salesByCategory={data!.salesByCategory} categoryColors={categoryColors} />
-              </div>
-            </div>
-          </article>
-        </section>
+              <article className="dashboard__statistics__details">
+                <div className="dashboard__statistics__details__sales">
+                  <Typography fontSize={20} fontWeight="bold" component="h3" noWrap={false}>
+                    Ventas por mes
+                  </Typography>
+                  <div className="dashboard__statistics__details__sales__line-chart-wrapper">
+                    <SalesLineChart monthlySales={data!.monthlySales} categoryColors={categoryColors} />
+                  </div>
+                </div>
+                <div className="dashboard__statistics__details__categories">
+                  <Typography fontSize={20} fontWeight="bold" component="h3" noWrap={false}>
+                    Ventas por categoria
+                  </Typography>
+                  <div className="dashboard__statistics__details__categories__doughnut-chart-wrapper">
+                    <SalesCategoriesDoughnutChart salesByCategory={data!.salesByCategory} categoryColors={categoryColors} />
+                  </div>
+                </div>
+              </article>
+            </section>
 
-        <section className="dashboard__latest-orders">
-          <article className="dashboard__latest-orders__wrapper">
-            <h3 className="dashboard__latest-orders__wrapper__title">
-              Últimos pedidos
-            </h3>
-            <OrderTable itemsPerPage={6} template="short" />
-            <Link to={Routes.DASHBOARD_ORDERS} className="dashboard__latest-orders__wrapper__link">Más pedidos</Link>
-          </article>
-        </section>
-      </main>
+            <section className="dashboard__latest-orders">
+              <article className="dashboard__latest-orders__wrapper">
+                <Typography fontSize={20} fontWeight="bold" component="h3" noWrap={false}>
+                  Últimos pedidos
+                </Typography>
+                <OrderTable itemsPerPage={6} template="short" />
+                <Link to={Routes.DASHBOARD_ORDERS} className="dashboard__latest-orders__wrapper__link">Más pedidos</Link>
+              </article>
+            </section>
+          </main>
 
-      <Footer />
-    </>
-    )
+          <Footer />
+        </>
+      )
   )
 }
 

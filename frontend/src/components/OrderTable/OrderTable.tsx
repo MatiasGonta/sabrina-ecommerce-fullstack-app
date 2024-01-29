@@ -8,6 +8,7 @@ import { LoadingSpinner, Table, TablePagination, TableRefreshButton, TableSearch
 import { useState } from "react";
 import { Order } from '@/models';
 import { UpdateOrderCell } from './UpdateOrderCell';
+import { Typography } from '@mui/material';
 
 interface OrderTableInterface {
   itemsPerPage: number;
@@ -76,7 +77,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, template, use
       {isLoading ? (
         <LoadingSpinner type={LoadingSpinnerType.FLEX} />
       ) : error ? (
-        <h4>{getError(error as ApiError)}</h4>
+        <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography>
       ) : (
         <Table>
           <thead>

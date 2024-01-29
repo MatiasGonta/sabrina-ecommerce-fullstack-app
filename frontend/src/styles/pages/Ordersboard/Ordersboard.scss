@@ -24,10 +24,6 @@
     padding: 25px;
     overflow: hidden;
 
-    &__title {
-        margin-bottom: 25px;
-    }
-
     &__orders {
         @include M.WrapperTemplate();
     }

@@ -36,11 +36,6 @@
     display: flex;
     justify-content: space-between;
 
-    &__title {
-        margin-bottom: 25px;
-        font-size: 25px;
-    }
-
     &__link {
         @include M.ButtonTemplate(135px, V.$btn-green-bg, V.$btn-green-bg-hover, 0);
         padding-right: 5px;    

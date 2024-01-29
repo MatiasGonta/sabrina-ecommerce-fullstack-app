@@ -2,8 +2,9 @@ import { Navbar, Sidebar, OrderTable } from "@/components";
 import { Footer } from '@/components/ui';
 import { Helmet } from "react-helmet-async";
 import '@/styles/pages/Ordersboard/Ordersboard.scss';
+import { Typography } from "@mui/material";
 
-interface OrdersboardInterface {}
+interface OrdersboardInterface { }
 
 const Ordersboard: React.FC<OrdersboardInterface> = () => {
   return (
@@ -18,7 +19,9 @@ const Ordersboard: React.FC<OrdersboardInterface> = () => {
         <Sidebar />
 
         <section className="ordersboard__control-panel">
-          <h2 className="ordersboard__control-panel__title">Pedidos</h2>
+          <Typography fontSize={24} mb="25px" fontWeight="bold" component="h2" noWrap={false}>
+            Pedidos
+          </Typography>
           <article className="ordersboard__control-panel__orders">
             <OrderTable itemsPerPage={10} template="admin" />
           </article>

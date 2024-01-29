@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Typography } from '@mui/material';
 import '@/styles/pages/WorkspaceProductPage/WorkspaceProductPage.scss';
 
 interface WorkspaceProductPageInterface {}
@@ -166,7 +167,7 @@ const WorkspaceProductPage: React.FC<WorkspaceProductPageInterface> = () => {
   return (
     isLoading || filterCountsLoading || WORKSPACE_ACTION === WorkspaceAction.UPDATE  && isLoadingInitialFormData
       ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} /> : filterCountsError
-        ? <h4>{getError(filterCountsError as ApiError)}</h4> : (
+        ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(filterCountsError as ApiError)}</Typography> : (
         <>
           <Helmet>
             <title>Crear producto - SABRINA</title>

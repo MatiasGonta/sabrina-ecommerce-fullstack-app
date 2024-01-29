@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet-async";
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MercadoPagoButton, PayPalButton } from "./components";
+import { Typography } from "@mui/material";
 import '@/styles/pages/OrderPages/OrderPages.scss';
 
 interface OrderPageInterface { }
@@ -29,37 +30,42 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
 
     // Stock checkout
     const orderItemsId = [...new Set(order?.orderItems.map(item => item._id))];
-    const { stock, isLoading: isLoadingStock, error: stockError } = useGetCartItemsStockByIdQuery(orderItemsId);
+    const { stock } = useGetCartItemsStockByIdQuery(orderItemsId);
 
     const { mutateAsync: deleteOrder } = useDeleteOrderMutation();
 
     const checkoutOrderStock = () => {
-        order?.orderItems.forEach(item => {
-            const itemId: string = item._id;
-            const itemStock: number = item.countInStock;
+        try {
+            order?.orderItems.forEach(item => {
+                const itemId: string = item._id;
+                const itemStock: number = item.countInStock;
 
-            const dataBaseStock: number = stock[itemId][`${item.colorSelected}-${item.sizeSelected}`];
+                const dataBaseStock: number = stock[itemId][`${item.colorSelected}-${item.sizeSelected}`];
 
-            // Throw an error if the stock of the item is greater than that in the database
-            if (dataBaseStock < itemStock) {
-                const errorMsg = `No hay suficiente stock para ${item.name}.`;
+                // Throw an error if the stock of the item is greater than that in the database
+                if (dataBaseStock < itemStock) {
+                    const errorMsg = `No hay suficiente stock para ${item.name}.`;
 
-                toast.info('Por favor, considere realizar un nuevo pedido y evitar esperar demasiado tiempo para el pago, ya que sus productos favoritos pueden agotarse debido al stock limitado.', {
-                    autoClose: 11000,
-                });
-                toast.loading('Eliminando orden y redirigiendo...', {
-                    position: 'top-center',
-                    onOpen: () => deleteOrder(orderId!),
-                });
+                    toast.info('Por favor, considere realizar un nuevo pedido y evitar esperar demasiado tiempo para el pago, ya que sus productos favoritos pueden agotarse debido al stock limitado.', {
+                        autoClose: 11000,
+                    });
+                    toast.loading('Eliminando orden y redirigiendo...', {
+                        position: 'top-center',
+                        onOpen: () => deleteOrder(orderId!),
+                    });
 
-                setTimeout(() => {
-                    toast.dismiss('loading-toast');
-                    navigate(Routes.HOME);
-                }, 11600);
+                    setTimeout(() => {
+                        toast.dismiss('loading-toast');
+                        navigate(Routes.HOME);
+                    }, 11600);
 
-                throw new Error(errorMsg);
-            }
-        })
+                    throw new Error(errorMsg);
+                }
+            })
+
+        } catch (err) {
+            toast.error(getError(err as ApiError));
+        }
     }
 
     // Verification of the payment status using the url obtained from MercadoPago
@@ -69,23 +75,26 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
     }, []);
 
     return (
-        isLoading || isLoadingStock
+        isLoading
             ? <LoadingSpinner type={LoadingSpinnerType.NOFLEX} />
-            : error || stockError ? <h2>{getError(error as ApiError)}</h2>
-                : !order || !stock ? <h2>Order Not Found</h2> : (
+            : error ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>{getError(error as ApiError)}</Typography>
+                : !order ? <Typography fontSize={20} fontWeight="bold" component="h2" noWrap={false}>Order Not Found</Typography> : (
                     <>
                         <Navbar />
+
                         <main>
                             <Helmet>
                                 <title>Orden {orderId}</title>
                             </Helmet>
                             <section className="order">
                                 <article className="order__header">
-                                    <h1 className="order__header__title">Orden {orderId}</h1>
+                                    <Typography fontSize={{ xs: 25, sm: 35 }} fontWeight="bold" my="30px" component="h1" noWrap={false}>
+                                        Orden {orderId}
+                                    </Typography>
                                 </article>
                                 <article className="order__info">
                                     <div className="order__info__shipping">
-                                        <h4 className="order__info__shipping__title">Envío</h4>
+                                        <Typography fontSize={25} fontWeight="bold" component="h4" noWrap={false}>Envío</Typography>
                                         <p>
                                             <strong>Nombre:</strong> {order.shippingAddress.fullName}
                                             <br />
@@ -105,7 +114,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                         }
                                     </div>
                                     <div className="order__info__payment">
-                                        <h4 className="order__info__payment__title">Pago</h4>
+                                        <Typography fontSize={25} fontWeight="bold" component="h4" noWrap={false}>Pago</Typography>
                                         <p>
                                             <strong>Método:</strong> {order.paymentMethod}
                                         </p>
@@ -123,7 +132,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                         }
                                     </div>
                                     <div className="order__info__product">
-                                        <h4 className="order__info__product__title">Productos</h4>
+                                        <Typography fontSize={25} fontWeight="bold" component="h4" noWrap={false}>Productos</Typography>
                                         <ul className="order__info__product__list">
                                             {
                                                 order.orderItems.map((item, index) => <OrderItem key={`${item._id}${index}`} item={item} />)
@@ -132,7 +141,7 @@ const OrderPage: React.FC<OrderPageInterface> = () => {
                                     </div>
                                 </article>
                                 <article className="order__summary">
-                                    <h5 className="order__summary__title">Resumen del pedido</h5>
+                                    <Typography fontSize={25} fontWeight="bold" component="h5" noWrap={false}>Resumen del pedido</Typography>
                                     <ul className="order__summary__items-row">
                                         <li>Productos</li>
                                         <li>${order.itemsPrice.toFixed(2)}</li>

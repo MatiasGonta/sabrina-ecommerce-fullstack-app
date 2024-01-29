@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { CartItem as Item } from './components';
 import '@/styles/pages/CartPage/CartPage.scss';
+import { Typography } from '@mui/material';
 
 interface CartPageInterface { }
 
@@ -57,7 +58,9 @@ const CartPage: React.FC<CartPageInterface> = () => {
                                     </article>
                                     <article className="cart-info__purchase-summary">
                                         <div className="cart-info__purchase-summary__head">
-                                            <h3 className="cart-info__purchase-summary__head__title">Resumen de compra</h3>
+                                            <Typography fontSize={20} fontWeight="bold" component="h3" noWrap={false}>
+                                                Resumen de compra
+                                            </Typography>
                                         </div>
                                         <div className="cart-info__purchase-summary__body">
                                             <div className="cart-info__purchase-summary__body__total">

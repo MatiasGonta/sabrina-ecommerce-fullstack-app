@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import { Routes } from '@/models';
 import '@/styles/pages/VerifyAccount/VerifyAccount.scss';
+import { Typography } from '@mui/material';
 
 interface VerifyAccountInterface { }
 
@@ -57,7 +58,9 @@ const VerifyAccount: React.FC<VerifyAccountInterface> = () => {
                             !emailToken || isLoading
                                 ? (
                                     <>
-                                        <h2>VERIFICANDO LA CUENTA<span className="verify-animated-dots"></span></h2>
+                                        <Typography fontSize={25} fontWeight="bold" textAlign="center" display="inline" width="300px" mb="25px" component="h2" noWrap={false}>
+                                            VERIFICANDO LA CUENTA<span className="verify-animated-dots"></span>
+                                        </Typography>
                                         <div className="verify-progress">
                                             <div className="verify-progress__bar">
                                                 <div className="verify-progress__bar-value"></div>
@@ -68,7 +71,9 @@ const VerifyAccount: React.FC<VerifyAccountInterface> = () => {
                                 : (
                                     <>
                                         <TaskAltIcon className="verify-icon" sx={{ fontSize: 125 }} />
-                                        <h2>USUARIO VERIFICADO CORRECTAMENTE</h2>
+                                        <Typography fontSize={25} fontWeight="bold" textAlign="center" display="inline" width="300px" mb="25px" component="h2" noWrap={false}>
+                                            USUARIO VERIFICADO CORRECTAMENTE
+                                        </Typography>
                                         <span>Redireccionando<span className="verify-animated-dots"></span></span>
                                     </>
                                 )

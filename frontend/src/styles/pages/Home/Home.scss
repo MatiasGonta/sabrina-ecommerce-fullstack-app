@@ -56,13 +56,10 @@
             border: none;
             border-radius: 5px;
             background-color: V.$color-tertiary;
+            padding-bottom: 4px;
             margin: 10px;
+            color: V.$color-secondary;
             cursor: pointer;
-
-            &__title {
-                font-size: 17.5px;
-                color: V.$color-secondary;
-            }
 
             &__text {
                 font-size: 12.5px;
@@ -149,10 +146,6 @@
     .home__commerce__category-prices__card {
         width: 150px;
         height: 60px;
-
-        &__title {
-            font-size: 20px;
-        }
 
         &__text {
             font-size: 15px;
