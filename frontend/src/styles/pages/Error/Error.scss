@@ -1,0 +1,69 @@
+@use '../../utilities/mixins' as M;
+@use '../../utilities/variables' as V;
+
+.main--error {
+    margin: 0;
+}
+
+.error-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-md {
+    @include M.WrapperTemplate();
+    overflow: hidden;
+    position: relative;
+    width: auto;
+    height: auto;
+    display: flex;
+    gap: 20px;
+
+    &__background-logo {
+        position: absolute;
+        top: -35px;
+        right: -45px;
+        width: 110px;
+        height: 90px;
+        filter: blur(1px);
+    }
+
+    &__icon {
+        width: 200px;
+        height: 125px;
+        overflow: hidden;
+
+        svg {
+            transform: translateY(-35px);
+        }
+    }
+
+    &__body {
+        width: 125px;
+        display: flex;
+        flex-direction: column;
+        color: V.$color-primary-semi-light;
+        position: relative;
+
+        &__message,
+        &__link {
+            color: inherit;
+            font-size: 18px;
+        }
+
+        &__link {
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            color: V.$color-tertiary;
+            text-decoration: underline;
+
+            &:hover {
+                color: rgba(V.$color-tertiary,.85);
+            }
+        }
+    }
+}
