@@ -22,6 +22,9 @@
 // Card
 @use '../../components/_Card';
 
+// OrderUpdateModal
+@use '../../components/_OrderUpdateModal';
+
 .dashboard__statistics {
     display: flex;
     flex-direction: column;

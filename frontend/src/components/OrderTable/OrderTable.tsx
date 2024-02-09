@@ -24,6 +24,7 @@ const OrderTable: React.FC<OrderTableInterface> = ({ itemsPerPage, template, use
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   const [searchInput, setSearchInput] = useState<string>('');
+
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
 
   const [orderBy, setOrderBy] = useState<'createdAt' | 'totalPrice' | 'paidAt' | 'deliveredAt'>('createdAt');

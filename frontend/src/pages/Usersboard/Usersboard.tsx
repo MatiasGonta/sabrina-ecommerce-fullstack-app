@@ -32,7 +32,7 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
           </article>
 
           <article className="usersboard__users__statistics">
-            <Typography fontSize={20} fontWeight="bold" mt="30px" mb="30px" component="h3" noWrap={false}>
+            <Typography fontSize={20} fontWeight="bold" component="h3" noWrap={false}>
               Nuevos usuarios en el último mes
             </Typography>
             <div className="usersboard__users__statistics__bar-chart">
@@ -44,7 +44,7 @@ const Usersboard: React.FC<UsersboardInterface> = () => {
 
         <section className="usersboard__control-panel">
           <article>
-            <Typography fontSize={20} fontWeight="bold" mt="30px" mb="30px" component="h3" noWrap={false}>
+            <Typography fontSize={20} fontWeight="bold" component="h3" noWrap={false}>
               Panel de usuarios
             </Typography>
             <UserTable itemsPerPage={10} />

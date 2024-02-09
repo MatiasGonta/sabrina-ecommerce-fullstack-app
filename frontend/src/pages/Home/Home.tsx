@@ -139,13 +139,15 @@ const Home: React.FC<HomeInterface> = () => {
                             </section>
                             <section className="home__products-preview products-catalog">
                                 <article>
-                                    <ProductsListWrapper isEmpty={products.length > 0}>
+                                    <ProductsListWrapper isEmpty={products.length === 0}>
                                         {
                                             products.splice(0, 21).map((product: Product) => <ProductItem key={product.slug} product={product} />)
                                         }
                                     </ProductsListWrapper>
                                     <div className="home__products-preview__more">
-                                        <button className="home__products-preview__more__btn" onClick={() => navigate(Routes.PRODUCTS)}>VER TODOS LOS PRODUCTOS</button>
+                                        <button className="home__products-preview__more__btn" onClick={() => navigate(Routes.PRODUCTS, { preventScrollReset: false })}>
+                                            VER TODOS LOS PRODUCTOS
+                                        </button>
                                     </div>
                                 </article>
                             </section>

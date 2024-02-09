@@ -20,10 +20,6 @@
 
 .order-history-table {
     @include M.WrapperTemplate();
-    overflow: hidden;
-}
-
-.order-history-table {
     margin: 0 15px;
 }
 

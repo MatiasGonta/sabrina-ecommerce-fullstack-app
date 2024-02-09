@@ -25,11 +25,11 @@ const Footer: React.FC<FooterInterface> = () => {
                     <nav className="footer-info__navigation">
                         <Typography fontSize={25} color="inherit" fontWeight="bold" component="h5" mb="10px" noWrap={false}>NAVEGACIÓN</Typography>
                         <ul>
-                            <li><Link to={Routes.HOME}>Inicio</Link></li>
-                            <li><Link to={Routes.PRODUCTS}>Productos</Link></li>
-                            <li><Link to={Routes.ORDER_HISTORY}>Compras</Link></li>
-                            <li><Link to={Routes.FAVORITES}>Favoritos</Link></li>
-                            <li><Link to={Routes.CART}>Carrito</Link></li>
+                            <li><Link to={Routes.HOME} preventScrollReset={true}>Inicio</Link></li>
+                            <li><Link to={Routes.PRODUCTS} preventScrollReset={true}>Productos</Link></li>
+                            <li><Link to={Routes.ORDER_HISTORY} preventScrollReset={true}>Compras</Link></li>
+                            <li><Link to={Routes.FAVORITES} preventScrollReset={true}>Favoritos</Link></li>
+                            <li><Link to={Routes.CART} preventScrollReset={true}>Carrito</Link></li>
                         </ul>
                     </nav>
                     <div className="footer-info__contact">

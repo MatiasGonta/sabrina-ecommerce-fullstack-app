@@ -55,7 +55,8 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
 
             // If the new email is the same as the current one, reset it
             if (email === user.email) {
-                setFormData({ ...formData, email: '' })
+                setFormData({ ...formData, email: '' });
+                toast.warning('El correo electrónico no puede ser el mismo que el actual.');
             }
 
             await toast.promise(updateUser({ name, email, isAdmin, verify }), {
@@ -114,7 +115,6 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
                             name="name"
                             value={formData.name}
                             ref={nameRef}
-                            required
                             pattern=".{4,25}"
                             title="El nombre debe tener entre 4 y 25 caracteres"
                             customClass={formData.name !== '' ? 'form-field__input--active' : ''}
@@ -127,7 +127,6 @@ const UpdateUserPage: React.FC<UpdateUserPageInterface> = () => {
                             name="email"
                             value={formData.email}
                             ref={emailRef}
-                            required
                             customClass={formData.email !== '' ? 'form-field__input--active' : ''}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpdateUserData('email', e.target.value)}
                         />

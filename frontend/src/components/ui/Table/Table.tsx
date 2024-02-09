@@ -31,10 +31,10 @@ interface TableSearchBarInterface {
     onSubmit: HTMLProps<HTMLFormElement>['onSubmit'];
 }
 
-export const TableSearchBar: React.FC<TableSearchBarInterface> = (props) => {
+export const TableSearchBar: React.FC<TableSearchBarInterface> = ({ onChange, onSubmit }) => {
     return (
-        <form className="table-search-bar" {...props.onSubmit}>
-            <input className="table-search-bar__input" type="text" placeholder="BUSCAR" {...props.onChange} />
+        <form className="table-search-bar" onSubmit={onSubmit}>
+            <input className="table-search-bar__input" type="text" placeholder="BUSCAR" onChange={onChange} />
             <button type="submit" className="table-search-bar__submit-btn">
                 <Tooltip title='Buscar'>
                     <SearchOutlinedIcon sx={{ fontSize: 20 }} />

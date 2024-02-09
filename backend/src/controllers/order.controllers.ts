@@ -197,8 +197,16 @@ export const getSales = asyncHandler(async (req: Request, res: Response) => {
       };
     });
 
-    // Sort the monthlySalesArr by month
-    monthlySalesArr.sort((a, b) => a.month - b.month);
+    // Sort the monthlySalesArr by year and month
+    monthlySalesArr.sort((a, b) => {
+      // Compare by year first
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
+    
+      // If years are the same, compare by month
+      return a.month - b.month;
+    });
 
     if (sales && monthlySalesArr && salesByCategory) {
       res.json({

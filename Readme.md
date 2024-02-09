@@ -8,7 +8,7 @@
 
 Sabrina is a full-stack application for online clothing shopping. With an intuitive and friendly interface, users can browse and search for their favorite products easily. In addition, they have the option to apply filters for a more specific and efficient search. The application boasts 25 pages, including fundamental ones like Home, ProductsPage with a product catalog, CartPage, and an exclusive Dashboard accessible only to administrators. The Dashboard provides access to various statistics, tables of orders, products, and users, allowing administrators to perform operations such as deletion, update, and creation.
 
-![Sabrina-Home](./sabrina-home.jpg)
+![Sabrina-Home](./sabrina-home.png)
 
 You can <a href="https://www.youtube.com/watch?v=NwSAmoBntyc" target="_blank">**click here**</a> to see an overview and key features of the app in action.
 
@@ -107,7 +107,7 @@ If you have any questions, concerns or interest, feel free to contact me.
 
 Sabrina es una aplicación full-stack completa para comprar ropa en línea. Con una interfaz intuitiva y amigable, los usuarios pueden navegar y buscar sus productos favoritos fácilmente. Además, tienen la opción de aplicar filtros para una búsqueda más específica y eficiente. La aplicación cuenta con 25 páginas, que incluyen las fundamentales como Inicio, Productos con un catálogo de productos, Carrito y un exclusivo Panel de Control (Dashboard) accesible solo para administradores. El Panel de Control brinda acceso a diversas estadísticas, tablas de pedidos, productos y usuarios, permitiendo a los administradores realizar operaciones como eliminación, actualización y creación.
 
-![Sabrina-Home](./sabrina-home.jpg)
+![Sabrina-Home](./sabrina-home.png)
 
 Puedes hacer <a href="https://www.youtube.com/watch?v=NwSAmoBntyc" target="_blank">**click aquí**</a> para ver una visión general y características clave de la aplicación en acción.
 

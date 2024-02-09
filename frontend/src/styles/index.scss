@@ -47,15 +47,6 @@ main {
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: -100% 0;
-  }
-}
-
 @media screen and (min-width: 992px) {
   main.main--admin {
     grid-template-columns: auto 1fr;

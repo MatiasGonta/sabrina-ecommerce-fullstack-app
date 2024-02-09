@@ -8,8 +8,8 @@ const ProductsListWrapper: React.FC<ProductsListWrapperInterface> = ({ isEmpty, 
         <>
             {
                 isEmpty
-                    ? (<ul className="products-list-wrapper">{children}</ul>)
-                    : (<p className="products-list-empty-msg">No hay productos que cumplan con los requisitos</p>)
+                    ? (<p className="products-list-empty-msg">No hay productos que cumplan con los requisitos</p>)
+                    : (<ul className="products-list-wrapper">{children}</ul>)
             }
         </>
     )

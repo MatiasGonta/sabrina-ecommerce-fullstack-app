@@ -45,7 +45,7 @@ const Catalog: React.FC<CatalogInterface> = () => {
                             next={() => fetchNextPage()}
                             loader={<LoadingSpinner type={LoadingSpinnerType.FLEX} />}
                         >
-                            <ProductsListWrapper isEmpty={totalProducts !== 0}>
+                            <ProductsListWrapper isEmpty={totalProducts === 0}>
                                 {
                                     products.map((product: Product, index: number) => <ProductItem key={index} product={product} />)
                                 }
